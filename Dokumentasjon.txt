@@ -1,2 +1,12 @@
+***prosjektlogg***
+
 18.03.2014
 Første møte. Vi valgte å jobbe med alternativ2: boligregister. Vi skal bruke NetBeans og GitHub. Kom i gang med fremdriftsplan. Prosjekt sett opp i GitHub og der er alt hva vi gjør sett i en loggbok.
+
+24.03.2014
+Andre møte. Grupperom 4. etasje. Varighet ca 2 og 1/2 time. 
+Begynte å gå igjennom liste med kravspes. Diskuterte og ble enige om grove trekk av programmets funksjonalitet, som var nyttig. Lagde utkast til useCase-skjema, prioriteringsrekkefølge, skisse 
+over brukergrensesnitt og klassehierarki. Fikk opp GitHub repo. Kom i en viss grad igang med å delegere arbeidsoppgaver, men fortsatt ikke 100% igang.
+
+*neste møte*
+27.03.2014 kl 1245
