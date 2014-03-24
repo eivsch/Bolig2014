@@ -1,0 +1,2 @@
+18.03.2014
+Første møte. Vi valgte å jobbe med alternativ2: boligregister. Vi skal bruke NetBeans og GitHub. Kom i gang med fremdriftsplan. Prosjekt sett opp i GitHub og der er alt hva vi gjør sett i en loggbok.
