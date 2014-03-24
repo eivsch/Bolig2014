@@ -1,0 +1,35 @@
+html{
+	background-color: #222;
+}
+body{    
+    font-family: georgia;
+	background-color: white;
+    width: 600px;	
+	margin-left: auto;
+    margin-right: auto;
+	padding: 20px;
+}
+
+header img{
+	float: right;	
+}
+
+section img{
+	margin-left: -20px;
+}
+
+#generell{
+	margin-top: 50px;
+	margin-bottom: 80px;
+}
+
+#content{
+	margin-top: 50px;
+}
+
+@media print
+{    
+    .noprint{
+        display: none !important;
+    }
+}
