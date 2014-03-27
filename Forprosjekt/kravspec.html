@@ -11,24 +11,78 @@
 		<h1> Kravspesifikasjon </h1>		
 	</header>
 		 <section id="content">
-		 	<ul>
-				<li>
-					<h3> XXX </h3>
-					<p> asdfasdfasdfadsfadsf</p>
-					<p> asdfadsfadsfasdf </p>
-					<ul>
-						
-						<li> 
-							<h4> asdfasdf </h4>
-							<p> asdfasdfasdfadsf </p>
-						</li>							
-					</ul>
-				</li>				
-				<li>
-					<h3> XXX </h3>
-					<p> asdfasdfasdf.</p>
+		   <h2>Funksjonalitet/UseCase</h2>
+		 	<h3>Registrering</h3>
+			  <ul>
+			    <li>Registrere person (navn, adresse, e-post, tlf)
+				  <ul>
+				    <li> Utleier (firma, boligliste) </li>
+					<li> Boligsøker (personlige opplysninger, krav til boligen, krav til pris) </li>
+				  </ul>
 				</li>
-			</ul>
+				<li> Registrere boliger (adresse, type, areal, ant. rom, byggeår, beskrivelse, utleiepris, annonsedato, bilde)
+				  <ul>
+				    <li>Enebolig/Rekkehus (ant. Etasjer, kjeller?, tomteareal)</li>
+					<li>Leilighet (etasje, heis?, balkong?, diverse)</li>
+				  </ul>
+				</li>
+				<li>Registrere leiekontrakter (utleieboligen, utleier, leietaker, leiepris, varighet) - historikk</li>
+			    <li>Sletting av boliger</li>
+				<li>Sletting av person</li>
+			  </ul>
+			<h3>Hente ut opplysninger</h3>
+			  <h4>Om boliger</h4>
+			    <ul>
+				  <li>Opplysninger om bolig på gitt adresse</li>
+				  <li>Opplysninger om boliger etter:
+				    <ol>
+					  <li>Boligtype</li>
+					  <li>Boareal</li>
+					  <li>Antall rom</li>
+					  <li>Utleiepris</li>
+					</ol>
+				  </li>
+				  <li>Utskrift med opplysninger om alle boliger i utleieregisteret
+				    <ul>
+					  <li>Sortering</li>
+					</ul>
+				  </li>
+				</ul>
+			  <h4>Om personer</h4>
+			    <ul>
+				  <li>Opplysninger om en navngitt person</li>
+				  <li>Hvilke personer som har meldt interesse om en bolig</li>
+				  <li>Utskrift av alle registrerte boligsøkere, med opplysninger om bolig de evt. er interessert i.</li>
+				    <ul>
+					  <li>Sortering</li>
+				    </ul>
+				</ul>
+			  <h4>Generelt</h4>
+			    <ul>
+				  <li>Antall boliger firmaet har for utleie</li>
+				  <li>Antall leiekontrakter firmaet har formidlet</li>
+				</ul>
+			  <h4>Historikk</h4>
+			    <ul>
+				  <li>Oversikt over alle inngåtte leiekontrakter
+				    <ul>
+					  <li>Søke blant disse</li>
+					</ul>
+				  </li>
+				</ul>
+			<h3>Filbehandling</h3>
+			  <ul>
+			    <li>Skrive data til fil</li>
+				<li>Lese data fra fil</li>
+			  </ul>
+		  <h2>Prioriteringsrekkefølge</h2>
+		    <ol>
+			  <li>Må kunne registrere alle objekter og skrive ut alt slik at man får verifisert at informasjonen er blitt lagret. 
+			  Kunne matche boligsøkere med boliger. Lage enkelt, fungerende brukergrensesnitt(flowlayout). Fungerende skriving/lesing fra fil.</li>
+			  <li>Sletting. Utbedre brukergrensesnitt, utseende og funksjon(mer avansert layout). Vise leiekontrakt-hitorikk. Vise antall 
+			  boliger for utleie og antall kontrakter som har blitt formidlet. Legge data inn i programmet (for sensor). Behandle brukerinput (regex, feilhåndtering).</li>
+			  <li>Sortering. Siste finish layout. Søke i historikk for leiekontrakter utifra kriterier.</li>
+			</ol>
 		 </section>
 		<footer>
 			<p> <em> <u> Eivind (s198752) - Gretar (s198586) - Sigurd (s198597)</u> </em> </P>
