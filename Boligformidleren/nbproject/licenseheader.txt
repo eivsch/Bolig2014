@@ -1,10 +1,9 @@
 <#if licenseFirst??>
 ${licenseFirst}
 </#if>
-${licensePrefix}Gruppemedlemmer:
-${licensePrefix}Eivind Schulstad	(s198752)
-${licensePrefix}Gretar Ævarsson	(s198586)
-${licensePrefix}Sigurd Hølleland	(s198597)
+${licensePrefix}Innhold:
+${licensePrefix}Sist oppdatert:
+${licensePrefix}Programmert av:
 <#if licenseLast??>
 ${licenseLast}
 </#if>

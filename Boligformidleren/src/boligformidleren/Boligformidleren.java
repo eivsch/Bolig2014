@@ -1,14 +1,15 @@
 /*
- * Gruppemedlemmer:
- * Eivind Schulstad	(s198752)
- * and open the template in the editor.
+ * INNHOLD:
+ * Driverklasse for programmet (main-metode).
+ *
+ * Sist oppdatert: 27.03.2014, 11:32.
+ * Programmert av: Eivind
  */
 
 package boligformidleren;
 
 /**
- *
- * @author Eivind
+ *Klassen har til hensikt å kjøre programmet.
  */
 public class Boligformidleren {
 
