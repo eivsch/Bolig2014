@@ -1,6 +1,9 @@
 html{
 	background-color: #222;
 }
+h1,h2,h3{
+	text-align: center;
+}
 body{    
     font-family: georgia;
 	background-color: white;
@@ -8,6 +11,8 @@ body{
 	margin-left: auto;
     margin-right: auto;
 	padding: 20px;
+	
+
 }
 
 header img{
@@ -16,6 +21,10 @@ header img{
 
 section img{
 	margin-left: -20px;
+}
+img{
+	width: 500px;
+	height: auto;
 }
 
 #generell{
