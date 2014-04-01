@@ -13,3 +13,7 @@ over brukergrensesnitt og klassehierarki. Fikk opp GitHub repo. Kom i en viss gr
 Tredje møte.
 
 Kommet godt igang med diskusjon om datastruktur. Ferdig med fremdriftsplanen, kommet lenger på kravspec-en og vi har fått ferdig grunningen i Klassehieararkiet.
+
+01.04 ca kl 1200 til 1445
+
+Sigurd syk. Fullførte kravspesifikasjonen/innleveringen. Ingen nevneverdig progress på koding.
