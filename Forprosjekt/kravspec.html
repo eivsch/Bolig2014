@@ -8,7 +8,10 @@
 <body>
 	
 	<header>
-		<h1> Kravspesifikasjon </h1>		
+		<h2> Kravspesifikasjon - Boligformidling </h2>
+		<p>Eivind Schulstad - s198752 - Dataingeniør</p>
+		<p>Gretar Ævarsson - s198586 - Informasjonsteknologi</p>
+		<p>Sigurd Hølleland - s198597 - Informasjonsteknologi</p>
 	</header>
 		 <section id="content">
 		   <h2>Funksjonalitet/UseCase</h2>
@@ -35,12 +38,12 @@
 			    <ul>
 				  <li>Opplysninger om bolig på gitt adresse</li>
 				  <li>Opplysninger om boliger etter:
-				    <ol>
+				    <ul>
 					  <li>Boligtype</li>
 					  <li>Boareal</li>
 					  <li>Antall rom</li>
 					  <li>Utleiepris</li>
-					</ol>
+					</ul>
 				  </li>
 				  <li>Utskrift med opplysninger om alle boliger i utleieregisteret
 				    <ul>
@@ -57,7 +60,7 @@
 					  <li>Sortering</li>
 				    </ul>
 				</ul>
-			  <h4>Generelt</h4>
+			  <h4 id="pagebreak">Generelt</h4>
 			    <ul>
 				  <li>Antall boliger firmaet har for utleie</li>
 				  <li>Antall leiekontrakter firmaet har formidlet</li>
@@ -82,38 +85,72 @@
 			  <li>Sletting. Utbedre brukergrensesnitt, utseende og funksjon(mer avansert layout). Vise leiekontrakt-hitorikk. Vise antall 
 			  boliger for utleie og antall kontrakter som har blitt formidlet. Legge data inn i programmet (for sensor). Behandle brukerinput (regex, feilhåndtering).</li>
 			  <li>Sortering. Siste finish layout. Søke i historikk for leiekontrakter utifra kriterier.</li>
+			  <p>(3. Prioritet er kun hvis tid)</p>
 			</ol>
+			
 
-			<img src="brukergrensesnitt.jpg" alt="Brukergrensesnittet">
-
-			<h2>Hvordan skal programet bygges opp? Hvilke moduler kan det deles inn i?</h2>
+			<h2>Oppbygning av programmet</h2>
+				<h3>Klassehierarki</h3>
+				<p>Vi har tre klasser som utgjør objektene som brukes i programmet, dvs. person, bolig og kontrakt.
+				Person-klassen har to subklasser, utleiere og boligsøkere. Bolig-klassen har også to subklasser, 
+				enebolig og leilighet.</p>
+				<img src="klassehierarki.png" alt="Klassehierarki">
+				
+				<h3>Datastruktur</h3>
+				<p>Objektene lagres i en datastruktur, dvs. Person-objektene lagres i en TreeSet-mengde og hvert Utleier-objekt innholder 
+				en LinkedList-liste over alle boliger vedkommende er knyttet til. Vi valgte TreeSet datastrukturen for Personer fordi det hindrer dobbeltlagring 
+				og er sortert (f.eks. mht. personens navn). Vi valgte LinkedList datastrukturen for Boligene fordi den er effektiv når man skal 
+				sette inn og fjerne objekter, som er en stor del av vår program.</p>
+				<p>Kontrakt-objektene lagres i en ArrayList-liste fordi der er effektivt å søke gjennom og hente ut data (bruke indekser). 
+				Samtidig skal vi heller ikke fjerne noe fra listen.</p>
+				<img src="datastruktur.png" alt="Datastruktur">
+				
+				<h3 id="pagebreak">Brukergrensesnitt</h3>
+				<img src="brukergrensesnitt.jpg" alt="Brukergrensesnittet">
+			<h2>Klasser</h2>
+			<p>Her er klassene vi foreløpig har bestemt oss for, men vi vil antageligvis måtte programmere noen flere.</p>
 				<ul>
-					<li></li>
-				</ul>
-			<h2>Hvilke klasser skal brukes/programmeres?</h2>
-				<ul>
-					<li>Utleier</li>
 					<li>Person</li>
-					<li>Leilighet</li>
-					<li>Enebolig</li>
-					<li>Boligbokser</li>
-					<li>Boligformidleren</li>
+					<ul>
+						<li>Utleier</li>
+						<li>Boligsøker</li>
+					</ul>
 					<li>Bolig</li>
-					<li>Vindu</li>
+					<ul>
+						<li>Enebolig</li>
+						<li>Leilighet</li>
+					</ul>
+					<li>Kontrakt</li>
+					<li>Kontraktliste<li>
+					<li>Boligformidleren (main)</li>
+					<li>Personliste</li>
+					<li>Boligliste</li>
+					<li>Vindusklasser</li>
 				</ul>
-			<h2>Hvordan er klassene relatert til hverandre? Super-/subklasser?</h2>
+			
+			<h2 id="pagebreak">Planlegging</h2>
+				<h3>Fremdriftsplan</h3>
+				<img src="fremdriftsplan.png" alt="Fremdriftsplan">
+				<caption>Se større versjon i vedlegg</caption>
+				<h3>Arbeidsfordeling</h3>
+				<p>Vi har planlagt at dele opp prosjektet mest mulig. Først må vi få alt i 1. prioritet til å fungere som krever mye samarbeid. 
+				Når 1. prioritet er klar, kan vi dele opp alt som ligger i 2. prioritet og deretter 3. prioritet på følgende måte:</p>
 				<ul>
-					<li></li>
+					<li>Sigurd: dokumentasjon, brukergrensesnitt, input fra bruker/regex, testing</li>
+					<li>Eivind: registrerings- og informasjonsmetoder, brukergrensesnitt, filbehandling</li>
+					<li>Gretar: registrerings- og informasjonsmetoder, slettningsmetoder, historikk</li>
 				</ul>
-			<h2>Beskrivelse av klassehierarkiet ved hjelp av figurer.</h2>
+				<h3>Verktøy</h3>
+				<p>Vi bruker NetBeans for programmering av java koden og GitHub for å holde mest mulig rede på og oversikt over koden.</p>
+				<p>Systemkrav til maskinen er den samme som vi har i lab-timene.</p>
+				<p>Java versjon 7 skal brukes for dette prosjektet.</p>
+			
+			
 
-			<h2>Hva slags datastruktur er valgt?</h2>
-			<ul>
-				<li></li>
-			</ul>
+			
 		 </section>
 		<footer>
-			<p> <em> <u> Eivind (s198752) - Gretar (s198586) - Sigurd (s198597)</u> </em> </P>
+			<p> <em> <u> Eivind (DataIng - s198752), Gretar (IT - s198586), Sigurd (IT - s198597)</u> </em> </P>
 		</footer>			
 		
 </body>

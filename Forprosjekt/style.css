@@ -1,9 +1,7 @@
 html{
 	background-color: #222;
 }
-h1,h2,h3{
-	text-align: center;
-}
+
 body{    
     font-family: georgia;
 	background-color: white;
@@ -11,19 +9,10 @@ body{
 	margin-left: auto;
     margin-right: auto;
 	padding: 20px;
-	
-
 }
 
-header img{
-	float: right;	
-}
-
-section img{
-	margin-left: -20px;
-}
 img{
-	width: 500px;
+	width: 100%;
 	height: auto;
 }
 
@@ -37,8 +26,18 @@ img{
 }
 
 @media print
-{    
+{
+	footer{
+		position: fixed;
+		bottom: -800px;
+	}
+	
     .noprint{
         display: none !important;
     }
 }
+
+#pagebreak{
+	page-break-before:always;
+}
+	
