@@ -16,10 +16,10 @@ public class Utleier extends Person {
     private String firma;
     //private Boligliste liste;
 
-    public Utleier(String navn, String adresse, String epost, int tlfnr,
+    public Utleier(String fornavn, String etternavn, String adresse, String epost, int tlfnr,
             String firma/*Boligliste liste*/) {
 
-        super(navn, adresse, epost, tlfnr);
+        super(fornavn, etternavn, adresse, epost, tlfnr);
         this.firma = firma;
         //this.liste = liste;
     }

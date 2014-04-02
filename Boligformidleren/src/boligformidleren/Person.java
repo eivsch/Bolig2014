@@ -16,22 +16,32 @@ import java.io.*;
  */
 public abstract class Person implements Serializable {
 
-    private String navn, adresse, epost;
+    private String fornavn, etternavn, adresse, epost;
     private int tlfnr;
 
-    public Person(String navn, String adresse, String epost, int tlfnr) {
-        this.navn = navn;
+    public Person(String fornavn, String etternavn, String adresse, String epost, int tlfnr) {
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
         this.adresse = adresse;
         this.epost = epost;
         this.tlfnr = tlfnr;
     }
   
-    public String getNavn() {
-        return navn;
+    public String getFornavn() {
+        return fornavn;
     }
+    
+    public String getEtternavn(){
+        return etternavn;
+    }
+    
+    public boolean equals(Object p){
+		return ((Person) p).getEtternavn().equals( etternavn ) &&
+           ((Person) p).getFornavn().equals( fornavn ) ;
+	}
 
     public String toString() {
-        String s = "Navn: " + navn + "\nAdresse: " + adresse
+        String s = "Navn: " + fornavn + " " + etternavn + "\nAdresse: " + adresse
                 + "\nE-post: " + epost + "\nTlf: " + tlfnr;
         return s;
     }
