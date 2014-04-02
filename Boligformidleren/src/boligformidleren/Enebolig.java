@@ -3,7 +3,7 @@
  * Klassen Enebolig.
  *
  * Sist oppdatert: 27.03.2014, 11:43.
- * Programmert av: Eivind
+ * Programmert av: Eivind, Gretar
  */
 package boligformidleren;
 

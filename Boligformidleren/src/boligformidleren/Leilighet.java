@@ -3,7 +3,7 @@
  * Klassen Leilighet.
  *
  * Sist oppdatert: 27.03.2014, 12:05.
- * Programmert av: Eivind
+ * Programmert av: Eivind, Gretar
  */
 
 package boligformidleren;

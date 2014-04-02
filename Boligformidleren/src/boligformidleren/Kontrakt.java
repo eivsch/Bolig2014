@@ -1,6 +1,6 @@
 /*
  * INNHOLD:
- * Den abstrakte klassen Bolig.
+ * Klassen Kontrakt.
  *
  * Sist oppdatert: 02.04.2014, 11:00.
  * Programmert av: Gretar

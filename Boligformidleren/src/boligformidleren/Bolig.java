@@ -3,7 +3,7 @@
  * Den abstrakte klassen Bolig.
  *
  * Sist oppdatert: 27.03.2014, 11:42.
- * Programmert av: Eivind
+ * Programmert av: Eivind, Gretar
  */
 package boligformidleren;
 
