@@ -13,15 +13,26 @@ package boligformidleren;
 public class Boligsoeker extends Person {
 
     //Krav til bolig
-    //Krav til pris
-    private String persInfo;
+    private int pris, inneAreal, rom, byggeaar, antEtasjer;
+    private String type;
+    private boolean heis, balkong, kjeller;
 
-    public Boligsoeker(String navn, String adresse, String epost, int tlfnr,
-            String persInfo /*Krav kommer her*/) {
+    public Boligsoeker(String navn, String adresse, String epost, String type, int tlfnr,
+            int pris, int inneAreal, int rom, int byggeaar, int antEtasjer, boolean heis,
+            boolean balkong, boolean kjeller) {
+        
         super(navn, adresse, epost, tlfnr);
-        this.persInfo = persInfo;
         //Krav
-    }
+        this.type = type;
+        this.pris = pris;
+        this.inneAreal = inneAreal;
+        this.rom = rom;
+        this.byggeaar = byggeaar;
+        this.antEtasjer = antEtasjer;
+        this.heis = heis;
+        this.balkong = balkong;
+        this.kjeller = kjeller;
+    }//end of Boligsoeker
 
     public String toString() {
         String s = super.toString() + "\nKrav: ";
