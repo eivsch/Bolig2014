@@ -17,3 +17,7 @@ Kommet godt igang med diskusjon om datastruktur. Ferdig med fremdriftsplanen, ko
 01.04 ca kl 1200 til 1445
 
 Sigurd syk. Fullførte kravspesifikasjonen/innleveringen. Ingen nevneverdig progress på koding.
+
+02.04 kl 10:30 til 12:45
+
+Sigurd har begynt på brukergrensesnittet (Vindusklassen).
