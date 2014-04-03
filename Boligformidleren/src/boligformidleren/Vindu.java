@@ -1,5 +1,6 @@
-/*
 
+/*
+Laget av Sigurd, s198597
 */
 
 import javax.swing.*;
@@ -8,12 +9,13 @@ import java.awt.event.*;
 
 public class Vindu extends JFrame
 {
-    private JTextField RegBolAdr,RegBolType,RegAreal,AntRom,ByggAar,Beskrivelse,UtleiePris,AvetertDato,AntEtasjer,Kjeller,TomtStorrelse,Etasje,Heis,Balkong,Andre,MinAreal,MaxAreal,MinPris,MaxPris,RegPersNavn,RegPersAdr,RegEpost,RegTlf,RegLeietaker,RegPris;
+    private JTextField RegBolAdr,RegBolType,RegAreal,AntRom,ByggAar,Beskrivelse,UtleiePris,AvetertDato,AntEtasjer,Kjeller,TomtStorrelse,Etasje,Heis,Balkong,Andre,MinAreal,MaxAreal,MinPris,MaxPris,RegPersNavn,RegPersAdr,RegEpost,RegTlf,RegFirma,BoligKnyttetTil,RegPersOpplysning,RegKravBolig,RegKravPris,RegUtleieBolig,RegUtleier,RegLeietaker,RegPris,RegTid;
     private JTextArea output;
     private JButton regBolig,slettBolig,regPerson,slettPerson,regKontrakt,visBolig,visPerson,visPersonInfo,visBoligInfo,visIntrPers,visKontrakt;
     
     public Vindu()
     {
+        //for boliger
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
         
@@ -92,6 +94,66 @@ public class Vindu extends JFrame
         c.add(new JLabel("Max Pris: "));
         MaxPris = new JTextField(10);
         c.add(MaxPris);
+        
+        //for Personer
+        c.add(new JLabel("Navn: "));
+        RegPersNavn = new JTextField(10);
+        c.add(RegPersNavn);
+        
+        c.add(new JLabel("Adresse: "));
+        RegPersAdr = new JTextField(10);
+        c.add(RegPersAdr);
+        
+        c.add(new JLabel("E-post: "));
+        RegEpost = new JTextField(10);
+        c.add(RegEpost);
+        
+        c.add(new JLabel("Telefon: "));
+        RegTlf = new JTextField(10);
+        c.add(RegTlf);
+        
+        //for utleiere
+        c.add(new JLabel("Firma: "));
+        RegFirma = new JTextField(10);
+        c.add(RegFirma);
+        
+        c.add(new JLabel("Bolig: "));
+        BoligKnyttetTil = new JTextField(10);
+        c.add(BoligKnyttetTil);
+        
+        //for boligsøkere
+        c.add(new JLabel("Personlige Opplysninger: "));
+        RegPersOpplysning = new JTextField(10);
+        c.add(RegPersOpplysning);
+        
+        c.add(new JLabel("Krav til boligen: "));
+        RegKravBolig = new JTextField(10);
+        c.add(RegKravBolig);
+        
+        c.add(new JLabel("Krav til utleiepris: "));
+        RegKravPris = new JTextField(10);
+        c.add(RegKravPris);
+        
+        //for kontrakter
+        c.add(new JLabel("Utleieboligen"));
+        RegUtleieBolig = new JTextField(10);
+        c.add(RegUtleieBolig);
+        
+        c.add(new JLabel("Utleier: "));
+        RegUtleier = new JTextField(10);
+        c.add(RegUtleier);
+        
+        c.add(new JLabel("Leietaker: "));
+        RegLeietaker = new JTextField(10);
+        c.add(RegLeietaker);
+        
+        c.add(new JLabel("Leiepris pr Måned: "));
+        RegPris = new JTextField(10);
+        c.add(RegPris);
+        
+        c.add(new JLabel("Tidsrom: "));
+        RegTid = new JTextField(10);
+        c.add(RegTid);
     }
 }
 
