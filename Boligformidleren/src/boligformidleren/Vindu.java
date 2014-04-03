@@ -155,6 +155,19 @@ public class Vindu extends JFrame
         RegTid = new JTextField(10);
         c.add(RegTid);
     }
+    
+    public void regPerson(){
+        /**
+         * Henter nødvendig informasjon fra datafelt, oppretter med det et
+         * personobjekt og legger det inn i personmengden. Bruk Personmengde sin
+         * settInn-metode.
+         */
+    }
+    public void utskrift(){
+        /**
+         * Få skrevet ut alt som er registrert til et tekstfelt.
+         */
+    }
 }
 
 
