@@ -163,9 +163,16 @@ public class Vindu extends JFrame
          * settInn-metode.
          */
     }
+    public void regKontrakt(){
+        // Samme som regPerson
+    }
+    public void regBolig(){
+        // kommer senere
+    }
     public void utskrift(){
         /**
-         * Få skrevet ut alt som er registrert til et tekstfelt.
+         * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på person-
+         * mengde, kontraktliste etc sin toString)
          */
     }
 }
