@@ -2,12 +2,12 @@
 /*
 Laget av Sigurd, s198597
 */
-
+package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Vindu extends JFrame
+public class Vindu extends JFrame implements ActionListener
 {
     private JTextField RegBolAdr,RegBolType,RegAreal,AntRom,ByggAar,Beskrivelse,UtleiePris,AvetertDato,AntEtasjer,Kjeller,TomtStorrelse,Etasje,Heis,Balkong,Andre,MinAreal,MaxAreal,MinPris,MaxPris,RegPersNavn,RegPersAdr,RegEpost,RegTlf,RegFirma,BoligKnyttetTil,RegPersOpplysning,RegKravBolig,RegKravPris,RegUtleieBolig,RegUtleier,RegLeietaker,RegPris,RegTid;
     private JTextArea output;
@@ -154,6 +154,9 @@ public class Vindu extends JFrame
         c.add(new JLabel("Tidsrom: "));
         RegTid = new JTextField(10);
         c.add(RegTid);
+        
+        setSize(400, 400);
+        setVisible(true);
     }
     
     public void regPerson(){
@@ -174,6 +177,8 @@ public class Vindu extends JFrame
          * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på person-
          * mengde, kontraktliste etc sin toString)
          */
+    }
+    public void actionPerformed(ActionEvent e){
     }
 }
 
