@@ -99,6 +99,7 @@ public abstract class Bolig implements Serializable {
         pris = p;
     }
     
+    // her må vi sette in en equals-metode for å komparere to boliger
 
     public String toString() {
         String s = "Adresse: " + adresse + "\nType: " + type + "\nBeskrivelse: "
