@@ -23,3 +23,8 @@ Gretar lagde set- og get-metoder for Eneboliger og Leiligheter.
 
 03.04
 Gretar har opprettet Boligliste.java (LinkedList som hvert Utleier-objekt inneholder) med settInn() og toString() metoder og Kontrakt.java (representerer en kontrakt). Har også testet å sette inn objekter i Boligliste, fungerte greit.
+
+04.04
+Gretar jobber på regBolig()-metoder i klassene Personmendge.java og Utleier.java. Metoden skal registrere en bolig til en utleier og søke om at den eksisterer ikke fra før.
+Sigurd hadde problemer med batteriet på laptoppen. Jobber hjemme fra.
+Eivind...
