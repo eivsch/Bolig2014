@@ -15,9 +15,11 @@ Tredje møte.
 Kommet godt igang med diskusjon om datastruktur. Ferdig med fremdriftsplanen, kommet lenger på kravspec-en og vi har fått ferdig grunningen i Klassehieararkiet.
 
 01.04 ca kl 1200 til 1445
-
 Sigurd syk. Fullførte kravspesifikasjonen/innleveringen. Ingen nevneverdig progress på koding.
 
 02.04 kl 10:30 til 12:45
-
 Sigurd har begynt på brukergrensesnittet (Vindusklassen).
+Gretar lagde set- og get-metoder for Eneboliger og Leiligheter.
+
+03.04
+Gretar har opprettet Boligliste.java (LinkedList som hvert Utleier-objekt inneholder) med settInn() og toString() metoder og Kontrakt.java (representerer en kontrakt). Har også testet å sette inn objekter i Boligliste, fungerte greit.
