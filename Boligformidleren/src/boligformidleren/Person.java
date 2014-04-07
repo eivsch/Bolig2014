@@ -5,7 +5,6 @@
  * Sist oppdatert: 27.03.2014, 11:40.
  * Programmert av: Eivind
  */
-
 package boligformidleren;
 
 import java.io.*;
@@ -26,19 +25,19 @@ public abstract class Person implements Serializable {
         this.epost = epost;
         this.tlfnr = tlfnr;
     }
-  
+
     public String getFornavn() {
         return fornavn;
     }
-    
-    public String getEtternavn(){
+
+    public String getEtternavn() {
         return etternavn;
     }
-    
-    public boolean equals(Object p){
-		return ((Person) p).getEtternavn().equals( etternavn ) &&
-           ((Person) p).getFornavn().equals( fornavn ) ;
-	}
+
+    public boolean equals(Object p) {
+        return ((Person) p).getEtternavn().equals(etternavn)
+                && ((Person) p).getFornavn().equals(fornavn);
+    }
 
     public String toString() {
         String s = "Navn: " + fornavn + " " + etternavn + "\nAdresse: " + adresse

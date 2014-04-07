@@ -18,7 +18,6 @@ public class Personmengde {
     private Comparator komp = new Personsammenlikner();
 
     private Set<Person> mengde = new TreeSet<>(komp);
-    private Iterator<Person> personIter = mengde.iterator();
 
     // setter inn ny person i mengden
     public void settInn(Person p) {
@@ -27,18 +26,20 @@ public class Personmengde {
     
     // registrerer ny bolig til en utleier
     public boolean regBolig( Utleier u, Bolig b ){
+        
+        Iterator<Person> personIter = mengde.iterator();
+        
         if( b == null || u == null )
             return false;
         
+        if ( mengde.isEmpty() )
+                return false;
         // løper igjennom mengden og søker å boligen "b" eksisterer ikke fra før
         while( personIter.hasNext() ){
-            if ( mengde.isEmpty() )
-                return false;
             // her må vi kalle på "equals" metode in Bolig-klassen
             // og sjekke om boligen "b" er lik noen annen i Boliglista
             // for hver utleier
-        }
-            
+        }         
         u.regBolig(b);
         return true;
     }
