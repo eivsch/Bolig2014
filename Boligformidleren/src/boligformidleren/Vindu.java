@@ -9,10 +9,11 @@ import java.awt.event.*;
 
 public class Vindu extends JFrame implements ActionListener
 {
-    private JTextField RegBolAdr,RegBolType,RegAreal,AntRom,ByggAar,Beskrivelse,UtleiePris,AvetertDato,AntEtasjer,Kjeller,TomtStorrelse,Etasje,Heis,Balkong,Andre,MinAreal,MaxAreal,MinPris,MaxPris,RegPersNavn,RegPersAdr,RegEpost,RegTlf,RegFirma,BoligKnyttetTil,RegPersOpplysning,RegKravBolig,RegKravPris,RegUtleieBolig,RegUtleier,RegLeietaker,RegPris,RegTid;
+    private JTextField RegBolAdr,RegBolType,RegAreal,AntRom,ByggAar,Beskrivelse,UtleiePris,AvetertDato,AntEtasjer,Kjeller,TomtStorrelse,Etasje,Heis,Balkong,Andre,MinAreal,MaxAreal,MinPris,MaxPris,RegPersFornavn,RegPersEtternavn,RegPersAdr,RegEpost,RegTlf,RegFirma,BoligKnyttetTil,RegPersOpplysning,RegKravBolig,RegKravPris,RegUtleieBolig,RegUtleier,RegLeietaker,RegPris,RegTid;
     private JTextArea output;
-    private JButton regBolig,slettBolig,regPerson,slettPerson,regKontrakt,visBolig,visPerson,visPersonInfo,visBoligInfo,visIntrPers,visKontrakt;
-    
+    private JButton regBolig,slettBolig,regPerson,slettPerson,regKontrakt,visBolig,visPerson,visPersonInfo,visBoligInfo,visIntrPers,visKontrakt, skrivUt;
+    private Personmengde personmengde;
+            
     public Vindu()
     {
         //for boliger
@@ -96,9 +97,13 @@ public class Vindu extends JFrame implements ActionListener
         c.add(MaxPris);
         
         //for Personer
-        c.add(new JLabel("Navn: "));
-        RegPersNavn = new JTextField(10);
-        c.add(RegPersNavn);
+        c.add(new JLabel("Fornavn: "));
+        RegPersFornavn = new JTextField(10);
+        c.add(RegPersFornavn);
+        
+        c.add(new JLabel("Etternavn: "));
+        RegPersEtternavn = new JTextField(10);
+        c.add(RegPersEtternavn);
         
         c.add(new JLabel("Adresse: "));
         RegPersAdr = new JTextField(10);
@@ -155,19 +160,34 @@ public class Vindu extends JFrame implements ActionListener
         RegTid = new JTextField(10);
         c.add(RegTid);
         
+        personmengde = new Personmengde();
         setSize(400, 400);
         setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        regPerson = new JButton("Registrer Person");
+        regPerson.addActionListener(this);
+        c.add(regPerson);
+        
+        skrivUt = new JButton("Skriv ut");
+        skrivUt.addActionListener(this);
+        c.add(skrivUt);
+        
+        output = new JTextArea(10,20);
+        c.add(output);
+        output.setText("testdsadsa");
     }
     
     public void regPerson(){
-        /**
-         * Henter nødvendig informasjon fra datafelt, oppretter med det et
-         * personobjekt og legger det inn i personmengden. Bruk Personmengde sin
-         * settInn-metode.
-         */
+        Person p = new Boligsoeker(RegPersFornavn.getText(), RegPersEtternavn.getText(), 
+                RegBolAdr.getText(), RegEpost.getText(), Integer.parseInt(RegTlf.getText()), RegBolType.getText(), 
+                Integer.parseInt(RegPris.getText()), Integer.parseInt(RegAreal.getText()), 
+                Integer.parseInt(AntRom.getText()), Integer.parseInt(ByggAar.getText()), 
+                Integer.parseInt(AntEtasjer.getText()), true, false, true);
+        personmengde.settInn(p);
     }
     public void regKontrakt(){
-        // Samme som regPerson
+        // Samme som regPerson, men for kontrakt. Altså opprette kontrakt, bruke settInn - metode i Kontraktliste.
     }
     public void regBolig(){
         // kommer senere
@@ -177,8 +197,17 @@ public class Vindu extends JFrame implements ActionListener
          * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på person-
          * mengde, kontraktliste etc sin toString)
          */
+        output.setText(personmengde.toString());
     }
+    
+    // Lyttemetode
     public void actionPerformed(ActionEvent e){
+        if (e.getSource() == regPerson){
+            regPerson();
+        }
+        else if (e.getSource() == skrivUt){
+            utskrift();
+        }
     }
 }
 

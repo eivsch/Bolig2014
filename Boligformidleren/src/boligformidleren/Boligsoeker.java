@@ -17,7 +17,7 @@ public class Boligsoeker extends Person {
     private String type;
     private boolean heis, balkong, kjeller;
 
-    public Boligsoeker(String fornavn, String etternavn, String adresse, String epost, String type, int tlfnr,
+    public Boligsoeker(String fornavn, String etternavn, String adresse, String epost, int tlfnr, String type,
             int pris, int inneAreal, int rom, int byggeaar, int antEtasjer, boolean heis,
             boolean balkong, boolean kjeller) {
 
