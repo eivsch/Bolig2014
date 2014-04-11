@@ -20,7 +20,7 @@ public abstract class Bolig implements Serializable {
     //bilde
 
     // konstruktør
-    public Bolig(String adresse, String type, String beskrivelse, 
+    public Bolig(String adresse, String type, String beskrivelse,
             String annonsedato, int inneAreal, int antRom, int byggeaar, int pris) {
 
         this.adresse = adresse;
@@ -32,74 +32,77 @@ public abstract class Bolig implements Serializable {
         this.byggeaar = byggeaar;
         this.pris = pris;
     }
-    
+
     // get-metoder
     public String getAdresse(){
         return adresse;
     }
-    
+
     public String getType(){
         return type;
     }
-    
+
     public String getBeskrivelse(){
         return beskrivelse;
     }
-    
+
     public String getAnnonsedato(){
         return annonsedato;
     }
-    
+
     public int getInneAreal(){
         return inneAreal;
     }
-    
+
     public int getAntRom(){
         return antRom;
     }
-    
+
     public int getByggeaar(){
         return byggeaar;
     }
-    
+
     public int getPris(){
         return pris;
     }
-    
+
     // set-metoder
     public void setAdresse( String a ){
         adresse = a;
     }
-    
+
     public void setType( String t ){
         type = t;
     }
-    
+
     public void setBeskrivelse( String b ){
         beskrivelse = b;
     }
-    
+
     public void setAnnonsedato( String a ){
         annonsedato = a;
     }
-    
+
     public void setInneAreal( int i ){
         inneAreal = i;
     }
-    
+
     public void setAntRom( int a ){
         antRom = a;
     }
-    
+
     public void setByggeaar( int b){
         byggeaar = b;
     }
-    
+
     public void setPris( int p ){
         pris = p;
     }
-    
+
     // her må vi sette in en equals-metode for å komparere to boliger
+    public boolean equals(Bolig b) {
+	        return b.getAdresse().equals(adresse);   //foreløpig løsning. Returnerer true hvis boligene er like.
+    }
 
     public String toString() {
         String s = "Adresse: " + adresse + "\nType: " + type + "\nBeskrivelse: "
