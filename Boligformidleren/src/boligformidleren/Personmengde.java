@@ -25,30 +25,37 @@ public class Personmengde {
     }
 
     // Returnere et personobjektet som hører til navnet
-    public Person finnPerson(String fornavn, String etternavn){
-		Iterator<Person> personIter = mengde.iterator();
-		Person p;
-		while (iter.hasNext()){
-			p = personIter.next;
-			if(p.getFornavn() == fornavn && p.getEtternavn() == etternavn)
-			   return p;
-		}
-		return null;
-	}
+    public Person finnPerson(String fornavn, String etternavn) {
+        Iterator<Person> personIter = mengde.iterator();
+        Person p;
+        while (personIter.hasNext()) {
+            p = personIter.next();
+            if (p.getFornavn() == fornavn && p.getEtternavn() == etternavn) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    //Kan vurdere evt. finnUtleier og finnBoligsøker metoder.
 
     // registrerer ny bolig til en utleier
-    public boolean regBolig( Utleier u, Bolig b ){
+    public boolean regBolig(Utleier u, Bolig b) {
 
         Iterator<Person> personIter = mengde.iterator();
 
-        if( b == null || u == null )
+        if (b == null || u == null) {
             return false;
+        }
 
-        if ( mengde.isEmpty() )
-                return false;
+        if (mengde.isEmpty()) {
+            return false;
+        }
         // kaller på Boligliste sin boligFinnesFraFør for å sjekke om boligen allerede finnes i registeret til personen
-        if(Boligliste.boligFinnesFraFør(u.getBoligliste(),b))
-           return false;
+        Boligliste boligliste = new Boligliste();
+        if (boligliste.boligFinnesFraFoer(u.getBoligliste(),b)) {
+            return false;
+        }
         //Boligen kan registreres
         u.regBolig(b);
         return true;
@@ -58,9 +65,10 @@ public class Personmengde {
         Iterator<Person> iter = mengde.iterator();
 
         String personer = "";
-
+        Person p;
         while (iter.hasNext()) {
-            personer += iter.next().toString() + "\n";
+            p = iter.next();
+            personer += p.toString() + "\n\tBoliger Registrert: ";
         }
         return personer;
     }

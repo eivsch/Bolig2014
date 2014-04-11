@@ -1,21 +1,21 @@
 
 /*
-Laget av Sigurd, Eivind.
-*/
+ Laget av Sigurd, Eivind.
+ */
 package boligformidleren;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Vindu extends JFrame implements ActionListener
-{
-    private JTextField RegBolAdr,RegBolType,RegAreal,AntRom,ByggAar,Beskrivelse,UtleiePris,AvetertDato,AntEtasjer,Kjeller,TomtStorrelse,Etasje,Heis,Balkong,Andre,MinAreal,MaxAreal,MinPris,MaxPris,RegPersFornavn,RegPersEtternavn,RegPersAdr,RegEpost,RegTlf,RegFirma,BoligKnyttetTil,RegPersOpplysning,RegKravBolig,RegKravPris,RegUtleieBolig,RegUtleier,RegLeietaker,RegPris,RegTid;
+public class Vindu extends JFrame implements ActionListener {
+
+    private JTextField RegBolAdr, RegBolType, RegAreal, AntRom, ByggAar, Beskrivelse, UtleiePris, AvetertDato, AntEtasjer, Kjeller, TomtStorrelse, Etasje, Heis, Balkong, Andre, MinAreal, MaxAreal, MinPris, MaxPris, RegPersFornavn, RegPersEtternavn, RegPersAdr, RegEpost, RegTlf, RegFirma, BoligKnyttetTil, RegPersOpplysning, RegKravBolig, RegKravPris, RegUtleieBolig, RegUtleier, RegLeietaker, RegPris, RegTid;
     private JTextArea output;
-    private JButton regBolig,slettBolig,regPerson,slettPerson,regKontrakt,visBolig,visPerson,visPersonInfo,visBoligInfo,visIntrPers,visKontrakt, skrivUt;
+    private JButton regBolig, slettBolig, regPerson, slettPerson, regKontrakt, visBolig, visPerson, visPersonInfo, visBoligInfo, visIntrPers, visKontrakt, skrivUt;
     private Personmengde personmengde;
 
-    public Vindu()
-    {
+    public Vindu() {
         //for boliger
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
@@ -174,13 +174,17 @@ public class Vindu extends JFrame implements ActionListener
         skrivUt.addActionListener(this);
         c.add(skrivUt);
 
-        output = new JTextArea(10,20);
+        regBolig = new JButton("Registrer Bolig");
+        regBolig.addActionListener(this);
+        c.add(regBolig);
+
+        output = new JTextArea(10, 20);
         c.add(output);
         output.setText("testdsadsa");
     }
 
-    public void regPerson(){
-		//registrer boligsøker
+    public void regPerson() {
+        //registrer boligsøker
         Person p = new Boligsoeker(RegPersFornavn.getText(), RegPersEtternavn.getText(),
                 RegBolAdr.getText(), RegEpost.getText(), Integer.parseInt(RegTlf.getText()), RegBolType.getText(),
                 Integer.parseInt(RegPris.getText()), Integer.parseInt(RegAreal.getText()),
@@ -188,36 +192,44 @@ public class Vindu extends JFrame implements ActionListener
                 Integer.parseInt(AntEtasjer.getText()), true, false, true);
         personmengde.settInn(p);
     }
-    public void regKontrakt(){
+
+    public void regKontrakt() {
         // Samme som regPerson, men for kontrakt. Altså opprette kontrakt, bruke settInn - metode i Kontraktliste.
     }
-    public void regBolig(){
-        // kommer senere
-        Bolig b = new Leilighet(RegBolAdr.getText(),RegBolType.getText(),Beskrivelse.getText(),AvetertDato.getText(),
-        Integer.parseInt(RegAreal.getText()),Integer.parseInt(AntRom.getText()),Integer.parseInt(ByggAar.getText()),
-        Integer.parseInt(RegPris.getText()),Integer.parseInt(Etasje.getText()),true,true);
-        /** Henter etternavn og fornavn på personen som boligen skal registreres på, bruker finnPerson-metoden i Personmengde
-         *  for å hente ut selve personobjektet. Sender med det og boligobjektet til regBolig-metoden i Personmengde
-         */
-        personmengde.regBolig(personmengde.finnPerson(RegPersFornavn.getText(),RegPersEtternavn.getText()),b);
-    }
-    public void utskrift(){
+
+    public void regBolig() {
+        Bolig b = new Leilighet(RegBolAdr.getText(), RegBolType.getText(), Beskrivelse.getText(), AvetertDato.getText(),
+                Integer.parseInt(RegAreal.getText()), Integer.parseInt(AntRom.getText()), Integer.parseInt(ByggAar.getText()),
+                Integer.parseInt(RegPris.getText()), Integer.parseInt(Etasje.getText()), true, true);
         /**
-         * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på person-
-         * mengde, kontraktliste etc sin toString)
+         * Henter etternavn og fornavn på personen som boligen skal registreres
+         * på, bruker finnPerson-metoden i Personmengde for å hente ut selve
+         * personobjektet. Sender med det og boligobjektet til regBolig-metoden
+         * i Personmengde
+         */
+        Person p = personmengde.finnPerson(RegPersFornavn.getText(), RegPersEtternavn.getText());
+        // Sjekker om personen er utleier eller boligsøker. Kan vurdere evt. metoder her.
+        if (p instanceof Utleier) {
+            personmengde.regBolig((Utleier) p, b);
+        }
+    }
+
+    public void utskrift() {
+        /**
+         * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på
+         * person- mengde, kontraktliste etc sin toString)
          */
         output.setText(personmengde.toString());
     }
 
     // Lyttemetode
-    public void actionPerformed(ActionEvent e){
-        if (e.getSource() == regPerson){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == regPerson) {
             regPerson();
-        }
-        else if (e.getSource() == skrivUt){
+        } else if (e.getSource() == skrivUt) {
             utskrift();
+        } else if (e.getSource() == regBolig) {
+            regBolig();
         }
     }
 }
-
-

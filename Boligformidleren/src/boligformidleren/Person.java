@@ -38,7 +38,7 @@ public abstract class Person implements Serializable {
         return ((Person) p).getEtternavn().equals(etternavn)
                 && ((Person) p).getFornavn().equals(fornavn);
     }
-
+    
     public String toString() {
         String s = "Navn: " + fornavn + " " + etternavn + "\nAdresse: " + adresse
                 + "\nE-post: " + epost + "\nTlf: " + tlfnr;
