@@ -3,7 +3,7 @@
  * Klassen Boligliste.
  *
  * Sist oppdatert: 02.04.2014, 12:45.
- * Programmert av: Gretar
+ * Programmert av: Gretar, Eivind
 
  * Beskrivelse:
  * Hver Person-objekt Klassen Boligliste er en LinkedList som inneholder alle boliger for hver per
@@ -13,7 +13,7 @@ package boligformidleren;
 import java.util.*;
 import java.io.*;
 
-public class Boligliste implements Serializable {
+public class BoligListe implements Serializable {
 
     List<Bolig> liste = new LinkedList<>();
 
@@ -24,15 +24,9 @@ public class Boligliste implements Serializable {
 
     //Sorterer Person-objektene alfabetisk på etternavn og fornavn
     //public void sorter(){...}
-    public boolean boligFinnesFraFoer(Boligliste l, Bolig b) {
-        Iterator<Bolig> iter = liste.iterator();
-        while (iter.hasNext()) {
-            if (iter.next().equals(b)) //Bruker equals-metoden i Bolig-klassen, returnerer true hvis de er like.
-            {
-                return true;
-            }
-        }
-        return false;    //Boligen "b" finnes ikke i lista
+    
+    public List getListe(){
+        return liste;
     }
 
     //Returnerer liste over alle Boliger,

@@ -14,7 +14,7 @@ package boligformidleren;
 public class Utleier extends Person {
 
     private String firma;
-    private Boligliste liste;
+    private BoligListe liste;
 
     // konstruktør
     public Utleier(String fornavn, String etternavn, String adresse, String epost, int tlfnr,
@@ -22,7 +22,7 @@ public class Utleier extends Person {
 
         super(fornavn, etternavn, adresse, epost, tlfnr);
         this.firma = firma;
-        liste = new Boligliste();
+        liste = new BoligListe();
     }
     
     // registrerer ny bolig til utleieren
@@ -34,12 +34,12 @@ public class Utleier extends Person {
     }
     
     // returnerer boliglisten knyttet til denne utleieren
-    public Boligliste getBoligliste(){
+    public BoligListe getBoligliste(){
         return liste;
     }
     
     public String toString(){
-        String s = super.toString() + "\nFirma: " + firma;
+        String s = super.toString() + "\nFirma: " + firma + "\nBoliger: " + liste.toString();
         return s;
     }
 

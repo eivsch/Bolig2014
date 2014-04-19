@@ -14,7 +14,7 @@ import java.io.*;
  * Beskrivelse *
  */
 
-public class Kontraktliste {
+public class KontraktListe {
     
     private List<Kontrakt> kontraktListe = new ArrayList<Kontrakt>();
     

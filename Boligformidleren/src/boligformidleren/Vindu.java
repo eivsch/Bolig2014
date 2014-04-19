@@ -12,8 +12,9 @@ public class Vindu extends JFrame implements ActionListener {
 
     private JTextField RegBolAdr, RegBolType, RegAreal, AntRom, ByggAar, Beskrivelse, UtleiePris, AvetertDato, AntEtasjer, Kjeller, TomtStorrelse, Etasje, Heis, Balkong, Andre, MinAreal, MaxAreal, MinPris, MaxPris, RegPersFornavn, RegPersEtternavn, RegPersAdr, RegEpost, RegTlf, RegFirma, BoligKnyttetTil, RegPersOpplysning, RegKravBolig, RegKravPris, RegUtleieBolig, RegUtleier, RegLeietaker, RegPris, RegTid;
     private JTextArea output;
-    private JButton regBolig, slettBolig, regPerson, slettPerson, regKontrakt, visBolig, visPerson, visPersonInfo, visBoligInfo, visIntrPers, visKontrakt, skrivUt;
-    private Personmengde personmengde;
+    private JButton regBolig, slettBolig, regBoligSoeker, regUtleier, slettPerson, regKontrakt, visBolig, visPerson, visPersonInfo, visBoligInfo, visIntrPers, visKontrakt, skrivUt;
+    private UtleierMengde utleierMengde;
+    private BoligsoekerMengde boligsoekerMengde;
 
     public Vindu() {
         //for boliger
@@ -160,15 +161,20 @@ public class Vindu extends JFrame implements ActionListener {
         RegTid = new JTextField(10);
         c.add(RegTid);
 
-        personmengde = new Personmengde();
+        utleierMengde = new UtleierMengde();
+        boligsoekerMengde = new BoligsoekerMengde();
         setSize(400, 400);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Buttons
-        regPerson = new JButton("Registrer Person");
-        regPerson.addActionListener(this);
-        c.add(regPerson);
+        regBoligSoeker = new JButton("Registrer Person");
+        regBoligSoeker.addActionListener(this);
+        c.add(regBoligSoeker);
+        
+        regUtleier = new JButton("Registrer Person");
+        regUtleier.addActionListener(this);
+        c.add(regUtleier);
 
         skrivUt = new JButton("Skriv ut");
         skrivUt.addActionListener(this);
@@ -183,14 +189,20 @@ public class Vindu extends JFrame implements ActionListener {
         output.setText("testdsadsa");
     }
 
-    public void regPerson() {
+    public void regBoligsoeker() {
         //registrer boligsøker
-        Person p = new Boligsoeker(RegPersFornavn.getText(), RegPersEtternavn.getText(),
+        Boligsoeker bs = new Boligsoeker(RegPersFornavn.getText(), RegPersEtternavn.getText(),
                 RegBolAdr.getText(), RegEpost.getText(), Integer.parseInt(RegTlf.getText()), RegBolType.getText(),
                 Integer.parseInt(RegPris.getText()), Integer.parseInt(RegAreal.getText()),
                 Integer.parseInt(AntRom.getText()), Integer.parseInt(ByggAar.getText()),
                 Integer.parseInt(AntEtasjer.getText()), true, false, true);
-        personmengde.settInn(p);
+        boligsoekerMengde.settInn(bs);
+    }
+    
+    public void regUtleier(){
+        Utleier u = new Utleier(RegPersFornavn.getText(),RegPersEtternavn.getText(),
+                RegBolAdr.getText(),RegEpost.getText(),Integer.parseInt(RegTlf.getText()),RegFirma.getText());
+        utleierMengde.settInn(u);
     }
 
     public void regKontrakt() {
@@ -207,11 +219,10 @@ public class Vindu extends JFrame implements ActionListener {
          * personobjektet. Sender med det og boligobjektet til regBolig-metoden
          * i Personmengde
          */
-        Person p = personmengde.finnPerson(RegPersFornavn.getText(), RegPersEtternavn.getText());
-        // Sjekker om personen er utleier eller boligsøker. Kan vurdere evt. metoder her.
-        if (p instanceof Utleier) {
-            personmengde.regBolig((Utleier) p, b);
-        }
+        Utleier ul = utleierMengde.finnUtleier(RegPersFornavn.getText(), RegPersEtternavn.getText());
+
+        boolean a = utleierMengde.regBolig(ul, b);
+
     }
 
     public void utskrift() {
@@ -219,17 +230,19 @@ public class Vindu extends JFrame implements ActionListener {
          * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på
          * person- mengde, kontraktliste etc sin toString)
          */
-        output.setText(personmengde.toString());
+        output.setText(boligsoekerMengde.toString() + "\n" + utleierMengde.toString());
     }
 
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == regPerson) {
-            regPerson();
+        if (e.getSource() == regBoligSoeker) {
+            regBoligsoeker();
         } else if (e.getSource() == skrivUt) {
             utskrift();
         } else if (e.getSource() == regBolig) {
             regBolig();
+        } else if(e.getSource()== regUtleier){
+            regUtleier();
         }
     }
 }
