@@ -30,7 +30,7 @@ public class UtleierMengde {
         Utleier ul;
         while (utleierIter.hasNext()) {
             ul = utleierIter.next();
-            if (ul.getFornavn() == fornavn && ul.getEtternavn() == etternavn) {
+            if (ul.getFornavn().equals(fornavn) && ul.getEtternavn().equals(etternavn)) {
                 return ul;
             }
         }
@@ -46,13 +46,15 @@ public class UtleierMengde {
 
         /**
          * finner utleieren sin boligliste og kaller på containsmetoden for å
-         * sjekke om boligen finnes fra før i lista.
+         * sjekke om boligen finnes fra før i lista, må evt. gjøres for hver 
+         * utleier for maks sikkerhet. Vil komplisere hele funksjonen.
          */
+        
         BoligListe bl = u.getBoligliste();
         List l = bl.getListe();
-        if (l.contains(b)) {
+        if (l.contains(b))
             return false;
-        }
+        
         //Boligen kan registreres
         u.regBolig(b);
         return true;

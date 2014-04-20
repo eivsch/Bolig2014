@@ -44,11 +44,11 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Kort beskrivelse: "));
         Beskrivelse = new JTextField(20);
         c.add(Beskrivelse);
-
+/*   Ikke i bruk
         c.add(new JLabel("Utleiepris pr. Måned: "));
         UtleiePris = new JTextField(10);
         c.add(UtleiePris);
-
+*/
         c.add(new JLabel("Dato avetert: "));
         AvetertDato = new JTextField(10);
         c.add(AvetertDato);
@@ -56,11 +56,11 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Antall etasjer: "));
         AntEtasjer = new JTextField(10);
         c.add(AntEtasjer);
-
+/*   Bedre løsning?
         c.add(new JLabel("Kjeller: "));
         Kjeller = new JTextField(10);
         c.add(Kjeller);
-
+*/
         c.add(new JLabel("Størrelse på tomt: "));
         TomtStorrelse = new JTextField(10);
         c.add(TomtStorrelse);
@@ -68,7 +68,7 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Hvilken etasje: "));
         Etasje = new JTextField(10);
         c.add(Etasje);
-
+/*   Bedre løsning?
         c.add(new JLabel("Heis: "));
         Heis = new JTextField(10);
         c.add(Heis);
@@ -76,11 +76,11 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Balkong: "));
         Balkong = new JTextField(10);
         c.add(Balkong);
-
+*/
         c.add(new JLabel("Andre opplysninger: "));
         Andre = new JTextField(10);
         c.add(Andre);
-
+/*   Ikke i bruk
         c.add(new JLabel("Min Areal: "));
         MinAreal = new JTextField(10);
         c.add(MinAreal);
@@ -96,7 +96,7 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Max Pris: "));
         MaxPris = new JTextField(10);
         c.add(MaxPris);
-
+*/
         //for Personer
         c.add(new JLabel("Fornavn: "));
         RegPersFornavn = new JTextField(10);
@@ -105,11 +105,11 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Etternavn: "));
         RegPersEtternavn = new JTextField(10);
         c.add(RegPersEtternavn);
-
+/*   Dobbel? uansett ikke i bruk
         c.add(new JLabel("Adresse: "));
         RegPersAdr = new JTextField(10);
         c.add(RegPersAdr);
-
+*/
         c.add(new JLabel("E-post: "));
         RegEpost = new JTextField(10);
         c.add(RegEpost);
@@ -122,7 +122,7 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Firma: "));
         RegFirma = new JTextField(10);
         c.add(RegFirma);
-
+/*   Ikke i bruk
         c.add(new JLabel("Bolig: "));
         BoligKnyttetTil = new JTextField(10);
         c.add(BoligKnyttetTil);
@@ -139,7 +139,7 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Krav til utleiepris: "));
         RegKravPris = new JTextField(10);
         c.add(RegKravPris);
-
+*/
         //for kontrakter
         c.add(new JLabel("Utleieboligen"));
         RegUtleieBolig = new JTextField(10);
@@ -168,11 +168,11 @@ public class Vindu extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Buttons
-        regBoligSoeker = new JButton("Registrer Person");
+        regBoligSoeker = new JButton("Registrer Boligsøker");
         regBoligSoeker.addActionListener(this);
         c.add(regBoligSoeker);
         
-        regUtleier = new JButton("Registrer Person");
+        regUtleier = new JButton("Registrer Utleier");
         regUtleier.addActionListener(this);
         c.add(regUtleier);
 
@@ -222,7 +222,9 @@ public class Vindu extends JFrame implements ActionListener {
         Utleier ul = utleierMengde.finnUtleier(RegPersFornavn.getText(), RegPersEtternavn.getText());
 
         boolean a = utleierMengde.regBolig(ul, b);
-
+        if (a)
+            output.append("true");
+        output.append("test");
     }
 
     public void utskrift() {
