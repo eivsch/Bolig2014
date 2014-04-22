@@ -56,7 +56,7 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Antall etasjer: "));
         AntEtasjer = new JTextField(10);
         c.add(AntEtasjer);
-/*   Bedre løsning?
+/*   Annen løsning?
         c.add(new JLabel("Kjeller: "));
         Kjeller = new JTextField(10);
         c.add(Kjeller);
@@ -68,7 +68,7 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(new JLabel("Hvilken etasje: "));
         Etasje = new JTextField(10);
         c.add(Etasje);
-/*   Bedre løsning?
+/*   Annen løsning?
         c.add(new JLabel("Heis: "));
         Heis = new JTextField(10);
         c.add(Heis);
@@ -206,7 +206,11 @@ public class Vindu extends JFrame implements ActionListener {
     }
 
     public void regKontrakt() {
-        // Samme som regPerson, men for kontrakt. Altså opprette kontrakt, bruke settInn - metode i Kontraktliste.
+        /*
+        Utleier ul = utleierMengde.finnUtleier(RegPersFornavn.getText(), RegPersEtternavn.getText());
+        Boligsoeker bs = BoligsoekerMengde.finnBoligsoeker(); etc...
+        Kontrakt k = new Kontrakt();
+        */
     }
 
     public void regBolig() {
