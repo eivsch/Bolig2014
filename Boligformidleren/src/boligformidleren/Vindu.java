@@ -10,13 +10,17 @@ import java.awt.event.*;
 
 public class Vindu extends JFrame implements ActionListener {
 
+     
     private JTextField RegBolAdr, RegBolType, RegAreal, AntRom, ByggAar, Beskrivelse, UtleiePris, AvetertDato, AntEtasjer, Kjeller, TomtStorrelse, Etasje, Heis, Balkong, Andre, MinAreal, MaxAreal, MinPris, MaxPris, RegPersFornavn, RegPersEtternavn, RegPersAdr, RegEpost, RegTlf, RegFirma, BoligKnyttetTil, RegPersOpplysning, RegKravBolig, RegKravPris, RegUtleieBolig, RegUtleier, RegLeietaker, RegPris, RegTid;
     private JTextArea output;
-    private JButton regBolig, slettBolig, regBoligSoeker, regUtleier, slettPerson, regKontrakt, visBolig, visPerson, visPersonInfo, visBoligInfo, visIntrPers, visKontrakt, skrivUt;
+    private JButton regBolig, slettBolig, regBoligSoeker, regUtleier, slettPerson, regKontrakt, visBolig, visPerson, visPersonInfo, visBoligInfo, visIntrPers, visKontrakt, skrivUt, visUtleierVindu;
     private UtleierMengde utleierMengde;
     private BoligsoekerMengde boligsoekerMengde;
+    
+    private UtleierVindu utleierVindu;
 
     public Vindu() {
+        
         //for boliger
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
@@ -163,7 +167,8 @@ public class Vindu extends JFrame implements ActionListener {
 
         utleierMengde = new UtleierMengde();
         boligsoekerMengde = new BoligsoekerMengde();
-        setSize(400, 400);
+        utleierVindu = new UtleierVindu();
+        setSize(600, 600);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -183,6 +188,10 @@ public class Vindu extends JFrame implements ActionListener {
         regBolig = new JButton("Registrer Bolig");
         regBolig.addActionListener(this);
         c.add(regBolig);
+        
+        visUtleierVindu = new JButton("Vis utleier vindu");
+        visUtleierVindu.addActionListener(this);
+        c.add(visUtleierVindu);
 
         output = new JTextArea(10, 20);
         c.add(output);
@@ -249,6 +258,8 @@ public class Vindu extends JFrame implements ActionListener {
             regBolig();
         } else if(e.getSource()== regUtleier){
             regUtleier();
+        } else if(e.getSource() == visUtleierVindu){
+            utleierVindu.setVisible(true);
         }
     }
 }
