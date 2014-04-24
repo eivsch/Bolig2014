@@ -28,3 +28,11 @@ Gretar har opprettet Boligliste.java (LinkedList som hvert Utleier-objekt inneho
 Gretar jobber på regBolig()-metoder i klassene Personmendge.java og Utleier.java. Metoden skal registrere en bolig til en utleier og søke om at den eksisterer ikke fra før.
 Sigurd hadde problemer med batteriet på laptoppen. Jobber hjemme fra.
 Eivind...
+
+23.04
+Gretar skriver:
+har opprettet ny startvindu, så vindu.java har ikke så veldig mye kodelinjer. Istedenfor kommer noe mindre vinduer, en for UTLEIER (register, slett, ...), annen for BOLIGSØKER (register, slett, ...), annen for Enebolig, osv. Vi trenger ikke mer vindu.java. Har også opprettet UtleierVindu.java. Register-uteier-metoden fungerer!
+
+24.04
+Gretar skriver:
+har opprettet BoligsoekerVindu.java. Register-boligsoeker-metoden fungerer!
