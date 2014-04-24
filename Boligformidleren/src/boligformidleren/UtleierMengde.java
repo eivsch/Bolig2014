@@ -26,12 +26,6 @@ public class UtleierMengde {
     
     public boolean fjern(Utleier ul){
         return mengde.remove(ul);
-        /* Må teste om det over funker.
-        Iterator<Utleier> utleierIter = mengde.iterator();
-        while (utleierIter.hasNext()){
-            if(ul.equals(utleierIter.next()))
-                utleierIter.remove();
-        }*/
     }
 
     // Returnere et personobjektet som hører til navnet

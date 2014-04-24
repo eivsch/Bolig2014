@@ -73,19 +73,19 @@ public class BoligsoekerVindu extends JFrame implements ActionListener{
         kravType = new JTextField(10);
         c.add(kravType);
         
-        c.add(new JLabel("Max pris: "));
+        c.add(new JLabel("Max. pris: "));
         kravPris = new JTextField(10);
         c.add(kravPris);
         
-        c.add(new JLabel("Min areal: "));
+        c.add(new JLabel("Min. areal: "));
         kravAreal = new JTextField(10);
         c.add(kravAreal);
         
-        c.add(new JLabel("Min rom: "));
+        c.add(new JLabel("Min. rom: "));
         kravRom = new JTextField(10);
         c.add(kravRom);
         
-        c.add(new JLabel("Min byggeår: "));
+        c.add(new JLabel("Min. byggeår: "));
         kravByggeaar = new JTextField(10);
         c.add(kravByggeaar);
         
@@ -156,7 +156,9 @@ public class BoligsoekerVindu extends JFrame implements ActionListener{
         kravKjeller.setSelected(false);
     }
     
-    // her kommer slettBoligsoeker-metode
+    public void slettBoligsoeker(){
+        
+    }
     
     public void utskrift() {
         /**

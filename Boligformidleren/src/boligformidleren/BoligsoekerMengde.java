@@ -26,6 +26,10 @@ public class BoligsoekerMengde {
         mengde.add(b);
     }
 
+    public boolean fjern(Utleier ul) {
+        return mengde.remove(ul);
+    }
+
     // Returnere et boligsoeker som hører til navnet
     public Boligsoeker finnBoligsoeker(String fornavn, String etternavn) {
         Iterator<Boligsoeker> bsIter = mengde.iterator();
@@ -40,7 +44,6 @@ public class BoligsoekerMengde {
     }
 
     //Kan vurdere evt. finnBoligsøker metode.
-
     public String toString() {
         Iterator<Boligsoeker> iter = mengde.iterator();
 
