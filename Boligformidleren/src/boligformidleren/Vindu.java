@@ -197,7 +197,7 @@ public class Vindu extends JFrame implements ActionListener {
         c.add(output);
         output.setText("testdsadsa");
     }
-
+    /*
     public void regBoligsoeker() {
         //registrer boligsøker
         Boligsoeker bs = new Boligsoeker(RegPersFornavn.getText(), RegPersEtternavn.getText(),
@@ -207,12 +207,14 @@ public class Vindu extends JFrame implements ActionListener {
                 Integer.parseInt(AntEtasjer.getText()), true, false, true);
         boligsoekerMengde.settInn(bs);
     }
-    
+    */
+    /*  
     public void regUtleier(){
         Utleier u = new Utleier(RegPersFornavn.getText(),RegPersEtternavn.getText(),
                 RegBolAdr.getText(),RegEpost.getText(),Integer.parseInt(RegTlf.getText()),RegFirma.getText());
         utleierMengde.settInn(u);
     }
+    */
 
     public void regKontrakt() {
         /*
@@ -251,13 +253,13 @@ public class Vindu extends JFrame implements ActionListener {
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == regBoligSoeker) {
-            regBoligsoeker();
+            //regBoligsoeker();
         } else if (e.getSource() == skrivUt) {
             utskrift();
         } else if (e.getSource() == regBolig) {
             regBolig();
         } else if(e.getSource()== regUtleier){
-            regUtleier();
+            //regUtleier();
         } else if(e.getSource() == visUtleierVindu){
             utleierVindu.setVisible(true);
         }

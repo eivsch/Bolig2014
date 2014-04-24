@@ -20,12 +20,13 @@ public class UtleierVindu extends JFrame implements ActionListener{
     
     private UtleierMengde utleierMengde;
     
+    // konstruktør
     public UtleierVindu(){
         super("Utleier");
         
         utleierMengde = new UtleierMengde();
         
-        antRad = 8;
+        antRad = 9;
         antKol = 2;
         gap = 5;
         
@@ -78,14 +79,35 @@ public class UtleierVindu extends JFrame implements ActionListener{
         slettUtleier = new JButton("Slett utleier");
         slettUtleier.addActionListener(this);
         c.add(slettUtleier);
+        
+        skrivUt = new JButton("Vis alle utleiere");
+        skrivUt.addActionListener(this);
+        c.add(skrivUt);
     }
     
-    // her kommer finnUtleier-metode
-    
+    //registrer utleier
     public void regUtleier(){
+        
+        String fornavn = RegPersFornavn.getText();
+        String etternavn = RegPersEtternavn.getText();
+        
+        if( utleierMengde.finnUtleier(fornavn, etternavn) != null ){
+            output.setText("Feil - Utleier allerede registrert!");
+            return;
+        }
+        
         Utleier u = new Utleier(RegPersFornavn.getText(),RegPersEtternavn.getText(),
                 RegPersAdr.getText(),RegEpost.getText(),Integer.parseInt(RegTlf.getText()),RegFirma.getText());
+
         utleierMengde.settInn(u);
+        output.setText("Utleier " + fornavn + " " + etternavn + " registrert");
+        RegPersFornavn.setText("");
+        RegPersEtternavn.setText("");
+        RegPersAdr.setText("");
+        RegEpost.setText("");
+        RegTlf.setText("");
+        RegFirma.setText("");
+        BoligKnyttetTil.setText("");
     }
     
     // her kommer slettUtleier-metode
@@ -95,13 +117,8 @@ public class UtleierVindu extends JFrame implements ActionListener{
          * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på
          * person- mengde, kontraktliste etc .toString)
          */
-        output.setText(utleierMengde.toString() + "\n" + utleierMengde.toString());
+        output.setText( utleierMengde.toString() + "\n" );
     }
-    
-    /*
-     * Vi må fange opp lukkeknappen og programmere den så setVisible blir FALSE 
-     * når man trykker på den.
-     */
     
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {

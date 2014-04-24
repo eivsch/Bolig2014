@@ -15,12 +15,14 @@ public class StartVindu extends JFrame implements ActionListener{
     private final String vinduer[] = {"Utleier", "Boligsøker", "Enebolig/rekkehus", "Leilighet", "Kontrakt", "Matche"};
     private JButton buttons[];
     private UtleierVindu utleierVindu;
+    private BoligsoekerVindu boligsoekerVindu;
     private int antKnapper, antRad, antKol, gap;
     // opprette evt. andre vinduer
     
     public StartVindu(){
         super( "Boligformidleren" );
         utleierVindu = new UtleierVindu();
+        boligsoekerVindu = new BoligsoekerVindu();
         antKnapper = vinduer.length;
         antRad = (int)( Math.sqrt(antKnapper) );
         antKol = antKnapper - antRad;
@@ -41,9 +43,13 @@ public class StartVindu extends JFrame implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == buttons[0]){
+        if(e.getSource() == buttons[0]){
             utleierVindu.setVisible(true);
         }
+        else if(e.getSource() == buttons[1]){
+            boligsoekerVindu.setVisible(true);
+        }
+        
     }
     
 }
