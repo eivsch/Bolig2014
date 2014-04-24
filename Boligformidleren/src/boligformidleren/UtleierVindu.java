@@ -109,9 +109,17 @@ public class UtleierVindu extends JFrame implements ActionListener {
         BoligKnyttetTil.setText("");
     }
     
-    public boolean slettUtleier(){
-       Utleier ul = utleierMengde.finnUtleier(RegPersFornavn.getText(), RegPersEtternavn.getText());
-       return (utleierMengde.fjern(ul));
+    public void slettUtleier(){
+       String fornavn = RegPersFornavn.getText();
+       String etternavn = RegPersEtternavn.getText();
+       Utleier ul = utleierMengde.finnUtleier(fornavn, etternavn);
+       if(ul == null){
+           output.setText("Utleier " + fornavn + " " + etternavn + " ble ikke funnet, kontroller skrivefeil.");
+           return;
+       }
+       // try-catch ?
+       if (utleierMengde.fjern(ul))
+           output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
     }
 
     public void utskrift() {
@@ -128,6 +136,8 @@ public class UtleierVindu extends JFrame implements ActionListener {
             regUtleier();
         } else if (e.getSource() == skrivUt) {
             utskrift();
+        } else if(e.getSource() == slettUtleier){
+            slettUtleier();
         }
     }
 
