@@ -32,7 +32,7 @@ public class BoligsoekerMengde {
         Boligsoeker bs;
         while (bsIter.hasNext()) {
             bs = bsIter.next();
-            if (bs.getFornavn() == fornavn && bs.getEtternavn() == etternavn) {
+            if (bs.getFornavn().equals(fornavn) && bs.getEtternavn().equals(etternavn)) {
                 return bs;
             }
         }

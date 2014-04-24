@@ -14,14 +14,16 @@ public class Boligsoeker extends Person {
 
     //Krav til bolig
     private int pris, inneAreal, rom, byggeaar, antEtasjer;
-    private String type;
+    private String pInfo, type;
     private boolean heis, balkong, kjeller;
 
-    public Boligsoeker(String fornavn, String etternavn, String adresse, String epost, int tlfnr, String type,
+    public Boligsoeker(String fornavn, String etternavn, String adresse, String epost, int tlfnr, String pInfo, String type,
             int pris, int inneAreal, int rom, int byggeaar, int antEtasjer, boolean heis,
             boolean balkong, boolean kjeller) {
 
         super(fornavn, etternavn, adresse, epost, tlfnr);
+        this.pInfo = pInfo;
+        
         //Krav
         this.type = type;
         this.pris = pris;
