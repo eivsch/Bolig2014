@@ -117,9 +117,10 @@ public class UtleierVindu extends JFrame implements ActionListener {
            output.setText("Utleier " + fornavn + " " + etternavn + " ble ikke funnet, kontroller skrivefeil.");
            return;
        }
-       // try-catch ?
-       if (utleierMengde.fjern(ul))
-           output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
+        // try-catch ?
+        if (utleierMengde.fjern(ul)) {
+            output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
+        }
     }
 
     public void utskrift() {

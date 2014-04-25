@@ -3,144 +3,143 @@
  * Sist oppdatert:
  * Programmert av: Gretar
  */
-
 package boligformidleren;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class BoligsoekerVindu extends JFrame implements ActionListener{
-    
-    private JTextField fornavn, etternavn, adresse, epost, tlf, pInfo, kravType, 
-                        kravPris, kravAreal, kravRom, kravByggeaar, kravEtasjer;
+public class BoligsoekerVindu extends JFrame implements ActionListener {
+
+    private JTextField RegPersFornavn, RegPersEtternavn, adresse, epost, tlf, pInfo, kravType,
+            kravPris, kravAreal, kravRom, kravByggeaar, kravEtasjer;
     private JCheckBox kravHeis, kravBalkong, kravKjeller;
     private JTextArea output;
     private JButton regBoligsoeker, slettBoligsoeker, visPerson, visPersonInfo, skrivUt;
     private int antRad, antKol, gap;
-    private JPanel masterPanel, c, under;
-    
+    private JPanel masterPanel, grid, under;
+
     private BoligsoekerMengde boligsoekerMengde;
-    
+
     // konstruktør
-    public BoligsoekerVindu(){
+    public BoligsoekerVindu() {
         super("Boligsøker");
-        
+
         boligsoekerMengde = new BoligsoekerMengde();
-        
+
         antRad = 17;
         antKol = 2;
         gap = 5;
-        
-        masterPanel = new JPanel( new BorderLayout() );
-        c = new JPanel( new GridLayout(antRad, antKol, gap, gap) );
-        under = new JPanel( new BorderLayout() );
-        masterPanel.add(c, BorderLayout.PAGE_START);
+
+        masterPanel = new JPanel(new BorderLayout());
+        grid = new JPanel(new GridLayout(antRad, antKol, gap, gap));
+        under = new JPanel(new BorderLayout());
+        masterPanel.add(grid, BorderLayout.PAGE_START);
         masterPanel.add(under, BorderLayout.CENTER);
         this.getContentPane().add(masterPanel);
         setSize(350, 700);
-        
+
         output = new JTextArea();
         JScrollPane scroll = new JScrollPane(output);
         under.add(scroll, BorderLayout.CENTER);
-        
+
         // textfields
-        c.add(new JLabel("Fornavn: "));
-        fornavn = new JTextField(10);
-        c.add(fornavn);
+        grid.add(new JLabel("Fornavn: "));
+        RegPersFornavn = new JTextField(10);
+        grid.add(RegPersFornavn);
 
-        c.add(new JLabel("Etternavn: "));
-        etternavn = new JTextField(10);
-        c.add(etternavn);
-        
-        c.add(new JLabel("Adresse: "));
+        grid.add(new JLabel("Etternavn: "));
+        RegPersEtternavn = new JTextField(10);
+        grid.add(RegPersEtternavn);
+
+        grid.add(new JLabel("Adresse: "));
         adresse = new JTextField(10);
-        c.add(adresse);
-        
-        c.add(new JLabel("E-post: "));
+        grid.add(adresse);
+
+        grid.add(new JLabel("E-post: "));
         epost = new JTextField(10);
-        c.add(epost);
+        grid.add(epost);
 
-        c.add(new JLabel("Telefon: "));
+        grid.add(new JLabel("Telefon: "));
         tlf = new JTextField(10);
-        c.add(tlf);
+        grid.add(tlf);
 
-        c.add(new JLabel("Personlige opplysninger: "));
+        grid.add(new JLabel("Personlige opplysninger: "));
         pInfo = new JTextField(10);
-        c.add(pInfo);
-        
-        c.add(new JLabel("Boligtype: "));
+        grid.add(pInfo);
+
+        grid.add(new JLabel("Boligtype: "));
         kravType = new JTextField(10);
-        c.add(kravType);
-        
-        c.add(new JLabel("Max. pris: "));
+        grid.add(kravType);
+
+        grid.add(new JLabel("Max. pris: "));
         kravPris = new JTextField(10);
-        c.add(kravPris);
-        
-        c.add(new JLabel("Min. areal: "));
+        grid.add(kravPris);
+
+        grid.add(new JLabel("Min. areal: "));
         kravAreal = new JTextField(10);
-        c.add(kravAreal);
-        
-        c.add(new JLabel("Min. rom: "));
+        grid.add(kravAreal);
+
+        grid.add(new JLabel("Min. rom: "));
         kravRom = new JTextField(10);
-        c.add(kravRom);
-        
-        c.add(new JLabel("Min. byggeår: "));
+        grid.add(kravRom);
+
+        grid.add(new JLabel("Min. byggeår: "));
         kravByggeaar = new JTextField(10);
-        c.add(kravByggeaar);
-        
-        c.add(new JLabel("Antall etasjer: "));
+        grid.add(kravByggeaar);
+
+        grid.add(new JLabel("Antall etasjer: "));
         kravEtasjer = new JTextField(10);
-        c.add(kravEtasjer);
-        
-        c.add(new JLabel("Heis: "));
+        grid.add(kravEtasjer);
+
+        grid.add(new JLabel("Heis: "));
         kravHeis = new JCheckBox("");
-        c.add(kravHeis);
-        
-        c.add(new JLabel("Balkong: "));
+        grid.add(kravHeis);
+
+        grid.add(new JLabel("Balkong: "));
         kravBalkong = new JCheckBox("");
-        c.add(kravBalkong);
-        
-        c.add(new JLabel("Kjeller: "));
+        grid.add(kravBalkong);
+
+        grid.add(new JLabel("Kjeller: "));
         kravKjeller = new JCheckBox("");
-        c.add(kravKjeller);
-        
+        grid.add(kravKjeller);
+
         // buttons
         regBoligsoeker = new JButton("Register boligsøker");
         regBoligsoeker.addActionListener(this);
-        c.add(regBoligsoeker);
-        
+        grid.add(regBoligsoeker);
+
         slettBoligsoeker = new JButton("Slett boligsøker");
         slettBoligsoeker.addActionListener(this);
-        c.add(slettBoligsoeker);
-        
+        grid.add(slettBoligsoeker);
+
         skrivUt = new JButton("Vis alle boligsøkere");
         skrivUt.addActionListener(this);
-        c.add(skrivUt);
+        grid.add(skrivUt);
     }
-    
+
     //registrer boligsøker
-    public void regBoligsoeker(){
-        
-        String fnavn = fornavn.getText();
-        String enavn = etternavn.getText();
-        
-        if( boligsoekerMengde.finnBoligsoeker(fnavn, enavn) != null ){
+    public void regBoligsoeker() {
+
+        String fnavn = RegPersFornavn.getText();
+        String enavn = RegPersEtternavn.getText();
+
+        if (boligsoekerMengde.finnBoligsoeker(fnavn, enavn) != null) {
             output.setText("Feil - Boligsøker allerede registrert!");
             return;
         }
-        
+
         Boligsoeker b = new Boligsoeker(fnavn, enavn, adresse.getText(),
-                                        epost.getText(),Integer.parseInt(tlf.getText()),pInfo.getText(),
-                                        kravType.getText(), Integer.parseInt(kravPris.getText()), 
-                                        Integer.parseInt(kravAreal.getText()), Integer.parseInt(kravRom.getText()),
-                                        Integer.parseInt(kravByggeaar.getText()), Integer.parseInt(kravEtasjer.getText()),
-                                        kravHeis.isSelected(), kravBalkong.isSelected(), kravKjeller.isSelected());
-        
+                epost.getText(), Integer.parseInt(tlf.getText()), pInfo.getText(),
+                kravType.getText(), Integer.parseInt(kravPris.getText()),
+                Integer.parseInt(kravAreal.getText()), Integer.parseInt(kravRom.getText()),
+                Integer.parseInt(kravByggeaar.getText()), Integer.parseInt(kravEtasjer.getText()),
+                kravHeis.isSelected(), kravBalkong.isSelected(), kravKjeller.isSelected());
+
         boligsoekerMengde.settInn(b);
         output.setText("Boligsøker " + fnavn + " " + enavn + " registrert");
-        fornavn.setText("");
-        etternavn.setText("");
+        RegPersFornavn.setText("");
+        RegPersEtternavn.setText("");
         adresse.setText("");
         epost.setText("");
         tlf.setText("");
@@ -155,27 +154,37 @@ public class BoligsoekerVindu extends JFrame implements ActionListener{
         kravBalkong.setSelected(false);
         kravKjeller.setSelected(false);
     }
-    
-    public void slettBoligsoeker(){
-        
+
+    public void slettBoligsoeker() {
+        String fornavn = RegPersFornavn.getText();
+        String etternavn = RegPersEtternavn.getText();
+        Boligsoeker bs = boligsoekerMengde.finnBoligsoeker(fornavn, etternavn);
+        if (bs == null) {
+            output.setText("Boligsøker " + fornavn + " " + etternavn + " ble ikke funnet, kontroller skrivefeil.");
+            return;
+        }
+               // try-catch ?
+       if (boligsoekerMengde.fjern(bs))
+           output.setText(fornavn + " " + etternavn + " slettet");
     }
-    
+
     public void utskrift() {
         /**
          * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på
          * person- mengde, kontraktliste etc .toString)
          */
-        output.setText( boligsoekerMengde.toString() + "\n" );
+        output.setText(boligsoekerMengde.toString() + "\n");
     }
-    
+
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()== regBoligsoeker){
+        if (e.getSource() == regBoligsoeker) {
             regBoligsoeker();
-        }
-        else if (e.getSource() == skrivUt) {
+        } else if (e.getSource() == skrivUt) {
             utskrift();
+        } else if(e.getSource() == slettBoligsoeker){
+            slettBoligsoeker();
         }
     }
-    
+
 }

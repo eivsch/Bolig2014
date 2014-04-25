@@ -26,8 +26,8 @@ public class BoligsoekerMengde {
         mengde.add(b);
     }
 
-    public boolean fjern(Utleier ul) {
-        return mengde.remove(ul);
+    public boolean fjern(Boligsoeker bs) {
+        return mengde.remove(bs);
     }
 
     // Returnere et boligsoeker som hører til navnet
