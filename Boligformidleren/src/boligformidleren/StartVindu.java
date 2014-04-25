@@ -16,10 +16,11 @@ import java.io.ObjectOutputStream;
 
 public class StartVindu extends JFrame implements ActionListener{
     
-    private final String vinduer[] = {"Utleier", "Boligsøker", "Enebolig/rekkehus", "Leilighet", "Kontrakt", "Matche"};
+    private final String vinduer[] = {"Utleier", "Boligsøker", "Bolig", "Leilighet", "Kontrakt", "Matche"};
     private JButton buttons[];
     private UtleierVindu utleierVindu;
     private BoligsoekerVindu boligsoekerVindu;
+    private BoligVindu boligVindu;
     private int antKnapper, antRad, antKol, gap;
     // opprette evt. andre vinduer
     
@@ -27,8 +28,9 @@ public class StartVindu extends JFrame implements ActionListener{
         super( "Boligformidleren" );
         utleierVindu = new UtleierVindu();
         boligsoekerVindu = new BoligsoekerVindu();
+        boligVindu = new BoligVindu();
         antKnapper = vinduer.length;
-        antRad = (int)( Math.sqrt(antKnapper) );
+        antRad = (int)( Math.sqrt(antKnapper) );    // hvis 2-8 knapper så 2 rader, hvis 9-15 knapper så 3 rader, osv.
         antKol = antKnapper - antRad;
         gap = 5;
         Container c = getContentPane();
@@ -79,7 +81,9 @@ public class StartVindu extends JFrame implements ActionListener{
         else if(e.getSource() == buttons[1]){
             boligsoekerVindu.setVisible(true);
         }
-        
+        else if(e.getSource() == buttons[2]){
+            boligVindu.setVisible(true);
+        }
     }
     
 }
