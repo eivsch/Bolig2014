@@ -8,10 +8,16 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class UtleierVindu extends JFrame implements ActionListener {
 
@@ -138,13 +144,31 @@ public class UtleierVindu extends JFrame implements ActionListener {
     public void skrivUtleierTilFil() {
         try (ObjectOutputStream utfil = new ObjectOutputStream(
                 new FileOutputStream("utleiermengde.data"))) {
-            utfil.writeObject(utleierMengde);
+            utfil.writeObject(utleierMengde.kopierMengdeUsortert());
         } catch (NotSerializableException nse) {
             visFeilmelding(nse);
         } catch (IOException e) {
             visFeilmelding(e);
         }
     }
+    public void lesUtleierFraFil(){
+        Set<Utleier> innlestUtleiere = new TreeSet();
+	 try(ObjectInputStream innfil = new ObjectInputStream(new FileInputStream("bileierliste.data"))){
+	     innlestUtleiere = (TreeSet<Utleier>) innfil.readObject();
+             Iterator<Utleier> iter = innlestUtleiere.iterator();
+             while(iter.hasNext())
+                 utleierMengde.settInn(iter.next());
+	  }
+         catch(ClassNotFoundException cnfe){
+             visFeilmelding(cnfe);
+         }
+         catch(FileNotFoundException fnfe){
+             visFeilmelding(fnfe);
+         }
+         catch(IOException e){
+             visFeilmelding(e);
+         }
+        }
 
     public void visFeilmelding(StackTraceElement[] ste) {
         JOptionPane.showMessageDialog(this, ste);

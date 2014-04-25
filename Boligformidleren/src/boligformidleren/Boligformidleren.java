@@ -24,6 +24,7 @@ public class Boligformidleren {
         vindu.addWindowListener(
                 new WindowAdapter(){
                     public void windowClosing(WindowEvent e){
+                        vindu.skrivTilFil();
                         System.exit(0);
                     }
                 });

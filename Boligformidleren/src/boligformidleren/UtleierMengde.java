@@ -63,6 +63,16 @@ public class UtleierMengde implements Serializable {
         u.regBolig(b);
         return true;
     }
+    // For filbehandling. ruleBasedKollator er ikke serialiserbar.
+    public Set<Utleier> kopierMengdeUsortert(){
+        Set<Utleier> usortertKopiMengde = new TreeSet<>(komp);
+        Iterator<Utleier> iter = mengde.iterator();
+        while(iter.hasNext()){
+            Utleier u = iter.next();
+            usortertKopiMengde.add(u);
+        }
+        return usortertKopiMengde;
+    }
 
     public String toString() {
         Iterator<Utleier> iter = mengde.iterator();

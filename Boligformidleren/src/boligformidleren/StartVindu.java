@@ -51,6 +51,10 @@ public class StartVindu extends JFrame implements ActionListener{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
+    public void skrivTilFil(){
+        utleierVindu.skrivUtleierTilFil();
+    }
+    
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttons[0]) {
             utleierVindu.setVisible(true);
