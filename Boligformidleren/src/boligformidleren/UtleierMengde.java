@@ -70,7 +70,10 @@ public class UtleierMengde implements Serializable {
     public Set getUsortertMengde(){
         // Fungerer ikke helt
         Set<Utleier> usortertKopiMengde = new TreeSet();
-        usortertKopiMengde = mengde;
+        Iterator<Utleier> nyIter = mengde.iterator();
+        while(nyIter.hasNext()){
+            usortertKopiMengde.add(nyIter.next());
+        }
         return usortertKopiMengde;
     }
 
