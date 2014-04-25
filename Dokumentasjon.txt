@@ -36,3 +36,7 @@ har opprettet ny startvindu, så vindu.java har ikke så veldig mye kodelinjer. Is
 24.04
 Gretar skriver:
 har opprettet BoligsoekerVindu.java. Register-boligsoeker-metoden fungerer!
+
+25.04
+Gretar skriver:
+har opprettet BoligVindu.java. Den skal fungere sånn at når brukeren velger boligtype (enebolig, leilighet) så dukker opp vedkommende felter, mens felles feltene skal alltid vises. Klassen er ikke ferdig ennu, men har kommet ganske langt.
