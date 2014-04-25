@@ -17,8 +17,6 @@ import java.io.ObjectOutputStream;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class StartVindu extends JFrame implements ActionListener {
-
 public class StartVindu extends JFrame implements ActionListener{
     
     private final String vinduer[] = {"Utleier", "Boligsøker", "Bolig", "Leilighet", "Kontrakt", "Matche"};
