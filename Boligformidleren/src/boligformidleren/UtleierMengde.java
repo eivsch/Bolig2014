@@ -63,19 +63,6 @@ public class UtleierMengde implements Serializable {
         u.regBolig(b);
         return true;
     }
-    /* 
-     *  Kopierer utleiermengden over i et TreeSet som ikke har sortering,
-     *  pga. filbehandling.
-     */
-    public Set getUsortertMengde(){
-        // Fungerer ikke helt
-        Set<Utleier> usortertKopiMengde = new TreeSet();
-        Iterator<Utleier> nyIter = mengde.iterator();
-        while(nyIter.hasNext()){
-            usortertKopiMengde.add(nyIter.next());
-        }
-        return usortertKopiMengde;
-    }
 
     public String toString() {
         Iterator<Utleier> iter = mengde.iterator();
