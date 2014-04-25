@@ -13,7 +13,7 @@ package boligformidleren;
 import java.util.*;
 import java.io.*;
 
-public class UtleierMengde {
+public class UtleierMengde implements Serializable {
 
     private Comparator komp = new Personsammenlikner();
 
@@ -62,6 +62,16 @@ public class UtleierMengde {
         //Boligen kan registreres
         u.regBolig(b);
         return true;
+    }
+    /* 
+     *  Kopierer utleiermengden over i et TreeSet som ikke har sortering,
+     *  pga. filbehandling.
+     */
+    public Set getUsortertMengde(){
+        // Fungerer ikke helt
+        Set<Utleier> usortertKopiMengde = new TreeSet();
+        usortertKopiMengde = mengde;
+        return usortertKopiMengde;
     }
 
     public String toString() {

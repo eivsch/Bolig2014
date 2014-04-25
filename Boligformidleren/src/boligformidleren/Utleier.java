@@ -24,21 +24,22 @@ public class Utleier extends Person {
         this.firma = firma;
         liste = new BoligListe();
     }
-    
+
     // registrerer ny bolig til utleieren
-    public void regBolig( Bolig b ){
-        if( b != null )
+    public void regBolig(Bolig b) {
+        if (b != null) {
             liste.settInn(b);
-        else
+        } else {
             return;
+        }
     }
-    
+
     // returnerer boliglisten knyttet til denne utleieren
-    public BoligListe getBoligliste(){
+    public BoligListe getBoligliste() {
         return liste;
     }
-    
-    public String toString(){
+
+    public String toString() {
         String s = super.toString() + "\nFirma: " + firma + "\nBoliger: " + liste.toString();
         return s;
     }

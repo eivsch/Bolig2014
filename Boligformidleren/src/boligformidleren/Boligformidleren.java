@@ -8,6 +8,9 @@
 
 package boligformidleren;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 /**
  *Klassen har til hensikt å kjøre programmet.
  */
@@ -17,7 +20,14 @@ public class Boligformidleren {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new StartVindu();
+        final StartVindu vindu = new StartVindu();
+        vindu.addWindowListener(
+                new WindowAdapter(){
+                    public void windowClosing(WindowEvent e){
+                        vindu.skrivUtleierTilFil();
+                        System.exit(0);
+                    }
+                });
     }
     
 }

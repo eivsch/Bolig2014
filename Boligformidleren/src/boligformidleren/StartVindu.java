@@ -9,6 +9,10 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
 
 public class StartVindu extends JFrame implements ActionListener{
     
@@ -40,6 +44,32 @@ public class StartVindu extends JFrame implements ActionListener{
         setSize(600, 600);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    
+    public void skrivUtleierTilFil(){
+     /**
+     * ruleBasedKollator er ikke serialiserbar, kopierer derfor utleiermengden
+     * over i et TreeSet uten sortering for hver utskrivning. Dette fungerer
+     * fordi sorteringsrekkefølgen hele tiden er den samme.
+     */
+        try(ObjectOutputStream utfil = new ObjectOutputStream(
+                new FileOutputStream("UtleierTreeSet.data"))){
+            utfil.writeObject(utleierVindu.getMengde());
+        }
+        catch(NotSerializableException nse){
+            visFeilmelding(nse);
+        }
+        catch(IOException e){
+            visFeilmelding(e);
+        }
+    }
+    
+    public void visFeilmelding(StackTraceElement[] ste){
+        JOptionPane.showMessageDialog(this, ste);
+    }
+    
+    public void visFeilmelding(Object o){
+        JOptionPane.showMessageDialog(this, o);
     }
     
     public void actionPerformed(ActionEvent e) {

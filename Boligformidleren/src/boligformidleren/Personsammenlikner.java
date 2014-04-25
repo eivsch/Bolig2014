@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 public class Personsammenlikner implements Comparator<Person>, Serializable{
 
-    private String rekkefølge = "<\0<0<1<2<3<4<5<6<7<8<9"
+    private String rekkefoelge = "<\0<0<1<2<3<4<5<6<7<8<9"
             + "<A,a<B,b<C,c<D,d<E,e<F,f<G,g<H,h<I,i<J,j"
             + "<K,k<L,l<M,m<N,n<O,o<P,p<Q,q<R,r<S,s<T,t"
             + "<U,u<V,v<W,w<X,x<Y,y<Z,z<Æ,æ<Ø,ø<Å=AA,å=aa;AA,aa";
@@ -24,7 +24,7 @@ public class Personsammenlikner implements Comparator<Person>, Serializable{
 
     public Personsammenlikner() {
         try {
-            kollator = new RuleBasedCollator(rekkefølge);
+            kollator = new RuleBasedCollator(rekkefoelge);
         } catch (ParseException pe) {
             JOptionPane.showMessageDialog(null,
                     "Feil i rekkefølgestring for kollator!");

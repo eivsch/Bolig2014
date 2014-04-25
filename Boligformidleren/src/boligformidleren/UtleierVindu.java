@@ -8,6 +8,7 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Set;
 
 public class UtleierVindu extends JFrame implements ActionListener {
 
@@ -122,7 +123,11 @@ public class UtleierVindu extends JFrame implements ActionListener {
             output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
         }
     }
-
+    
+    public Set getMengde(){
+        return utleierMengde.getUsortertMengde();
+    }
+    
     public void utskrift() {
         /**
          * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på
