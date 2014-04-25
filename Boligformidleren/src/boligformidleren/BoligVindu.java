@@ -13,10 +13,13 @@ import java.awt.event.*;
 public class BoligVindu extends JFrame implements ActionListener {
     
     // en masterPanel, en top panel (inneholder paneler for felles felt, enebolig felt og leilighet felt), en under panel for utskrift
-    private JPanel masterPanel, top, fellesPanel, eneboligPanel, leilighetPanel, under;
+    private JPanel masterPanel, top, fellesPanel, knappPanel, eneboligPanel, leilighetPanel, under;
     
     // felles for eneboliger og leiligheter
-    private JTextField adresse, boligtype, areal, antRom, byggeaar, beskrivelse, pris, avetertDato, utleierFornavn, utleierEtternavn;
+    private JTextField adresse, boligtype, areal, antRom, byggeaar, beskrivelse, pris, avetertDato;
+    
+    // for knappPanel
+    private JTextField utleierFornavn, utleierEtternavn;
     private JButton velgEnebolig, velgLeilighet, skrivUt;
     
     // kun for eneboliger
@@ -29,32 +32,35 @@ public class BoligVindu extends JFrame implements ActionListener {
     private JCheckBox heis, balkong;
     private JButton regLeilighet, slettLeilighet;
     
-    private JTextArea output;
-    private int antRadFelles, antRadEnebolig, antRadLeilighet, antKol, gap;
-    
+    private JTextArea output;    
     
     // konstruktør
     public BoligVindu(){
         super("Bolig");
         
-        antRadFelles =  10;// en rad for hver felles felt
-        antRadEnebolig = 3; // en rad for hver enebolig variabel plus 2 ekstra for knapper
-        antRadLeilighet = 3; // en rad for hver leilighet variabel plus 2 ekstra for knapper
-        antKol = 2;
-        gap = 5;
+        int antRadFelles =  8;  // en rad for hver felles felt plus to for boligtyper
+        int antRadKnapp = 4;
+        int antRadEnebolig = 3; // en rad for hver enebolig variabel
+        int antRadLeilighet = 3; // en rad for hver leilighet variabel
+        int antKol = 2;
+        int gap = 0;
         
         // startPanelen inneholder en knapp for hver boligtype
         masterPanel = new JPanel(new BorderLayout());
-        top = new JPanel(new GridLayout(4,1,0,0));
+        top = new JPanel(new BorderLayout());
         fellesPanel = new JPanel(new GridLayout(antRadFelles, antKol, gap, gap));
+        knappPanel = new JPanel(new GridLayout(antRadKnapp, antKol, gap, gap));
         eneboligPanel = new JPanel(new GridLayout(antRadEnebolig, antKol, gap, gap));
-        eneboligPanel.setVisible(false);
+        eneboligPanel.setVisible(true);
         leilighetPanel = new JPanel(new GridLayout(antRadLeilighet, antKol, gap, gap));
         leilighetPanel.setVisible(false);
         under = new JPanel(new BorderLayout());
         masterPanel.add(top, BorderLayout.PAGE_START);
         masterPanel.add(under, BorderLayout.CENTER);
-        top.add(fellesPanel);
+        top.add(fellesPanel, BorderLayout.PAGE_START);
+        //top.add(eneboligPanel, BorderLayout.CENTER);
+        //top.add(leilighetPanel, BorderLayout.CENTER);
+        top.add(knappPanel, BorderLayout.PAGE_END);
         this.getContentPane().add(masterPanel);
         setSize(300, 700);
 
@@ -63,48 +69,45 @@ public class BoligVindu extends JFrame implements ActionListener {
         under.add(scroll, BorderLayout.CENTER);
 
         // felles textfields
-        top.add(new JLabel("Adresse: "));
+        fellesPanel.add(new JLabel("Adresse: "));
         adresse = new JTextField(10);
-        top.add(adresse);
+        fellesPanel.add(adresse);
 
-        top.add(new JLabel("Boligtype: "));
+        fellesPanel.add(new JLabel("Boligtype: "));
         boligtype = new JTextField(10);
-        top.add(boligtype);
+        fellesPanel.add(boligtype);
 
-        top.add(new JLabel("Areal: "));
+        fellesPanel.add(new JLabel("Areal: "));
         areal = new JTextField(10);
-        top.add(areal);
+        fellesPanel.add(areal);
 
-        top.add(new JLabel("Antall rom: "));
+        fellesPanel.add(new JLabel("Antall rom: "));
         antRom = new JTextField(10);
-        top.add(antRom);
+        fellesPanel.add(antRom);
 
-        top.add(new JLabel("Byggeår: "));
+        fellesPanel.add(new JLabel("Byggeår: "));
         byggeaar = new JTextField(10);
-        top.add(byggeaar);
+        fellesPanel.add(byggeaar);
 
-        top.add(new JLabel("Beskrivelse: "));
+        fellesPanel.add(new JLabel("Beskrivelse: "));
         beskrivelse = new JTextField(10);
-        top.add(beskrivelse);
+        fellesPanel.add(beskrivelse);
 
-        top.add(new JLabel("Leiepris: "));
+        fellesPanel.add(new JLabel("Leiepris: "));
         pris = new JTextField(10);
-        top.add(pris);
+        fellesPanel.add(pris);
 
-        top.add(new JLabel("Avetert dato: "));
+        fellesPanel.add(new JLabel("Avetert dato: "));
         avetertDato = new JTextField(10);
-        top.add(avetertDato);
+        fellesPanel.add(avetertDato);
         
-        top.add(eneboligPanel);
-        top.add(leilighetPanel);
-        
-        top.add(new JLabel("Utleier fornavn: "));
+        knappPanel.add(new JLabel("Utleier fornavn: "));
         utleierFornavn = new JTextField(10);
-        top.add(utleierFornavn);
+        knappPanel.add(utleierFornavn);
 
-        top.add(new JLabel("Utleier etternavn: "));
+        knappPanel.add(new JLabel("Utleier etternavn: "));
         utleierEtternavn = new JTextField(10);
-        top.add(utleierEtternavn);
+        knappPanel.add(utleierEtternavn);
 
         // enebolig textfields
         eneboligPanel.add(new JLabel("Antall etasjer: "));
@@ -137,24 +140,29 @@ public class BoligVindu extends JFrame implements ActionListener {
         // buttons
         regEnebolig = new JButton("Register bolig");
         regEnebolig.addActionListener(this);
-        top.add(regEnebolig, BorderLayout.PAGE_END);
+        knappPanel.add(regEnebolig);
 
         slettEnebolig = new JButton("Slett enebolig");
         slettEnebolig.addActionListener(this);
-        top.add(slettEnebolig, BorderLayout.PAGE_END);
+        knappPanel.add(slettEnebolig);
         
         skrivUt = new JButton("Vis alle eneboliger");
         skrivUt.addActionListener(this);
-        top.add(skrivUt, BorderLayout.PAGE_END);
+        knappPanel.add(skrivUt);
     }
     
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == velgEnebolig){
             eneboligPanel.setVisible(true);
-        }
-        else if(e.getSource() == velgLeilighet){
+        } else if(e.getSource() == velgLeilighet){
             leilighetPanel.setVisible(true);
+        } else if(e.getSource() == skrivUt){
+            BorderLayout layout = (BorderLayout)top.getLayout();
+            if( layout.getLayoutComponent(BorderLayout.CENTER) != null)
+                top.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+            top.add(eneboligPanel, BorderLayout.CENTER);
+            this.getContentPane().validate();
         }
     }
 }
