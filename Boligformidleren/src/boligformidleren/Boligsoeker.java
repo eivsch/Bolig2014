@@ -12,7 +12,14 @@ package boligformidleren;
  */
 public class Boligsoeker extends Person {
 
-    //Krav til bolig
+    /*
+     * Hvis boligsøker ikke har noen krav om type,
+     * så bruker kun felles feltene.
+     * Hvis boligsøker har krav om enebolig, så viser
+     * vi enebolig-feltene i tillegg til felles feltene
+     */
+    
+    // Krav til bolig
     private int pris, inneAreal, rom, byggeaar, antEtasjer;
     private String pInfo, type;
     private boolean heis, balkong, kjeller;

@@ -8,7 +8,10 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Set;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
 
 public class UtleierVindu extends JFrame implements ActionListener {
 
@@ -19,13 +22,13 @@ public class UtleierVindu extends JFrame implements ActionListener {
     private JPanel masterPanel, grid, under;
 
     private UtleierMengde utleierMengde;
-    
+
     // konstruktør
-    public UtleierVindu(){
+    public UtleierVindu() {
         super("Utleier");
 
         utleierMengde = new UtleierMengde();
-        
+
         antRad = 9;
         antKol = 2;
         gap = 5;
@@ -79,25 +82,25 @@ public class UtleierVindu extends JFrame implements ActionListener {
         slettUtleier = new JButton("Slett utleier");
         slettUtleier.addActionListener(this);
         grid.add(slettUtleier);
-        
+
         skrivUt = new JButton("Vis alle utleiere");
         skrivUt.addActionListener(this);
         grid.add(skrivUt);
     }
-    
+
     //registrer utleier
-    public void regUtleier(){
-        
+    public void regUtleier() {
+
         String fornavn = RegPersFornavn.getText();
         String etternavn = RegPersEtternavn.getText();
-        
-        if( utleierMengde.finnUtleier(fornavn, etternavn) != null ){
+
+        if (utleierMengde.finnUtleier(fornavn, etternavn) != null) {
             output.setText("Feil - Utleier allerede registrert!");
             return;
         }
-        
-        Utleier u = new Utleier(RegPersFornavn.getText(),RegPersEtternavn.getText(),
-                RegPersAdr.getText(),RegEpost.getText(),Integer.parseInt(RegTlf.getText()),RegFirma.getText());
+
+        Utleier u = new Utleier(RegPersFornavn.getText(), RegPersEtternavn.getText(),
+                RegPersAdr.getText(), RegEpost.getText(), Integer.parseInt(RegTlf.getText()), RegFirma.getText());
 
         utleierMengde.settInn(u);
         output.setText("Utleier " + fornavn + " " + etternavn + " registrert");
@@ -109,40 +112,55 @@ public class UtleierVindu extends JFrame implements ActionListener {
         RegFirma.setText("");
         BoligKnyttetTil.setText("");
     }
-    
-    public void slettUtleier(){
-       String fornavn = RegPersFornavn.getText();
-       String etternavn = RegPersEtternavn.getText();
-       Utleier ul = utleierMengde.finnUtleier(fornavn, etternavn);
-       if(ul == null){
-           output.setText("Utleier " + fornavn + " " + etternavn + " ble ikke funnet, kontroller skrivefeil.");
-           return;
-       }
+
+    public void slettUtleier() {
+        String fornavn = RegPersFornavn.getText();
+        String etternavn = RegPersEtternavn.getText();
+        Utleier ul = utleierMengde.finnUtleier(fornavn, etternavn);
+        if (ul == null) {
+            output.setText("Utleier " + fornavn + " " + etternavn + " ble ikke funnet, kontroller skrivefeil.");
+            return;
+        }
         // try-catch ?
         if (utleierMengde.fjern(ul)) {
             output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
         }
     }
-    
-    public Set getMengde(){
-        return utleierMengde.getUsortertMengde();
-    }
-    
+
     public void utskrift() {
         /**
          * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på
          * person- mengde, kontraktliste etc .toString)
          */
-        output.setText( utleierMengde.toString() + "\n" );
+        output.setText(utleierMengde.toString() + "\n");
     }
-    
+
+    public void skrivUtleierTilFil() {
+        try (ObjectOutputStream utfil = new ObjectOutputStream(
+                new FileOutputStream("utleiermengde.data"))) {
+            utfil.writeObject(utleierMengde);
+        } catch (NotSerializableException nse) {
+            visFeilmelding(nse);
+        } catch (IOException e) {
+            visFeilmelding(e);
+        }
+    }
+
+    public void visFeilmelding(StackTraceElement[] ste) {
+        JOptionPane.showMessageDialog(this, ste);
+    }
+
+    public void visFeilmelding(Object o) {
+        JOptionPane.showMessageDialog(this, o);
+    }
+
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == regUtleier) {
             regUtleier();
         } else if (e.getSource() == skrivUt) {
             utskrift();
-        } else if(e.getSource() == slettUtleier){
+        } else if (e.getSource() == slettUtleier) {
             slettUtleier();
         }
     }
