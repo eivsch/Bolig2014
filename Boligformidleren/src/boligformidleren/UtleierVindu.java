@@ -15,7 +15,7 @@ public class UtleierVindu extends JFrame implements ActionListener {
     private JTextArea output;
     private JButton regUtleier, slettUtleier, visPerson, visPersonInfo, skrivUt;
     private int antRad, antKol, gap;
-    private JPanel masterPanel, c, under;
+    private JPanel masterPanel, grid, under;
 
     private UtleierMengde utleierMengde;
     
@@ -30,9 +30,9 @@ public class UtleierVindu extends JFrame implements ActionListener {
         gap = 5;
 
         masterPanel = new JPanel(new BorderLayout());
-        c = new JPanel(new GridLayout(antRad, antKol, gap, gap));
+        grid = new JPanel(new GridLayout(antRad, antKol, gap, gap));
         under = new JPanel(new BorderLayout());
-        masterPanel.add(c, BorderLayout.PAGE_START);
+        masterPanel.add(grid, BorderLayout.PAGE_START);
         masterPanel.add(under, BorderLayout.CENTER);
         this.getContentPane().add(masterPanel);
         setSize(300, 500);
@@ -42,46 +42,46 @@ public class UtleierVindu extends JFrame implements ActionListener {
         under.add(scroll, BorderLayout.CENTER);
 
         // textfields
-        c.add(new JLabel("Fornavn: "));
+        grid.add(new JLabel("Fornavn: "));
         RegPersFornavn = new JTextField(10);
-        c.add(RegPersFornavn);
+        grid.add(RegPersFornavn);
 
-        c.add(new JLabel("Etternavn: "));
+        grid.add(new JLabel("Etternavn: "));
         RegPersEtternavn = new JTextField(10);
-        c.add(RegPersEtternavn);
+        grid.add(RegPersEtternavn);
 
-        c.add(new JLabel("Adresse: "));
+        grid.add(new JLabel("Adresse: "));
         RegPersAdr = new JTextField(10);
-        c.add(RegPersAdr);
+        grid.add(RegPersAdr);
 
-        c.add(new JLabel("E-post: "));
+        grid.add(new JLabel("E-post: "));
         RegEpost = new JTextField(10);
-        c.add(RegEpost);
+        grid.add(RegEpost);
 
-        c.add(new JLabel("Telefon: "));
+        grid.add(new JLabel("Telefon: "));
         RegTlf = new JTextField(10);
-        c.add(RegTlf);
+        grid.add(RegTlf);
 
-        c.add(new JLabel("Firma: "));
+        grid.add(new JLabel("Firma: "));
         RegFirma = new JTextField(10);
-        c.add(RegFirma);
+        grid.add(RegFirma);
 
-        c.add(new JLabel("Bolig: "));
+        grid.add(new JLabel("Bolig: "));
         BoligKnyttetTil = new JTextField(10);
-        c.add(BoligKnyttetTil);
+        grid.add(BoligKnyttetTil);
 
         // buttons
         regUtleier = new JButton("Register utleier");
         regUtleier.addActionListener(this);
-        c.add(regUtleier);
+        grid.add(regUtleier);
 
         slettUtleier = new JButton("Slett utleier");
         slettUtleier.addActionListener(this);
-        c.add(slettUtleier);
+        grid.add(slettUtleier);
         
         skrivUt = new JButton("Vis alle utleiere");
         skrivUt.addActionListener(this);
-        c.add(skrivUt);
+        grid.add(skrivUt);
     }
     
     //registrer utleier
