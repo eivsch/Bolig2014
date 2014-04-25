@@ -49,14 +49,6 @@ public class StartVindu extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
-    public void visFeilmelding(StackTraceElement[] ste) {
-        JOptionPane.showMessageDialog(this, ste);
-    }
-
-    public void visFeilmelding(Object o) {
-        JOptionPane.showMessageDialog(this, o);
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttons[0]) {
             utleierVindu.setVisible(true);
