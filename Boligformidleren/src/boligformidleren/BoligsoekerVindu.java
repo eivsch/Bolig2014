@@ -1,5 +1,5 @@
 /*
- * Innhold: Vindu som brukes for registrering av enebolig/rekkehus
+ * Innhold: Vindu som brukes for registrering, slettning, osv. av boligsøkere
  * Sist oppdatert:
  * Programmert av: Gretar
  */
