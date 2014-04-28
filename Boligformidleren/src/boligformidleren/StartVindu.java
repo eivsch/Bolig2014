@@ -23,9 +23,9 @@ public class StartVindu extends JFrame implements ActionListener{
     private JButton buttons[];
     
     // Vinduer som åpnes når man trykker på knappene på forsiden/startvinduet
-    private UtleierVindu utleierVindu;
-    private BoligsoekerVindu boligsoekerVindu;
-    private BoligVindu boligVindu;
+    private static UtleierVindu utleierVindu;
+    private static BoligsoekerVindu boligsoekerVindu;
+    private static BoligVindu boligVindu;
     
     // knapper, rader, kolonner og gap for GridLayout
     private int antKnapper, antRad, antKol, gap;
@@ -55,6 +55,18 @@ public class StartVindu extends JFrame implements ActionListener{
         setSize(600, 600);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    
+    public static UtleierVindu getUtleierVindu(){
+        return utleierVindu;
+    }
+    
+    public static BoligsoekerVindu getBoligsoekerVindu(){
+        return boligsoekerVindu;
+    }
+    
+    public static BoligVindu getBoligVindu(){
+        return boligVindu;
     }
     
     public void skrivTilFil(){
