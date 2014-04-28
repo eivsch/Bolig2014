@@ -21,21 +21,27 @@ public class StartVindu extends JFrame implements ActionListener{
     
     private final String vinduer[] = {"Utleier", "Boligsøker", "Bolig", "Leilighet", "Kontrakt", "Matche"};
     private JButton buttons[];
+    
+    // Vinduer som åpnes når man trykker på knappene på forsiden/startvinduet
     private UtleierVindu utleierVindu;
     private BoligsoekerVindu boligsoekerVindu;
     private BoligVindu boligVindu;
+    
+    // knapper, rader, kolonner og gap for GridLayout
     private int antKnapper, antRad, antKol, gap;
-    // opprette evt. andre vinduer
 
     public StartVindu() {
         super("Boligformidleren");
+        
         utleierVindu = new UtleierVindu();
         boligsoekerVindu = new BoligsoekerVindu();
         boligVindu = new BoligVindu();
+        
         antKnapper = vinduer.length;
         antRad = (int)( Math.sqrt(antKnapper) );    // hvis 2-8 knapper så 2 rader, hvis 9-15 knapper så 3 rader, osv.
         antKol = antKnapper - antRad;
         gap = 5;
+        
         Container c = getContentPane();
         c.setLayout(new GridLayout(antRad, antKol, gap, gap));
         buttons = new JButton[antKnapper];

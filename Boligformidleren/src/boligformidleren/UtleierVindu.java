@@ -95,6 +95,10 @@ public class UtleierVindu extends JFrame implements ActionListener {
         
         lesUtleierFraFil();
     }
+    
+    public UtleierMengde getUtleierMengde(){
+        return utleierMengde;
+    }
 
     //registrer utleier
     public void regUtleier() {
