@@ -11,7 +11,7 @@ package boligformidleren;
  * Klassen er subklasse til Person og skal inneholde data og eventuelle metoder
  * spesifikt for en utleier.
  */
-public class Utleier extends Person {
+public class Utleier extends Person implements Comparable<Utleier> {
 
     private String firma;
     private BoligListe liste;
@@ -37,6 +37,14 @@ public class Utleier extends Person {
     // returnerer boliglisten knyttet til denne utleieren
     public BoligListe getBoligliste() {
         return liste;
+    }
+    
+    /**
+     * Ufullstendig compareTo-metode. Kun for å kunne lagre Utleiere i en
+     * TreeSet som ikke tar imot en komparator i kontruktøren
+     */
+    public int compareTo(Utleier ul){
+        return ul.getEtternavn().compareTo(this.getEtternavn());
     }
 
     public String toString() {

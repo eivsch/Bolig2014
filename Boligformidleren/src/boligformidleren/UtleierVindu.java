@@ -92,6 +92,8 @@ public class UtleierVindu extends JFrame implements ActionListener {
         skrivUt = new JButton("Vis alle utleiere");
         skrivUt.addActionListener(this);
         grid.add(skrivUt);
+        
+        lesUtleierFraFil();
     }
 
     //registrer utleier
@@ -152,8 +154,9 @@ public class UtleierVindu extends JFrame implements ActionListener {
         }
     }
     public void lesUtleierFraFil(){
-        Set<Utleier> innlestUtleiere = new TreeSet();
-	 try(ObjectInputStream innfil = new ObjectInputStream(new FileInputStream("bileierliste.data"))){
+        Set<Utleier> innlestUtleiere = new TreeSet<>();
+	 try(ObjectInputStream innfil = new ObjectInputStream(
+                 new FileInputStream("utleiermengde.data"))){
 	     innlestUtleiere = (TreeSet<Utleier>) innfil.readObject();
              Iterator<Utleier> iter = innlestUtleiere.iterator();
              while(iter.hasNext())
