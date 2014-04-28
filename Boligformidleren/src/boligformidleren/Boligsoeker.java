@@ -10,7 +10,7 @@ package boligformidleren;
 /**
  * Klassen er subklasse til Person og skal representere en boligsøker.
  */
-public class Boligsoeker extends Person {
+public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
     /*
      * Hvis boligsøker ikke har noen krav om type,
@@ -18,7 +18,6 @@ public class Boligsoeker extends Person {
      * Hvis boligsøker har krav om enebolig, så viser
      * vi enebolig-feltene i tillegg til felles feltene
      */
-    
     // Krav til bolig
     private int pris, inneAreal, rom, byggeaar, antEtasjer;
     private String pInfo, type;
@@ -30,7 +29,7 @@ public class Boligsoeker extends Person {
 
         super(fornavn, etternavn, adresse, epost, tlfnr);
         this.pInfo = pInfo;
-        
+
         //Krav
         this.type = type;
         this.pris = pris;
@@ -42,6 +41,14 @@ public class Boligsoeker extends Person {
         this.balkong = balkong;
         this.kjeller = kjeller;
     }//end of Boligsoeker
+
+    /**
+     * Ufullstendig compareTo-metode. Kun for å kunne lagre Utleiere i en
+     * TreeSet som ikke tar imot en komparator i kontruktøren
+     */
+    public int compareTo(Boligsoeker bs) {
+        return bs.getEtternavn().compareTo(this.getEtternavn());
+    }
 
     public String toString() {
         String s = super.toString() + "\nKrav: ";

@@ -8,6 +8,16 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class BoligsoekerVindu extends JFrame implements ActionListener {
 
@@ -116,7 +126,9 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         skrivUt = new JButton("Vis alle boligsøkere");
         skrivUt.addActionListener(this);
         grid.add(skrivUt);
-    }
+
+        lesBoligsoekerFraFil();
+    }// end constructor
 
     //registrer boligsøker
     public void regBoligsoeker() {
@@ -163,9 +175,47 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
             output.setText("Boligsøker " + fornavn + " " + etternavn + " ble ikke funnet, kontroller skrivefeil.");
             return;
         }
-               // try-catch ?
-       if (boligsoekerMengde.fjern(bs))
-           output.setText(fornavn + " " + etternavn + " slettet");
+        // try-catch ?
+        if (boligsoekerMengde.fjern(bs)) {
+            output.setText(fornavn + " " + etternavn + " slettet");
+        }
+    }
+
+    public void skrivBoligsoekerTilFil() {
+        try (ObjectOutputStream utfil = new ObjectOutputStream(
+                new FileOutputStream("boligsoekermengde.data"))) {
+            utfil.writeObject(boligsoekerMengde.kopierMengdeUsortert());
+        } catch (NotSerializableException nse) {
+            visFeilmelding(nse);
+        } catch (IOException e) {
+            visFeilmelding(e);
+        }
+    }
+
+    public void lesBoligsoekerFraFil() {
+        Set<Boligsoeker> innlestBoligsoekere = new TreeSet<>();
+        try (ObjectInputStream innfil = new ObjectInputStream(
+                new FileInputStream("boligsoekermengde.data"))) {
+            innlestBoligsoekere = (TreeSet<Boligsoeker>) innfil.readObject();
+            Iterator<Boligsoeker> iter = innlestBoligsoekere.iterator();
+            while (iter.hasNext()) {
+                boligsoekerMengde.settInn(iter.next());
+            }
+        } catch (ClassNotFoundException cnfe) {
+            visFeilmelding(cnfe);
+        } catch (FileNotFoundException fnfe) {
+            visFeilmelding(fnfe);
+        } catch (IOException e) {
+            visFeilmelding(e);
+        }
+    }
+
+    public void visFeilmelding(StackTraceElement[] ste) {
+        JOptionPane.showMessageDialog(this, ste);
+    }
+
+    public void visFeilmelding(Object o) {
+        JOptionPane.showMessageDialog(this, o);
     }
 
     public void utskrift() {
@@ -182,7 +232,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
             regBoligsoeker();
         } else if (e.getSource() == skrivUt) {
             utskrift();
-        } else if(e.getSource() == slettBoligsoeker){
+        } else if (e.getSource() == slettBoligsoeker) {
             slettBoligsoeker();
         }
     }

@@ -53,6 +53,7 @@ public class StartVindu extends JFrame implements ActionListener{
     
     public void skrivTilFil(){
         utleierVindu.skrivUtleierTilFil();
+        boligsoekerVindu.skrivBoligsoekerTilFil();
     }
     
     public void actionPerformed(ActionEvent e) {

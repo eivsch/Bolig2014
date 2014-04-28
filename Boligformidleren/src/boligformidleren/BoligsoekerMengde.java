@@ -42,6 +42,16 @@ public class BoligsoekerMengde {
         }
         return null;
     }
+    // For filbehandling. ruleBasedKollator er ikke serialiserbar.
+    public Set<Boligsoeker> kopierMengdeUsortert(){
+        Set<Boligsoeker> usortertKopiMengde = new TreeSet<>();
+        Iterator<Boligsoeker> iter = mengde.iterator();
+        while(iter.hasNext()){
+            Boligsoeker b = iter.next();
+            usortertKopiMengde.add(b);
+        }
+        return usortertKopiMengde;
+    }
 
     //Kan vurdere evt. finnBoligsøker metode.
     public String toString() {
