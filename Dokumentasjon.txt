@@ -40,3 +40,8 @@ har opprettet BoligsoekerVindu.java. Register-boligsoeker-metoden fungerer!
 25.04
 Gretar skriver:
 har opprettet BoligVindu.java. Den skal fungere sånn at når brukeren velger boligtype (enebolig, leilighet) så dukker opp vedkommende felter, mens felles feltene skal alltid vises. Klassen er ikke ferdig ennu, men har kommet ganske langt.
+
+26.04
+Gretar skriver:
+Har fått Boligvindu.java til å fungere sånn at når bruker skal registrere bolig, må han velge enten enebolig/rekkehus eller leilighet. Når hann velger, så dukker opp riktige datafelter.
+Registrerings-knappen fungerer og nå kan mann registrere en bolig til en utleier.
