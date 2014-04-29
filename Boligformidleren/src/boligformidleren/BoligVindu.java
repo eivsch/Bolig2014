@@ -200,7 +200,7 @@ public class BoligVindu extends JFrame implements ActionListener {
                 output.setText("Fjerning mislyktes. Sjekk om boligen finnes i registeret.");
         }
     }
-
+    
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
         String valgtType = (String) boligtype.getSelectedItem();
