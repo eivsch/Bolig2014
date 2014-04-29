@@ -225,10 +225,10 @@ public class Vindu extends JFrame implements ActionListener {
     }
 
     public void regBolig() {
-        Bolig b = new Leilighet(RegBolAdr.getText(), RegBolType.getText(), Beskrivelse.getText(), AvetertDato.getText(),
+        /*Bolig b = new Leilighet(RegBolAdr.getText(), RegBolType.getText(), Beskrivelse.getText(), AvetertDato.getText(),
                 Integer.parseInt(RegAreal.getText()), Integer.parseInt(AntRom.getText()), Integer.parseInt(ByggAar.getText()),
                 Integer.parseInt(RegPris.getText()), Integer.parseInt(Etasje.getText()), true, true);
-        /**
+        
          * Henter etternavn og fornavn på personen som boligen skal registreres
          * på, bruker finnPerson-metoden i Personmengde for å hente ut selve
          * personobjektet. Sender med det og boligobjektet til regBolig-metoden

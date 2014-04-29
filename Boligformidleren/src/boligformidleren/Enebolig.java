@@ -14,11 +14,11 @@ public class Enebolig extends Bolig {
     private boolean kjeller;
 
     // konstruktør
-    public Enebolig(String adresse, String type, String beskrivelse,
+    public Enebolig(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
             String annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
             int antEtasjer, int tomtAreal, boolean kjeller) {
         
-        super(adresse, type, beskrivelse, annonsedato, inneAreal, antRom,
+        super(gateadresse, postnr, poststed, type, beskrivelse, annonsedato, inneAreal, antRom,
                 byggeaar, pris);
         this.antEtasjer = antEtasjer;
         this.tomtAreal = tomtAreal;

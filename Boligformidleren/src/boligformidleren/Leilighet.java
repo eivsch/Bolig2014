@@ -16,11 +16,11 @@ public class Leilighet extends Bolig {
     private boolean heis, balkong;
     private String diverse;
 
-    public Leilighet(String adresse, String type, String beskrivelse,
+    public Leilighet(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
             String annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
             int etasje, boolean heis, boolean balkong){
 
-        super(adresse, type, beskrivelse, annonsedato, inneAreal, antRom,
+        super(gateadresse, postnr, poststed, type, beskrivelse, annonsedato, inneAreal, antRom,
                 byggeaar, pris);
         this.etasje = etasje;
         this.heis = heis;

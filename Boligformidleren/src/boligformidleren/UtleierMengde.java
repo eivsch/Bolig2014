@@ -40,6 +40,23 @@ public class UtleierMengde implements Serializable {
         }
         return null;
     }
+    
+    // søker i hele utleiermengden etter bolig ut fra en gitt adresse
+    public Bolig finnBolig(String gateadresse, int postnr, String poststed){
+        Iterator<Utleier> utleierIter = mengde.iterator();
+        Utleier ul;
+        BoligListe bl;
+        Bolig b;
+        
+        while(utleierIter.hasNext()){
+            ul = utleierIter.next();
+            bl = ul.getBoligliste();
+            b = bl.finnBolig(gateadresse, postnr, poststed);
+            if( b != null )
+                return b;
+        }
+        return null;
+    }
 
     // registrerer ny bolig til en utleier
     public boolean regBolig(Utleier u, Bolig b, Set<Utleier> um) {

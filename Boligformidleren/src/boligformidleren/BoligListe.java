@@ -26,12 +26,15 @@ public class BoligListe implements Serializable {
     public List getListe(){
         return liste;
     }
+    
     // Finner bolig på gitt adresse
-    public Bolig finnBolig(String adresse){
+    public Bolig finnBolig(String gateadresse, int postnr, String poststed){
         Iterator<Bolig> iter = liste.iterator();
         while(iter.hasNext()){
             Bolig b = iter.next();
-            if(adresse.equals(b.getAdresse()))
+            if(gateadresse.equals(b.getGateadresse()) 
+                    && postnr == b.getPostnr() 
+                    && poststed.equals(b.getPoststed()))
                 return b;
         }
         return null;

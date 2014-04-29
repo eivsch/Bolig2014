@@ -22,7 +22,7 @@ public class BoligVindu extends JFrame implements ActionListener {
     private JPanel masterPanel, top, fellesPanel, knappPanel, eneboligPanel, leilighetPanel, under;
 
     // felles for eneboliger og leiligheter
-    private JTextField adresse, areal, antRom, byggeaar, beskrivelse, pris, avetertDato;
+    private JTextField gateadresse, postnr, poststed, areal, antRom, byggeaar, beskrivelse, pris, avetertDato;
     private JComboBox<String> boligtype;
     private final String[] TYPE = {"Velg", "Enebolig/rekkehus", "Leilighet"};
 
@@ -44,7 +44,7 @@ public class BoligVindu extends JFrame implements ActionListener {
     public BoligVindu() {
         super("Bolig");
 
-        int antRadFelles = 8;  // en rad for hver felles felt plus to for boligtyper
+        int antRadFelles = 10;  // en rad for hver felles felt plus to for boligtyper
         int antRadKnapp = 4;
         int antRadEnebolig = 3; // en rad for hver enebolig variabel
         int antRadLeilighet = 3; // en rad for hver leilighet variabel
@@ -73,10 +73,18 @@ public class BoligVindu extends JFrame implements ActionListener {
         under.add(scroll, BorderLayout.CENTER);
 
         // felles textfields og drop-down list
-        fellesPanel.add(new JLabel("Adresse: "));
-        adresse = new JTextField(10);
-        fellesPanel.add(adresse);
-
+        fellesPanel.add(new JLabel("Gateadresse: "));
+        gateadresse = new JTextField(10);
+        fellesPanel.add(gateadresse);
+ 
+        fellesPanel.add(new JLabel("Postnummer: "));
+        postnr = new JTextField(10);
+        fellesPanel.add(postnr);
+ 
+        fellesPanel.add(new JLabel("Poststed: "));
+        poststed = new JTextField(10);
+        fellesPanel.add(poststed);
+ 
         fellesPanel.add(new JLabel("Boligtype: "));
         boligtype = new JComboBox(TYPE);
         boligtype.setSelectedIndex(0);
@@ -160,11 +168,11 @@ public class BoligVindu extends JFrame implements ActionListener {
         Bolig bolig;
 
         if (b.equals(TYPE[1])) {
-            bolig = new Enebolig(adresse.getText(), TYPE[1], beskrivelse.getText(), avetertDato.getText(),
+            bolig = new Enebolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[1], beskrivelse.getText(), avetertDato.getText(),
                     Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
                     Integer.parseInt(pris.getText()), Integer.parseInt(etasjer.getText()), Integer.parseInt(tomtestorrelse.getText()), kjeller.isSelected());
         } else {
-            bolig = new Leilighet(adresse.getText(), TYPE[1], beskrivelse.getText(), avetertDato.getText(),
+            bolig = new Leilighet(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[2], beskrivelse.getText(), avetertDato.getText(),
                     Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
                     Integer.parseInt(pris.getText()), Integer.parseInt(etasje.getText()), heis.isSelected(), balkong.isSelected());
         }
@@ -192,7 +200,7 @@ public class BoligVindu extends JFrame implements ActionListener {
             output.setText("Fant ikke utleier " + fornavn + " " + etternavn);
         } else {
             BoligListe bl = ul.getBoligliste();
-            Bolig b = bl.finnBolig(adresse.getText());
+            Bolig b = bl.finnBolig( gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText() );
             if (bl.fjern(b)) {
                 output.setText("Boligen ble fjernet");
             }
