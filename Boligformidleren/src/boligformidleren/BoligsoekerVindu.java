@@ -21,8 +21,10 @@ import java.util.TreeSet;
 
 public class BoligsoekerVindu extends JFrame implements ActionListener {
 
-    private JTextField RegPersFornavn, RegPersEtternavn, adresse, epost, tlf, pInfo, kravType,
+    private JTextField RegPersFornavn, RegPersEtternavn, adresse, epost, tlf, pInfo,
             kravPris, kravAreal, kravRom, kravByggeaar, kravEtasjer;
+    private JComboBox kravType;
+    private final String[] TYPE = {"Velg", "Enebolig/rekkehus", "Leilighet"};    
     private JCheckBox kravHeis, kravBalkong, kravKjeller;
     private JTextArea output;
     private JButton regBoligsoeker, slettBoligsoeker, visPerson, visPersonInfo, skrivUt;
@@ -79,7 +81,8 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         grid.add(pInfo);
 
         grid.add(new JLabel("Boligtype: "));
-        kravType = new JTextField(10);
+        kravType = new JComboBox(TYPE);
+        kravType.setSelectedIndex(0);
         grid.add(kravType);
 
         grid.add(new JLabel("Max. pris: "));
@@ -135,15 +138,21 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
 
         String fnavn = RegPersFornavn.getText();
         String enavn = RegPersEtternavn.getText();
+        String type = (String)kravType.getSelectedItem();
 
         if (boligsoekerMengde.finnBoligsoeker(fnavn, enavn) != null) {
             output.setText("Feil - Boligsøker allerede registrert!");
             return;
         }
-
+        
+        if( type.equals(TYPE[0]) ){
+            output.setText("Feil - du må velge type!");
+            return;
+        }
+            
         Boligsoeker b = new Boligsoeker(fnavn, enavn, adresse.getText(),
                 epost.getText(), Integer.parseInt(tlf.getText()), pInfo.getText(),
-                kravType.getText(), Integer.parseInt(kravPris.getText()),
+                type, Integer.parseInt(kravPris.getText()),
                 Integer.parseInt(kravAreal.getText()), Integer.parseInt(kravRom.getText()),
                 Integer.parseInt(kravByggeaar.getText()), Integer.parseInt(kravEtasjer.getText()),
                 kravHeis.isSelected(), kravBalkong.isSelected(), kravKjeller.isSelected());
@@ -156,7 +165,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         epost.setText("");
         tlf.setText("");
         pInfo.setText("");
-        kravType.setText("");
+        kravType.setSelectedIndex(0);
         kravPris.setText("");
         kravAreal.setText("");
         kravRom.setText("");

@@ -23,7 +23,7 @@ public class BoligVindu extends JFrame implements ActionListener {
 
     // felles for eneboliger og leiligheter
     private JTextField gateadresse, postnr, poststed, areal, antRom, byggeaar, beskrivelse, pris, avetertDato;
-    private JComboBox<String> boligtype;
+    private JComboBox boligtype;
     private final String[] TYPE = {"Velg", "Enebolig/rekkehus", "Leilighet"};
 
     // for knappPanel
@@ -215,7 +215,7 @@ public class BoligVindu extends JFrame implements ActionListener {
 
         if (e.getSource() == regBolig) {
             if (valgtType.equals(TYPE[0])) {
-                JOptionPane.showMessageDialog(null, "Feil - du må velge type");
+                output.setText("Feil - du må velge type!");
             } else if (valgtType.equals(TYPE[1])) {
                 regBolig(TYPE[1]);
             } else {
