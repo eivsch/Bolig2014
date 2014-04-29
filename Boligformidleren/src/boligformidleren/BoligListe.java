@@ -19,10 +19,24 @@ public class BoligListe implements Serializable {
         liste.add(b);
     }
     
+    public boolean fjern(Bolig b){
+        return liste.remove(b);
+    }
+    
     public List getListe(){
         return liste;
     }
-
+    // Finner bolig på gitt adresse
+    public Bolig finnBolig(String adresse){
+        Iterator<Bolig> iter = liste.iterator();
+        while(iter.hasNext()){
+            Bolig b = iter.next();
+            if(adresse.equals(b.getAdresse()))
+                return b;
+        }
+        return null;
+    }
+    
     //Returnerer en tekst med liste over alle Boliger,
     public String toString() {
         String boliger = "";

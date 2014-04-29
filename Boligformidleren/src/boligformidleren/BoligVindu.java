@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class BoligVindu extends JFrame implements ActionListener {
-    
+
     /* Startvinduet er oppbygget sånn at en masterpanel inneholder allt (vinduet selv).
      * Top-panelen inneholder tre paneler:
      *      øverst er en panel for felles felt, 
@@ -37,13 +37,13 @@ public class BoligVindu extends JFrame implements ActionListener {
     // kun for leiligheter
     private JTextField etasje;
     private JCheckBox heis, balkong;
-    
+
     private JTextArea output;
 
     // konstruktør
     public BoligVindu() {
         super("Bolig");
-        
+
         int antRadFelles = 8;  // en rad for hver felles felt plus to for boligtyper
         int antRadKnapp = 4;
         int antRadEnebolig = 3; // en rad for hver enebolig variabel
@@ -67,7 +67,7 @@ public class BoligVindu extends JFrame implements ActionListener {
         top.add(knappPanel, BorderLayout.PAGE_END);
         this.getContentPane().add(masterPanel);
         setSize(300, 700);
-        
+
         output = new JTextArea();
         JScrollPane scroll = new JScrollPane(output);
         under.add(scroll, BorderLayout.CENTER);
@@ -76,41 +76,41 @@ public class BoligVindu extends JFrame implements ActionListener {
         fellesPanel.add(new JLabel("Adresse: "));
         adresse = new JTextField(10);
         fellesPanel.add(adresse);
-        
+
         fellesPanel.add(new JLabel("Boligtype: "));
         boligtype = new JComboBox(TYPE);
         boligtype.setSelectedIndex(0);
         boligtype.addActionListener(this);
         fellesPanel.add(boligtype);
-        
+
         fellesPanel.add(new JLabel("Areal: "));
         areal = new JTextField(10);
         fellesPanel.add(areal);
-        
+
         fellesPanel.add(new JLabel("Antall rom: "));
         antRom = new JTextField(10);
         fellesPanel.add(antRom);
-        
+
         fellesPanel.add(new JLabel("Byggeår: "));
         byggeaar = new JTextField(10);
         fellesPanel.add(byggeaar);
-        
+
         fellesPanel.add(new JLabel("Beskrivelse: "));
         beskrivelse = new JTextField(10);
         fellesPanel.add(beskrivelse);
-        
+
         fellesPanel.add(new JLabel("Leiepris: "));
         pris = new JTextField(10);
         fellesPanel.add(pris);
-        
+
         fellesPanel.add(new JLabel("Avetert dato: "));
         avetertDato = new JTextField(10);
         fellesPanel.add(avetertDato);
-        
+
         knappPanel.add(new JLabel("Utleier fornavn: "));
         utleierFornavn = new JTextField(10);
         knappPanel.add(utleierFornavn);
-        
+
         knappPanel.add(new JLabel("Utleier etternavn: "));
         utleierEtternavn = new JTextField(10);
         knappPanel.add(utleierEtternavn);
@@ -119,11 +119,11 @@ public class BoligVindu extends JFrame implements ActionListener {
         eneboligPanel.add(new JLabel("Antall etasjer: "));
         etasjer = new JTextField(10);
         eneboligPanel.add(etasjer);
-        
+
         eneboligPanel.add(new JLabel("Tomtestørrelse: "));
         tomtestorrelse = new JTextField(10);
         eneboligPanel.add(tomtestorrelse);
-        
+
         eneboligPanel.add(new JLabel("Kjeller: "));
         kjeller = new JCheckBox("");
         eneboligPanel.add(kjeller);
@@ -132,11 +132,11 @@ public class BoligVindu extends JFrame implements ActionListener {
         leilighetPanel.add(new JLabel("Etasje: "));
         etasje = new JTextField(10);
         leilighetPanel.add(etasje);
-        
+
         leilighetPanel.add(new JLabel("Heis: "));
         heis = new JCheckBox("");
         leilighetPanel.add(heis);
-        
+
         leilighetPanel.add(new JLabel("Balkong: "));
         balkong = new JCheckBox();
         leilighetPanel.add(balkong);
@@ -145,11 +145,11 @@ public class BoligVindu extends JFrame implements ActionListener {
         regBolig = new JButton("Register bolig");
         regBolig.addActionListener(this);
         knappPanel.add(regBolig);
-        
+
         slettBolig = new JButton("Slett bolig");
         slettBolig.addActionListener(this);
         knappPanel.add(slettBolig);
-        
+
         skrivUt = new JButton("Vis alle boliger");
         skrivUt.addActionListener(this);
         knappPanel.add(skrivUt);
@@ -158,7 +158,7 @@ public class BoligVindu extends JFrame implements ActionListener {
     // registrer bolig
     public void regBolig(String b) {
         Bolig bolig;
-        
+
         if (b.equals(TYPE[1])) {
             bolig = new Enebolig(adresse.getText(), TYPE[1], beskrivelse.getText(), avetertDato.getText(),
                     Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
@@ -168,29 +168,43 @@ public class BoligVindu extends JFrame implements ActionListener {
                     Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
                     Integer.parseInt(pris.getText()), Integer.parseInt(etasje.getText()), heis.isSelected(), balkong.isSelected());
         }
-        
+
         Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(utleierFornavn.getText(), utleierEtternavn.getText());
-        
+
         if (ul == null) {
             output.setText("Fann ikke utleier " + utleierFornavn.getText() + " " + utleierEtternavn.getText());
         } else {
             UtleierMengde um = StartVindu.getUtleierVindu().getUtleierMengde();
             if (um.regBolig(ul, bolig, um.getSortertMengde())) {
                 output.setText("Bolig registrert");
-            } else
+            } else {
                 output.setText("Boligen er allerede registrert");
+            }
         }
     }
 
     // slett bolig
     public void slettBolig() {
-        
+        String fornavn = utleierFornavn.getText();
+        String etternavn = utleierEtternavn.getText();
+        Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(fornavn, etternavn);
+        if (ul == null) {
+            output.setText("Fant ikke utleier " + fornavn + " " + etternavn);
+        } else {
+            BoligListe bl = ul.getBoligliste();
+            Bolig b = bl.finnBolig(adresse.getText());
+            if (bl.fjern(b)) {
+                output.setText("Boligen ble fjernet");
+            }
+            else
+                output.setText("Fjerning mislyktes. Sjekk om boligen finnes i registeret.");
+        }
     }
 
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
-        String valgtType = (String)boligtype.getSelectedItem();
-        
+        String valgtType = (String) boligtype.getSelectedItem();
+
         if (e.getSource() == regBolig) {
             if (valgtType.equals(TYPE[0])) {
                 JOptionPane.showMessageDialog(null, "Feil - du må velge type");
@@ -200,12 +214,12 @@ public class BoligVindu extends JFrame implements ActionListener {
                 regBolig(TYPE[2]);
             }
         } else if (e.getSource() == slettBolig) {
-            
+            slettBolig();
         } else if (e.getSource() == boligtype) {
             // drop-down box
-            
+
             BorderLayout layout = (BorderLayout) top.getLayout();
-            
+
             if (valgtType.equals(TYPE[0])) {
                 if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
                     top.remove(layout.getLayoutComponent(BorderLayout.CENTER));
