@@ -235,11 +235,6 @@ public class Vindu extends JFrame implements ActionListener {
          * i Personmengde
          */
         Utleier ul = utleierMengde.finnUtleier(RegPersFornavn.getText(), RegPersEtternavn.getText());
-
-        boolean a = utleierMengde.regBolig(ul, b);
-        if (a)
-            output.append("true");
-        output.append("test");
     }
 
     public void utskrift() {

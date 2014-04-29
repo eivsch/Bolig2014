@@ -92,11 +92,11 @@ public class UtleierVindu extends JFrame implements ActionListener {
         skrivUt = new JButton("Vis alle utleiere");
         skrivUt.addActionListener(this);
         grid.add(skrivUt);
-        
+
         lesUtleierFraFil();
     }
-    
-    public UtleierMengde getUtleierMengde(){
+
+    public UtleierMengde getUtleierMengde() {
         return utleierMengde;
     }
 
@@ -116,13 +116,7 @@ public class UtleierVindu extends JFrame implements ActionListener {
 
         utleierMengde.settInn(u);
         output.setText("Utleier " + fornavn + " " + etternavn + " registrert");
-        RegPersFornavn.setText("");
-        RegPersEtternavn.setText("");
-        RegPersAdr.setText("");
-        RegEpost.setText("");
-        RegTlf.setText("");
-        RegFirma.setText("");
-        BoligKnyttetTil.setText("");
+        blankFelter();
     }
 
     public void slettUtleier() {
@@ -137,6 +131,17 @@ public class UtleierVindu extends JFrame implements ActionListener {
         if (utleierMengde.fjern(ul)) {
             output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
         }
+        blankFelter();
+    }
+        
+    public void blankFelter() {
+        RegPersFornavn.setText("");
+        RegPersEtternavn.setText("");
+        RegPersAdr.setText("");
+        RegEpost.setText("");
+        RegTlf.setText("");
+        RegFirma.setText("");
+        BoligKnyttetTil.setText("");
     }
 
     public void utskrift() {
@@ -157,25 +162,24 @@ public class UtleierVindu extends JFrame implements ActionListener {
             visFeilmelding(e);
         }
     }
-    public void lesUtleierFraFil(){
+
+    public void lesUtleierFraFil() {
         Set<Utleier> innlestUtleiere = new TreeSet<>();
-	 try(ObjectInputStream innfil = new ObjectInputStream(
-                 new FileInputStream("utleiermengde.data"))){
-	     innlestUtleiere = (TreeSet<Utleier>) innfil.readObject();
-             Iterator<Utleier> iter = innlestUtleiere.iterator();
-             while(iter.hasNext())
-                 utleierMengde.settInn(iter.next());
-	  }
-         catch(ClassNotFoundException cnfe){
-             visFeilmelding(cnfe);
-         }
-         catch(FileNotFoundException fnfe){
-             visFeilmelding(fnfe);
-         }
-         catch(IOException e){
-             visFeilmelding(e);
-         }
+        try (ObjectInputStream innfil = new ObjectInputStream(
+                new FileInputStream("utleiermengde.data"))) {
+            innlestUtleiere = (TreeSet<Utleier>) innfil.readObject();
+            Iterator<Utleier> iter = innlestUtleiere.iterator();
+            while (iter.hasNext()) {
+                utleierMengde.settInn(iter.next());
+            }
+        } catch (ClassNotFoundException cnfe) {
+            visFeilmelding(cnfe);
+        } catch (FileNotFoundException fnfe) {
+            visFeilmelding(fnfe);
+        } catch (IOException e) {
+            visFeilmelding(e);
         }
+    }
 
     public void visFeilmelding(StackTraceElement[] ste) {
         JOptionPane.showMessageDialog(this, ste);

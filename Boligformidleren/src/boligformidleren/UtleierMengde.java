@@ -23,8 +23,8 @@ public class UtleierMengde implements Serializable {
     public void settInn(Utleier ul) {
         mengde.add(ul);
     }
-    
-    public boolean fjern(Utleier ul){
+
+    public boolean fjern(Utleier ul) {
         return mengde.remove(ul);
     }
 
@@ -42,7 +42,7 @@ public class UtleierMengde implements Serializable {
     }
 
     // registrerer ny bolig til en utleier
-    public boolean regBolig(Utleier u, Bolig b) {
+    public boolean regBolig(Utleier u, Bolig b, Set<Utleier> um) {
 
         if (b == null || u == null) {
             return false;
@@ -50,28 +50,37 @@ public class UtleierMengde implements Serializable {
 
         /**
          * finner utleieren sin boligliste og kaller på containsmetoden for å
-         * sjekke om boligen finnes fra før i lista, må evt. gjøres for hver 
+         * sjekke om boligen finnes fra før i lista, må evt. gjøres for hver
          * utleier for maks sikkerhet. Vil komplisere hele funksjonen.
          */
-        
-        BoligListe bl = u.getBoligliste();
-        List l = bl.getListe();
-        if (l.contains(b))
-            return false;
-        
+        Iterator<Utleier> iter = um.iterator();
+        BoligListe bl;
+        while (iter.hasNext()) {
+            bl = iter.next().getBoligliste();
+            List l = bl.getListe();
+            if (l.contains(b)) {
+                return false;
+            }
+        }
+
         //Boligen kan registreres
         u.regBolig(b);
         return true;
     }
+
     // For filbehandling. ruleBasedKollator er ikke serialiserbar.
-    public Set<Utleier> kopierMengdeUsortert(){
+    public Set<Utleier> kopierMengdeUsortert() {
         Set<Utleier> usortertKopiMengde = new TreeSet<>();
         Iterator<Utleier> iter = mengde.iterator();
-        while(iter.hasNext()){
+        while (iter.hasNext()) {
             Utleier u = iter.next();
             usortertKopiMengde.add(u);
         }
         return usortertKopiMengde;
+    }
+
+    public Set<Utleier> getSortertMengde() {
+        return mengde;
     }
 
     public String toString() {

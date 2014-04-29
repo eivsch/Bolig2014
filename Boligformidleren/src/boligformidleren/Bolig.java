@@ -100,8 +100,12 @@ public abstract class Bolig implements Serializable {
     }
 
     // her må vi sette in en equals-metode for å komparere to boliger
-    public boolean equals(Bolig b) {
-	        return b.getAdresse().equals(adresse);   //foreløpig løsning. Returnerer true hvis boligene er like.
+    public boolean equals(Object o) {
+        if(o instanceof Bolig){
+            Bolig b = (Bolig) o;
+	    return b.getAdresse().equals(adresse);   //foreløpig løsning. Boligene er like hvis de har samme adresse.
+        }
+        return false;
     }
 
     public String toString() {
