@@ -36,7 +36,7 @@ public class UtleierVindu extends JFrame implements ActionListener {
         utleierMengde = new UtleierMengde();
 
         // antall rader, antall kolonner og gap størrelse for GridLayout
-        antRad = 11;
+        antRad = 10;
         antKol = 2;
         gap = 5;
 
