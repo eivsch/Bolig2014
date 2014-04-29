@@ -19,13 +19,18 @@ import java.util.TreeSet;
 
 public class StartVindu extends JFrame implements ActionListener{
     
-    private final String vinduer[] = {"Utleier", "Boligsøker", "Bolig", "Leilighet", "Kontrakt", "Matche"};
+    private final String vinduer[] = {"Utleier", "Boligsøker", "Bolig", "Kontrakt", "Matche", "X X X"};
     private JButton buttons[];
     
-    // Vinduer som åpnes når man trykker på knappene på forsiden/startvinduet
+    /*
+    Vinduer som åpnes når man trykker på knappene på forsiden/startvinduet
+    Vinduene inneholder alle mengder/lister som brukes i programmet og
+    må derfor være "static" så andre klasser har aksess til disse
+    */
     private static UtleierVindu utleierVindu;
     private static BoligsoekerVindu boligsoekerVindu;
     private static BoligVindu boligVindu;
+    private static KontraktVindu kontraktVindu;
     
     // knapper, rader, kolonner og gap for GridLayout
     private int antKnapper, antRad, antKol, gap;
@@ -36,6 +41,7 @@ public class StartVindu extends JFrame implements ActionListener{
         utleierVindu = new UtleierVindu();
         boligsoekerVindu = new BoligsoekerVindu();
         boligVindu = new BoligVindu();
+        kontraktVindu = new KontraktVindu();
         
         antKnapper = vinduer.length;
         antRad = (int)( Math.sqrt(antKnapper) );    // hvis 2-8 knapper så 2 rader, hvis 9-15 knapper så 3 rader, osv.
@@ -69,6 +75,10 @@ public class StartVindu extends JFrame implements ActionListener{
         return boligVindu;
     }
     
+    public static KontraktVindu getKontraktVindu(){
+        return kontraktVindu;
+    }
+    
     public void skrivTilFil(){
         utleierVindu.skrivUtleierTilFil();
         boligsoekerVindu.skrivBoligsoekerTilFil();
@@ -79,9 +89,10 @@ public class StartVindu extends JFrame implements ActionListener{
             utleierVindu.setVisible(true);
         } else if (e.getSource() == buttons[1]) {
             boligsoekerVindu.setVisible(true);
-        }
-        else if(e.getSource() == buttons[2]){
+        } else if(e.getSource() == buttons[2]){
             boligVindu.setVisible(true);
+        } else if(e.getSource() == buttons[3]){
+            kontraktVindu.setVisible(true);
         }
     }
 
