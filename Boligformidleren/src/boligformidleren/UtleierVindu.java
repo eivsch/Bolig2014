@@ -1,6 +1,6 @@
 /*
- * Innhold: Vindu som brukes for registrering av enebolig/rekkehus
- * Sist oppdatert:
+ * Innhold: Vindu som brukes for registrering og slettning av utleiere
+ * Sist oppdatert: 29.04.2014 kl.14:45
  * Programmert av: Gretar
  */
 package boligformidleren;
@@ -21,9 +21,9 @@ import java.util.TreeSet;
 
 public class UtleierVindu extends JFrame implements ActionListener {
 
-    private JTextField RegPersFornavn, RegPersEtternavn, RegPersAdr, RegEpost, RegTlf, RegFirma, BoligKnyttetTil;
+    private JTextField RegPersFornavn, RegPersEtternavn, RegPersGateadr, RegPersPostnr, RegPersPoststed, RegEpost, RegTlf, RegFirma;
     private JTextArea output;
-    private JButton regUtleier, slettUtleier, visPerson, visPersonInfo, skrivUt;
+    private JButton regUtleier, slettUtleier, skrivUt;
     private int antRad, antKol, gap;
     private JPanel masterPanel, grid, under;
 
@@ -35,7 +35,8 @@ public class UtleierVindu extends JFrame implements ActionListener {
 
         utleierMengde = new UtleierMengde();
 
-        antRad = 9;
+        // antall rader, antall kolonner og gap størrelse for GridLayout
+        antRad = 11;
         antKol = 2;
         gap = 5;
 
@@ -60,10 +61,18 @@ public class UtleierVindu extends JFrame implements ActionListener {
         RegPersEtternavn = new JTextField(10);
         grid.add(RegPersEtternavn);
 
-        grid.add(new JLabel("Adresse: "));
-        RegPersAdr = new JTextField(10);
-        grid.add(RegPersAdr);
-
+        grid.add(new JLabel("Gateadresse: "));
+        RegPersGateadr = new JTextField(10);
+        grid.add(RegPersGateadr);
+ 
+        grid.add(new JLabel("Postnummer: "));
+        RegPersPostnr = new JTextField(10);
+        grid.add(RegPersPostnr);
+ 
+        grid.add(new JLabel("Poststed: "));
+        RegPersPoststed = new JTextField(10);
+        grid.add(RegPersPoststed);
+ 
         grid.add(new JLabel("E-post: "));
         RegEpost = new JTextField(10);
         grid.add(RegEpost);
@@ -75,10 +84,6 @@ public class UtleierVindu extends JFrame implements ActionListener {
         grid.add(new JLabel("Firma: "));
         RegFirma = new JTextField(10);
         grid.add(RegFirma);
-
-        grid.add(new JLabel("Bolig: "));
-        BoligKnyttetTil = new JTextField(10);
-        grid.add(BoligKnyttetTil);
 
         // buttons
         regUtleier = new JButton("Register utleier");
@@ -112,7 +117,8 @@ public class UtleierVindu extends JFrame implements ActionListener {
         }
 
         Utleier u = new Utleier(RegPersFornavn.getText(), RegPersEtternavn.getText(),
-                RegPersAdr.getText(), RegEpost.getText(), Integer.parseInt(RegTlf.getText()), RegFirma.getText());
+                RegPersGateadr.getText(), Integer.parseInt(RegPersPostnr.getText()), RegPersPoststed.getText(),
+                RegEpost.getText(), Integer.parseInt(RegTlf.getText()), RegFirma.getText());
 
         utleierMengde.settInn(u);
         output.setText("Utleier " + fornavn + " " + etternavn + " registrert");
@@ -137,11 +143,12 @@ public class UtleierVindu extends JFrame implements ActionListener {
     public void blankFelter() {
         RegPersFornavn.setText("");
         RegPersEtternavn.setText("");
-        RegPersAdr.setText("");
+        RegPersGateadr.setText("");
+        RegPersPostnr.setText("");
+        RegPersPoststed.setText("");
         RegEpost.setText("");
         RegTlf.setText("");
         RegFirma.setText("");
-        BoligKnyttetTil.setText("");
     }
 
     public void utskrift() {

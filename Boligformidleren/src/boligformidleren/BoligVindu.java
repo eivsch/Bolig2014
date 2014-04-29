@@ -1,7 +1,6 @@
 /*
- * Innhold: 
- * Vindu som brukes for registrering, slettning av boliger.
- * Sist oppdatert:
+ * Innhold: Vindu som brukes for registrering og slettning av boliger.
+ * Sist oppdatert: 29.04.2014 kl.14:45
  * Programmert av: Gretar
  */
 package boligformidleren;

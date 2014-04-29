@@ -1,15 +1,11 @@
 /*
- * INNHOLD:
- * Klassen Boligsoeker.
- * 
- * Sist oppdatert: 27.03.2014, 11:32.
- * Programmert av: Eivind
+ * INNHOLD: Klassen Boligsoeker er subklasse til Person og skal representere en boligsøker.
+ * Sist oppdatert: 29.04.2014 kl.14:45
+ * Programmert av: Eivind, Gretar
  */
+
 package boligformidleren;
 
-/**
- * Klassen er subklasse til Person og skal representere en boligsøker.
- */
 public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
     /*
@@ -23,11 +19,12 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
     private String pInfo, type;
     private boolean heis, balkong, kjeller;
 
-    public Boligsoeker(String fornavn, String etternavn, String adresse, String epost, int tlfnr, String pInfo, String type,
+    // konstruktør
+    public Boligsoeker(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr, String pInfo, String type,
             int pris, int inneAreal, int rom, int byggeaar, int antEtasjer, boolean heis,
             boolean balkong, boolean kjeller) {
 
-        super(fornavn, etternavn, adresse, epost, tlfnr);
+        super(fornavn, etternavn, gateadresse, postnr, poststed, epost, tlfnr);
         this.pInfo = pInfo;
 
         //Krav
@@ -40,7 +37,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         this.heis = heis;
         this.balkong = balkong;
         this.kjeller = kjeller;
-    }//end of Boligsoeker
+    }
 
     /**
      * Ufullstendig compareTo-metode. Kun for å kunne lagre Utleiere i en
@@ -50,6 +47,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         return bs.getEtternavn().compareTo(this.getEtternavn());
     }
 
+    // toString-metode
     public String toString() {
         String s = super.toString() + "\nKrav: ";
         return s;

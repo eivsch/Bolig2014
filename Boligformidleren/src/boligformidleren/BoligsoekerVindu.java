@@ -1,6 +1,6 @@
 /*
- * Innhold: Vindu som brukes for registrering, slettning, osv. av boligsøkere
- * Sist oppdatert:
+ * Innhold: Vindu som brukes for registrering og slettning av boligsøkere
+ * Sist oppdatert: 29.04.2014 kl.14:45
  * Programmert av: Gretar
  */
 package boligformidleren;
@@ -21,7 +21,7 @@ import java.util.TreeSet;
 
 public class BoligsoekerVindu extends JFrame implements ActionListener {
 
-    private JTextField RegPersFornavn, RegPersEtternavn, adresse, epost, tlf, pInfo,
+    private JTextField RegPersFornavn, RegPersEtternavn, gateadresse, postnr, poststed, epost, tlf, pInfo,
             kravPris, kravAreal, kravRom, kravByggeaar, kravEtasjer;
     private JComboBox kravType;
     private final String[] TYPE = {"Velg", "Enebolig/rekkehus", "Leilighet"};    
@@ -38,8 +38,9 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         super("Boligsøker");
 
         boligsoekerMengde = new BoligsoekerMengde();
-
-        antRad = 17;
+        
+        // antall rader, antall kolonner og gap størrelse for GridLayout
+        antRad = 19;
         antKol = 2;
         gap = 5;
 
@@ -64,10 +65,18 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         RegPersEtternavn = new JTextField(10);
         grid.add(RegPersEtternavn);
 
-        grid.add(new JLabel("Adresse: "));
-        adresse = new JTextField(10);
-        grid.add(adresse);
-
+        grid.add(new JLabel("Gateadresse: "));
+        gateadresse = new JTextField(10);
+        grid.add(gateadresse);
+ 
+        grid.add(new JLabel("Postnummer: "));
+        postnr = new JTextField(10);
+        grid.add(postnr);
+ 
+        grid.add(new JLabel("Poststed: "));
+        poststed = new JTextField(10);
+        grid.add(poststed);
+ 
         grid.add(new JLabel("E-post: "));
         epost = new JTextField(10);
         grid.add(epost);
@@ -150,7 +159,8 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
             return;
         }
             
-        Boligsoeker b = new Boligsoeker(fnavn, enavn, adresse.getText(),
+        Boligsoeker b = new Boligsoeker(fnavn, enavn, gateadresse.getText(), 
+                Integer.parseInt(postnr.getText()), poststed.getText(),
                 epost.getText(), Integer.parseInt(tlf.getText()), pInfo.getText(),
                 type, Integer.parseInt(kravPris.getText()),
                 Integer.parseInt(kravAreal.getText()), Integer.parseInt(kravRom.getText()),
@@ -159,9 +169,16 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
 
         boligsoekerMengde.settInn(b);
         output.setText("Boligsøker " + fnavn + " " + enavn + " registrert");
+        
+        blankFelter();
+    }
+    
+    public void blankFelter(){
         RegPersFornavn.setText("");
         RegPersEtternavn.setText("");
-        adresse.setText("");
+        gateadresse.setText("");
+        postnr.setText("");
+        poststed.setText("");
         epost.setText("");
         tlf.setText("");
         pInfo.setText("");

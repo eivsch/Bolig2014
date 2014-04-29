@@ -17,10 +17,10 @@ public class Utleier extends Person implements Comparable<Utleier> {
     private BoligListe liste;
 
     // konstruktør
-    public Utleier(String fornavn, String etternavn, String adresse, String epost, int tlfnr,
+    public Utleier(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr,
             String firma) {
 
-        super(fornavn, etternavn, adresse, epost, tlfnr);
+        super(fornavn, etternavn, gateadresse, postnr, poststed, epost, tlfnr);
         this.firma = firma;
         liste = new BoligListe();
     }
