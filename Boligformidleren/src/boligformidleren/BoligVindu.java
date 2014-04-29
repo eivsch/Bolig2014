@@ -12,7 +12,13 @@ import java.awt.event.*;
 
 public class BoligVindu extends JFrame implements ActionListener {
     
-    // en masterPanel, en top panel (inneholder paneler for felles felt, enebolig felt og leilighet felt), en under panel for utskrift
+    /* Startvinduet er oppbygget sånn at en masterpanel inneholder allt (vinduet selv).
+     * Top-panelen inneholder tre paneler:
+     *      øverst er en panel for felles felt, 
+     *      i midten er enten enebolig felt eller leilighet felt
+     *      nederst er en panel som inneholder knappene
+     * Under-panelen er brukt for utskrift-området
+     */
     private JPanel masterPanel, top, fellesPanel, knappPanel, eneboligPanel, leilighetPanel, under;
     
     // felles for eneboliger og leiligheter
@@ -135,8 +141,6 @@ public class BoligVindu extends JFrame implements ActionListener {
         balkong = new JCheckBox();
         leilighetPanel.add(balkong);
 
-        
-
         // buttons
         regBolig = new JButton("Register bolig");
         regBolig.addActionListener(this);
@@ -181,7 +185,6 @@ public class BoligVindu extends JFrame implements ActionListener {
     
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
-        //JComboBox boks = (JComboBox)e.getSource();
         String valgtType = (String)boligtype.getSelectedItem();
         
         if(e.getSource() == regBolig){
