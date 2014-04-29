@@ -166,6 +166,10 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         kravBalkong.setSelected(false);
         kravKjeller.setSelected(false);
     }
+    
+    public BoligsoekerMengde getBoligsoekerMengde(){
+        return boligsoekerMengde;
+    }
 
     public void slettBoligsoeker() {
         String fornavn = RegPersFornavn.getText();

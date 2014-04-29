@@ -16,15 +16,19 @@ import java.io.*;
  */
 public class Kontrakt implements Serializable {
     
-    private String utskrift, varighet;
+    private String utskrift, sluttDato;
+    private int pris;
     
     // konstruktør
-    public Kontrakt( Bolig b, Utleier u, Boligsoeker bs, String v){
-        varighet = v;
+    public Kontrakt( Bolig b, Utleier u, Boligsoeker bs, int pris, String dato){
+        sluttDato = dato;
+        this.pris = pris;
+        
         utskrift = "Bolig-info:\n" + b.toString() +
                    "\n\nUtleier-info:\n" + u.toString() +
                    "\n\nLeietaker-info:\n" + bs.toString() +
-                   "\n\nVarighet: " + v;
+                   "\n\nLeiepris:\n" + pris +
+                   "\n\nSluttdato: " + dato;
     }
     
     public String toString(){

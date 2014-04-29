@@ -116,7 +116,37 @@ public class KontraktVindu extends JFrame implements ActionListener{
     }
     
     public void regKontrakt(){
-        //...
+        String adr = gateadresse.getText();
+        int pnr = Integer.parseInt(postnr.getText());
+        String psted = poststed.getText();
+        String uFornavn = utleierFornavn.getText();
+        String uEtternavn = utleierEtternavn.getText();
+        String lFornavn = leietakerFornavn.getText();
+        String lEtternavn = leietakerEtternavn.getText();
+        int leiepris = Integer.parseInt(pris.getText());
+        String dato = sluttDato.getText();
+        
+        Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig( adr, pnr, psted);
+        Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(uFornavn, uEtternavn);
+        Boligsoeker bs = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().finnBoligsoeker(lFornavn, lEtternavn);
+        
+        if ( b == null ){
+            output.setText("Feil - finner ikke bolig");
+            return;
+        } else if( u == null ){
+            output.setText("Feil - finner ikke utleier");
+            return;
+        } else if( bs == null ){
+            output.setText("Feil - finner ikke leietaker");
+            return;
+        }
+            
+        
+        Kontrakt k = new Kontrakt( b, u, bs, leiepris, dato);
+        
+        kontraktListe.settInn(k);
+        
+        output.setText("Kontrakt registrert:\n" + k.toString());
     }
     
     public void slettKontrakt(){

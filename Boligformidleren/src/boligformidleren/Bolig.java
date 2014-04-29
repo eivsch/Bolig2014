@@ -15,15 +15,17 @@ import java.io.*;
  */
 public abstract class Bolig implements Serializable {
 
-    private String adresse, type, beskrivelse, annonsedato;
-    private int inneAreal, antRom, byggeaar, pris;
+    private String gateadresse, poststed, type, beskrivelse, annonsedato;
+    private int postnr, inneAreal, antRom, byggeaar, pris;
     //bilde
 
     // konstruktør
-    public Bolig(String adresse, String type, String beskrivelse,
+    public Bolig(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
             String annonsedato, int inneAreal, int antRom, int byggeaar, int pris) {
 
-        this.adresse = adresse;
+        this.gateadresse = gateadresse;
+        this.postnr = postnr;
+        this.poststed = poststed;
         this.type = type;
         this.beskrivelse = beskrivelse;
         this.annonsedato = annonsedato;
@@ -34,8 +36,16 @@ public abstract class Bolig implements Serializable {
     }
 
     // get-metoder
-    public String getAdresse(){
-        return adresse;
+    public String getGateadresse(){
+        return gateadresse;
+    }
+    
+    public int getPostnr(){
+        return postnr;
+    }
+    
+    public String getPoststed(){
+        return poststed;
     }
 
     public String getType(){
@@ -67,10 +77,18 @@ public abstract class Bolig implements Serializable {
     }
 
     // set-metoder
-    public void setAdresse( String a ){
-        adresse = a;
+    public void setGateadresse( String a ){
+        gateadresse = a;
     }
-
+ 
+    public void setPostnr( int p ){
+        postnr = p;
+    }
+ 
+    public void setPoststed( String p ){
+        poststed = p;
+    }
+ 
     public void setType( String t ){
         type = t;
     }
@@ -103,15 +121,21 @@ public abstract class Bolig implements Serializable {
     public boolean equals(Object o) {
         if(o instanceof Bolig){
             Bolig b = (Bolig) o;
-	    return b.getAdresse().equals(adresse);   //foreløpig løsning. Boligene er like hvis de har samme adresse.
+            
+            //foreløpig løsning. Boligene er like hvis de har samme adresse.
+            if( b.getGateadresse().equals(gateadresse) 
+                    && b.getPostnr() == postnr 
+                    && b.getPoststed().equals(poststed) )
+                return true;
         }
         return false;
     }
 
     public String toString() {
-        String s = "Adresse: " + adresse + "\nType: " + type + "\nBeskrivelse: "
-                + beskrivelse + "\nAnnonsedato: " + annonsedato + "\nAreal: "
-                + inneAreal + "\nAntall rom: " + antRom + "\nByggeår: " + byggeaar
+        String s = "Gateadresse: " + gateadresse + "\nPostnummer: " + postnr + "\nPoststed: " + poststed 
+                + "\nType: " + type + "\nBeskrivelse: " + beskrivelse 
+                + "\nAnnonsedato: " + annonsedato + "\nAreal: " + inneAreal 
+                + "\nAntall rom: " + antRom + "\nByggeår: " + byggeaar
                 + "\nPris: " + pris;
 
         return s;
