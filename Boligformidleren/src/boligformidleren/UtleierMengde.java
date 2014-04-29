@@ -84,7 +84,7 @@ public class UtleierMengde implements Serializable {
         u.regBolig(b);
         return true;
     }
-
+    
     // For filbehandling. ruleBasedKollator er ikke serialiserbar.
     public Set<Utleier> kopierMengdeUsortert() {
         Set<Utleier> usortertKopiMengde = new TreeSet<>();

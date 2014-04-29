@@ -9,6 +9,7 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Iterator;
 
 public class BoligVindu extends JFrame implements ActionListener {
 
@@ -76,15 +77,15 @@ public class BoligVindu extends JFrame implements ActionListener {
         fellesPanel.add(new JLabel("Gateadresse: "));
         gateadresse = new JTextField(10);
         fellesPanel.add(gateadresse);
- 
+
         fellesPanel.add(new JLabel("Postnummer: "));
         postnr = new JTextField(10);
         fellesPanel.add(postnr);
- 
+
         fellesPanel.add(new JLabel("Poststed: "));
         poststed = new JTextField(10);
         fellesPanel.add(poststed);
- 
+
         fellesPanel.add(new JLabel("Boligtype: "));
         boligtype = new JComboBox(TYPE);
         boligtype.setSelectedIndex(0);
@@ -200,15 +201,27 @@ public class BoligVindu extends JFrame implements ActionListener {
             output.setText("Fant ikke utleier " + fornavn + " " + etternavn);
         } else {
             BoligListe bl = ul.getBoligliste();
-            Bolig b = bl.finnBolig( gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText() );
+            Bolig b = bl.finnBolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText());
             if (bl.fjern(b)) {
                 output.setText("Boligen ble fjernet");
-            }
-            else
+            } else {
                 output.setText("Fjerning mislyktes. Sjekk om boligen finnes i registeret.");
+            }
         }
     }
-    
+
+    public void boligUtskrift() {
+        String utskrift = "";
+        UtleierMengde ul = StartVindu.getUtleierVindu().getUtleierMengde();
+        Iterator<Utleier> iter = ul.getSortertMengde().iterator();
+        BoligListe utleierSinBoligliste;
+        while (iter.hasNext()) {
+            utleierSinBoligliste = iter.next().getBoligliste();
+            utskrift += utleierSinBoligliste.toString() + "\n";
+        }
+        output.setText(utskrift);
+    }
+
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
         String valgtType = (String) boligtype.getSelectedItem();
@@ -223,6 +236,8 @@ public class BoligVindu extends JFrame implements ActionListener {
             }
         } else if (e.getSource() == slettBolig) {
             slettBolig();
+        } else if (e.getSource() == skrivUt) {
+            boligUtskrift();
         } else if (e.getSource() == boligtype) {
             // drop-down box
 
