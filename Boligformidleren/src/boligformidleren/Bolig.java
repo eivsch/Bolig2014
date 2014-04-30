@@ -8,6 +8,8 @@
 package boligformidleren;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Klassen skal representere en bolig og lagre opplysninger om denne, samt
@@ -15,14 +17,15 @@ import java.io.*;
  */
 public abstract class Bolig implements Serializable {
 
-    private String gateadresse, poststed, type, beskrivelse, annonsedato;
+    private String gateadresse, poststed, type, beskrivelse;
     private int postnr, inneAreal, antRom, byggeaar, pris;
+    private Date annonsedato;
     private boolean ledig = true;
     //bilde
 
     // konstruktør
     public Bolig(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
-            String annonsedato, int inneAreal, int antRom, int byggeaar, int pris) {
+            Date annonsedato, int inneAreal, int antRom, int byggeaar, int pris) {
 
         this.gateadresse = gateadresse;
         this.postnr = postnr;
@@ -57,7 +60,7 @@ public abstract class Bolig implements Serializable {
         return beskrivelse;
     }
 
-    public String getAnnonsedato(){
+    public Date getAnnonsedato(){
         return annonsedato;
     }
 
@@ -102,7 +105,7 @@ public abstract class Bolig implements Serializable {
         beskrivelse = b;
     }
 
-    public void setAnnonsedato( String a ){
+    public void setAnnonsedato( Date a ){
         annonsedato = a;
     }
 
@@ -143,7 +146,7 @@ public abstract class Bolig implements Serializable {
     public String toString() {
         String s = "Gateadresse: " + gateadresse + "\nPostnummer: " + postnr + "\nPoststed: " + poststed 
                 + "\nType: " + type + "\nBeskrivelse: " + beskrivelse 
-                + "\nAnnonsedato: " + annonsedato + "\nAreal: " + inneAreal 
+                + "\nAnnonsedato: " + StartVindu.datoFormat.format(annonsedato) + "\nAreal: " + inneAreal 
                 + "\nAntall rom: " + antRom + "\nByggeår: " + byggeaar
                 + "\nPris: " + pris;
 

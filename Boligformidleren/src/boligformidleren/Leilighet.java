@@ -8,6 +8,8 @@
 
 package boligformidleren;
 
+import java.util.Date;
+
 /**
  * Klassen er subklasse til Bolig og skal representere en leilighet.
  */
@@ -17,7 +19,7 @@ public class Leilighet extends Bolig {
     private String diverse;
 
     public Leilighet(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
-            String annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
+            Date annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
             int etasje, boolean heis, boolean balkong){
 
         super(gateadresse, postnr, poststed, type, beskrivelse, annonsedato, inneAreal, antRom,

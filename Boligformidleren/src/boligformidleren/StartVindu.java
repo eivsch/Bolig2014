@@ -8,14 +8,7 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Set;
-import java.util.TreeSet;
+import java.text.SimpleDateFormat;
 
 public class StartVindu extends JFrame implements ActionListener{
     
@@ -34,6 +27,10 @@ public class StartVindu extends JFrame implements ActionListener{
     
     // knapper, rader, kolonner og gap for GridLayout
     private int antKnapper, antRad, antKol, gap;
+    
+    // RegEx
+    public static final String patternDato = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
+    public static final SimpleDateFormat datoFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     public StartVindu() {
         super("Boligformidleren");

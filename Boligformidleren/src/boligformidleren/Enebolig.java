@@ -8,6 +8,8 @@
  */
 package boligformidleren;
 
+import java.util.Date;
+
 public class Enebolig extends Bolig {
 
     private int antEtasjer, tomtAreal;
@@ -15,7 +17,7 @@ public class Enebolig extends Bolig {
 
     // konstruktør
     public Enebolig(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
-            String annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
+            Date annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
             int antEtasjer, int tomtAreal, boolean kjeller) {
         
         super(gateadresse, postnr, poststed, type, beskrivelse, annonsedato, inneAreal, antRom,

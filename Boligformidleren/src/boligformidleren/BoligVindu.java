@@ -8,6 +8,9 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 
 public class BoligVindu extends JFrame implements ActionListener {
@@ -22,7 +25,7 @@ public class BoligVindu extends JFrame implements ActionListener {
     private JPanel masterPanel, top, fellesPanel, knappPanel, eneboligPanel, leilighetPanel, under;
 
     // felles for eneboliger og leiligheter
-    private JTextField gateadresse, postnr, poststed, areal, antRom, byggeaar, beskrivelse, pris, avetertDato;
+    private JTextField gateadresse, postnr, poststed, areal, antRom, byggeaar, beskrivelse, pris, avertertDato;
     private JComboBox boligtype;
     private final String[] TYPE = {"Velg", "Enebolig/rekkehus", "Leilighet"};
 
@@ -112,8 +115,8 @@ public class BoligVindu extends JFrame implements ActionListener {
         fellesPanel.add(pris);
 
         fellesPanel.add(new JLabel("Avetert dato: "));
-        avetertDato = new JTextField(10);
-        fellesPanel.add(avetertDato);
+        avertertDato = new JTextField(10);
+        fellesPanel.add(avertertDato);
 
         knappPanel.add(new JLabel("Utleier fornavn: "));
         utleierFornavn = new JTextField(10);
@@ -166,13 +169,13 @@ public class BoligVindu extends JFrame implements ActionListener {
     // registrer bolig
     public void regBolig(String b) {
         Bolig bolig;
-
+        
         if (b.equals(TYPE[1])) {
-            bolig = new Enebolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[1], beskrivelse.getText(), avetertDato.getText(),
+            bolig = new Enebolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[1], beskrivelse.getText(), konverterDato(),
                     Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
                     Integer.parseInt(pris.getText()), Integer.parseInt(etasjer.getText()), Integer.parseInt(tomtestorrelse.getText()), kjeller.isSelected());
         } else {
-            bolig = new Leilighet(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[2], beskrivelse.getText(), avetertDato.getText(),
+            bolig = new Leilighet(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[2], beskrivelse.getText(), konverterDato(),
                     Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
                     Integer.parseInt(pris.getText()), Integer.parseInt(etasje.getText()), heis.isSelected(), balkong.isSelected());
         }
@@ -219,6 +222,21 @@ public class BoligVindu extends JFrame implements ActionListener {
             utskrift += utleierSinBoligliste.toString() + "\n";
         }
         output.setText(utskrift);
+    }
+
+    public Date konverterDato() {
+        String datostreng = avertertDato.getText();
+        if (!datostreng.matches(StartVindu.patternDato)) {
+            output.setText("Feil, datoformat dd.mm.åååå");
+            return null;
+        }
+        try {
+            Date d = StartVindu.datoFormat.parse(datostreng);
+            return d;
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+            return null;
+        }
     }
 
     // Lyttemetode
