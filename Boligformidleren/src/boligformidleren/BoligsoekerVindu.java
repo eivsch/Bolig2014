@@ -50,9 +50,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
     
     // knapper
     private JButton regBoligsoeker, slettBoligsoeker, skrivUt;
-    //private int antRad, antKol, gap;
-    //private JPanel masterPanel, grid, under;
-
+    
     private BoligsoekerMengde boligsoekerMengde;
 
     // konstruktør
@@ -67,12 +65,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         int antRadLeilighet = 3; // en rad for hver leilighet variabel
         int antKol = 2;
         int gap = 0;
-        /*
-        // antall rader, antall kolonner og gap størrelse for GridLayout
-        antRad = 19;
-        antKol = 2;
-        gap = 0;
-        */
+        
         // paneler
         masterPanel = new JPanel(new BorderLayout());
         top = new JPanel(new BorderLayout());
@@ -90,15 +83,6 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         this.getContentPane().add(masterPanel);
         setSize(300, 700);
         
-        /*
-        masterPanel = new JPanel(new BorderLayout());
-        grid = new JPanel(new GridLayout(antRad, antKol, gap, gap));
-        under = new JPanel(new BorderLayout());
-        masterPanel.add(grid, BorderLayout.PAGE_START);
-        masterPanel.add(under, BorderLayout.CENTER);
-        this.getContentPane().add(masterPanel);
-        setSize(350, 700);
-        */
         output = new JTextArea();
         JScrollPane scroll = new JScrollPane(output);
         under.add(scroll, BorderLayout.CENTER);
