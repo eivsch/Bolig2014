@@ -64,7 +64,19 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
     // toString-metode
     public String toString() {
-        String s = super.toString() + "\nKrav: " + StartVindu.datoFormat.format(dato);
+        String s = super.toString() + "Personlige opplysninger: " + pInfo + 
+                "\nKrav: " + 
+                "\nBoligype: " + type + 
+                "\nAreal: " + inneAreal + 
+                "\nMin. soverom: " + rom + 
+                "\nMin .byggeår: " + byggeaar + 
+                "\nMax. antall etasjer: " + maxAntEtasjer + 
+                "\nMin. tomtestørrelse: " + tomtestorrelse + 
+                "\nKjeller: " + kjeller +
+                "\nMax. etasje: " + maxEtasje + 
+                "\nHeis: " + heis + 
+                "\nBalkong: " + balkong + 
+                "\nDato: " + StartVindu.datoFormat.format(dato);
         return s;
     }
 }

@@ -197,25 +197,31 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         String enavn = RegPersEtternavn.getText();
         Date dato = StartVindu.konverterDato(kravAvertertDato.getText());
         String type = (String)kravType.getSelectedItem();
+        
+        int areal, rom, byggeaar, pris, maxEtasjer, tomtestorrelse, etasje;
+        
+        
+        areal = kravAreal.getText().equals("") ? 0 : Integer.parseInt(kravAreal.getText());
+        rom = kravRom.getText().equals("") ? 0 : Integer.parseInt(kravRom.getText());
+        byggeaar = kravByggeaar.getText().equals("") ? 0 : Integer.parseInt(kravByggeaar.getText());
+        pris = kravPris.getText().equals("") ? 0 : Integer.parseInt(kravPris.getText());
+        maxEtasjer = kravMaxEtasjer.getText().equals("") ? 0 : Integer.parseInt(kravMaxEtasjer.getText());
+        tomtestorrelse = kravTomtestorrelse.getText().equals("") ? 0 : Integer.parseInt(kravTomtestorrelse.getText());
+        etasje = kravEtasje.getText().equals("") ? 0 : Integer.parseInt(kravEtasje.getText());
+            
+        
 
         if (boligsoekerMengde.finnBoligsoeker(fnavn, enavn) != null) {
             output.setText("Feil - Boligsøker allerede registrert!");
             return;
         }
         
-        if( type.equals(TYPE[0]) ){
-            output.setText("Feil - du må velge type!");
-            return;
-        }
-            
         Boligsoeker b = new Boligsoeker( fnavn, enavn, gateadresse.getText(), 
                 Integer.parseInt(postnr.getText()), poststed.getText(), epost.getText(),
                 Integer.parseInt(tlf.getText()), pInfo.getText(), 
-                type, Integer.parseInt(kravAreal.getText()), Integer.parseInt(kravRom.getText()),
-                Integer.parseInt(kravByggeaar.getText()), Integer.parseInt(kravPris.getText()),
-                dato, Integer.parseInt(kravMaxEtasjer.getText()),
-                Integer.parseInt(kravTomtestorrelse.getText()), kravKjeller.isSelected(),
-                Integer.parseInt(kravEtasje.getText()), kravHeis.isSelected(), kravBalkong.isSelected() );
+                type, areal, rom, byggeaar, pris, dato, 
+                maxEtasjer, tomtestorrelse, kravKjeller.isSelected(), 
+                etasje, kravHeis.isSelected(), kravBalkong.isSelected() );
 
         boligsoekerMengde.settInn(b);
         output.setText("Boligsøker " + fnavn + " " + enavn + " registrert");
