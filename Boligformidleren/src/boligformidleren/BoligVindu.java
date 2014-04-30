@@ -51,7 +51,7 @@ public class BoligVindu extends JFrame implements ActionListener {
         int antKol = 2;
         int gap = 0;
 
-        // startPanelen inneholder en knapp for hver boligtype
+        // paneler
         masterPanel = new JPanel(new BorderLayout());
         top = new JPanel(new BorderLayout());
         fellesPanel = new JPanel(new GridLayout(antRadFelles, antKol, gap, gap));
