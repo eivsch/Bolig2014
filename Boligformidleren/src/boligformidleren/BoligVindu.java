@@ -171,11 +171,11 @@ public class BoligVindu extends JFrame implements ActionListener {
         Bolig bolig;
         
         if (b.equals(TYPE[1])) {
-            bolig = new Enebolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[1], beskrivelse.getText(), konverterDato(),
+            bolig = new Enebolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[1], beskrivelse.getText(), StartVindu.konverterDato(avertertDato.getText()),
                     Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
                     Integer.parseInt(pris.getText()), Integer.parseInt(etasjer.getText()), Integer.parseInt(tomtestorrelse.getText()), kjeller.isSelected());
         } else {
-            bolig = new Leilighet(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[2], beskrivelse.getText(), konverterDato(),
+            bolig = new Leilighet(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[2], beskrivelse.getText(), StartVindu.konverterDato(avertertDato.getText()),
                     Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
                     Integer.parseInt(pris.getText()), Integer.parseInt(etasje.getText()), heis.isSelected(), balkong.isSelected());
         }
@@ -222,20 +222,6 @@ public class BoligVindu extends JFrame implements ActionListener {
             utskrift += utleierSinBoligliste.toString() + "\n";
         }
         output.setText(utskrift);
-    }
-
-    public Date konverterDato() {
-        String datostreng = avertertDato.getText();
-        if (!datostreng.matches(StartVindu.patternDato)) {
-            output.setText("Feil, datoformat dd.mm.åååå");
-        }
-        try {
-            Date d = StartVindu.datoFormat.parse(datostreng);
-            return d;
-        } catch (ParseException pe) {
-            pe.printStackTrace();
-            return null;
-        }
     }
     
     // Lyttemetode
