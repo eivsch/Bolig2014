@@ -17,6 +17,7 @@ public abstract class Bolig implements Serializable {
 
     private String gateadresse, poststed, type, beskrivelse, annonsedato;
     private int postnr, inneAreal, antRom, byggeaar, pris;
+    private boolean ledig = true;
     //bilde
 
     // konstruktør
@@ -75,6 +76,10 @@ public abstract class Bolig implements Serializable {
     public int getPris(){
         return pris;
     }
+    
+    public boolean getLedig(){
+        return ledig;
+    }
 
     // set-metoder
     public void setGateadresse( String a ){
@@ -115,6 +120,10 @@ public abstract class Bolig implements Serializable {
 
     public void setPris( int p ){
         pris = p;
+    }
+    
+    public void boligErOpptatt(){
+        ledig = false;
     }
 
     // her må vi sette in en equals-metode for å komparere to boliger

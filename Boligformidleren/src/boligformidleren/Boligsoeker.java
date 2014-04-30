@@ -17,7 +17,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
     // Krav til bolig
     private int pris, inneAreal, rom, byggeaar, antEtasjer;
     private String pInfo, type;
-    private boolean heis, balkong, kjeller;
+    private boolean heis, balkong, kjeller, leterEtterBolig = true;
 
     // konstruktør
     public Boligsoeker(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr, String pInfo, String type,
@@ -37,6 +37,14 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         this.heis = heis;
         this.balkong = balkong;
         this.kjeller = kjeller;
+    }
+    
+    public boolean getLeterEtterBolig(){
+        return leterEtterBolig;
+    }
+    
+    public void leterIkkeEtterBolig(){
+        leterEtterBolig = false;
     }
 
     /**
