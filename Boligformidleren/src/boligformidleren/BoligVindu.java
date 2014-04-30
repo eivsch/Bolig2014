@@ -106,10 +106,6 @@ public class BoligVindu extends JFrame implements ActionListener {
         byggeaar = new JTextField(10);
         fellesPanel.add(byggeaar);
 
-        fellesPanel.add(new JLabel("Beskrivelse: "));
-        beskrivelse = new JTextField(10);
-        fellesPanel.add(beskrivelse);
-
         fellesPanel.add(new JLabel("Leiepris: "));
         pris = new JTextField(10);
         fellesPanel.add(pris);
@@ -118,6 +114,10 @@ public class BoligVindu extends JFrame implements ActionListener {
         avertertDato = new JTextField(10);
         fellesPanel.add(avertertDato);
 
+        fellesPanel.add(new JLabel("Beskrivelse: "));
+        beskrivelse = new JTextField(10);
+        fellesPanel.add(beskrivelse);
+        
         knappPanel.add(new JLabel("Utleier fornavn: "));
         utleierFornavn = new JTextField(10);
         knappPanel.add(utleierFornavn);
