@@ -15,14 +15,15 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
      * vi enebolig-feltene i tillegg til felles feltene
      */
     // Krav til bolig
-    private int pris, inneAreal, rom, byggeaar, antEtasjer;
-    private String pInfo, type;
+    private int pris, inneAreal, rom, byggeaar, maxAntEtasjer, maxEtasje, tomtestorrelse;
+    private String pInfo, type, dato;
     private boolean heis, balkong, kjeller, leterEtterBolig = true;
 
     // konstruktør
-    public Boligsoeker(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr, String pInfo, String type,
-            int pris, int inneAreal, int rom, int byggeaar, int antEtasjer, boolean heis,
-            boolean balkong, boolean kjeller) {
+    public Boligsoeker(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr, String pInfo,
+            String type, int inneAreal, int rom, int byggeaar, int pris, String dato,
+            int maxAntEtasjer, int tomtestorrelse, boolean kjeller,
+            int maxEtasje, boolean heis, boolean balkong) {
 
         super(fornavn, etternavn, gateadresse, postnr, poststed, epost, tlfnr);
         this.pInfo = pInfo;
@@ -33,7 +34,10 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         this.inneAreal = inneAreal;
         this.rom = rom;
         this.byggeaar = byggeaar;
-        this.antEtasjer = antEtasjer;
+        this.dato = dato;
+        this.maxAntEtasjer = maxAntEtasjer;
+        this.maxEtasje = maxEtasje;
+        this.tomtestorrelse = tomtestorrelse;
         this.heis = heis;
         this.balkong = balkong;
         this.kjeller = kjeller;
