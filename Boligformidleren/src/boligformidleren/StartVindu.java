@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 
 public class StartVindu extends JFrame implements ActionListener{
     
-    private final String vinduer[] = {"Utleier", "Boligsøker", "Bolig", "Kontrakt", "Matche", "X X X"};
+    private final String vinduer[] = {"<html><center>Utleier<br><br>(Registrering,<br>Sletting,<br>Endring)</html>","<html><center>Boligsøker<br><br>(Registrering,<br>Sletting,<br>Endring)</html>","<html><center>Bolig<br><br>(Registrering,<br>Sletting,<br>Endring)</html>","<html><center>Kontrakt<br><br>(Registrering,<br>Sletting,<br>Endring)</html>","<html><center>Hente informasjon</html>","<html><center>X X X</html>"};
     private JButton buttons[];
     
     /*
@@ -24,6 +24,7 @@ public class StartVindu extends JFrame implements ActionListener{
     private static BoligsoekerVindu boligsoekerVindu;
     private static BoligVindu boligVindu;
     private static KontraktVindu kontraktVindu;
+    private static InformasjonVindu informasjonVindu;
     
     // knapper, rader, kolonner og gap for GridLayout
     private int antKnapper, antRad, antKol, gap;
@@ -39,6 +40,7 @@ public class StartVindu extends JFrame implements ActionListener{
         boligsoekerVindu = new BoligsoekerVindu();
         boligVindu = new BoligVindu();
         kontraktVindu = new KontraktVindu();
+        informasjonVindu = new InformasjonVindu();
         
         antKnapper = vinduer.length;
         antRad = (int)( Math.sqrt(antKnapper) );    // hvis 2-8 knapper så 2 rader, hvis 9-15 knapper så 3 rader, osv.
@@ -76,20 +78,27 @@ public class StartVindu extends JFrame implements ActionListener{
         return kontraktVindu;
     }
     
+    public static InformasjonVindu getInformasjonVindu(){
+        return informasjonVindu;
+    }
+    
     public void skrivTilFil(){
         utleierVindu.skrivUtleierTilFil();
         boligsoekerVindu.skrivBoligsoekerTilFil();
+        // evt. andre vinduer som skal skrives til fil
     }
     
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e){
         if (e.getSource() == buttons[0]) {
             utleierVindu.setVisible(true);
-        } else if (e.getSource() == buttons[1]) {
+        } else if (e.getSource() == buttons[1]){
             boligsoekerVindu.setVisible(true);
         } else if(e.getSource() == buttons[2]){
             boligVindu.setVisible(true);
         } else if(e.getSource() == buttons[3]){
             kontraktVindu.setVisible(true);
+        } else if(e.getSource() == buttons[4]){
+            informasjonVindu.setVisible(true);
         }
     }
 
