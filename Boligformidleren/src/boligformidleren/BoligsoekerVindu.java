@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
@@ -194,6 +195,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
 
         String fnavn = RegPersFornavn.getText();
         String enavn = RegPersEtternavn.getText();
+        Date dato = StartVindu.konverterDato(kravAvertertDato.getText());
         String type = (String)kravType.getSelectedItem();
 
         if (boligsoekerMengde.finnBoligsoeker(fnavn, enavn) != null) {
@@ -211,7 +213,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
                 Integer.parseInt(tlf.getText()), pInfo.getText(), 
                 type, Integer.parseInt(kravAreal.getText()), Integer.parseInt(kravRom.getText()),
                 Integer.parseInt(kravByggeaar.getText()), Integer.parseInt(kravPris.getText()),
-                kravAvertertDato.getText(), Integer.parseInt(kravMaxEtasjer.getText()),
+                dato, Integer.parseInt(kravMaxEtasjer.getText()),
                 Integer.parseInt(kravTomtestorrelse.getText()), kravKjeller.isSelected(),
                 Integer.parseInt(kravEtasje.getText()), kravHeis.isSelected(), kravBalkong.isSelected() );
 

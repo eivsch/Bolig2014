@@ -6,6 +6,8 @@
 
 package boligformidleren;
 
+import java.util.Date;
+
 public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
     /*
@@ -16,12 +18,13 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
      */
     // Krav til bolig
     private int pris, inneAreal, rom, byggeaar, maxAntEtasjer, maxEtasje, tomtestorrelse;
-    private String pInfo, type, dato;
+    private String pInfo, type;
+    private Date dato;
     private boolean heis, balkong, kjeller, leterEtterBolig = true;
 
     // konstruktør
     public Boligsoeker(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr, String pInfo,
-            String type, int inneAreal, int rom, int byggeaar, int pris, String dato,
+            String type, int inneAreal, int rom, int byggeaar, int pris, Date dato,
             int maxAntEtasjer, int tomtestorrelse, boolean kjeller,
             int maxEtasje, boolean heis, boolean balkong) {
 
@@ -61,7 +64,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
     // toString-metode
     public String toString() {
-        String s = super.toString() + "\nKrav: ";
+        String s = super.toString() + "\nKrav: " + StartVindu.datoFormat.format(dato);
         return s;
     }
 }
