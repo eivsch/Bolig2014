@@ -49,3 +49,9 @@ Registrerings-knappen fungerer og nå kan mann registrere en bolig til en utleier
 29.04
 Gretar skriver:
 Har opprettet KontraktVindu.java. Der kan brukeren registrere kontrakter mellom utleiere og leietakere. Istedenfor "adresse" felt kommer nu "gateadresse", "postnr" og "poststed" for utleiere, boligsøkere og boliger. Drop-down list for boligtype fungerer nu i BoligsoekerVindu.java men jeg må sette en lytter til det, så riktige felter dukker opp når brukeren velger en boligtype.
+
+30.04
+Gretar skriver:
+Har fått drop-down list for BoligsoekerVindu.java til å fungere. Har endret BoligsoekerVindu.java slik at hvis brukeren skriver ikke i alle felt, dvs. en boligsøker har ikke noen krav på noen felt, så fungerer det.
+Har opprettet InformasjonVindu.java som skal vise opplysninger om personer, boliger eller kontrakter. Den er ikke ferdig.
+Vi har ikke sett på Sigurd etter påskeferie, så vi spørte ham på facebook. Han sagde at han var syk.
