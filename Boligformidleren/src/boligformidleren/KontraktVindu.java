@@ -146,6 +146,9 @@ public class KontraktVindu extends JFrame implements ActionListener{
         
         kontraktListe.settInn(k);
         
+        b.boligErOpptatt();
+        bs.leterIkkeEtterBolig();
+        
         output.setText("Kontrakt registrert:\n" + k.toString());
     }
     
