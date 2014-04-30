@@ -1,7 +1,7 @@
 /*
  * Innhold: Vindu som brukes for registrering og slettning av boliger.
  * Sist oppdatert: 29.04.2014 kl.14:45
- * Programmert av: Gretar
+ * Programmert av: Gretar, Eivind
  */
 package boligformidleren;
 
@@ -228,7 +228,6 @@ public class BoligVindu extends JFrame implements ActionListener {
         String datostreng = avertertDato.getText();
         if (!datostreng.matches(StartVindu.patternDato)) {
             output.setText("Feil, datoformat dd.mm.åååå");
-            return null;
         }
         try {
             Date d = StartVindu.datoFormat.parse(datostreng);
@@ -238,7 +237,7 @@ public class BoligVindu extends JFrame implements ActionListener {
             return null;
         }
     }
-
+    
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
         String valgtType = (String) boligtype.getSelectedItem();
