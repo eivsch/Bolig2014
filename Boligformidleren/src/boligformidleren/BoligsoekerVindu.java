@@ -21,7 +21,7 @@ import java.util.TreeSet;
 
 public class BoligsoekerVindu extends JFrame implements ActionListener {
     
-    /* Startvinduet er oppbygget sånn at en masterpanel inneholder allt (vinduet selv).
+    /* Boligsoeker-vinduet er oppbygget sånn at en masterpanel inneholder allt i BorderLayout (vinduet selv).
      * Top-panelen inneholder tre paneler:
      *      øverst er en panel for felles felt, 
      *      i midten er enten enebolig felt eller leilighet felt
