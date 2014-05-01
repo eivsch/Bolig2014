@@ -55,3 +55,7 @@ Gretar skriver:
 Har fått drop-down list for BoligsoekerVindu.java til å fungere. Har endret BoligsoekerVindu.java slik at hvis brukeren skriver ikke i alle felt, dvs. en boligsøker har ikke noen krav på noen felt, så fungerer det.
 Har opprettet InformasjonVindu.java som skal vise opplysninger om personer, boliger eller kontrakter. Den er ikke ferdig.
 Vi har ikke sett på Sigurd etter påskeferie, så vi spørte ham på facebook. Han sagde at han var syk.
+
+01.05
+Gretar skriver:
+Fortsett med InformasjonVindu.java. Person-delen og bolig-delen ser bra ut. Parameter-delen trenger knapper og jeg har ikke startet ennu med Kontrakt-delen. Fortsetter med det neste gang.
