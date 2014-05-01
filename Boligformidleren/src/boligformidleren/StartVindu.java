@@ -14,7 +14,7 @@ import java.util.Date;
 
 public class StartVindu extends JFrame implements ActionListener {
 
-    private final String vinduer[] = {"<html><center>Utleier<br><br>(Registrering,<br>Sletting,<br>Endring)</html>","<html><center>Boligsøker<br><br>(Registrering,<br>Sletting,<br>Endring)</html>","<html><center>Bolig<br><br>(Registrering,<br>Sletting,<br>Endring)</html>","<html><center>Kontrakt<br><br>(Registrering,<br>Sletting,<br>Endring)</html>","<html><center>Hente informasjon</html>","<html><center>X X X</html>"};
+    private final String vinduer[] = {"<html><center>Utleier<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Boligsøker<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Bolig<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Kontrakt<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Hente informasjon</html>", "<html><center>X X X</html>"};
     private JButton buttons[];
 
     /*
@@ -27,12 +27,13 @@ public class StartVindu extends JFrame implements ActionListener {
     private static BoligVindu boligVindu;
     private static KontraktVindu kontraktVindu;
     private static InformasjonVindu informasjonVindu;
-    
+
     // knapper, rader, kolonner og gap for GridLayout
     private int antKnapper, antRad, antKol, gap;
 
     // RegEx
     public static final String patternDato = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
+    public static final String patternHeltall = "[0-9]*";
     public static final SimpleDateFormat datoFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     public StartVindu() {
@@ -43,7 +44,7 @@ public class StartVindu extends JFrame implements ActionListener {
         boligVindu = new BoligVindu();
         kontraktVindu = new KontraktVindu();
         informasjonVindu = new InformasjonVindu();
-        
+
         antKnapper = vinduer.length;
         antRad = (int) (Math.sqrt(antKnapper));    // hvis 2-8 knapper så 2 rader, hvis 9-15 knapper så 3 rader, osv.
         antKol = antKnapper - antRad;
@@ -79,9 +80,26 @@ public class StartVindu extends JFrame implements ActionListener {
     public static KontraktVindu getKontraktVindu() {
         return kontraktVindu;
     }
-    
-    public static InformasjonVindu getInformasjonVindu(){
+
+    public static InformasjonVindu getInformasjonVindu() {
         return informasjonVindu;
+    }
+
+    public static boolean kontrollerRegEx(String pattern, String[] input) {
+        for (int i = 0; i < input.length; i++) {
+            if (!input[i].matches(pattern)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int konverterBlanktFeltTilHeltall(JTextField jtf) {
+        if (jtf.getText().equals("")) {
+            return 0;
+        } else {
+            return Integer.parseInt(jtf.getText());
+        }
     }
 
     public static Date konverterDato(String datostreng) {
@@ -92,7 +110,6 @@ public class StartVindu extends JFrame implements ActionListener {
             Date d = datoFormat.parse(datostreng);
             return d;
         } catch (ParseException pe) {
-            pe.printStackTrace();
             return null;
         }
     }
@@ -106,13 +123,13 @@ public class StartVindu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttons[0]) {
             utleierVindu.setVisible(true);
-        } else if (e.getSource() == buttons[1]){
+        } else if (e.getSource() == buttons[1]) {
             boligsoekerVindu.setVisible(true);
         } else if (e.getSource() == buttons[2]) {
             boligVindu.setVisible(true);
         } else if (e.getSource() == buttons[3]) {
             kontraktVindu.setVisible(true);
-        } else if(e.getSource() == buttons[4]){
+        } else if (e.getSource() == buttons[4]) {
             informasjonVindu.setVisible(true);
         }
     }

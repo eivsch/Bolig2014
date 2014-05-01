@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class BoligsoekerVindu extends JFrame implements ActionListener {
-    
+
     /* Boligsoeker-vinduet er oppbygget sånn at en masterpanel inneholder allt i BorderLayout (vinduet selv).
      * Top-panelen inneholder tre paneler:
      *      øverst er en panel for felles felt, 
@@ -30,34 +30,38 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
      * Under-panelen er brukt for utskrift-området
      */
     private JPanel masterPanel, top, fellesPanel, knappPanel, eneboligPanel, leilighetPanel, under;
-    
+
     // felt for boligsøkeren
     private JTextField RegPersFornavn, RegPersEtternavn, gateadresse, postnr, poststed, epost, tlf, pInfo;
-    
+
     // felles felt for eneboliger og leiligheter
     private final String[] TYPE = {"Ingen krav", "Enebolig/rekkehus", "Leilighet"};   // boligtype drop-down list
-    private JComboBox kravType;
-    private JTextField kravAreal, kravRom, kravByggeaar, kravPris, kravAvertertDato;
-    
+    private final String[] ANTSOVEROM = {"1", "2", "3", "4", "5", "6", "7", "8"};
+    private JComboBox kravType, kravRom;
+    private JTextField kravAreal, kravByggeaar, kravPris, kravAvertertDato;
+
     // felt for eneboliger
-    private JTextField kravMaxEtasjer, kravTomtestorrelse;
+    private final String[] ETASJEKRAVENEBOLIG = {"1", "2", "3", "4"};
+    private JComboBox kravMaxEtasjer;
+    private JTextField kravTomtestorrelse;
     private JCheckBox kravKjeller;
-    
-    // felt for leiligheter    
-    private JTextField kravEtasje;
+
+    // felt for leiligheter   
+    private final String[] ETASJEKRAVLEILIGHET = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    private JComboBox kravEtasje;
     private JCheckBox kravHeis, kravBalkong;
-    
+
     private JTextArea output;
-    
+
     // knapper
     private JButton regBoligsoeker, slettBoligsoeker, skrivUt;
-    
+
     private BoligsoekerMengde boligsoekerMengde;
 
     // konstruktør
     public BoligsoekerVindu() {
         super("Boligsøker");
-        
+
         boligsoekerMengde = new BoligsoekerMengde();
 
         int antRadFelles = 14;  // en rad for hver felles felt plus to for boligtyper
@@ -66,7 +70,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         int antRadLeilighet = 3; // en rad for hver leilighet variabel
         int antKol = 2;
         int gap = 0;
-        
+
         // paneler
         masterPanel = new JPanel(new BorderLayout());
         top = new JPanel(new BorderLayout());
@@ -83,7 +87,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         top.add(knappPanel, BorderLayout.PAGE_END);
         this.getContentPane().add(masterPanel);
         setSize(300, 700);
-        
+
         output = new JTextArea();
         output.setEditable(false);
         JScrollPane scroll = new JScrollPane(output);
@@ -101,15 +105,15 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         fellesPanel.add(new JLabel("Gateadresse: "));
         gateadresse = new JTextField(10);
         fellesPanel.add(gateadresse);
- 
+
         fellesPanel.add(new JLabel("Postnummer: "));
         postnr = new JTextField(10);
         fellesPanel.add(postnr);
- 
+
         fellesPanel.add(new JLabel("Poststed: "));
         poststed = new JTextField(10);
         fellesPanel.add(poststed);
- 
+
         fellesPanel.add(new JLabel("E-post: "));
         epost = new JTextField(10);
         fellesPanel.add(epost);
@@ -132,8 +136,9 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         kravAreal = new JTextField(10);
         fellesPanel.add(kravAreal);
 
-        fellesPanel.add(new JLabel("Min. rom: "));
-        kravRom = new JTextField(10);
+        fellesPanel.add(new JLabel("Min. soverom: "));
+        kravRom = new JComboBox(ANTSOVEROM);
+        kravRom.setSelectedIndex(0);
         fellesPanel.add(kravRom);
 
         fellesPanel.add(new JLabel("Min. byggeår: "));
@@ -143,30 +148,32 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         fellesPanel.add(new JLabel("Max. pris: "));
         kravPris = new JTextField(10);
         fellesPanel.add(kravPris);
-        
+
         fellesPanel.add(new JLabel("Min. avertert dato: "));
         kravAvertertDato = new JTextField(10);
         kravAvertertDato.setText("dd.mm.åååå");
         fellesPanel.add(kravAvertertDato);
-        
+
         // enebolig felt
         eneboligPanel.add(new JLabel("Max. etasjer: "));
-        kravMaxEtasjer = new JTextField(10);
+        kravMaxEtasjer = new JComboBox(ETASJEKRAVENEBOLIG);
+        kravMaxEtasjer.setSelectedIndex(0);
         eneboligPanel.add(kravMaxEtasjer);
- 
+
         eneboligPanel.add(new JLabel("Min. tomtestørrelse: "));
         kravTomtestorrelse = new JTextField(10);
         eneboligPanel.add(kravTomtestorrelse);
- 
+
         eneboligPanel.add(new JLabel("Kjeller: "));
         kravKjeller = new JCheckBox("");
         eneboligPanel.add(kravKjeller);
-        
+
         // leilighet felt
         leilighetPanel.add(new JLabel("Max. etasje: "));
-        kravEtasje = new JTextField(10);
+        kravEtasje = new JComboBox(ETASJEKRAVLEILIGHET);
+        kravEtasje.setSelectedIndex(0);
         leilighetPanel.add(kravEtasje);
-        
+
         leilighetPanel.add(new JLabel("Heis: "));
         kravHeis = new JCheckBox("");
         leilighetPanel.add(kravHeis);
@@ -197,65 +204,49 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         String fnavn = RegPersFornavn.getText();
         String enavn = RegPersEtternavn.getText();
         Date dato = StartVindu.konverterDato(kravAvertertDato.getText());
-        String type = (String)kravType.getSelectedItem();
-        
-        int areal, rom, byggeaar, pris, maxEtasjer, tomtestorrelse, etasje;
-        
-        
-        areal = kravAreal.getText().equals("") ? 0 : Integer.parseInt(kravAreal.getText());
-        rom = kravRom.getText().equals("") ? 0 : Integer.parseInt(kravRom.getText());
-        byggeaar = kravByggeaar.getText().equals("") ? 0 : Integer.parseInt(kravByggeaar.getText());
-        pris = kravPris.getText().equals("") ? 0 : Integer.parseInt(kravPris.getText());
-        maxEtasjer = kravMaxEtasjer.getText().equals("") ? 0 : Integer.parseInt(kravMaxEtasjer.getText());
-        tomtestorrelse = kravTomtestorrelse.getText().equals("") ? 0 : Integer.parseInt(kravTomtestorrelse.getText());
-        etasje = kravEtasje.getText().equals("") ? 0 : Integer.parseInt(kravEtasje.getText());
-            
-        
+        if (dato == null) {
+            output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
+            return;
+        }
+
+        String type = (String) kravType.getSelectedItem();
+        int postnrSomHeltall, tlfnrSomHeltall, areal, byggeaar, pris, tomtestorrelse;
+        int rom = Integer.parseInt((String) kravRom.getSelectedItem());
+        int etasjeKravLeilighet = Integer.parseInt((String) kravEtasje.getSelectedItem());
+        int etasjeKravEnebolig = Integer.parseInt((String) kravMaxEtasjer.getSelectedItem());
+
+        // Kontrollerer tallverdier ved RegEx for å unngå parseException
+        String[] regExTest = {postnr.getText(), tlf.getText(), kravAreal.getText(),
+            kravByggeaar.getText(), kravPris.getText(), kravTomtestorrelse.getText()};
+        if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, regExTest))) {
+            output.setText("Feil ved innlesning av tallverdier. Bruk kun heltall");
+            return;
+        }
+
+        // Setter defaultverdi 0 til felter brukeren ikke fyller inn
+        postnrSomHeltall = StartVindu.konverterBlanktFeltTilHeltall(postnr);
+        tlfnrSomHeltall = StartVindu.konverterBlanktFeltTilHeltall(tlf);
+        areal = StartVindu.konverterBlanktFeltTilHeltall(kravAreal);
+        byggeaar = StartVindu.konverterBlanktFeltTilHeltall(kravByggeaar);
+        pris = StartVindu.konverterBlanktFeltTilHeltall(kravPris);
+        tomtestorrelse = StartVindu.konverterBlanktFeltTilHeltall(kravTomtestorrelse);
 
         if (boligsoekerMengde.finnBoligsoeker(fnavn, enavn) != null) {
             output.setText("Feil - Boligsøker allerede registrert!");
             return;
         }
-        
-        Boligsoeker b = new Boligsoeker( fnavn, enavn, gateadresse.getText(), 
-                Integer.parseInt(postnr.getText()), poststed.getText(), epost.getText(),
-                Integer.parseInt(tlf.getText()), pInfo.getText(), 
-                type, areal, rom, byggeaar, pris, dato, 
-                maxEtasjer, tomtestorrelse, kravKjeller.isSelected(), 
-                etasje, kravHeis.isSelected(), kravBalkong.isSelected() );
+
+        Boligsoeker b = new Boligsoeker(fnavn, enavn, gateadresse.getText(),
+                postnrSomHeltall, poststed.getText(), epost.getText(),
+                tlfnrSomHeltall, pInfo.getText(),
+                type, areal, rom, byggeaar, pris, dato,
+                etasjeKravEnebolig, tomtestorrelse, kravKjeller.isSelected(),
+                etasjeKravLeilighet, kravHeis.isSelected(), kravBalkong.isSelected());
 
         boligsoekerMengde.settInn(b);
         output.setText("Boligsøker " + fnavn + " " + enavn + " registrert");
-        
+
         blankFelter();
-    }
-    
-    public void blankFelter(){
-        RegPersFornavn.setText("");
-        RegPersEtternavn.setText("");
-        gateadresse.setText("");
-        postnr.setText("");
-        poststed.setText("");
-        epost.setText("");
-        tlf.setText("");
-        pInfo.setText("");
-        kravType.setSelectedIndex(0);
-        kravAreal.setText("");
-        kravRom.setText("");
-        kravByggeaar.setText("");
-        kravPris.setText("");
-        kravAvertertDato.setText("");
-        kravMaxEtasjer.setText("");
-        kravTomtestorrelse.setText("");
-        kravKjeller.setSelected(false);
-        kravEtasje.setText("");
-        kravHeis.setSelected(false);
-        kravBalkong.setSelected(false);
-        
-    }
-    
-    public BoligsoekerMengde getBoligsoekerMengde(){
-        return boligsoekerMengde;
     }
 
     public void slettBoligsoeker() {
@@ -270,6 +261,34 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         if (boligsoekerMengde.fjern(bs)) {
             output.setText(fornavn + " " + etternavn + " slettet");
         }
+        blankFelter();
+    }
+
+    public BoligsoekerMengde getBoligsoekerMengde() {
+        return boligsoekerMengde;
+    }
+
+    public void blankFelter() {
+        RegPersFornavn.setText("");
+        RegPersEtternavn.setText("");
+        gateadresse.setText("");
+        postnr.setText("");
+        poststed.setText("");
+        epost.setText("");
+        tlf.setText("");
+        pInfo.setText("");
+        kravType.setSelectedIndex(0);
+        kravAreal.setText("");
+        kravRom.setSelectedIndex(0);
+        kravByggeaar.setText("");
+        kravPris.setText("");
+        kravAvertertDato.setText("");
+        kravMaxEtasjer.setSelectedIndex(0);
+        kravTomtestorrelse.setText("");
+        kravKjeller.setSelected(false);
+        kravEtasje.setSelectedIndex(0);
+        kravHeis.setSelected(false);
+        kravBalkong.setSelected(false);
     }
 
     public void skrivBoligsoekerTilFil() {
@@ -320,18 +339,18 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
         String valgtType = (String) kravType.getSelectedItem();
-        
+
         if (e.getSource() == regBoligsoeker) {
             regBoligsoeker();
         } else if (e.getSource() == skrivUt) {
             utskrift();
         } else if (e.getSource() == slettBoligsoeker) {
             slettBoligsoeker();
-        } else if (e.getSource() == kravType ){
+        } else if (e.getSource() == kravType) {
             // drop-down box
-            
+
             BorderLayout layout = (BorderLayout) top.getLayout();
-            
+
             if (valgtType.equals(TYPE[0])) {
                 if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
                     top.remove(layout.getLayoutComponent(BorderLayout.CENTER));
@@ -351,7 +370,5 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
             this.getContentPane().revalidate();
             this.getContentPane().repaint();
         }
-            
     }
-
 }
