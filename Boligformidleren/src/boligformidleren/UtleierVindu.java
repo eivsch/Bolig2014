@@ -49,6 +49,7 @@ public class UtleierVindu extends JFrame implements ActionListener {
         setSize(300, 500);
 
         output = new JTextArea();
+        output.setEditable(false);
         JScrollPane scroll = new JScrollPane(output);
         under.add(scroll, BorderLayout.CENTER);
 

@@ -69,7 +69,8 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
                 "\nBoligype: " + type + 
                 "\nAreal: " + inneAreal + 
                 "\nMin. soverom: " + rom + 
-                "\nMin .byggeår: " + byggeaar + 
+                "\nMin. byggeår: " + byggeaar + 
+                "\nMax. leiepris: " + pris + 
                 "\nMax. antall etasjer: " + maxAntEtasjer + 
                 "\nMin. tomtestørrelse: " + tomtestorrelse + 
                 "\nKjeller: " + kjeller +

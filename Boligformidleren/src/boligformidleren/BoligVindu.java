@@ -72,6 +72,7 @@ public class BoligVindu extends JFrame implements ActionListener {
         setSize(300, 700);
 
         output = new JTextArea();
+        output.setEditable(false);
         JScrollPane scroll = new JScrollPane(output);
         under.add(scroll, BorderLayout.CENTER);
 

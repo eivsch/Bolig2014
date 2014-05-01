@@ -61,7 +61,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         boligsoekerMengde = new BoligsoekerMengde();
 
         int antRadFelles = 14;  // en rad for hver felles felt plus to for boligtyper
-        int antRadKnapp = 4;
+        int antRadKnapp = 2;
         int antRadEnebolig = 3; // en rad for hver enebolig variabel
         int antRadLeilighet = 3; // en rad for hver leilighet variabel
         int antKol = 2;
@@ -85,6 +85,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         setSize(300, 700);
         
         output = new JTextArea();
+        output.setEditable(false);
         JScrollPane scroll = new JScrollPane(output);
         under.add(scroll, BorderLayout.CENTER);
 
