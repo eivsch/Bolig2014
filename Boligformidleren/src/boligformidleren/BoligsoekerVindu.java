@@ -216,8 +216,8 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         int etasjeKravEnebolig = Integer.parseInt((String) kravMaxEtasjer.getSelectedItem());
 
         // Kontrollerer tallverdier ved RegEx for å unngå parseException
-        String[] regExTest = {postnr.getText(), tlf.getText(), kravAreal.getText(),
-            kravByggeaar.getText(), kravPris.getText(), kravTomtestorrelse.getText()};
+        JTextField[] regExTest = {postnr, tlf, kravAreal,
+            kravByggeaar, kravPris, kravTomtestorrelse};
         if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, regExTest))) {
             output.setText("Feil ved innlesning av tallverdier. Bruk kun heltall");
             return;

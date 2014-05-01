@@ -85,9 +85,9 @@ public class StartVindu extends JFrame implements ActionListener {
         return informasjonVindu;
     }
 
-    public static boolean kontrollerRegEx(String pattern, String[] input) {
+    public static boolean kontrollerRegEx(String pattern, JTextField[] input) {
         for (int i = 0; i < input.length; i++) {
-            if (!input[i].matches(pattern)) {
+            if (!input[i].getText().matches(pattern)) {
                 return false;
             }
         }
@@ -100,6 +100,13 @@ public class StartVindu extends JFrame implements ActionListener {
         } else {
             return Integer.parseInt(jtf.getText());
         }
+    }
+    
+    public static boolean tekstFeltErTomt(JTextField jtf){
+        if(jtf.getText().equals("")){
+            return true;
+        }
+        return false;
     }
 
     public static Date konverterDato(String datostreng) {

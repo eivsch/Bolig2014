@@ -118,7 +118,7 @@ public class BoligVindu extends JFrame implements ActionListener {
         fellesPanel.add(new JLabel("Beskrivelse: "));
         beskrivelse = new JTextField(10);
         fellesPanel.add(beskrivelse);
-        
+
         knappPanel.add(new JLabel("Utleier fornavn: "));
         utleierFornavn = new JTextField(10);
         knappPanel.add(utleierFornavn);
@@ -170,15 +170,33 @@ public class BoligVindu extends JFrame implements ActionListener {
     // registrer bolig
     public void regBolig(String b) {
         Bolig bolig;
-        
+        int postnrHeltall, arealHeltall, byggeaarHeltall, prisHeltall, tomtStrHeltall;
+        Date dato = StartVindu.konverterDato(avertertDato.getText());
+        if (dato == null) {
+            output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
+            return;
+        }
+        // Kontrollerer tallverdier ved RegEx for å unngå parseException.
+        JTextField[] regExTest = {postnr, areal, byggeaar, pris, tomtestorrelse};
+        if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, regExTest))) {
+            output.setText("Feil ved innlesning av tallverdier. Bruk kun heltall");
+            return;
+        }
+        // Setter defaultverdi 0 til felter brukeren ikke fyller  !---- kanskje annen løsning her?
+        postnrHeltall = StartVindu.konverterBlanktFeltTilHeltall(postnr);
+        arealHeltall = StartVindu.konverterBlanktFeltTilHeltall(areal);
+        byggeaarHeltall = StartVindu.konverterBlanktFeltTilHeltall(byggeaar);
+        prisHeltall = StartVindu.konverterBlanktFeltTilHeltall(pris);
+        tomtStrHeltall = StartVindu.konverterBlanktFeltTilHeltall(tomtestorrelse);
+
         if (b.equals(TYPE[1])) {
-            bolig = new Enebolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[1], beskrivelse.getText(), StartVindu.konverterDato(avertertDato.getText()),
-                    Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
-                    Integer.parseInt(pris.getText()), Integer.parseInt(etasjer.getText()), Integer.parseInt(tomtestorrelse.getText()), kjeller.isSelected());
+            bolig = new Enebolig(gateadresse.getText(), postnrHeltall, poststed.getText(), TYPE[1], beskrivelse.getText(), dato,
+                    arealHeltall, Integer.parseInt(antRom.getText()), byggeaarHeltall,
+                    prisHeltall, Integer.parseInt(etasjer.getText()), tomtStrHeltall, kjeller.isSelected());
         } else {
-            bolig = new Leilighet(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[2], beskrivelse.getText(), StartVindu.konverterDato(avertertDato.getText()),
-                    Integer.parseInt(areal.getText()), Integer.parseInt(antRom.getText()), Integer.parseInt(byggeaar.getText()),
-                    Integer.parseInt(pris.getText()), Integer.parseInt(etasje.getText()), heis.isSelected(), balkong.isSelected());
+            bolig = new Leilighet(gateadresse.getText(), postnrHeltall, poststed.getText(), TYPE[2], beskrivelse.getText(), dato,
+                    arealHeltall, Integer.parseInt(antRom.getText()), byggeaarHeltall,
+                    prisHeltall, Integer.parseInt(etasje.getText()), heis.isSelected(), balkong.isSelected());
         }
 
         Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(utleierFornavn.getText(), utleierEtternavn.getText());
@@ -224,7 +242,7 @@ public class BoligVindu extends JFrame implements ActionListener {
         }
         output.setText(utskrift);
     }
-    
+
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
         String valgtType = (String) boligtype.getSelectedItem();
