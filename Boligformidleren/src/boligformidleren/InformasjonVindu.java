@@ -6,6 +6,7 @@
 package boligformidleren;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -17,10 +18,16 @@ public class InformasjonVindu extends JFrame implements ActionListener{
     * Top-panelen er delt opp i fire kolonner:
     *      #1 er en panel for person-informasjon, 
     *      #2 er en panel for bolig-informasjon for EN bolig
-    *      #3 er en panel for bolig-informasjon ut fra parametre (som inneholder minMaxPanel)
+    *      #3 er en panel for bolig-informasjon ut fra parametre
     *      #4 er en panel for kontrakt-informasjon
     */
-    private JPanel masterPanel, top, under, personPanel, boligPanel, parameterPanel, minMaxPanel, fellesPanel, eneboligPanel, leilighetPanel, kontraktPanel;
+    private JPanel masterPanel, top, under, topLabels, topContent, 
+            personPanel, venstreBoligPanel, hoyreBoligPanel,
+            boligFellesPanel, boligFellesTypePanel, boligFellesMinMaxPanel,
+            boligEneboligPanel, boligLeilighetPanel, boligKnappPanel,
+            kontraktPanel, kontraktFellesPanel, kontraktFellesTypePanel, 
+            kontraktFellesMinMaxPanel, kontraktEneboligPanel, kontraktLeilighetPanel,
+            kontraktKnappPanel;
     
     // person panel
     private JTextField fornavn, etternavn;
@@ -28,66 +35,139 @@ public class InformasjonVindu extends JFrame implements ActionListener{
     
     // bolig panel
     private JTextField gateadresse, postnr, poststed;
-    private JButton visBoligInfo, hentBoligInteresse;
+    private JButton visBoligInfo, visInteresserte;
     
-    // parameter panel
+    // bolig type panel
     private JComboBox boligtype;
-    private final String[] TYPE = {"Ingen krav", "Enebolig/rekkehus", "Leilighet"};
+    private final String[] BOLIGTYPE = {"Ingen krav", "Enebolig/rekkehus", "Leilighet"};
     
-    // min-max panel
-    private JTextField minAreal, maxAreal, minRom, maxRom, minByggeaar, maxByggeaar, minPris, maxPris, minDato, maxDato;
+    // bolig min-max panel
+    private JTextField minBoligAreal, maxBoligAreal, minBoligRom, maxBoligRom, 
+            minBoligByggeaar, maxBoligByggeaar, minBoligPris, maxBoligPris,
+            minBoligDato, maxBoligDato;
 
-    // enebolig panel
-    private JTextField etasjer, tomtestorrelse;
-    private JCheckBox kjeller;
+    // bolig enebolig panel
+    private JTextField boligEtasjer, boligTomtestorrelse;
+    private JCheckBox boligKjeller;
     
-    // leilighet panel
-    private JTextField etasje;
-    private JCheckBox heis, balkong;
+    // bolig leilighet panel
+    private JTextField boligEtasje;
+    private JCheckBox boligHeis, boligBalkong;
+    
+    // bolig knapp panel
+    private JButton finnBoliger, visAlleBoliger;
     
     
+    // kontrakt type panel
+    private JComboBox kontrakttype;
+    private final String[] KONTRAKTTYPE = {"Ingen krav", "Enekontrakt/rekkehus", "Leilighet"};
+    
+    // kontrakt min-max panel
+    private JTextField minKontraktAreal, maxKontraktAreal, minKontraktRom, maxKontraktRom, 
+            minKontraktByggeaar, maxKontraktByggeaar, minKontraktPris, maxKontraktPris,
+            minKontraktDato, maxKontraktDato;
+
+    // kontrakt enekontrakt panel
+    private JTextField kontraktEtasjer, kontraktTomtestorrelse;
+    private JCheckBox kontraktKjeller;
+    
+    // kontrakt leilighet panel
+    private JTextField kontraktEtasje;
+    private JCheckBox kontraktHeis, kontraktBalkong;
+    
+    // kontrakt knapp panel
+    private JButton finnKontrakter, visAlleKontrakter;
+    
+            
     private JTextArea output;
     
     // konstruktør
     public InformasjonVindu(){
         super("Informasjon");
         
-        // antall rader, antall kolonner og gap størrelse for top-panelene
+        // labels
+        JLabel labelPerson = new JLabel("<html><center><font size=\"5\">Personer</html>");
+        JLabel labelBolig1 = new JLabel("<html><font size=\"5\">Boliger</html>");
+        JLabel labelBolig2 = new JLabel("<html><font size=\"5\">Boliger</html>");
+        JLabel labelKontrakt = new JLabel("<html><font size=\"5\">Kontrakter</html>");
+        Border paddingBorder = BorderFactory.createEmptyBorder(0,0,10,0);
+        labelPerson.setBorder(paddingBorder);
+        labelBolig1.setBorder(paddingBorder);
+        labelBolig2.setBorder(paddingBorder);
+        labelKontrakt.setBorder(paddingBorder);
+        labelPerson.setHorizontalAlignment(JLabel.CENTER);
+        labelBolig1.setHorizontalAlignment(JLabel.CENTER);
+        labelBolig2.setHorizontalAlignment(JLabel.CENTER);
+        labelKontrakt.setHorizontalAlignment(JLabel.CENTER);
+
+        
+        // antall rader, antall kolonner og gap størrelse for top-panelene (GridLayout)
         int antRadTopPanel = 1;
         int antKolTopPanel = 4;
-        int antRadPersonPanel = 9;
-        int antRadBoligPanel = 9;
-        int antRadFellesPanel = 1;
+        int antRadPersonPanel = 3;
+        int antRadBoligPanel = 4;
+        int antRadTypePanel = 1;
         int antRadMinMaxPanel = 6;
         int antRadEneboligLeilighetPanel = 3;
-        int antRadKontraktPanel = 9;
-        int antKolonner = 2;
+        int antRadKnappPanel = 2;
+        int defaultKolonner = 2;
+        int antKnappKolonner = 1;
         int antMinMaxKolonner = 3;
         int gapTop = 20;
         int gap = 0;
         
+        //vindu størrelse (pixler)
+        int bredde = 1200;
+        int hoyde = 750;
+        
         // paneler
         masterPanel = new JPanel(new BorderLayout());
-        top = new JPanel(new GridLayout(antRadTopPanel, antKolTopPanel, gapTop, gap));
-        personPanel = new JPanel(new GridLayout(antRadPersonPanel, antKolonner, gap, gap));
-        boligPanel = new JPanel(new GridLayout(antRadBoligPanel, antKolonner, gap, gap));
-        parameterPanel = new JPanel(new BorderLayout());
-        fellesPanel = new JPanel(new GridLayout(antRadFellesPanel, antKolonner, gap, gap));
-        minMaxPanel = new JPanel(new GridLayout(antRadMinMaxPanel, antMinMaxKolonner, gap, gap));
-        eneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antKolonner, gap, gap));
-        leilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antKolonner, gap, gap));
-        kontraktPanel = new JPanel(new GridLayout(antRadKontraktPanel, antKolonner, gap, gap));
+        top = new JPanel(new BorderLayout());
+            topLabels = new JPanel(new GridLayout(antRadTopPanel, antKolTopPanel, gap, gapTop));
+            topContent = new JPanel(new GridLayout(antRadTopPanel, antKolTopPanel, gapTop, gap));
+                personPanel = new JPanel(new GridLayout(antRadPersonPanel, defaultKolonner, gap, gap));
+                venstreBoligPanel = new JPanel(new GridLayout(antRadBoligPanel, defaultKolonner, gap, gap));
+                hoyreBoligPanel = new JPanel(new BorderLayout());
+                    boligFellesPanel = new JPanel(new BorderLayout());
+                        boligFellesTypePanel = new JPanel(new GridLayout(antRadTypePanel, defaultKolonner, gap, gap));
+                        boligFellesMinMaxPanel = new JPanel(new GridLayout(antRadMinMaxPanel, antMinMaxKolonner, gap, gap));
+                    boligEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, defaultKolonner, gap, gap));
+                    boligLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, defaultKolonner, gap, gap));
+                    boligKnappPanel = new JPanel(new GridLayout(antRadKnappPanel, antKnappKolonner, gap, gap));
+                kontraktPanel = new JPanel(new BorderLayout());
+                    kontraktFellesPanel = new JPanel(new BorderLayout());
+                        kontraktFellesTypePanel = new JPanel(new GridLayout(antRadTypePanel, defaultKolonner, gap, gap));
+                        kontraktFellesMinMaxPanel = new JPanel(new GridLayout(antRadMinMaxPanel, antMinMaxKolonner, gap, gap));
+                    kontraktEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, defaultKolonner, gap, gap));
+                    kontraktLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, defaultKolonner, gap, gap));
+                    kontraktKnappPanel = new JPanel(new GridLayout(antRadKnappPanel, antKnappKolonner, gap, gap));
         under = new JPanel(new BorderLayout());
+        
         masterPanel.add(top, BorderLayout.PAGE_START);
         masterPanel.add(under, BorderLayout.CENTER);
-        top.add(personPanel);
-        top.add(boligPanel);
-        top.add(parameterPanel);
-        top.add(kontraktPanel);
-        parameterPanel.add(fellesPanel, BorderLayout.PAGE_START);
-        parameterPanel.add(minMaxPanel, BorderLayout.CENTER);
+        top.add(topLabels, BorderLayout.PAGE_START);
+        top.add(topContent, BorderLayout.CENTER);
+        
+        topLabels.add(labelPerson);
+        topLabels.add(labelBolig1);
+        topLabels.add(labelBolig2);
+        topLabels.add(labelKontrakt);
+        topContent.add(personPanel);
+        topContent.add(venstreBoligPanel);
+        topContent.add(hoyreBoligPanel);
+        topContent.add(kontraktPanel);
+        
+        hoyreBoligPanel.add(boligFellesPanel, BorderLayout.PAGE_START);
+        boligFellesPanel.add(boligFellesTypePanel, BorderLayout.PAGE_START);
+        boligFellesPanel.add(boligFellesMinMaxPanel, BorderLayout.CENTER);
+        hoyreBoligPanel.add(boligKnappPanel, BorderLayout.PAGE_END);
+        kontraktPanel.add(kontraktFellesPanel, BorderLayout.PAGE_START);
+        kontraktFellesPanel.add(kontraktFellesTypePanel, BorderLayout.PAGE_START);
+        kontraktFellesPanel.add(kontraktFellesMinMaxPanel, BorderLayout.CENTER);
+        kontraktPanel.add(kontraktKnappPanel, BorderLayout.PAGE_END);
+        
         this.getContentPane().add(masterPanel);
-        setSize(1000, 750);
+        setSize(bredde, hoyde);
         
         output = new JTextArea();
         output.setEditable(false);
@@ -111,94 +191,186 @@ public class InformasjonVindu extends JFrame implements ActionListener{
         visAlleBoligsoekere.addActionListener(this);
         personPanel.add(visAlleBoligsoekere);
         
-        // bolig panel
-        boligPanel.add(new JLabel("Gateadresse: "));
+        // venstre bolig panel
+        venstreBoligPanel.add(new JLabel("Gateadresse: "));
         gateadresse = new JTextField(10);
-        boligPanel.add(gateadresse);
+        venstreBoligPanel.add(gateadresse);
         
-        boligPanel.add(new JLabel("Postnummer: "));
+        venstreBoligPanel.add(new JLabel("Postnummer: "));
         postnr = new JTextField(10);
-        boligPanel.add(postnr);
+        venstreBoligPanel.add(postnr);
         
-        boligPanel.add(new JLabel("Poststed: "));
+        venstreBoligPanel.add(new JLabel("Poststed: "));
         poststed = new JTextField(10);
-        boligPanel.add(poststed);
+        venstreBoligPanel.add(poststed);
         
         visBoligInfo = new JButton("Vis bolig info");
         visBoligInfo.addActionListener(this);
-        boligPanel.add(visBoligInfo);
+        venstreBoligPanel.add(visBoligInfo);
         
-        hentBoligInteresse = new JButton("Vis interesserte personer");
-        hentBoligInteresse.addActionListener(this);
-        boligPanel.add(hentBoligInteresse);
+        visInteresserte = new JButton("Vis interesserte personer");
+        visInteresserte.addActionListener(this);
+        venstreBoligPanel.add(visInteresserte);
         
-        // parameter panel
-        fellesPanel.add(new JLabel("Boligtype: "));
-        boligtype = new JComboBox(TYPE);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        // høyre bolig panel
+        // bolig felles panel
+        boligFellesTypePanel.add(new JLabel("Boligtype: "));
+        boligtype = new JComboBox(BOLIGTYPE);
         boligtype.setSelectedIndex(0);
         boligtype.addActionListener(this);
-        fellesPanel.add(boligtype);
+        boligFellesTypePanel.add(boligtype);
         
-        // min-max panel
-        minMaxPanel.add(new JLabel(" "));
-        minMaxPanel.add(new JLabel("MIN.", SwingConstants.CENTER));
-        minMaxPanel.add(new JLabel("MAX.", SwingConstants.CENTER));
+        // bolig min-max panel
+        boligFellesMinMaxPanel.add(new JLabel(" "));
+        boligFellesMinMaxPanel.add(new JLabel("MIN.", SwingConstants.CENTER));
+        boligFellesMinMaxPanel.add(new JLabel("MAX.", SwingConstants.CENTER));
         
-        minMaxPanel.add(new JLabel("Areal: "));
-        minAreal = new JTextField(10);
-        maxAreal = new JTextField(10);
-        minMaxPanel.add(minAreal);
-        minMaxPanel.add(maxAreal);
+        boligFellesMinMaxPanel.add(new JLabel("Areal: "));
+        minBoligAreal = new JTextField(10);
+        maxBoligAreal = new JTextField(10);
+        boligFellesMinMaxPanel.add(minBoligAreal);
+        boligFellesMinMaxPanel.add(maxBoligAreal);
         
-        minMaxPanel.add(new JLabel("Soverom: "));
-        minRom = new JTextField(10);
-        maxRom = new JTextField(10);
-        minMaxPanel.add(minRom);
-        minMaxPanel.add(maxRom);
+        boligFellesMinMaxPanel.add(new JLabel("Soverom: "));
+        minBoligRom = new JTextField(10);
+        maxBoligRom = new JTextField(10);
+        boligFellesMinMaxPanel.add(minBoligRom);
+        boligFellesMinMaxPanel.add(maxBoligRom);
         
-        minMaxPanel.add(new JLabel("Byggeår: "));
-        minByggeaar = new JTextField(10);
-        maxByggeaar = new JTextField(10);
-        minMaxPanel.add(minByggeaar);
-        minMaxPanel.add(maxByggeaar);
+        boligFellesMinMaxPanel.add(new JLabel("Byggeår: "));
+        minBoligByggeaar = new JTextField(10);
+        maxBoligByggeaar = new JTextField(10);
+        boligFellesMinMaxPanel.add(minBoligByggeaar);
+        boligFellesMinMaxPanel.add(maxBoligByggeaar);
         
-        minMaxPanel.add(new JLabel("Leiepris: "));
-        minPris = new JTextField(10);
-        maxPris = new JTextField(10);
-        minMaxPanel.add(minPris);
-        minMaxPanel.add(maxPris);
+        boligFellesMinMaxPanel.add(new JLabel("Leiepris: "));
+        minBoligPris = new JTextField(10);
+        maxBoligPris = new JTextField(10);
+        boligFellesMinMaxPanel.add(minBoligPris);
+        boligFellesMinMaxPanel.add(maxBoligPris);
         
-        minMaxPanel.add(new JLabel("Dato: "));
-        minDato = new JTextField(10);
-        maxDato = new JTextField(10);
-        minMaxPanel.add(minDato);
-        minMaxPanel.add(maxDato);
+        boligFellesMinMaxPanel.add(new JLabel("Dato: "));
+        minBoligDato = new JTextField(10);
+        maxBoligDato = new JTextField(10);
+        boligFellesMinMaxPanel.add(minBoligDato);
+        boligFellesMinMaxPanel.add(maxBoligDato);
         
-        // enebolig panel
-        eneboligPanel.add(new JLabel("Antall etasjer: "));
-        etasjer = new JTextField(10);
-        eneboligPanel.add(etasjer);
+        // bolig enebolig panel
+        boligEneboligPanel.add(new JLabel("Antall etasjer: "));
+        boligEtasjer = new JTextField(10);
+        boligEneboligPanel.add(boligEtasjer);
 
-        eneboligPanel.add(new JLabel("Tomtestørrelse: "));
-        tomtestorrelse = new JTextField(10);
-        eneboligPanel.add(tomtestorrelse);
+        boligEneboligPanel.add(new JLabel("Tomtestørrelse: "));
+        boligTomtestorrelse = new JTextField(10);
+        boligEneboligPanel.add(boligTomtestorrelse);
 
-        eneboligPanel.add(new JLabel("Kjeller: "));
-        kjeller = new JCheckBox("");
-        eneboligPanel.add(kjeller);
+        boligEneboligPanel.add(new JLabel("Kjeller: "));
+        boligKjeller = new JCheckBox("");
+        boligEneboligPanel.add(boligKjeller);
         
-        // leilighet panel
-        leilighetPanel.add(new JLabel("Etasje: "));
-        etasje = new JTextField(10);
-        leilighetPanel.add(etasje);
+        // bolig leilighet panel
+        boligLeilighetPanel.add(new JLabel("Etasje: "));
+        boligEtasje = new JTextField(10);
+        boligLeilighetPanel.add(boligEtasje);
 
-        leilighetPanel.add(new JLabel("Heis: "));
-        heis = new JCheckBox("");
-        leilighetPanel.add(heis);
+        boligLeilighetPanel.add(new JLabel("Heis: "));
+        boligHeis = new JCheckBox("");
+        boligLeilighetPanel.add(boligHeis);
 
-        leilighetPanel.add(new JLabel("Balkong: "));
-        balkong = new JCheckBox();
-        leilighetPanel.add(balkong);
+        boligLeilighetPanel.add(new JLabel("Balkong: "));
+        boligBalkong = new JCheckBox();
+        boligLeilighetPanel.add(boligBalkong);
+        
+        // bolig knapp panel
+        finnBoliger = new JButton("Finn boliger");
+        finnBoliger.addActionListener(this);
+        boligKnappPanel.add(finnBoliger);
+        
+        visAlleBoliger = new JButton("Vis alle boliger");
+        visAlleBoliger.addActionListener(this);
+        boligKnappPanel.add(visAlleBoliger);
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        // kontrakt panel
+        // kontrakt felles panel
+        kontraktFellesTypePanel.add(new JLabel("Boligtype: "));
+        kontrakttype = new JComboBox(KONTRAKTTYPE);
+        kontrakttype.setSelectedIndex(0);
+        kontrakttype.addActionListener(this);
+        kontraktFellesTypePanel.add(kontrakttype);
+        
+        // kontrakt min-max panel
+        kontraktFellesMinMaxPanel.add(new JLabel(" "));
+        kontraktFellesMinMaxPanel.add(new JLabel("MIN.", SwingConstants.CENTER));
+        kontraktFellesMinMaxPanel.add(new JLabel("MAX.", SwingConstants.CENTER));
+        
+        kontraktFellesMinMaxPanel.add(new JLabel("Areal: "));
+        minKontraktAreal = new JTextField(10);
+        maxKontraktAreal = new JTextField(10);
+        kontraktFellesMinMaxPanel.add(minKontraktAreal);
+        kontraktFellesMinMaxPanel.add(maxKontraktAreal);
+        
+        kontraktFellesMinMaxPanel.add(new JLabel("Soverom: "));
+        minKontraktRom = new JTextField(10);
+        maxKontraktRom = new JTextField(10);
+        kontraktFellesMinMaxPanel.add(minKontraktRom);
+        kontraktFellesMinMaxPanel.add(maxKontraktRom);
+        
+        kontraktFellesMinMaxPanel.add(new JLabel("Byggeår: "));
+        minKontraktByggeaar = new JTextField(10);
+        maxKontraktByggeaar = new JTextField(10);
+        kontraktFellesMinMaxPanel.add(minKontraktByggeaar);
+        kontraktFellesMinMaxPanel.add(maxKontraktByggeaar);
+        
+        kontraktFellesMinMaxPanel.add(new JLabel("Leiepris: "));
+        minKontraktPris = new JTextField(10);
+        maxKontraktPris = new JTextField(10);
+        kontraktFellesMinMaxPanel.add(minKontraktPris);
+        kontraktFellesMinMaxPanel.add(maxKontraktPris);
+        
+        kontraktFellesMinMaxPanel.add(new JLabel("Dato: "));
+        minKontraktDato = new JTextField(10);
+        maxKontraktDato = new JTextField(10);
+        kontraktFellesMinMaxPanel.add(minKontraktDato);
+        kontraktFellesMinMaxPanel.add(maxKontraktDato);
+        
+        // kontrakt enebolig panel
+        kontraktEneboligPanel.add(new JLabel("Antall etasjer: "));
+        kontraktEtasjer = new JTextField(10);
+        kontraktEneboligPanel.add(kontraktEtasjer);
+
+        kontraktEneboligPanel.add(new JLabel("Tomtestørrelse: "));
+        kontraktTomtestorrelse = new JTextField(10);
+        kontraktEneboligPanel.add(kontraktTomtestorrelse);
+
+        kontraktEneboligPanel.add(new JLabel("Kjeller: "));
+        kontraktKjeller = new JCheckBox("");
+        kontraktEneboligPanel.add(kontraktKjeller);
+        
+        // kontrakt leilighet panel
+        kontraktLeilighetPanel.add(new JLabel("Etasje: "));
+        kontraktEtasje = new JTextField(10);
+        kontraktLeilighetPanel.add(kontraktEtasje);
+
+        kontraktLeilighetPanel.add(new JLabel("Heis: "));
+        kontraktHeis = new JCheckBox("");
+        kontraktLeilighetPanel.add(kontraktHeis);
+
+        kontraktLeilighetPanel.add(new JLabel("Balkong: "));
+        kontraktBalkong = new JCheckBox();
+        kontraktLeilighetPanel.add(kontraktBalkong);
+        
+        // kontrakt knapp panel
+        finnKontrakter = new JButton("Finn kontrakter");
+        finnKontrakter.addActionListener(this);
+        kontraktKnappPanel.add(finnKontrakter);
+        
+        visAlleKontrakter = new JButton("Vis alle kontrakter");
+        visAlleKontrakter.addActionListener(this);
+        kontraktKnappPanel.add(visAlleKontrakter);
     }
     
     public void hentInfoPerson(){
@@ -213,7 +385,23 @@ public class InformasjonVindu extends JFrame implements ActionListener{
         //...
     }
     
-    public void hentBoligInteresse(){
+    public void visInteresserte(){
+        //...
+    }
+    
+    public void finnBoliger(){
+        //...
+    }
+    
+    public void visAlleBoliger(){
+        //...
+    }
+    
+    public void finnKontrakter(){
+        //...
+    }
+    
+    public void visAlleKontrakter(){
         //...
     }
     
@@ -221,7 +409,8 @@ public class InformasjonVindu extends JFrame implements ActionListener{
     
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
-        String valgtType = (String) boligtype.getSelectedItem();
+        String valgtBoligType = (String) boligtype.getSelectedItem();
+        String valgtKontraktType = (String) kontrakttype.getSelectedItem();
         
         if(e.getSource() == hentInfoPerson){
             hentInfoPerson();
@@ -229,27 +418,58 @@ public class InformasjonVindu extends JFrame implements ActionListener{
             visAlleBoligsoekere();
         } else if(e.getSource() == visBoligInfo){
             visBoligInfo();
-        } else if(e.getSource() == hentBoligInteresse){
-            hentBoligInteresse();
+        } else if(e.getSource() == visInteresserte){
+            visInteresserte();
+        } else if(e.getSource() == finnBoliger){
+            finnBoliger();
+        } else if(e.getSource() == visAlleBoliger){
+            visAlleBoliger();
+        } else if(e.getSource() == finnKontrakter){
+            finnKontrakter();
+        } else if(e.getSource() == visAlleKontrakter){
+            visAlleKontrakter();
         } else if (e.getSource() == boligtype) {
-            // drop-down box
+            // bolig drop-down box
 
-            BorderLayout layout = (BorderLayout) parameterPanel.getLayout();
+            BorderLayout layout = (BorderLayout) hoyreBoligPanel.getLayout();
 
-            if (valgtType.equals(TYPE[0])) {
-                if (layout.getLayoutComponent(BorderLayout.PAGE_END) != null) {
-                    parameterPanel.remove(layout.getLayoutComponent(BorderLayout.PAGE_END));
+            if (valgtBoligType.equals(BOLIGTYPE[0])) {
+                if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+                    hoyreBoligPanel.remove(layout.getLayoutComponent(BorderLayout.CENTER));
                 }
-            } else if (valgtType.equals(TYPE[1])) {
-                if (layout.getLayoutComponent(BorderLayout.PAGE_END) != null) {
-                    parameterPanel.remove(layout.getLayoutComponent(BorderLayout.PAGE_END));
+            } else if (valgtBoligType.equals(BOLIGTYPE[1])) {
+                if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+                    hoyreBoligPanel.remove(layout.getLayoutComponent(BorderLayout.CENTER));
                 }
-                parameterPanel.add(eneboligPanel, BorderLayout.PAGE_END);
-            } else if (valgtType.equals(TYPE[2])) {
-                if (layout.getLayoutComponent(BorderLayout.PAGE_END) != null) {
-                    parameterPanel.remove(layout.getLayoutComponent(BorderLayout.PAGE_END));
+                hoyreBoligPanel.add(boligEneboligPanel, BorderLayout.CENTER);
+            } else if (valgtBoligType.equals(BOLIGTYPE[2])) {
+                if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+                    hoyreBoligPanel.remove(layout.getLayoutComponent(BorderLayout.CENTER));
                 }
-                parameterPanel.add(leilighetPanel, BorderLayout.PAGE_END);
+                hoyreBoligPanel.add(boligLeilighetPanel, BorderLayout.CENTER);
+            }
+            // refresh vinduet
+            this.getContentPane().revalidate();
+            this.getContentPane().repaint();
+        } else if (e.getSource() == kontrakttype) {
+            // kontrakt drop-down box
+
+            BorderLayout layout = (BorderLayout) kontraktPanel.getLayout();
+
+            if (valgtKontraktType.equals(KONTRAKTTYPE[0])) {
+                if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+                    kontraktPanel.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+                }
+            } else if (valgtKontraktType.equals(KONTRAKTTYPE[1])) {
+                if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+                    kontraktPanel.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+                }
+                kontraktPanel.add(kontraktEneboligPanel, BorderLayout.CENTER);
+            } else if (valgtKontraktType.equals(KONTRAKTTYPE[2])) {
+                if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+                    kontraktPanel.remove(layout.getLayoutComponent(BorderLayout.CENTER));
+                }
+                kontraktPanel.add(kontraktLeilighetPanel, BorderLayout.CENTER);
             }
             // refresh vinduet
             this.getContentPane().revalidate();
