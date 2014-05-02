@@ -59,3 +59,7 @@ Vi har ikke sett på Sigurd etter påskeferie, så vi spørte ham på facebook. Han s
 01.05
 Gretar skriver:
 Fortsett med InformasjonVindu.java. Person-delen og bolig-delen ser bra ut. Parameter-delen trenger knapper og jeg har ikke startet ennu med Kontrakt-delen. Fortsetter med det neste gang.
+
+02.05
+Gretar skriver:
+Kontrakt delen i InformasjonVindu lagt til. Vinduet ser bra ut og nu må vi legge til metoder for alle knappene.
