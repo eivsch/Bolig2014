@@ -25,8 +25,8 @@ public class BoligVindu extends JFrame implements ActionListener {
     private JPanel masterPanel, top, fellesPanel, knappPanel, eneboligPanel, leilighetPanel, under;
 
     // felles for eneboliger og leiligheter
-    private JTextField gateadresse, postnr, poststed, areal, antRom, byggeaar, beskrivelse, pris, avertertDato;
-    private JComboBox boligtype;
+    private JTextField gateadresse, postnr, poststed, areal, byggeaar, beskrivelse, pris, avertertDato;
+    private JComboBox boligtype, antRom;
     private final String[] TYPE = {"Velg", "Enebolig/rekkehus", "Leilighet"};
 
     // for knappPanel
@@ -34,11 +34,14 @@ public class BoligVindu extends JFrame implements ActionListener {
     private JButton regBolig, slettBolig, skrivUt;
 
     // kun for eneboliger
-    private JTextField etasjer, tomtestorrelse;
+    private JTextField tomtestorrelse;
+    private JComboBox etasjer;
     private JCheckBox kjeller;
 
     // kun for leiligheter
-    private JTextField etasje;
+    private final String[] ETASJELISTE = {"1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "10", "11", "12", "13", "14", "15"};
+    private JComboBox etasje;
     private JCheckBox heis, balkong;
 
     private JTextArea output;
@@ -100,7 +103,8 @@ public class BoligVindu extends JFrame implements ActionListener {
         fellesPanel.add(areal);
 
         fellesPanel.add(new JLabel("Antall rom: "));
-        antRom = new JTextField(10);
+        antRom = new JComboBox(StartVindu.ANTSOVEROM);
+        antRom.setSelectedIndex(0);
         fellesPanel.add(antRom);
 
         fellesPanel.add(new JLabel("Byggeår: "));
@@ -129,7 +133,8 @@ public class BoligVindu extends JFrame implements ActionListener {
 
         // enebolig textfields
         eneboligPanel.add(new JLabel("Antall etasjer: "));
-        etasjer = new JTextField(10);
+        etasjer = new JComboBox(StartVindu.ETASJERENEBOLIG);
+        etasjer.setSelectedIndex(0);
         eneboligPanel.add(etasjer);
 
         eneboligPanel.add(new JLabel("Tomtestørrelse: "));
@@ -142,7 +147,8 @@ public class BoligVindu extends JFrame implements ActionListener {
 
         // leilighet textfields
         leilighetPanel.add(new JLabel("Etasje: "));
-        etasje = new JTextField(10);
+        etasje = new JComboBox(ETASJELISTE);
+        etasje.setSelectedIndex(0);
         leilighetPanel.add(etasje);
 
         leilighetPanel.add(new JLabel("Heis: "));
@@ -170,33 +176,36 @@ public class BoligVindu extends JFrame implements ActionListener {
     // registrer bolig
     public void regBolig(String b) {
         Bolig bolig;
-        int postnrHeltall, arealHeltall, byggeaarHeltall, prisHeltall, tomtStrHeltall;
         Date dato = StartVindu.konverterDato(avertertDato.getText());
         if (dato == null) {
             output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
             return;
         }
         // Kontrollerer tallverdier ved RegEx for å unngå parseException.
-        JTextField[] regExTest = {postnr, areal, byggeaar, pris, tomtestorrelse};
-        if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, regExTest))) {
+        JTextField[] testRegEx = {postnr, areal, byggeaar, pris, tomtestorrelse};
+        if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, testRegEx))) {
             output.setText("Feil ved innlesning av tallverdier. Bruk kun heltall");
             return;
         }
-        // Setter defaultverdi 0 til felter brukeren ikke fyller  !---- kanskje annen løsning her?
-        postnrHeltall = StartVindu.konverterBlanktFeltTilHeltall(postnr);
-        arealHeltall = StartVindu.konverterBlanktFeltTilHeltall(areal);
-        byggeaarHeltall = StartVindu.konverterBlanktFeltTilHeltall(byggeaar);
-        prisHeltall = StartVindu.konverterBlanktFeltTilHeltall(pris);
-        tomtStrHeltall = StartVindu.konverterBlanktFeltTilHeltall(tomtestorrelse);
+        // Gir melding til bruker om han/hun har glemt å fylle noen felter.
+        JTextField[] testTomme = {gateadresse, postnr, poststed, beskrivelse, areal, byggeaar, pris};
+        if (StartVindu.tekstFeltErTomt(testTomme)) {
+            output.setText("Vennligst fyll inn alle felter!");
+            return;
+        }
 
         if (b.equals(TYPE[1])) {
-            bolig = new Enebolig(gateadresse.getText(), postnrHeltall, poststed.getText(), TYPE[1], beskrivelse.getText(), dato,
-                    arealHeltall, Integer.parseInt(antRom.getText()), byggeaarHeltall,
-                    prisHeltall, Integer.parseInt(etasjer.getText()), tomtStrHeltall, kjeller.isSelected());
+            if (tomtestorrelse.getText().equals("")) {
+                output.setText("Vennligst fylle inn tomtestørrelse!");
+                return;
+            }
+            bolig = new Enebolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[1], beskrivelse.getText(), dato,
+                    Integer.parseInt(areal.getText()), Integer.parseInt((String) antRom.getSelectedItem()), Integer.parseInt(byggeaar.getText()),
+                    Integer.parseInt(pris.getText()), Integer.parseInt((String) etasjer.getSelectedItem()), Integer.parseInt(tomtestorrelse.getText()), kjeller.isSelected());
         } else {
-            bolig = new Leilighet(gateadresse.getText(), postnrHeltall, poststed.getText(), TYPE[2], beskrivelse.getText(), dato,
-                    arealHeltall, Integer.parseInt(antRom.getText()), byggeaarHeltall,
-                    prisHeltall, Integer.parseInt(etasje.getText()), heis.isSelected(), balkong.isSelected());
+            bolig = new Leilighet(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[2], beskrivelse.getText(), dato,
+                    Integer.parseInt(areal.getText()), Integer.parseInt((String) antRom.getSelectedItem()), Integer.parseInt(byggeaar.getText()),
+                    Integer.parseInt(pris.getText()), Integer.parseInt((String) etasje.getSelectedItem()), heis.isSelected(), balkong.isSelected());
         }
 
         Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(utleierFornavn.getText(), utleierEtternavn.getText());

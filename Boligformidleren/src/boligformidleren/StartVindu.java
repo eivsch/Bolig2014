@@ -31,6 +31,10 @@ public class StartVindu extends JFrame implements ActionListener {
     // knapper, rader, kolonner og gap for GridLayout
     private int antKnapper, antRad, antKol, gap;
 
+    // Konstanter
+    public static final String[] ANTSOVEROM = {"1", "2", "3", "4", "5", "6", "7", "8"};
+    public static final String[] ETASJERENEBOLIG = {"1", "2", "3", "4","5"};
+
     // RegEx
     public static final String patternDato = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
     public static final String patternHeltall = "[0-9]*";
@@ -101,10 +105,12 @@ public class StartVindu extends JFrame implements ActionListener {
             return Integer.parseInt(jtf.getText());
         }
     }
-    
-    public static boolean tekstFeltErTomt(JTextField jtf){
-        if(jtf.getText().equals("")){
-            return true;
+
+    public static boolean tekstFeltErTomt(JTextField[] jtf) {
+        for (int i = 0; i < jtf.length; i++) {
+            if (jtf[i].getText().equals("")) {
+                return true;
+            }
         }
         return false;
     }

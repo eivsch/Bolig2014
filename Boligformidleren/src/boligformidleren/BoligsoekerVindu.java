@@ -36,12 +36,10 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
 
     // felles felt for eneboliger og leiligheter
     private final String[] TYPE = {"Ingen krav", "Enebolig/rekkehus", "Leilighet"};   // boligtype drop-down list
-    private final String[] ANTSOVEROM = {"1", "2", "3", "4", "5", "6", "7", "8"};
     private JComboBox kravType, kravRom;
     private JTextField kravAreal, kravByggeaar, kravPris, kravAvertertDato;
 
     // felt for eneboliger
-    private final String[] ETASJEKRAVENEBOLIG = {"1", "2", "3", "4"};
     private JComboBox kravMaxEtasjer;
     private JTextField kravTomtestorrelse;
     private JCheckBox kravKjeller;
@@ -137,7 +135,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         fellesPanel.add(kravAreal);
 
         fellesPanel.add(new JLabel("Min. soverom: "));
-        kravRom = new JComboBox(ANTSOVEROM);
+        kravRom = new JComboBox(StartVindu.ANTSOVEROM);
         kravRom.setSelectedIndex(0);
         fellesPanel.add(kravRom);
 
@@ -156,7 +154,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
 
         // enebolig felt
         eneboligPanel.add(new JLabel("Max. etasjer: "));
-        kravMaxEtasjer = new JComboBox(ETASJEKRAVENEBOLIG);
+        kravMaxEtasjer = new JComboBox(StartVindu.ETASJERENEBOLIG);
         kravMaxEtasjer.setSelectedIndex(0);
         eneboligPanel.add(kravMaxEtasjer);
 

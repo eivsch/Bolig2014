@@ -65,15 +65,15 @@ public class UtleierVindu extends JFrame implements ActionListener {
         grid.add(new JLabel("Gateadresse: "));
         RegPersGateadr = new JTextField(10);
         grid.add(RegPersGateadr);
- 
+
         grid.add(new JLabel("Postnummer: "));
         RegPersPostnr = new JTextField(10);
         grid.add(RegPersPostnr);
- 
+
         grid.add(new JLabel("Poststed: "));
         RegPersPoststed = new JTextField(10);
         grid.add(RegPersPoststed);
- 
+
         grid.add(new JLabel("E-post: "));
         RegEpost = new JTextField(10);
         grid.add(RegEpost);
@@ -116,7 +116,20 @@ public class UtleierVindu extends JFrame implements ActionListener {
             output.setText("Feil - Utleier allerede registrert!");
             return;
         }
-
+        // Kontrollerer tallverdier ved RegEx for å unngå parseException
+        JTextField[] testRegEx = {RegPersPostnr, RegTlf};
+        if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, testRegEx))) {
+            output.setText("Feil ved innelsning av tallverdier. Bruk kun heltall");
+            return;
+        }
+        // Gir melding til bruker om han/hun har glemt å fylle noen felter, unntatt firmafeltet.
+        JTextField[] testTomme = {RegPersFornavn, RegPersEtternavn, RegPersGateadr, 
+            RegPersPostnr, RegPersPoststed, RegEpost, RegTlf};
+        if (StartVindu.tekstFeltErTomt(testTomme)) {
+            output.setText("Vennligst fyll inn alle felter! (Firma er valgfritt)");
+            return;
+        }
+        
         Utleier u = new Utleier(RegPersFornavn.getText(), RegPersEtternavn.getText(),
                 RegPersGateadr.getText(), Integer.parseInt(RegPersPostnr.getText()), RegPersPoststed.getText(),
                 RegEpost.getText(), Integer.parseInt(RegTlf.getText()), RegFirma.getText());
@@ -140,7 +153,7 @@ public class UtleierVindu extends JFrame implements ActionListener {
         }
         blankFelter();
     }
-        
+
     public void blankFelter() {
         RegPersFornavn.setText("");
         RegPersEtternavn.setText("");
