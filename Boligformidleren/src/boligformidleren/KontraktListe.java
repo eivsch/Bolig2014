@@ -14,7 +14,7 @@ import java.io.*;
  * Beskrivelse *
  */
 
-public class KontraktListe {
+public class KontraktListe implements Serializable{
     
     private List<Kontrakt> kontraktListe = new ArrayList<Kontrakt>();
     

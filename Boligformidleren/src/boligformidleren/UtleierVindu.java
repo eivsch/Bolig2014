@@ -109,13 +109,6 @@ public class UtleierVindu extends JFrame implements ActionListener {
     //registrer utleier
     public void regUtleier() {
 
-        String fornavn = RegPersFornavn.getText();
-        String etternavn = RegPersEtternavn.getText();
-
-        if (utleierMengde.finnUtleier(fornavn, etternavn) != null) {
-            output.setText("Feil - Utleier allerede registrert!");
-            return;
-        }
         // Kontrollerer tallverdier ved RegEx for å unngå parseException
         JTextField[] testRegEx = {RegPersPostnr, RegTlf};
         if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, testRegEx))) {
@@ -123,15 +116,23 @@ public class UtleierVindu extends JFrame implements ActionListener {
             return;
         }
         // Gir melding til bruker om han/hun har glemt å fylle noen felter, unntatt firmafeltet.
-        JTextField[] testTomme = {RegPersFornavn, RegPersEtternavn, RegPersGateadr, 
+        JTextField[] testTomme = {RegPersFornavn, RegPersEtternavn, RegPersGateadr,
             RegPersPostnr, RegPersPoststed, RegEpost, RegTlf};
         if (StartVindu.tekstFeltErTomt(testTomme)) {
             output.setText("Vennligst fyll inn alle felter! (Firma er valgfritt)");
             return;
         }
-        
-        Utleier u = new Utleier(RegPersFornavn.getText(), RegPersEtternavn.getText(),
-                RegPersGateadr.getText(), Integer.parseInt(RegPersPostnr.getText()), RegPersPoststed.getText(),
+
+        String fornavn = RegPersFornavn.getText();
+        String etternavn = RegPersEtternavn.getText();
+
+        if (utleierMengde.finnUtleier(fornavn, etternavn) != null) {
+            output.setText("Feil - Utleier allerede registrert!");
+            return;
+        }
+
+        Utleier u = new Utleier(fornavn, etternavn, RegPersGateadr.getText(), 
+                Integer.parseInt(RegPersPostnr.getText()), RegPersPoststed.getText(),
                 RegEpost.getText(), Integer.parseInt(RegTlf.getText()), RegFirma.getText());
 
         utleierMengde.settInn(u);
@@ -167,7 +168,7 @@ public class UtleierVindu extends JFrame implements ActionListener {
 
     public void utskrift() {
         /**
-         * Få skrevet ut alt som er registrert til et tekstfelt. (Kall på
+         * Få skrevet ut alt som er registrert til et tekstområde. (Kall på
          * person- mengde, kontraktliste etc .toString)
          */
         output.setText(utleierMengde.toString() + "\n");
@@ -178,9 +179,9 @@ public class UtleierVindu extends JFrame implements ActionListener {
                 new FileOutputStream("utleiermengde.data"))) {
             utfil.writeObject(utleierMengde.kopierMengdeUsortert());
         } catch (NotSerializableException nse) {
-            visFeilmelding(nse);
+            StartVindu.visFeilmelding(nse);
         } catch (IOException e) {
-            visFeilmelding(e);
+            StartVindu.visFeilmelding(e);
         }
     }
 
@@ -194,20 +195,12 @@ public class UtleierVindu extends JFrame implements ActionListener {
                 utleierMengde.settInn(iter.next());
             }
         } catch (ClassNotFoundException cnfe) {
-            visFeilmelding(cnfe);
+            StartVindu.visFeilmelding(cnfe);
         } catch (FileNotFoundException fnfe) {
-            visFeilmelding(fnfe);
+            StartVindu.visFeilmelding(fnfe);
         } catch (IOException e) {
-            visFeilmelding(e);
+            StartVindu.visFeilmelding(e);
         }
-    }
-
-    public void visFeilmelding(StackTraceElement[] ste) {
-        JOptionPane.showMessageDialog(this, ste);
-    }
-
-    public void visFeilmelding(Object o) {
-        JOptionPane.showMessageDialog(this, o);
     }
 
     // Lyttemetode

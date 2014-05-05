@@ -8,6 +8,7 @@
 package boligformidleren;
 
 import java.io.*;
+import java.util.Date;
 
 /**
  * Klassen skal representere en kontrakt. Kontrakt skal ikke kunne endres
@@ -16,11 +17,12 @@ import java.io.*;
  */
 public class Kontrakt implements Serializable {
     
-    private String utskrift, sluttDato;
+    private String utskrift;
+    private Date sluttDato;
     private int pris;
     
     // konstruktør
-    public Kontrakt( Bolig b, Utleier u, Boligsoeker bs, int pris, String dato){
+    public Kontrakt( Bolig b, Utleier u, Boligsoeker bs, int pris, Date dato){
         sluttDato = dato;
         this.pris = pris;
         
@@ -28,7 +30,7 @@ public class Kontrakt implements Serializable {
                    "\n\nUtleier-info:\n" + u.toString() +
                    "\n\nLeietaker-info:\n" + bs.toString() +
                    "\n\nLeiepris:\n" + pris +
-                   "\n\nSluttdato: " + dato;
+                   "\n\nSluttdato: " + StartVindu.datoFormat.format(dato);
     }
     
     public String toString(){

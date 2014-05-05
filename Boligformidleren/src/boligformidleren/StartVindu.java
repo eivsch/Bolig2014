@@ -33,7 +33,7 @@ public class StartVindu extends JFrame implements ActionListener {
 
     // Konstanter
     public static final String[] ANTSOVEROM = {"1", "2", "3", "4", "5", "6", "7", "8"};
-    public static final String[] ETASJERENEBOLIG = {"1", "2", "3", "4","5"};
+    public static final String[] ETASJERENEBOLIG = {"1", "2", "3", "4", "5"};
 
     // RegEx
     public static final String patternDato = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
@@ -130,7 +130,16 @@ public class StartVindu extends JFrame implements ActionListener {
     public void skrivTilFil() {
         utleierVindu.skrivUtleierTilFil();
         boligsoekerVindu.skrivBoligsoekerTilFil();
+        kontraktVindu.skrivKontraktTilFil();
         // evt. andre vinduer som skal skrives til fil
+    }
+
+    public static void visFeilmelding(StackTraceElement[] ste) {
+        JOptionPane.showMessageDialog(null, ste);
+    }
+
+    public static void visFeilmelding(Object o) {
+        JOptionPane.showMessageDialog(null, o);
     }
 
     public void actionPerformed(ActionEvent e) {
