@@ -104,8 +104,8 @@ public class InformasjonVindu extends JFrame implements ActionListener{
         // antall rader, antall kolonner og gap størrelse for top-panelene (GridLayout)
         int antRadTopPanel = 1;
         int antKolTopPanel = 4;
-        int antRadPersonPanel = 3;
-        int antRadBoligPanel = 4;
+        int antRadPersonPanel = 8;
+        int antRadBoligPanel = 8;
         int antRadTypePanel = 1;
         int antRadMinMaxPanel = 6;
         int antRadEneboligLeilighetPanel = 3;
@@ -212,8 +212,6 @@ public class InformasjonVindu extends JFrame implements ActionListener{
         visInteresserte.addActionListener(this);
         venstreBoligPanel.add(visInteresserte);
         
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
-        
         // høyre bolig panel
         // bolig felles panel
         boligFellesTypePanel.add(new JLabel("Boligtype: "));
@@ -291,8 +289,6 @@ public class InformasjonVindu extends JFrame implements ActionListener{
         visAlleBoliger = new JButton("Vis alle boliger");
         visAlleBoliger.addActionListener(this);
         boligKnappPanel.add(visAlleBoliger);
-        
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
         
         // kontrakt panel
         // kontrakt felles panel
@@ -373,12 +369,29 @@ public class InformasjonVindu extends JFrame implements ActionListener{
         kontraktKnappPanel.add(visAlleKontrakter);
     }
     
+    // hent opplysninger om en navngitt person
     public void hentInfoPerson(){
-        //...
+        Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(fornavn.getText(), etternavn.getText());
+        Boligsoeker bs = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().finnBoligsoeker(fornavn.getText(), etternavn.getText());
+        
+        // blank felter
+        fornavn.setText("");
+        etternavn.setText("");
+        
+        if( ul != null){
+            output.setText(ul.toString());
+            return;
+        }
+        if( bs != null){
+            output.setText(bs.toString());
+            return;
+        }
+        output.setText("Feil - finner ikke person " + fornavn.getText() + " " + etternavn.getText());
     }
     
+    // utskrift av alle registrerte boligsøkere, med opplysninger om hvilken bolig de eventuelt er interessert i
     public void visAlleBoligsoekere(){
-        //...
+        
     }
     
     public void visBoligInfo(){
