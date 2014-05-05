@@ -162,51 +162,40 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         
         boolean passer = true;
 
-        if(areal > b.getAreal()){
-            System.out.println("areal: " + passer);
+        if(areal != 0 && areal > b.getAreal()){
             passer = false;
-        }if(byggeaar > b.getByggeaar()){
-            System.out.println("byggeaar: " + passer);
+        }if(byggeaar != 0 && byggeaar > b.getByggeaar()){
             passer = false;
-        }if(dato.after(b.getDato())){
-            System.out.println("dato: " + passer);
+        }if(dato != null && dato.after(b.getDato())){
             passer = false;
-        }if(pris < b.getPris()){
-            System.out.println("pris: " + passer);
+        }if(pris != 0 && pris < b.getPris()){
             passer = false;
-        }if(soverom > b.getSoverom()){
-            System.out.println("rom: " + passer);
+        }if(soverom != 0 && soverom > b.getSoverom()){
             passer = false;
-        }if(!type.equals(b.getType())){
-            System.out.println("type: " + passer);
+        }if(type != "Ingen krav" && !type.equals(b.getType())){
             passer = false;
         }
-        System.out.println("Felles: " + passer);
         
         if(b instanceof Enebolig){
             Enebolig e = (Enebolig) b;
             
-            if(maxAntEtasjer < e.getAntEtasjer())
+            if(maxAntEtasjer != 0 && maxAntEtasjer < e.getAntEtasjer())
                 passer = false;
-            if(tomtestorrelse > e.getTomtAreal())
+            if(tomtestorrelse != 0 && tomtestorrelse > e.getTomtAreal())
                 passer = false;
-            if(kjeller != e.getKjeller())
+            if(kjeller && !e.getKjeller())
                 passer = false;
-            
-            System.out.println("Enebolig: " + passer);
         }
         
         if(b instanceof Leilighet){
             Leilighet l = (Leilighet) b;
             
-            if(maxEtasje < l.getEtasje())
+            if(maxEtasje != 0 && maxEtasje < l.getEtasje())
                 passer = false;
-            if(balkong != l.getBalkong())
+            if(balkong && !l.getBalkong())
                 passer = false;
-            if(heis != l.getHeis())
+            if(heis && !l.getHeis())
                 passer = false;
-            
-            System.out.println("Leilighet: " + passer);
         }
         
         return passer;

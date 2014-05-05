@@ -406,18 +406,15 @@ public class InformasjonVindu extends JFrame implements ActionListener{
             BoligListe bl;
             
             while(ulIter.hasNext()){
-                System.out.println("a");
                 ul = ulIter.next();
                 bl = ul.getBoligliste();
                 Bolig b;
                 Iterator<Bolig> bIter = bl.getListe().iterator();
                 
                 while(bIter.hasNext()){
-                    System.out.println("b");
                     b = bIter.next();
                     
                     if(bs.passerTilBolig(b)){
-                        System.out.println("c");
                         utskrift += b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed() + "\n";
                     }
                 }
