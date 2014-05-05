@@ -21,7 +21,8 @@ import java.util.Date;
 
 public class KontraktVindu extends JFrame implements ActionListener {
     
-    private JTextField gateadresse, postnr, poststed, utleierFornavn, utleierEtternavn, leietakerFornavn, leietakerEtternavn, pris, sluttDato;
+    private JTextField gateadresse, postnr, poststed, utleierFornavn, utleierEtternavn, 
+            leietakerFornavn, leietakerEtternavn, pris, sluttDatoFelt, startDatoFelt;
     private JTextArea output;
     private JButton regKontrakt, siOppKontrakt, skrivUt;
     private int antRad, antKol, gap;
@@ -36,7 +37,7 @@ public class KontraktVindu extends JFrame implements ActionListener {
         kontraktListe = new KontraktListe();
 
         // antall rader, antall kolonner og gap størrelse for GridLayout
-        antRad = 11;
+        antRad = 12;
         antKol = 2;
         gap = 5;
         
@@ -87,9 +88,13 @@ public class KontraktVindu extends JFrame implements ActionListener {
         pris = new JTextField(10);
         grid.add(pris);
         
+        grid.add(new JLabel("Startdato (dd.mm.åååå)"));
+        startDatoFelt = new JTextField(10);
+        grid.add(startDatoFelt);
+        
         grid.add(new JLabel("Sluttdato (dd.mm.åååå): "));
-        sluttDato = new JTextField(10);
-        grid.add(sluttDato);
+        sluttDatoFelt = new JTextField(10);
+        grid.add(sluttDatoFelt);
 
         // buttons
         regKontrakt = new JButton("Register kontrakt");
@@ -136,8 +141,9 @@ public class KontraktVindu extends JFrame implements ActionListener {
         String lFornavn = leietakerFornavn.getText();
         String lEtternavn = leietakerEtternavn.getText();
         int leiepris = Integer.parseInt(pris.getText());
-        Date dato = StartVindu.konverterDato(sluttDato.getText());
-        if (dato == null) {
+        Date startDato = StartVindu.konverterDato(startDatoFelt.getText()), 
+                sluttDato = StartVindu.konverterDato(sluttDatoFelt.getText());
+        if (sluttDato == null || startDato == null) {
             output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
             return;
         }
@@ -157,12 +163,10 @@ public class KontraktVindu extends JFrame implements ActionListener {
             return;
         }
         
-        /** 
-         * Metode som sjekker om boligsøkeren allerede har registrert en kontrakt
-         * innenfor samme tidsrom.
-         */
-        
-        Kontrakt k = new Kontrakt(b, u, bs, leiepris, dato);
+        // Sjekker om det boligsoekeren har inngått kontrakt innenfor sammme tidsperiode.
+        Kontrakt[] kontrakter = kontraktListe.finnKontrakter(bs);
+        //...
+        Kontrakt k = new Kontrakt(b, u, bs, leiepris, startDato, sluttDato);
         
         kontraktListe.settInn(k);
         
@@ -175,7 +179,7 @@ public class KontraktVindu extends JFrame implements ActionListener {
     public void siOppKontrakt(){
         // Forandrer sluttdato i kontrakten tilsvarende oppsigelsestid.
     }
-    
+   
     public void utskrift() {
         output.setText(kontraktListe.toString());
     }

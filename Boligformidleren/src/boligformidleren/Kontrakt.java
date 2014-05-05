@@ -2,8 +2,8 @@
  * INNHOLD:
  * Klassen Kontrakt.
  *
- * Sist oppdatert: 02.04.2014, 11:00.
- * Programmert av: Gretar
+ * Sist oppdatert: 05.05.2014, 14:00.
+ * Programmert av: Gretar, Eivind
  */
 package boligformidleren;
 
@@ -18,19 +18,43 @@ import java.util.Date;
 public class Kontrakt implements Serializable {
     
     private String utskrift;
-    private Date sluttDato;
+    private Date startDato, sluttDato;
     private int pris;
+    private Bolig b;
+    private Utleier u;
+    private Boligsoeker bs;
     
     // konstruktør
-    public Kontrakt( Bolig b, Utleier u, Boligsoeker bs, int pris, Date dato){
-        sluttDato = dato;
+    public Kontrakt( Bolig b, Utleier u, Boligsoeker bs, int pris, Date startDato, Date sluttDato){
+        this.startDato = startDato;
+        this.sluttDato = sluttDato;
         this.pris = pris;
+        this.b = b;
+        this.u = u;
+        this.bs = bs;
         
         utskrift = "Bolig-info:\n" + b.toString() +
                    "\n\nUtleier-info:\n" + u.toString() +
                    "\n\nLeietaker-info:\n" + bs.toString() +
                    "\n\nLeiepris:\n" + pris +
-                   "\n\nSluttdato: " + StartVindu.datoFormat.format(dato);
+                   "\n\nStartDato:\n" + StartVindu.datoFormat.format(startDato) +
+                   "\n\nSluttdato: " + StartVindu.datoFormat.format(sluttDato);
+    }
+    
+    public Boligsoeker getBoligsoeker(){
+        return bs;
+    }
+
+    public Bolig getBolig() {
+        return b;
+    }
+
+    public Date getSluttDato() {
+        return sluttDato;
+    }
+
+    public Date getStartDato() {
+        return startDato;
     }
     
     public String toString(){
