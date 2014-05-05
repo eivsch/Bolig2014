@@ -29,7 +29,11 @@ public class BoligsoekerMengde {
     public boolean fjern(Boligsoeker bs) {
         return mengde.remove(bs);
     }
-
+    
+    public Set<Boligsoeker> getMengde(){
+        return mengde;
+    }
+    
     // Returnere et boligsoeker som hører til navnet
     public Boligsoeker finnBoligsoeker(String fornavn, String etternavn) {
         Iterator<Boligsoeker> bsIter = mengde.iterator();
