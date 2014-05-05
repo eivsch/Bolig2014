@@ -18,25 +18,27 @@ import java.util.Date;
 public abstract class Bolig implements Serializable {
 
     private String gateadresse, poststed, type, beskrivelse;
-    private int postnr, inneAreal, antRom, byggeaar, pris;
-    private Date annonsedato;
+    private int postnr, areal, soverom, byggeaar, pris;
+    private Date dato;
     private boolean ledig = true;
     //bilde
 
     // konstruktør
     public Bolig(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
-            Date annonsedato, int inneAreal, int antRom, int byggeaar, int pris) {
+            Date dato, int areal, int soverom, int byggeaar, int pris) {
 
         this.gateadresse = gateadresse;
         this.postnr = postnr;
         this.poststed = poststed;
-        this.type = type;
-        this.beskrivelse = beskrivelse;
-        this.annonsedato = annonsedato;
-        this.inneAreal = inneAreal;
-        this.antRom = antRom;
+        
+        this.areal = areal;
         this.byggeaar = byggeaar;
+        this.dato = dato;
         this.pris = pris;
+        this.soverom = soverom;
+        this.type = type;
+
+        this.beskrivelse = beskrivelse;
     }
 
     // get-metoder
@@ -60,16 +62,16 @@ public abstract class Bolig implements Serializable {
         return beskrivelse;
     }
 
-    public Date getAnnonsedato(){
-        return annonsedato;
+    public Date getDato(){
+        return dato;
     }
 
-    public int getInneAreal(){
-        return inneAreal;
+    public int getAreal(){
+        return areal;
     }
 
-    public int getAntRom(){
-        return antRom;
+    public int getSoverom(){
+        return soverom;
     }
 
     public int getByggeaar(){
@@ -105,16 +107,16 @@ public abstract class Bolig implements Serializable {
         beskrivelse = b;
     }
 
-    public void setAnnonsedato( Date a ){
-        annonsedato = a;
+    public void setDato( Date a ){
+        dato = a;
     }
 
     public void setInneAreal( int i ){
-        inneAreal = i;
+        areal = i;
     }
 
     public void setAntRom( int a ){
-        antRom = a;
+        soverom = a;
     }
 
     public void setByggeaar( int b){
@@ -146,8 +148,8 @@ public abstract class Bolig implements Serializable {
     public String toString() {
         String s = "Gateadresse: " + gateadresse + "\nPostnummer: " + postnr + "\nPoststed: " + poststed 
                 + "\nType: " + type + "\nBeskrivelse: " + beskrivelse 
-                + "\nAnnonsedato: " + StartVindu.datoFormat.format(annonsedato) + "\nAreal: " + inneAreal 
-                + "\nAntall rom: " + antRom + "\nByggeår: " + byggeaar
+                + "\nDato: " + StartVindu.datoFormat.format(dato) + "\nAreal: " + areal 
+                + "\nAntall rom: " + soverom + "\nByggeår: " + byggeaar
                 + "\nPris: " + pris;
 
         return s;
