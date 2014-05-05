@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Iterator;
 
 public class InformasjonVindu extends JFrame implements ActionListener{
     
@@ -391,7 +392,38 @@ public class InformasjonVindu extends JFrame implements ActionListener{
     
     // utskrift av alle registrerte boligsøkere, med opplysninger om hvilken bolig de eventuelt er interessert i
     public void visAlleBoligsoekere(){
+        Iterator<Boligsoeker> bsIter = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().getMengde().iterator();
         
+        Boligsoeker bs;
+        String utskrift = "";
+        
+        while(bsIter.hasNext()){
+            bs = bsIter.next();
+            utskrift += bs.getFornavn() + " " + bs.getEtternavn() + "\n";
+            
+            Iterator<Utleier> ulIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
+            Utleier ul;
+            BoligListe bl;
+            
+            while(ulIter.hasNext()){
+                System.out.println("a");
+                ul = ulIter.next();
+                bl = ul.getBoligliste();
+                Bolig b;
+                Iterator<Bolig> bIter = bl.getListe().iterator();
+                
+                while(bIter.hasNext()){
+                    System.out.println("b");
+                    b = bIter.next();
+                    
+                    if(bs.passerTilBolig(b)){
+                        System.out.println("c");
+                        utskrift += b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed() + "\n";
+                    }
+                }
+            }
+        }
+        output.setText(utskrift);
     }
     
     public void visBoligInfo(){

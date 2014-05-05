@@ -157,32 +157,56 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         if( b == null)
             return false;
         
-        if(b.getLedig())
+        if(!b.getLedig())
             return false;
         
         boolean passer = true;
 
-        passer = areal >= b.getAreal() ? true : false;
-        passer = byggeaar >= b.getByggeaar() ? true : false;
-        passer = dato.before(b.getDato()) ? false : true;
-        passer = pris <= b.getPris() ? true: false;
-        passer = soverom >= b.getSoverom() ? true: false;
-        passer = type.equals(b.getType()) ? true : false;
+        if(areal > b.getAreal()){
+            System.out.println("areal: " + passer);
+            passer = false;
+        }if(byggeaar > b.getByggeaar()){
+            System.out.println("byggeaar: " + passer);
+            passer = false;
+        }if(dato.after(b.getDato())){
+            System.out.println("dato: " + passer);
+            passer = false;
+        }if(pris < b.getPris()){
+            System.out.println("pris: " + passer);
+            passer = false;
+        }if(soverom > b.getSoverom()){
+            System.out.println("rom: " + passer);
+            passer = false;
+        }if(!type.equals(b.getType())){
+            System.out.println("type: " + passer);
+            passer = false;
+        }
+        System.out.println("Felles: " + passer);
         
         if(b instanceof Enebolig){
             Enebolig e = (Enebolig) b;
             
-            passer = maxAntEtasjer <= e.getAntEtasjer() ? true: false;
-            passer = tomtestorrelse >= e.getTomtAreal() ? true: false;
-            passer = kjeller == e.getKjeller() ? true: false;
+            if(maxAntEtasjer < e.getAntEtasjer())
+                passer = false;
+            if(tomtestorrelse > e.getTomtAreal())
+                passer = false;
+            if(kjeller != e.getKjeller())
+                passer = false;
+            
+            System.out.println("Enebolig: " + passer);
         }
         
         if(b instanceof Leilighet){
             Leilighet l = (Leilighet) b;
             
-            passer = maxEtasje <= l.getEtasje() ? true: false;
-            passer = balkong == l.getBalkong() ? true: false;
-            passer = heis == l.getHeis() ? true: false;
+            if(maxEtasje < l.getEtasje())
+                passer = false;
+            if(balkong != l.getBalkong())
+                passer = false;
+            if(heis != l.getHeis())
+                passer = false;
+            
+            System.out.println("Leilighet: " + passer);
         }
         
         return passer;
@@ -212,10 +236,10 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
                 "\nMax. leiepris: " + pris + 
                 "\nMax. antall etasjer: " + maxAntEtasjer + 
                 "\nMin. tomtestørrelse: " + tomtestorrelse + 
-                "\nKjeller: " + kjeller +
+                "\nKjeller: " + (kjeller ? "ja": "nei") +
                 "\nMax. etasje: " + maxEtasje + 
-                "\nHeis: " + heis + 
-                "\nBalkong: " + balkong + 
+                "\nHeis: " + (heis ? "ja": "nei") + 
+                "\nBalkong: " + (balkong ? "ja": "nei") + 
                 "\nDato: " + StartVindu.datoFormat.format(dato);
         return s;
     }

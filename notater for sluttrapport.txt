@@ -1,3 +1,5 @@
 G: lurer på hva skal skje hvis to personer har samme navn. Istedenfor at finnUtleier() eller finnBoligsoeker() metodene returnerer et Utleier/Boligsoeker object, kan disse returnere en array av objekter. Så kan man sjekke størrelsen på arrayen når man skal sjekke hvis to eller flere personer har samme navn. Vi vil først fokusere på alt på første prioritet, så vi har satt denne funksjonen til laveste prioritetsnivå.
 
 E: Bruke JTable i utskrift-området til at få opplysingene til å se bedre ut
+
+E: vi gjør forutsetningen at hver boligsøker kan kun ha en "gyldig" leiekontrakt (som er ikke udatert)

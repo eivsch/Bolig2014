@@ -201,10 +201,15 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
 
         String fnavn = RegPersFornavn.getText();
         String enavn = RegPersEtternavn.getText();
-        Date dato = StartVindu.konverterDato(kravAvertertDato.getText());
-        if (dato == null) {
-            output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
-            return;
+        Date dato = null;
+        
+        if(!kravAvertertDato.getText().equals("")){
+            if(StartVindu.konverterDato(kravAvertertDato.getText()) == null){
+                output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
+                return;
+            }
+            else
+                dato = StartVindu.konverterDato(kravAvertertDato.getText());
         }
 
         String type = (String) kravType.getSelectedItem();
