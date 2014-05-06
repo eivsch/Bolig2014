@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class BoligsoekerVindu extends JFrame implements ActionListener {
+public class BoligsoekerVindu extends JFrame implements ActionListener, FocusListener {
 
     /* Boligsoeker-vinduet er oppbygget sånn at en masterpanel inneholder allt i BorderLayout (vinduet selv).
      * Top-panelen inneholder tre paneler:
@@ -150,6 +150,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         fellesPanel.add(new JLabel("Min. avertert dato: "));
         kravAvertertDato = new JTextField(10);
         kravAvertertDato.setText("dd.mm.åååå");
+        kravAvertertDato.addFocusListener(this);
         fellesPanel.add(kravAvertertDato);
 
         // enebolig felt
@@ -285,7 +286,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
         kravRom.setSelectedIndex(0);
         kravByggeaar.setText("");
         kravPris.setText("");
-        kravAvertertDato.setText("");
+        kravAvertertDato.setText("dd.mm.åååå");
         kravMaxEtasjer.setSelectedIndex(0);
         kravTomtestorrelse.setText("");
         kravKjeller.setSelected(false);
@@ -373,5 +374,22 @@ public class BoligsoekerVindu extends JFrame implements ActionListener {
             this.getContentPane().revalidate();
             this.getContentPane().repaint();
         }
+    }
+    
+    public void focusGained(FocusEvent fe){
+        
+        if(fe.getSource() == kravAvertertDato)
+            if(kravAvertertDato.getText().equals("dd.mm.åååå"))
+                kravAvertertDato.setText("");
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
+        
+    }
+
+    public void focusLost(FocusEvent fe) {
+        
+        if(fe.getSource() == kravAvertertDato)
+            if(kravAvertertDato.getText().equals(""))
+                kravAvertertDato.setText("dd.mm.åååå");
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
     }
 }

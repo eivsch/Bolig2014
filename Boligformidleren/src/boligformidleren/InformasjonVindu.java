@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Iterator;
 
-public class InformasjonVindu extends JFrame implements ActionListener{
+public class InformasjonVindu extends JFrame implements ActionListener, FocusListener{
     
    /* Informasjons-vinduet er i to deler, øvre og nedre.
     * Øvre delen inneholder top-panelen (GridLayout).
@@ -249,6 +249,10 @@ public class InformasjonVindu extends JFrame implements ActionListener{
         boligFellesMinMaxPanel.add(new JLabel("Dato: "));
         minBoligDato = new JTextField(10);
         maxBoligDato = new JTextField(10);
+        minBoligDato.addFocusListener(this);
+        maxBoligDato.addFocusListener(this);
+        minBoligDato.setText("dd.mm.åååå");
+        maxBoligDato.setText("dd.mm.åååå");
         boligFellesMinMaxPanel.add(minBoligDato);
         boligFellesMinMaxPanel.add(maxBoligDato);
         
@@ -481,7 +485,16 @@ public class InformasjonVindu extends JFrame implements ActionListener{
     }
     
     public void finnBoliger(){
-        //...
+        String minAreal = minBoligAreal.getText();
+        String maxAreal = maxBoligAreal.getText();
+        String minRom = minBoligRom.getText();
+        String maxRom = maxBoligRom.getText();
+        String minByggeaar = minBoligByggeaar.getText();
+        String maxByggeaar = maxBoligByggeaar.getText();
+        String minPris = minBoligPris.getText();
+        String maxPris = maxBoligPris.getText();
+        
+        
     }
     
     public void visAlleBoliger(){
@@ -564,8 +577,27 @@ public class InformasjonVindu extends JFrame implements ActionListener{
             this.getContentPane().revalidate();
             this.getContentPane().repaint();
         }
-        
+    }
     
+    public void focusGained(FocusEvent fe){
         
+        if(fe.getSource() == minBoligDato)
+            if(minBoligDato.getText().equals("dd.mm.åååå"))
+                minBoligDato.setText("");
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
+        if(fe.getSource() == maxBoligDato)
+            if(maxBoligDato.getText().equals("dd.mm.åååå"))
+                maxBoligDato.setText("");
+    }
+
+    public void focusLost(FocusEvent fe) {
+        
+        if(fe.getSource() == minBoligDato)
+            if(minBoligDato.getText().equals(""))
+                minBoligDato.setText("dd.mm.åååå");
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
+        if(fe.getSource() == maxBoligDato)
+            if(maxBoligDato.getText().equals(""))
+                maxBoligDato.setText("dd.mm.åååå");
     }
 }

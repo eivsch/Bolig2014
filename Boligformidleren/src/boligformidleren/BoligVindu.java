@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
-public class BoligVindu extends JFrame implements ActionListener {
+public class BoligVindu extends JFrame implements ActionListener, FocusListener {
 
     /* Startvinduet er oppbygget sånn at en masterpanel inneholder allt (vinduet selv).
      * Top-panelen inneholder tre paneler:
@@ -117,6 +117,8 @@ public class BoligVindu extends JFrame implements ActionListener {
 
         fellesPanel.add(new JLabel("Avetert dato: "));
         avertertDato = new JTextField(10);
+        avertertDato.setText("dd.mm.åååå");
+        avertertDato.addFocusListener(this);
         fellesPanel.add(avertertDato);
 
         fellesPanel.add(new JLabel("Beskrivelse: "));
@@ -292,5 +294,21 @@ public class BoligVindu extends JFrame implements ActionListener {
             this.getContentPane().revalidate();
             this.getContentPane().repaint();
         }
+    }
+    
+    public void focusGained(FocusEvent fe){
+        
+        if(fe.getSource() == avertertDato)
+            if(avertertDato.getText().equals("dd.mm.åååå"))
+                avertertDato.setText("");
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
+    }
+
+    public void focusLost(FocusEvent fe) {
+        
+        if(fe.getSource() == avertertDato)
+            if(avertertDato.getText().equals(""))
+                avertertDato.setText("dd.mm.åååå");
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
     }
 }

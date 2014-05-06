@@ -19,7 +19,7 @@ import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.util.Date;
 
-public class KontraktVindu extends JFrame implements ActionListener {
+public class KontraktVindu extends JFrame implements ActionListener, FocusListener {
 
     private JTextField gateadresse, postnr, poststed, utleierFornavn, utleierEtternavn,
             leietakerFornavn, leietakerEtternavn, pris, sluttDatoFelt, startDatoFelt;
@@ -90,10 +90,14 @@ public class KontraktVindu extends JFrame implements ActionListener {
 
         grid.add(new JLabel("Startdato (dd.mm.åååå)"));
         startDatoFelt = new JTextField(10);
+        startDatoFelt.setText("dd.mm.åååå");
+        startDatoFelt.addFocusListener(this);
         grid.add(startDatoFelt);
 
         grid.add(new JLabel("Sluttdato (dd.mm.åååå): "));
         sluttDatoFelt = new JTextField(10);
+        sluttDatoFelt.setText("dd.mm.åååå");
+        sluttDatoFelt.addFocusListener(this);
         grid.add(sluttDatoFelt);
 
         // buttons
@@ -255,5 +259,27 @@ public class KontraktVindu extends JFrame implements ActionListener {
         } else if (e.getSource() == siOppKontrakt) {
             siOppKontrakt();
         }
+    }
+    
+    public void focusGained(FocusEvent fe){
+        
+        if(fe.getSource() == sluttDatoFelt)
+            if(sluttDatoFelt.getText().equals("dd.mm.åååå"))
+                sluttDatoFelt.setText("");
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
+        if(fe.getSource() == startDatoFelt)
+            if(startDatoFelt.getText().equals("dd.mm.åååå"))
+                startDatoFelt.setText("");
+    }
+
+    public void focusLost(FocusEvent fe) {
+        
+        if(fe.getSource() == sluttDatoFelt)
+            if(sluttDatoFelt.getText().equals(""))
+                sluttDatoFelt.setText("dd.mm.åååå");
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
+        if(fe.getSource() == startDatoFelt)
+            if(startDatoFelt.getText().equals(""))
+                startDatoFelt.setText("dd.mm.åååå");
     }
 }
