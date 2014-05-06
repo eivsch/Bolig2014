@@ -36,7 +36,7 @@ public class InformasjonVindu extends JFrame implements ActionListener{
     
     // bolig panel
     private JTextField gateadresse, postnr, poststed;
-    private JButton visBoligInfo, visInteresserte;
+    private JButton visBoligInfo;
     
     // bolig type panel
     private JComboBox boligtype;
@@ -208,10 +208,6 @@ public class InformasjonVindu extends JFrame implements ActionListener{
         visBoligInfo = new JButton("Vis bolig info");
         visBoligInfo.addActionListener(this);
         venstreBoligPanel.add(visBoligInfo);
-        
-        visInteresserte = new JButton("Vis interesserte personer");
-        visInteresserte.addActionListener(this);
-        venstreBoligPanel.add(visInteresserte);
         
         // høyre bolig panel
         // bolig felles panel
@@ -395,11 +391,14 @@ public class InformasjonVindu extends JFrame implements ActionListener{
         Iterator<Boligsoeker> bsIter = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().getMengde().iterator();
         
         Boligsoeker bs;
+        output.setText("Boligsøkere og boliger som oppfyller boligsøkerens krav (gateadresse, postnummer, poststed)\n");
         String utskrift = "";
         
         while(bsIter.hasNext()){
             bs = bsIter.next();
-            utskrift += bs.getFornavn() + " " + bs.getEtternavn() + "\n";
+            utskrift += "\nNavn: " + bs.getFornavn() + " " + bs.getEtternavn()
+                     + "\nBoliger: ";
+                    
             
             Iterator<Utleier> ulIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
             Utleier ul;
@@ -410,25 +409,75 @@ public class InformasjonVindu extends JFrame implements ActionListener{
                 bl = ul.getBoligliste();
                 Bolig b;
                 Iterator<Bolig> bIter = bl.getListe().iterator();
+                boolean tom = true;
                 
                 while(bIter.hasNext()){
                     b = bIter.next();
                     
-                    if(bs.passerTilBolig(b)){
-                        utskrift += b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed() + "\n";
+                    if(b.getLedig() && bs.passerTilBolig(b)){
+                        utskrift += "\n" + b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
+                        tom = false;
                     }
                 }
+                
+                if(tom)
+                    utskrift += "\nIngen bolig oppfyller boligsøkerens krav";
+                
+                utskrift += "\n";
             }
         }
-        output.setText(utskrift);
+        
+        if(utskrift.equals(""))
+            output.setText("Ingen boligsøker registerert");
+        
+        output.append(utskrift);
     }
     
+    // henter og viser informasjon om en bolig og liste over interesserte boligsøkere
     public void visBoligInfo(){
-        //...
-    }
-    
-    public void visInteresserte(){
-        //...
+        String adr = gateadresse.getText();
+        String pnr = postnr.getText();
+        String psted = poststed.getText();
+        
+        if(adr.equals("") || pnr.equals("") || psted.equals("")){
+            output.setText("Feil - du må fylle i alle felter over");
+            return;
+        }
+        
+        // her må komme regex for feltene
+
+        Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(adr, Integer.parseInt(pnr), psted);
+        
+        if(b == null){
+            output.setText("Finner ikke boligen");
+            return;
+        }
+        
+        // opprette en liste over interesserte boligsøkere
+        Iterator<Boligsoeker> bsIter = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().getMengde().iterator();
+        
+        Boligsoeker bs;
+        String interesserte = "";
+        
+        while(bsIter.hasNext()){
+            bs = bsIter.next();
+            
+            if(bs.getLeterEtterBolig() && bs.passerTilBolig(b))
+                interesserte += bs.getFornavn() + " " + bs.getEtternavn() + "\n";
+        }
+        
+        if(interesserte.equals(""))
+            interesserte = "ikke noen";
+        
+        // utskrift
+        output.setText("Bolig informasjon:\n" + b.toString());
+        output.append("\n\nBoligen oppfyller kravene hos flg. boligsøkere:\n");
+        output.append(interesserte);
+        
+        // blank felter
+        gateadresse.setText("");
+        postnr.setText("");
+        poststed.setText("");
     }
     
     public void finnBoliger(){
@@ -460,8 +509,6 @@ public class InformasjonVindu extends JFrame implements ActionListener{
             visAlleBoligsoekere();
         } else if(e.getSource() == visBoligInfo){
             visBoligInfo();
-        } else if(e.getSource() == visInteresserte){
-            visInteresserte();
         } else if(e.getSource() == finnBoliger){
             finnBoliger();
         } else if(e.getSource() == visAlleBoliger){

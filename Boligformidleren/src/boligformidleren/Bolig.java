@@ -150,7 +150,7 @@ public abstract class Bolig implements Serializable {
                 + "\nType: " + type + "\nBeskrivelse: " + beskrivelse 
                 + "\nDato: " + StartVindu.datoFormat.format(dato) + "\nAreal: " + areal 
                 + "\nAntall rom: " + soverom + "\nByggeår: " + byggeaar
-                + "\nPris: " + pris;
+                + "\nPris: " + pris + "\nLedig: " + (ledig ? "ja": "nei");
 
         return s;
     }

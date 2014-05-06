@@ -99,6 +99,10 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         return heis;
     }
     
+    public boolean getLeterEtterBolig(){
+        return leterEtterBolig;
+    }
+    
     // set metoder
     public void setAreal(int a){
         areal = a;
@@ -148,10 +152,6 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         heis = h;
     }
     
-    public boolean getLeterEtterBolig(){
-        return leterEtterBolig;
-    }
-    
     // sjekker om bolig passer til boligsøkerens krav
     public boolean passerTilBolig(Bolig b){
         if( b == null)
@@ -172,7 +172,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
             passer = false;
         }if(soverom != 0 && soverom > b.getSoverom()){
             passer = false;
-        }if(type != "Ingen krav" && !type.equals(b.getType())){
+        }if(!type.equals("Ingen krav") && !type.equals(b.getType())){
             passer = false;
         }
         
@@ -216,7 +216,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
     // toString-metode
     public String toString() {
-        String s = super.toString() + "Personlige opplysninger: " + pInfo + 
+        String s = super.toString() + "\nPersonlige opplysninger: " + pInfo + 
                 "\nKrav: " + 
                 "\nBoligype: " + type + 
                 "\nMin. areal: " + areal + 
@@ -229,7 +229,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
                 "\nMax. etasje: " + maxEtasje + 
                 "\nHeis: " + (heis ? "ja": "nei") + 
                 "\nBalkong: " + (balkong ? "ja": "nei") + 
-                "\nDato: " + StartVindu.datoFormat.format(dato);
+                "\nDato: " + (dato == null ? "Ikke oppgitt": StartVindu.datoFormat.format(dato));
         return s;
     }
 }
