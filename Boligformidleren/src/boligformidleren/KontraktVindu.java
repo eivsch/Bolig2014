@@ -20,37 +20,37 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class KontraktVindu extends JFrame implements ActionListener {
-    
-    private JTextField gateadresse, postnr, poststed, utleierFornavn, utleierEtternavn, 
+
+    private JTextField gateadresse, postnr, poststed, utleierFornavn, utleierEtternavn,
             leietakerFornavn, leietakerEtternavn, pris, sluttDatoFelt, startDatoFelt;
     private JTextArea output;
     private JButton regKontrakt, siOppKontrakt, skrivUt;
     private int antRad, antKol, gap;
     private JPanel masterPanel, grid, under;
-    
+
     private KontraktListe kontraktListe;
 
     // konstruktør
     public KontraktVindu() {
         super("Kontrakt");
-        
+
         kontraktListe = new KontraktListe();
 
         // antall rader, antall kolonner og gap størrelse for GridLayout
         antRad = 12;
         antKol = 2;
         gap = 5;
-        
+
         masterPanel = new JPanel(new BorderLayout());
         grid = new JPanel(new GridLayout(antRad, antKol, gap, gap));
         under = new JPanel(new BorderLayout());
-        
+
         masterPanel.add(grid, BorderLayout.PAGE_START);
         masterPanel.add(under, BorderLayout.CENTER);
-        
+
         this.getContentPane().add(masterPanel);
         setSize(300, 500);
-        
+
         output = new JTextArea();
         JScrollPane scroll = new JScrollPane(output);
         under.add(scroll, BorderLayout.CENTER);
@@ -59,39 +59,39 @@ public class KontraktVindu extends JFrame implements ActionListener {
         grid.add(new JLabel("Gateadresse: "));
         gateadresse = new JTextField(10);
         grid.add(gateadresse);
-        
+
         grid.add(new JLabel("Postnummer: "));
         postnr = new JTextField(10);
         grid.add(postnr);
-        
+
         grid.add(new JLabel("Poststed: "));
         poststed = new JTextField(10);
         grid.add(poststed);
-        
+
         grid.add(new JLabel("Fornavn (utleier): "));
         utleierFornavn = new JTextField(10);
         grid.add(utleierFornavn);
-        
+
         grid.add(new JLabel("Etternavn (utleier): "));
         utleierEtternavn = new JTextField(10);
         grid.add(utleierEtternavn);
-        
+
         grid.add(new JLabel("Fornavn (leietaker): "));
         leietakerFornavn = new JTextField(10);
         grid.add(leietakerFornavn);
-        
+
         grid.add(new JLabel("Etternavn (leietaker): "));
         leietakerEtternavn = new JTextField(10);
         grid.add(leietakerEtternavn);
-        
+
         grid.add(new JLabel("Leiepris: "));
         pris = new JTextField(10);
         grid.add(pris);
-        
+
         grid.add(new JLabel("Startdato (dd.mm.åååå)"));
         startDatoFelt = new JTextField(10);
         grid.add(startDatoFelt);
-        
+
         grid.add(new JLabel("Sluttdato (dd.mm.åååå): "));
         sluttDatoFelt = new JTextField(10);
         grid.add(sluttDatoFelt);
@@ -100,25 +100,25 @@ public class KontraktVindu extends JFrame implements ActionListener {
         regKontrakt = new JButton("Register kontrakt");
         regKontrakt.addActionListener(this);
         grid.add(regKontrakt);
-        
+
         siOppKontrakt = new JButton("Oppsigelse");
         siOppKontrakt.addActionListener(this);
         grid.add(siOppKontrakt);
-        
+
         skrivUt = new JButton("Vis alle kontrakter");
         skrivUt.addActionListener(this);
         grid.add(skrivUt);
 
         // åpner fil når konstruktør kjøres
         lesKontraktFraFil();
-        
+        sjekkUtloepteKontrakter();
     }
 
     // get-metode
     public KontraktListe getKontraktListe() {
         return kontraktListe;
     }
-    
+
     public void regKontrakt() {
         // Kontrollerer tallverdier for å unngå parseException
         JTextField[] testRegExTall = {postnr, pris};
@@ -141,19 +141,22 @@ public class KontraktVindu extends JFrame implements ActionListener {
         String lFornavn = leietakerFornavn.getText();
         String lEtternavn = leietakerEtternavn.getText();
         int leiepris = Integer.parseInt(pris.getText());
-        Date startDato = StartVindu.konverterDato(startDatoFelt.getText()), 
+        Date startDato = StartVindu.konverterDato(startDatoFelt.getText()),
                 sluttDato = StartVindu.konverterDato(sluttDatoFelt.getText());
         if (sluttDato == null || startDato == null) {
             output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
             return;
         }
-        
+
         Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(adr, pnr, psted);
         Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(uFornavn, uEtternavn);
         Boligsoeker bs = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().finnBoligsoeker(lFornavn, lEtternavn);
-        
+
         if (b == null) {
             output.setText("Feil - finner ikke bolig");
+            return;
+        } else if (!b.getLedig()){
+            output.setText("Feil - bolig er opptatt");
             return;
         } else if (u == null) {
             output.setText("Feil - finner ikke utleier");
@@ -162,24 +165,38 @@ public class KontraktVindu extends JFrame implements ActionListener {
             output.setText("Feil - finner ikke leietaker");
             return;
         }
-        
-        // Sjekker om det boligsoekeren har inngått kontrakt innenfor sammme tidsperiode.
+
+        // Sjekker om boligsøkeren har inngått kontrakt innenfor sammme tidsperiode.
         Kontrakt[] kontrakter = kontraktListe.finnKontrakter(bs);
-        //...
+        if (kontrakter != null) {
+            for (int i = 0; i < kontrakter.length; i++) {
+                if (startDato.before(kontrakter[i].getSluttDato())) {
+                    output.setText("Kunden har allerede registrert en kontrakt innenfor gitt tidsrom!");
+                    return;
+                }
+            }
+        }
         Kontrakt k = new Kontrakt(b, u, bs, leiepris, startDato, sluttDato);
-        
+
         kontraktListe.settInn(k);
-        
+
         b.boligErOpptatt();
         bs.leterIkkeEtterBolig();
-        
+
         output.setText("Kontrakt registrert:\n" + k.toString());
     }
-    
-    public void siOppKontrakt(){
+
+    public void siOppKontrakt() {
         // Forandrer sluttdato i kontrakten tilsvarende oppsigelsestid.
     }
-   
+    
+    public void sjekkUtloepteKontrakter(){
+        /**
+         * Skal sjekke alle kontrakter i registeret, dersom de er utløpt skal
+         * gjeldende bolig settes til "ledig".
+         */
+    }
+
     public void utskrift() {
         output.setText(kontraktListe.toString());
     }
@@ -195,10 +212,10 @@ public class KontraktVindu extends JFrame implements ActionListener {
             StartVindu.visFeilmelding(ioe);
         }
     }
-    
+
     public void lesKontraktFraFil() {
         try (ObjectInputStream innfil = new ObjectInputStream(new FileInputStream("kontraktliste.data"))) {
-            kontraktListe = (KontraktListe)innfil.readObject();
+            kontraktListe = (KontraktListe) innfil.readObject();
         } catch (ClassNotFoundException cnfe) {
             StartVindu.visFeilmelding(cnfe);
         } catch (FileNotFoundException fnfe) {
@@ -214,7 +231,7 @@ public class KontraktVindu extends JFrame implements ActionListener {
             regKontrakt();
         } else if (e.getSource() == skrivUt) {
             utskrift();
-        } else if (e.getSource() == siOppKontrakt){
+        } else if (e.getSource() == siOppKontrakt) {
             siOppKontrakt();
         }
     }

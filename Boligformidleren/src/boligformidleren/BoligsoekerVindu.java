@@ -1,7 +1,7 @@
 /*
  * Innhold: Vindu som brukes for registrering og slettning av boligsøkere
- * Sist oppdatert: 29.04.2014 kl.14:45
- * Programmert av: Gretar
+ * Sist oppdatert: 06.05.2014 kl.12:00
+ * Programmert av: Gretar, Eivind
  */
 package boligformidleren;
 
