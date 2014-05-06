@@ -82,6 +82,7 @@ public class KontraktListe implements Serializable {
             k = kIter.next();
             if(k.getSluttDato().before(idag)){
                 fjernGjeldendeKontraktOgArkiver(k);
+                k.getBolig().boligErLedig();
                 s = k.toString();
                 return s;
             }
@@ -90,12 +91,17 @@ public class KontraktListe implements Serializable {
     }
 
     public String toString() {
-        Iterator<Kontrakt> iter = kontraktListeGjeldende.iterator();
+        Iterator<Kontrakt> gIter = kontraktListeGjeldende.iterator();
+        Iterator<Kontrakt> aIter = kontraktListeArkiv.iterator();
 
-        String kontrakter = "";
+        String kontrakter = "Gjeldende Kontrakter: \n";
 
-        while (iter.hasNext()) {
-            kontrakter += iter.next().toString() + "\n";
+        while (gIter.hasNext()) {
+            kontrakter += gIter.next().toString() + "\n";
+        }
+        kontrakter += "Arkiverte kontrakter: \n";
+        while (aIter.hasNext()){
+            kontrakter += aIter.next().toString() + "\n";
         }
         return kontrakter;
     }
