@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.Date;
 
 public class KontraktVindu extends JFrame implements ActionListener {
@@ -111,7 +111,7 @@ public class KontraktVindu extends JFrame implements ActionListener {
 
         // åpner fil når konstruktør kjøres
         lesKontraktFraFil();
-        sjekkUtloepteKontrakter();
+        sjekkOmKontraktErUtloept();
     }
 
     // get-metode
@@ -155,7 +155,7 @@ public class KontraktVindu extends JFrame implements ActionListener {
         if (b == null) {
             output.setText("Feil - finner ikke bolig");
             return;
-        } else if (!b.getLedig()){
+        } else if (!b.getLedig()) {
             output.setText("Feil - bolig er opptatt");
             return;
         } else if (u == null) {
@@ -166,16 +166,20 @@ public class KontraktVindu extends JFrame implements ActionListener {
             return;
         }
 
-        // Sjekker om boligsøkeren har inngått kontrakt innenfor sammme tidsperiode.
-        Kontrakt[] kontrakter = kontraktListe.finnKontrakter(bs);
-        if (kontrakter != null) {
-            for (int i = 0; i < kontrakter.length; i++) {
-                if (startDato.before(kontrakter[i].getSluttDato())) {
-                    output.setText("Kunden har allerede registrert en kontrakt innenfor gitt tidsrom!");
-                    return;
-                }
-            }
+        // Sjekker om boligsøkeren har registrert en gjeldende kontrakt.
+        if (kontraktListe.finnGjeldendeKontrakt(bs) != null) {
+            output.setText("Kunden har allerede inngått en kontrakt");
+            return;
         }
+        /*Kontrakt[] kontrakter = kontraktListe.finnGjeldendeKontrakter(bs);
+         if (kontrakter != null) {
+         for (int i = 0; i < kontrakter.length; i++) {
+         if (startDato.before(kontrakter[i].getSluttDato())) {
+         output.setText("Kunden har allerede registrert en kontrakt innenfor gitt tidsrom!");
+         return;
+         }
+         }
+         }*/
         Kontrakt k = new Kontrakt(b, u, bs, leiepris, startDato, sluttDato);
 
         kontraktListe.settInn(k);
@@ -189,12 +193,29 @@ public class KontraktVindu extends JFrame implements ActionListener {
     public void siOppKontrakt() {
         // Forandrer sluttdato i kontrakten tilsvarende oppsigelsestid.
     }
-    
-    public void sjekkUtloepteKontrakter(){
+
+    public void sjekkOmKontraktErUtloept() {
         /**
          * Skal sjekke alle kontrakter i registeret, dersom de er utløpt skal
          * gjeldende bolig settes til "ledig".
          */
+        Date idag;
+        String s, melding = "Følgende kontrakter er utløpt og ble fjernet:\n";
+        try {
+            idag = StartVindu.datoFormat.parse(StartVindu.datoFormat.format(
+                    new Date()));
+        } catch (ParseException pe) {
+            StartVindu.visFeilmelding(pe);
+            return;
+        }
+        do {
+            s = kontraktListe.sjekkUtloepteOgArkiver(idag);
+            if (s != null) {
+                melding += s + "\n";
+            }
+        } while (s != null);
+
+        output.setText(melding);
     }
 
     public void utskrift() {
