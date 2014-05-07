@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Date;
 import java.util.Iterator;
 
 public class InformasjonVindu extends JFrame implements ActionListener, FocusListener{
@@ -48,11 +49,11 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             minBoligDato, maxBoligDato;
 
     // bolig enebolig panel
-    private JTextField boligEtasjer, boligTomtestorrelse;
+    private JTextField boligMinEtasjer, boligMaxEtasjer, boligMinTomtestorrelse, boligMaxTomtestorrelse;
     private JCheckBox boligKjeller;
     
     // bolig leilighet panel
-    private JTextField boligEtasje;
+    private JTextField boligMinEtasje, boligMaxEtasje;
     private JCheckBox boligHeis, boligBalkong;
     
     // bolig knapp panel
@@ -132,8 +133,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                     boligFellesPanel = new JPanel(new BorderLayout());
                         boligFellesTypePanel = new JPanel(new GridLayout(antRadTypePanel, defaultKolonner, gap, gap));
                         boligFellesMinMaxPanel = new JPanel(new GridLayout(antRadMinMaxPanel, antMinMaxKolonner, gap, gap));
-                    boligEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, defaultKolonner, gap, gap));
-                    boligLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, defaultKolonner, gap, gap));
+                    boligEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
+                    boligLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
                     boligKnappPanel = new JPanel(new GridLayout(antRadKnappPanel, antKnappKolonner, gap, gap));
                 kontraktPanel = new JPanel(new BorderLayout());
                     kontraktFellesPanel = new JPanel(new BorderLayout());
@@ -258,12 +259,16 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         
         // bolig enebolig panel
         boligEneboligPanel.add(new JLabel("Antall etasjer: "));
-        boligEtasjer = new JTextField(10);
-        boligEneboligPanel.add(boligEtasjer);
+        boligMinEtasjer = new JTextField(10);
+        boligMaxEtasjer = new JTextField(10);
+        boligEneboligPanel.add(boligMinEtasjer);
+        boligEneboligPanel.add(boligMaxEtasjer);
 
         boligEneboligPanel.add(new JLabel("Tomtestørrelse: "));
-        boligTomtestorrelse = new JTextField(10);
-        boligEneboligPanel.add(boligTomtestorrelse);
+        boligMinTomtestorrelse = new JTextField(10);
+        boligMaxTomtestorrelse = new JTextField(10);
+        boligEneboligPanel.add(boligMinTomtestorrelse);
+        boligEneboligPanel.add(boligMaxTomtestorrelse);
 
         boligEneboligPanel.add(new JLabel("Kjeller: "));
         boligKjeller = new JCheckBox("");
@@ -271,12 +276,17 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         
         // bolig leilighet panel
         boligLeilighetPanel.add(new JLabel("Etasje: "));
-        boligEtasje = new JTextField(10);
-        boligLeilighetPanel.add(boligEtasje);
+        boligMinEtasje = new JTextField(10);
+        boligMaxEtasje = new JTextField(10);
+        boligLeilighetPanel.add(boligMinEtasje);
+        boligLeilighetPanel.add(boligMaxEtasje);
 
         boligLeilighetPanel.add(new JLabel("Heis: "));
         boligHeis = new JCheckBox("");
         boligLeilighetPanel.add(boligHeis);
+
+        // empty label så leilighet feltene ser bra ut
+        boligLeilighetPanel.add(new JLabel(" "));
 
         boligLeilighetPanel.add(new JLabel("Balkong: "));
         boligBalkong = new JCheckBox();
@@ -485,20 +495,137 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     }
     
     public void finnBoliger(){
-        String minAreal = minBoligAreal.getText();
-        String maxAreal = maxBoligAreal.getText();
-        String minRom = minBoligRom.getText();
-        String maxRom = maxBoligRom.getText();
-        String minByggeaar = minBoligByggeaar.getText();
-        String maxByggeaar = maxBoligByggeaar.getText();
-        String minPris = minBoligPris.getText();
-        String maxPris = maxBoligPris.getText();
+        final int MAX = 2147483647;
+        final int MIN = -2147483648;
         
+        // felles felt
+        String type = (String) boligtype.getSelectedItem();
+        int minAreal = minBoligAreal.getText().equals("") ? MIN: Integer.parseInt(minBoligAreal.getText());
+        int maxAreal = maxBoligAreal.getText().equals("") ? MAX: Integer.parseInt(maxBoligAreal.getText());
+        int minRom = minBoligRom.getText().equals("") ? MIN: Integer.parseInt(minBoligRom.getText());
+        int maxRom = maxBoligRom.getText().equals("") ? MAX: Integer.parseInt(maxBoligRom.getText());
+        int minByggeaar = minBoligByggeaar.getText().equals("") ? MIN: Integer.parseInt(minBoligByggeaar.getText());
+        int maxByggeaar = maxBoligByggeaar.getText().equals("") ? MAX: Integer.parseInt(maxBoligByggeaar.getText());
+        int minPris = minBoligPris.getText().equals("") ? MIN: Integer.parseInt(minBoligPris.getText());
+        int maxPris = maxBoligPris.getText().equals("") ? MAX: Integer.parseInt(maxBoligPris.getText());
+        Date minDato = (minBoligDato.getText().equals("") || minBoligDato.getText().equals("dd.mm.åååå")) ? null:  StartVindu.konverterDato(minBoligDato.getText());
+        Date maxDato = (maxBoligDato.getText().equals("") || maxBoligDato.getText().equals("dd.mm.åååå")) ? null:  StartVindu.konverterDato(maxBoligDato.getText());
         
+        // enebolig felt
+        int minEtasjer = boligMinEtasjer.getText().equals("") ? MIN: Integer.parseInt(boligMinEtasjer.getText());
+        int maxEtasjer = boligMaxEtasjer.getText().equals("") ? MAX: Integer.parseInt(boligMaxEtasjer.getText());
+        int minTomtestorrelse = boligMinTomtestorrelse.getText().equals("") ? MIN: Integer.parseInt(boligMinTomtestorrelse.getText());
+        int maxTomtestorrelse = boligMaxTomtestorrelse.getText().equals("") ? MAX: Integer.parseInt(boligMaxTomtestorrelse.getText());
+        boolean kjeller = boligKjeller.isSelected();
+
+        // leilighet felt
+        int minEtasje = boligMinEtasje.getText().equals("") ? MIN: Integer.parseInt(boligMinEtasje.getText());
+        int maxEtasje = boligMaxEtasje.getText().equals("") ? MAX: Integer.parseInt(boligMaxEtasje.getText());
+        boolean heis = boligHeis.isSelected();
+        boolean balkong = boligBalkong.isSelected();
+        
+        // søker i gjennom alle boliger og sjekker hvis hver bolig passer til kravene
+        Iterator<Utleier> ulIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
+        Utleier ul;
+        BoligListe bl;
+        String utskrift = "";
+        String liste = "";
+        int antall = 0;
+        
+
+        while(ulIter.hasNext()){
+            ul = ulIter.next();
+            bl = ul.getBoligliste();
+            Bolig b;
+            Iterator<Bolig> bIter = bl.getListe().iterator();
+
+            while(bIter.hasNext()){
+                b = bIter.next();
+                boolean passer = true;
+                
+                // sjekker alle intervalene
+                if(b.getAreal() < minAreal || b.getAreal() > maxAreal)
+                    passer = false;
+                if(b.getSoverom() < minRom || b.getSoverom() > maxRom)
+                    passer = false;
+                if(b.getByggeaar() < minByggeaar || b.getSoverom() > maxByggeaar)
+                    passer = false;
+                if(b.getPris() < minPris || b.getPris() > maxPris)
+                    passer = false;
+                if(minDato != null)
+                    if(b.getDato().before(minDato))
+                        passer = false;
+                if(maxDato != null)
+                    if(b.getDato().after(maxDato))
+                        passer = false;
+                
+                if(b instanceof Enebolig){
+                    Enebolig e = (Enebolig) b;
+                    
+                    if(e.getAntEtasjer() < minEtasjer || e.getAntEtasjer() > maxEtasjer)
+                        passer = false;
+                    if(e.getTomtAreal() < minTomtestorrelse || e.getTomtAreal() > maxTomtestorrelse)
+                        passer = false;
+                    if(!e.getKjeller() && kjeller)
+                        passer=false;
+                }
+                
+                if(b instanceof Leilighet){
+                    Leilighet l = (Leilighet) b;
+                    
+                    if(l.getEtasje() < minEtasjer || l.getEtasje() > maxEtasjer)
+                        passer = false;
+                    if(!l.getBalkong() && balkong)
+                        passer=false;
+                    if(!l.getHeis() && heis)
+                        passer=false;
+                }
+                
+                if(passer){
+                    liste += b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
+                    antall++;
+                }
+            }
+        }
+        
+        if(antall > 0)
+            utskrift += "Antall boliger som tilsvarer kriteriene: " + antall +
+                    "\nBoliger (gateadresse, postnummer, poststed):\n";
+        else
+            utskrift = "Ingen bolig tilsvarer kriteriene";
+        
+        output.setText(utskrift);
+        output.append(liste);
     }
     
     public void visAlleBoliger(){
-        //...
+        Iterator<Utleier> ulIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
+        Utleier ul;
+        BoligListe bl;
+        String utskrift = "";
+        String liste = "";
+        int antall = 0;
+
+        while(ulIter.hasNext()){
+            ul = ulIter.next();
+            bl = ul.getBoligliste();
+            Bolig b;
+            Iterator<Bolig> bIter = bl.getListe().iterator();
+
+            while(bIter.hasNext()){
+                b = bIter.next();
+                liste += b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
+                antall++;
+            }
+        }
+        if(antall > 0)
+            utskrift += "Antall boliger: " + antall +
+                    "\nBoliger (gateadresse, postnummer, poststed):\n";
+        else
+            utskrift = "Ingen bolig registrert";
+        
+        output.setText(utskrift);
+        output.append(liste);
     }
     
     public void finnKontrakter(){
