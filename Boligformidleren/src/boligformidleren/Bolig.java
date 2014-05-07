@@ -134,7 +134,7 @@ public abstract class Bolig implements Serializable {
     public void boligErLedig(){
         ledig = true;
     }
-
+    
     // her må vi sette in en equals-metode for å komparere to boliger
     public boolean equals(Object o) {
         if(o instanceof Bolig){

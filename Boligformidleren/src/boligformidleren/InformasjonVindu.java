@@ -10,6 +10,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Iterator;
+import java.util.Set;
 
 public class InformasjonVindu extends JFrame implements ActionListener, FocusListener{
     
@@ -79,6 +80,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     // kontrakt knapp panel
     private JButton finnKontrakter, visAlleKontrakter;
     
+    // for JTable
+    private final String[] KOLONNENAVN = {"1","2","3","4","5","6","7","8",
+    "9","10","11","12","13","14","15","16","17","18"};
             
     private JTextArea output;
     
@@ -173,7 +177,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         output = new JTextArea();
         output.setEditable(false);
         JScrollPane scroll = new JScrollPane(output);
-        under.add(scroll, BorderLayout.CENTER);
+        //under.add(scroll, BorderLayout.CENTER);
         
         // person panel
         personPanel.add(new JLabel("Fornavn: "));
@@ -372,8 +376,10 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     
     // hent opplysninger om en navngitt person
     public void hentInfoPerson(){
-        Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(fornavn.getText(), etternavn.getText());
-        Boligsoeker bs = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().finnBoligsoeker(fornavn.getText(), etternavn.getText());
+        Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(
+                fornavn.getText(), etternavn.getText());
+        Boligsoeker bs = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().
+                finnBoligsoeker(fornavn.getText(), etternavn.getText());
         
         // blank felter
         fornavn.setText("");
@@ -484,6 +490,20 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         poststed.setText("");
     }
     
+    public void tegnTabell(){
+        // for boligsøkere
+        Set s = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().getMengde();
+        Iterator<Boligsoeker> iter = s.iterator();
+        Boligsoeker b = iter.next();
+        Object[][] celler = new Object[s.size()][18];
+        for(int rad = 0; rad < s.size(); rad++){
+            celler[rad] = b.tilArray();
+        }
+        JTable tabell = new JTable(celler, KOLONNENAVN);
+        under.removeAll();
+        under.add(new JScrollPane(tabell), BorderLayout.CENTER);
+    }
+    
     public void finnBoliger(){
         String minAreal = minBoligAreal.getText();
         String maxAreal = maxBoligAreal.getText();
@@ -492,9 +512,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         String minByggeaar = minBoligByggeaar.getText();
         String maxByggeaar = maxBoligByggeaar.getText();
         String minPris = minBoligPris.getText();
-        String maxPris = maxBoligPris.getText();
-        
-        
+        String maxPris = maxBoligPris.getText();      
     }
     
     public void visAlleBoliger(){
@@ -519,7 +537,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         if(e.getSource() == hentInfoPerson){
             hentInfoPerson();
         } else if(e.getSource() == visAlleBoligsoekere){
-            visAlleBoligsoekere();
+            tegnTabell();//visAlleBoligsoekere();
         } else if(e.getSource() == visBoligInfo){
             visBoligInfo();
         } else if(e.getSource() == finnBoliger){

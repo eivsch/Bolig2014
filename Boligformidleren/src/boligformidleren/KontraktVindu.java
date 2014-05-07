@@ -163,7 +163,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             output.setText("Feil - bolig er opptatt");
             return;
         } else if (u == null) {
-            output.setText("Feil - finner ikke utleier");
+            output. setText("Feil - finner ikke utleier");
             return;
         } else if (bs == null) {
             output.setText("Feil - finner ikke leietaker");

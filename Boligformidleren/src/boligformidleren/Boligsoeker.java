@@ -205,6 +205,15 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
     public void leterIkkeEtterBolig(){
         leterEtterBolig = false;
     }
+    
+    public Object[] tilArray(){
+        Object[] celle = {super.getFornavn(), super.getEtternavn(), super.getGateadresse(), 
+            super.getPoststed(),new Integer(pris), new Integer(areal),new Integer(soverom),
+            new Integer(byggeaar), new Integer(maxAntEtasjer), new Integer(maxEtasje), 
+            new Integer(tomtestorrelse), pInfo, type, dato == null ? "Ikke oppgitt": StartVindu.datoFormat.format(dato), 
+            heis ? "ja": "nei", balkong ? "ja": "nei", kjeller ? "ja": "nei" };
+        return celle;
+    }
 
     /**
      * Ufullstendig compareTo-metode. Kun for å kunne lagre Utleiere i en

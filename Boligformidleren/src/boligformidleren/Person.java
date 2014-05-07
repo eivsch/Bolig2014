@@ -85,7 +85,7 @@ public abstract class Person implements Serializable {
     public void setTelefonnr(int t) {
         tlfnr = t;
     }
- 
+    
  
     public boolean equals(Object p) {
         return ((Person) p).getEtternavn().equals(etternavn)

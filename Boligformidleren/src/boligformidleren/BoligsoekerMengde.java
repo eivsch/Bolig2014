@@ -57,7 +57,6 @@ public class BoligsoekerMengde {
         return usortertKopiMengde;
     }
 
-    //Kan vurdere evt. finnBoligsøker metode.
     public String toString() {
         Iterator<Boligsoeker> iter = mengde.iterator();
 
