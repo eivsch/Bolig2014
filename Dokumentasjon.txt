@@ -63,3 +63,10 @@ Fortsett med InformasjonVindu.java. Person-delen og bolig-delen ser bra ut. Para
 02.05
 Gretar skriver:
 Kontrakt delen i InformasjonVindu lagt til. Vinduet ser bra ut og nu må vi legge til metoder for alle knappene.
+
+05.05
+Gretar skriver:
+Har sett inn hentInfo() metode inn i InformasjonVindu.java, som henter og viser opplysininger om en navngitt person.
+Har sett inn passerTilBolig(Bolig b) metode inn i Boligsoeker.java som tar i mot et Bolig objekt og sjekker om denne boligen passer til boligsøkeren. Returnerer true eller false.
+Har opprettet en notater-tekstfil hvor vi kan legge til alt som vi vil ha i sluttrapporten.
+Sigurd kunne ikke komme fordi han hadde fått neglerots betennelse i den ene tåen sin.
