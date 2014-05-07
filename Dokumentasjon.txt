@@ -70,3 +70,9 @@ Har sett inn hentInfo() metode inn i InformasjonVindu.java, som henter og viser 
 Har sett inn passerTilBolig(Bolig b) metode inn i Boligsoeker.java som tar i mot et Bolig objekt og sjekker om denne boligen passer til boligsøkeren. Returnerer true eller false.
 Har opprettet en notater-tekstfil hvor vi kan legge til alt som vi vil ha i sluttrapporten.
 Sigurd kunne ikke komme fordi han hadde fått neglerots betennelse i den ene tåen sin.
+
+06.05
+Gretar skriver:
+Har programmert visBoligInfo() metoden i InformasjonVindu.java. Metoden viser info om en bolig og hvilken boligsøkere har krav som passer til den boligen.
+Har sett FocusListener til alle DATO felt i alle vinduer, slik at feltet viser "dd.mm.åååå" men når man klikker/"tab"-er i feltet forsvinder teksten og man kan skrive i et tom felt.
+Har fikset metoden PasserTilBolig i Boligsøker.java, som returnerer TRUE hvis en bolig passer til boligsøkerens krav, men FALSE ellers
