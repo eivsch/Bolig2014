@@ -201,7 +201,9 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
     public void sjekkOmKontraktErUtloept() {
         /**
          * Skal sjekke alle kontrakter i registeret, dersom de er utløpt skal
-         * gjeldende bolig settes til "ledig".
+         * gjeldende bolig settes til "ledig". Dette gjøres hver gang programmet
+         * starter, det er derfor viktig at programmet avsluttes ordentlig minst
+         * en gang hver dag.
          */
         Date idag;
         String s, melding = "Følgende kontrakter er utløpt og ble fjernet:\n";

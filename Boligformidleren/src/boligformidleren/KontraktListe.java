@@ -23,6 +23,11 @@ public class KontraktListe implements Serializable {
     
     public void fjernGjeldendeKontraktOgArkiver(Kontrakt k){
         kontraktListeGjeldende.remove(k);
+        // Setter boligen i kontrakten til "ledig".
+        Bolig b1 = k.getBolig();
+        Bolig b2 = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(b1.getGateadresse(), 
+                b1.getPostnr(), b1.getPoststed());
+        b2.boligErLedig();
         kontraktListeArkiv.add(k);
     }
     public Kontrakt finnGjeldendeKontrakt(Boligsoeker bs) {
@@ -82,7 +87,6 @@ public class KontraktListe implements Serializable {
             k = kIter.next();
             if(k.getSluttDato().before(idag)){
                 fjernGjeldendeKontraktOgArkiver(k);
-                k.getBolig().boligErLedig();
                 s = k.toString();
                 return s;
             }
