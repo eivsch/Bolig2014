@@ -178,7 +178,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         output = new JTextArea();
         output.setEditable(false);
         JScrollPane scroll = new JScrollPane(output);
-        //under.add(scroll, BorderLayout.CENTER);
+        under.add(scroll, BorderLayout.CENTER);
         
         // person panel
         personPanel.add(new JLabel("Fornavn: "));
