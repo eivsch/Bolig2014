@@ -8,6 +8,10 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -126,6 +130,126 @@ public class StartVindu extends JFrame implements ActionListener {
             return null;
         }
     }
+    
+    public void generateData(){
+        
+        UtleierMengde um = utleierVindu.getUtleierMengde();
+        BoligsoekerMengde bm = boligsoekerVindu.getBoligsoekerMengde();
+        // generate utleiere
+        try(BufferedReader inntekst = new BufferedReader(new FileReader("utleiere.txt"))){
+            String innlinje = null;
+            int teller = 0;
+            int antParameterPerPerson = 8;
+            String[] parameter = new String[antParameterPerPerson];
+            
+            String fornavn; String etternavn; String gateadresse; int postnr; String poststed; String epost; int tlfnr; String firma;
+            
+            do{
+                innlinje = inntekst.readLine();
+                
+                if(innlinje != null){
+                    parameter[teller++] = innlinje;
+                }
+                if(teller == antParameterPerPerson){
+                    Utleier ul = new Utleier(parameter[0], parameter[1], parameter[2], Integer.parseInt(parameter[3]),
+                            parameter[4], parameter[5], Integer.parseInt(parameter[6]), parameter[7]);
+                    um.settInn(ul);
+                    teller = 0;
+                }
+                    
+            }while(innlinje != null);
+                    
+        }
+        catch(FileNotFoundException fnfe){
+            System.out.println(fnfe.getMessage());
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        
+        // generate boligsøkere
+        try(BufferedReader inntekst = new BufferedReader(new FileReader("boligsoekere.txt"))){
+            String innlinje = null;
+            int teller = 0;
+            int antParameterPerPerson = 20;
+            String[] parameter = new String[antParameterPerPerson];
+            
+            do{
+                innlinje = inntekst.readLine();
+                
+                if(innlinje != null){
+                    parameter[teller++] = innlinje;
+                }
+                if(teller == antParameterPerPerson){
+                    Boligsoeker bs = new Boligsoeker(parameter[0], parameter[1], parameter[2], Integer.parseInt(parameter[3]),
+                            parameter[4], parameter[5], Integer.parseInt(parameter[6]), parameter[7], parameter[8],
+                            Integer.parseInt(parameter[9]), Integer.parseInt(parameter[10]), Integer.parseInt(parameter[11]),
+                            Integer.parseInt(parameter[12]), konverterDato(parameter[13]), Integer.parseInt(parameter[14]),
+                            Integer.parseInt(parameter[15]), parameter[16] == "true" ? true: false, Integer.parseInt(parameter[17]),
+                            parameter[18] == "true" ? true: false, parameter[19] == "true" ? true: false);
+                    bm.settInn(bs);
+                    teller = 0;
+                }
+                    
+            }while(innlinje != null);
+                    
+        }
+        catch(FileNotFoundException fnfe){
+            System.out.println(fnfe.getMessage());
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        
+        
+        // generate boliger
+        try(BufferedReader inntekst = new BufferedReader(new FileReader("boliger.txt"))){
+            String innlinje = null;
+            int teller = 0;
+            int antParameterPerPerson = 18;
+            String[] parameter = new String[antParameterPerPerson];
+            
+            do{
+                innlinje = inntekst.readLine();
+                
+                if(innlinje != null){
+                    parameter[teller++] = innlinje;
+                }
+                if(teller == antParameterPerPerson){
+                    if(parameter[3].equals("Leilighet")){
+                        Bolig b = new Leilighet(parameter[0], Integer.parseInt(parameter[1]), parameter[2], parameter[3], parameter[4],
+                                konverterDato(parameter[5]), Integer.parseInt(parameter[6]), Integer.parseInt(parameter[7]),
+                                Integer.parseInt(parameter[8]), Integer.parseInt(parameter[9]),
+                                Integer.parseInt(parameter[13]), parameter[14] == "true" ? true: false, parameter[15] == "true" ? true: false);
+                        System.out.println(b.toString());
+                        Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(parameter[16], parameter[17]);
+                        System.out.println(ul.toString());
+                        ul.regBolig(b);
+                        teller = 0;
+                    }
+                    else{
+                        Bolig b = new Enebolig(parameter[0], Integer.parseInt(parameter[1]), parameter[2], parameter[3], parameter[4],
+                                konverterDato(parameter[5]), Integer.parseInt(parameter[6]), Integer.parseInt(parameter[7]),
+                                Integer.parseInt(parameter[8]), Integer.parseInt(parameter[9]),
+                                Integer.parseInt(parameter[10]), Integer.parseInt(parameter[11]), parameter[12] == "true" ? true: false);
+                        System.out.println(b.toString());
+                        Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(parameter[16], parameter[17]);
+                        System.out.println(ul.toString());
+                        ul.regBolig(b);
+                        teller = 0;
+                    }
+                }
+            }while(innlinje != null);
+                    
+        }
+        catch(FileNotFoundException fnfe){
+            System.out.println(fnfe.getMessage());
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        
+    }
 
     public void skrivTilFil() {
         utleierVindu.skrivUtleierTilFil();
@@ -153,6 +277,8 @@ public class StartVindu extends JFrame implements ActionListener {
             kontraktVindu.setVisible(true);
         } else if (e.getSource() == buttons[4]) {
             informasjonVindu.setVisible(true);
+        } else if( e.getSource() == buttons[5]){
+            generateData();
         }
     }
 

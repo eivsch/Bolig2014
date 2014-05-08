@@ -59,7 +59,7 @@ public class UtleierMengde implements Serializable {
     }
 
     // registrerer ny bolig til en utleier
-    public boolean regBolig(Utleier u, Bolig b, Set<Utleier> um) {
+    public boolean regBolig(Utleier u, Bolig b) {
 
         if (b == null || u == null) {
             return false;
@@ -70,7 +70,7 @@ public class UtleierMengde implements Serializable {
          * sjekke om boligen finnes fra før i lista, må evt. gjøres for hver
          * utleier for maks sikkerhet. Vil komplisere hele funksjonen.
          */
-        Iterator<Utleier> iter = um.iterator();
+        Iterator<Utleier> iter = mengde.iterator();
         BoligListe bl;
         while (iter.hasNext()) {
             bl = iter.next().getBoligliste();

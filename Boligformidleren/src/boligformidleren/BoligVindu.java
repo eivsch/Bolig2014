@@ -216,7 +216,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             output.setText("Fann ikke utleier " + utleierFornavn.getText() + " " + utleierEtternavn.getText());
         } else {
             UtleierMengde um = StartVindu.getUtleierVindu().getUtleierMengde();
-            if (um.regBolig(ul, bolig, um.getSortertMengde())) {
+            if (um.regBolig(ul, bolig)) {
                 output.setText("Bolig registrert");
             } else {
                 output.setText("Boligen er allerede registrert");
