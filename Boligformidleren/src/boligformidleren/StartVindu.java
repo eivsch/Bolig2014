@@ -18,7 +18,7 @@ import java.util.Date;
 
 public class StartVindu extends JFrame implements ActionListener {
 
-    private final String vinduer[] = {"<html><center>Utleier<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Boligsøker<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Bolig<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Kontrakt<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Hente informasjon</html>", "<html><center>X X X</html>"};
+    private final String vinduer[] = {"<html><center>Utleier<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Boligsøker<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Bolig<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Kontrakt<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Hente informasjon</html>", "<html><center>Generate data<br><br>Trykk kun en gang!</html>"};
     private JButton buttons[];
 
     /*
@@ -135,14 +135,13 @@ public class StartVindu extends JFrame implements ActionListener {
         
         UtleierMengde um = utleierVindu.getUtleierMengde();
         BoligsoekerMengde bm = boligsoekerVindu.getBoligsoekerMengde();
+        
         // generate utleiere
         try(BufferedReader inntekst = new BufferedReader(new FileReader("utleiere.txt"))){
             String innlinje = null;
             int teller = 0;
             int antParameterPerPerson = 8;
             String[] parameter = new String[antParameterPerPerson];
-            
-            String fornavn; String etternavn; String gateadresse; int postnr; String poststed; String epost; int tlfnr; String firma;
             
             do{
                 innlinje = inntekst.readLine();
@@ -153,6 +152,7 @@ public class StartVindu extends JFrame implements ActionListener {
                 if(teller == antParameterPerPerson){
                     Utleier ul = new Utleier(parameter[0], parameter[1], parameter[2], Integer.parseInt(parameter[3]),
                             parameter[4], parameter[5], Integer.parseInt(parameter[6]), parameter[7]);
+                    System.out.println(ul.getFornavn() + " " + ul.getEtternavn());
                     um.settInn(ul);
                     teller = 0;
                 }
@@ -221,9 +221,7 @@ public class StartVindu extends JFrame implements ActionListener {
                                 konverterDato(parameter[5]), Integer.parseInt(parameter[6]), Integer.parseInt(parameter[7]),
                                 Integer.parseInt(parameter[8]), Integer.parseInt(parameter[9]),
                                 Integer.parseInt(parameter[13]), parameter[14] == "true" ? true: false, parameter[15] == "true" ? true: false);
-                        System.out.println(b.toString());
-                        Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(parameter[16], parameter[17]);
-                        System.out.println(ul.toString());
+                        Utleier ul = um.finnUtleier(parameter[16].trim(), parameter[17].trim());
                         ul.regBolig(b);
                         teller = 0;
                     }
@@ -232,9 +230,7 @@ public class StartVindu extends JFrame implements ActionListener {
                                 konverterDato(parameter[5]), Integer.parseInt(parameter[6]), Integer.parseInt(parameter[7]),
                                 Integer.parseInt(parameter[8]), Integer.parseInt(parameter[9]),
                                 Integer.parseInt(parameter[10]), Integer.parseInt(parameter[11]), parameter[12] == "true" ? true: false);
-                        System.out.println(b.toString());
-                        Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(parameter[16], parameter[17]);
-                        System.out.println(ul.toString());
+                        Utleier ul = um.finnUtleier(parameter[16].trim(), parameter[17].trim());
                         ul.regBolig(b);
                         teller = 0;
                     }

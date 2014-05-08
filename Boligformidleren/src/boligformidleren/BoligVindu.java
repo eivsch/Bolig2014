@@ -176,7 +176,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
     }
 
     // registrer bolig
-    public void regBolig(String b) {
+    public void regBolig(String boligtype) {
         Bolig bolig;
         Date dato = StartVindu.konverterDato(avertertDato.getText());
         if (dato == null) {
@@ -196,7 +196,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             return;
         }
 
-        if (b.equals(TYPE[1])) {
+        if (boligtype.equals(TYPE[1])) {
             if (tomtestorrelse.getText().equals("")) {
                 output.setText("Vennligst fylle inn tomtestørrelse!");
                 return;

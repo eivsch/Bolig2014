@@ -619,7 +619,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 }
 
                 if (passer) {
-                    liste += b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
+                    liste += "\n" + b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
                     antall++;
                 }
             }
@@ -652,7 +652,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
             while (bIter.hasNext()) {
                 b = bIter.next();
-                liste += b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
+                liste += "\n" + b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
                 antall++;
             }
         }
