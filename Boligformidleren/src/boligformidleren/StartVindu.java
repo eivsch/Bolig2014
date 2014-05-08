@@ -152,7 +152,6 @@ public class StartVindu extends JFrame implements ActionListener {
                 if(teller == antParameterPerPerson){
                     Utleier ul = new Utleier(parameter[0], parameter[1], parameter[2], Integer.parseInt(parameter[3]),
                             parameter[4], parameter[5], Integer.parseInt(parameter[6]), parameter[7]);
-                    System.out.println(ul.getFornavn() + " " + ul.getEtternavn());
                     um.settInn(ul);
                     teller = 0;
                 }
