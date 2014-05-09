@@ -38,11 +38,12 @@ public class StartVindu extends JFrame implements ActionListener {
     // Konstanter
     public static final String[] ANTSOVEROM = {"1", "2", "3", "4", "5", "6", "7", "8"};
     public static final String[] ETASJERENEBOLIG = {"1", "2", "3", "4", "5"};
+    public static final String DATOFORMAT = "dd.mm.åååå";
 
     // RegEx
-    public static final String patternDato = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
-    public static final String patternHeltall = "[0-9]*";
-    public static final SimpleDateFormat datoFormat = new SimpleDateFormat("dd.MM.yyyy");
+    public static final String PATTERNDATO = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
+    public static final String PATTERNHELTALL = "[0-9]*";
+    public static final SimpleDateFormat ENKELDATOFORMAT = new SimpleDateFormat("dd.MM.yyyy");
 
     public StartVindu() {
         super("Boligformidleren");
@@ -120,11 +121,11 @@ public class StartVindu extends JFrame implements ActionListener {
     }
 
     public static Date konverterDato(String datostreng) {
-        if (!datostreng.matches(patternDato)) {
+        if (!datostreng.matches(PATTERNDATO)) {
             return null;
         }
         try {
-            Date d = datoFormat.parse(datostreng);
+            Date d = ENKELDATOFORMAT.parse(datostreng);
             return d;
         } catch (ParseException pe) {
             return null;

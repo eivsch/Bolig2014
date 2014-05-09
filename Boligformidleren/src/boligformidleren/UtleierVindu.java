@@ -138,7 +138,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
 
         // Kontrollerer tallverdier ved RegEx for å unngå parseException
         JTextField[] testRegEx = {RegPersPostnr, RegTlf};
-        if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, testRegEx))) {
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, testRegEx))) {
             output.setText("Feil ved innelsning av tallverdier. Bruk kun heltall");
             return;
         }

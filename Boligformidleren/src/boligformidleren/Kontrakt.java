@@ -37,8 +37,8 @@ public class Kontrakt implements Serializable {
                    "\n\nUtleier-info:\n" + u.toString() +
                    "\n\nLeietaker-info:\n" + bs.toString() +
                    "\n\nLeiepris:\n" + pris +
-                   "\n\nStartDato:\n" + StartVindu.datoFormat.format(startDato) +
-                   "\n\nSluttdato: " + StartVindu.datoFormat.format(sluttDato);
+                   "\n\nStartDato:\n" + StartVindu.ENKELDATOFORMAT.format(startDato) +
+                   "\n\nSluttdato: " + StartVindu.ENKELDATOFORMAT.format(sluttDato);
     }
     
     public Boligsoeker getBoligsoeker(){

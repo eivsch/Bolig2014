@@ -149,7 +149,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
         fellesPanel.add(new JLabel("Min. avertert dato: "));
         kravAvertertDato = new JTextField(10);
-        kravAvertertDato.setText("dd.mm.åååå");
+        kravAvertertDato.setText(StartVindu.DATOFORMAT);
         kravAvertertDato.addFocusListener(this);
         fellesPanel.add(kravAvertertDato);
 
@@ -204,9 +204,9 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         String enavn = RegPersEtternavn.getText();
         Date dato = null;
         
-        if(!kravAvertertDato.getText().equals("")){
+        if(!kravAvertertDato.getText().equals(StartVindu.DATOFORMAT)){
             if(StartVindu.konverterDato(kravAvertertDato.getText()) == null){
-                output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
+                output.setText("Feil ved innlesing av dato. Kotroller format (" + StartVindu.DATOFORMAT + ").");
                 return;
             }
             else
@@ -222,7 +222,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         // Kontrollerer tallverdier ved RegEx for å unngå parseException
         JTextField[] regExTest = {postnr, tlf, kravAreal,
             kravByggeaar, kravPris, kravTomtestorrelse};
-        if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, regExTest))) {
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, regExTest))) {
             output.setText("Feil ved innlesning av tallverdier. Bruk kun heltall");
             return;
         }
@@ -286,7 +286,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         kravRom.setSelectedIndex(0);
         kravByggeaar.setText("");
         kravPris.setText("");
-        kravAvertertDato.setText("dd.mm.åååå");
+        kravAvertertDato.setText(StartVindu.DATOFORMAT);
         kravMaxEtasjer.setSelectedIndex(0);
         kravTomtestorrelse.setText("");
         kravKjeller.setSelected(false);
@@ -379,7 +379,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
     public void focusGained(FocusEvent fe){
         
         if(fe.getSource() == kravAvertertDato)
-            if(kravAvertertDato.getText().equals("dd.mm.åååå"))
+            if(kravAvertertDato.getText().equals(StartVindu.DATOFORMAT))
                 kravAvertertDato.setText("");
         // fungerer ikke hvis vi bruker "else-if" for flere felter
         
@@ -389,7 +389,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         
         if(fe.getSource() == kravAvertertDato)
             if(kravAvertertDato.getText().equals(""))
-                kravAvertertDato.setText("dd.mm.åååå");
+                kravAvertertDato.setText(StartVindu.DATOFORMAT);
         // fungerer ikke hvis vi bruker "else-if" for flere felter
     }
 }

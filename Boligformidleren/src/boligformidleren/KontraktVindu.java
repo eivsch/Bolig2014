@@ -126,7 +126,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
     public void regKontrakt() {
         // Kontrollerer tallverdier for å unngå parseException
         JTextField[] testRegExTall = {postnr, pris};
-        if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, testRegExTall))) {
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, testRegExTall))) {
             output.setText("Feil ved innelsning av tallverdier. Bruk kun heltall");
             return;
         }
@@ -208,7 +208,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         Date idag;
         String s, melding = "Følgende kontrakter er utløpt og ble fjernet:\n";
         try {
-            idag = StartVindu.datoFormat.parse(StartVindu.datoFormat.format(
+            idag = StartVindu.ENKELDATOFORMAT.parse(StartVindu.ENKELDATOFORMAT.format(
                     new Date()));
         } catch (ParseException pe) {
             StartVindu.visFeilmelding(pe);

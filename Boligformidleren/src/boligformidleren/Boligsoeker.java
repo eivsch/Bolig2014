@@ -207,10 +207,10 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
     }
     
     public Object[] tilArray(){
-        Object[] celle = {super.getEtternavn() + ", " + super.getFornavn(),
+        Object[] rad = {super.getEtternavn() + ", " + super.getFornavn(),
             super.getPoststed(), new Integer(pris), new Integer(areal), new Integer(soverom), 
-            type, dato == null ? "Ikke oppgitt": StartVindu.datoFormat.format(dato)};
-        return celle;
+            type, dato == null ? "Ikke oppgitt": StartVindu.ENKELDATOFORMAT.format(dato)};
+        return rad;
     }
 
     /**
@@ -237,7 +237,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
                 "\nMax. etasje: " + maxEtasje + 
                 "\nHeis: " + (heis ? "ja": "nei") + 
                 "\nBalkong: " + (balkong ? "ja": "nei") + 
-                "\nDato: " + (dato == null ? "Ikke oppgitt": StartVindu.datoFormat.format(dato));
+                "\nDato: " + (dato == null ? "Ikke oppgitt": StartVindu.ENKELDATOFORMAT.format(dato));
         return s;
     }
 }

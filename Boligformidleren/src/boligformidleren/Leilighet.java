@@ -54,7 +54,7 @@ public class Leilighet extends Bolig {
     public void setBalkong( boolean b ){
         balkong = b;
     }
-
+    
     public String toString(){
         String s = super.toString() + "\nEtasje: " + etasje + "\nHeis: "
                 + (heis ? "Ja" : "Nei") + "\nBalkong: " + (balkong ? "Ja" : "Nei");

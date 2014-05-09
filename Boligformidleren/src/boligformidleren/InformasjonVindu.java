@@ -82,8 +82,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     private JButton finnKontrakter, visAlleKontrakter;
 
     // for JTable
-    private final String[] KOLONNENAVN = {"Navn", "Sted", "Pris", "Areal",
+    private final String[] BSKOLONNENAVN = {"Navn", "Sted", "Pris", "Areal",
         "Soverom", "Boligtype", "Fra Dato"};
+    private final String[] BOLIGKOLONNENAVN = {"1", "2", "3", "4", "5", "6", "7"};
 
     private JTextArea output;
 
@@ -256,8 +257,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         maxBoligDato = new JTextField(10);
         minBoligDato.addFocusListener(this);
         maxBoligDato.addFocusListener(this);
-        minBoligDato.setText("dd.mm.åååå");
-        maxBoligDato.setText("dd.mm.åååå");
+        minBoligDato.setText(StartVindu.DATOFORMAT);
+        maxBoligDato.setText(StartVindu.DATOFORMAT);
         boligFellesMinMaxPanel.add(minBoligDato);
         boligFellesMinMaxPanel.add(maxBoligDato);
 
@@ -412,7 +413,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 while (boligIterator.hasNext()) {
                     b = boligIterator.next();
                     if (bs.passerTilBolig(b)) {
-                        s +="\n" + b.getGateadresse() + "   " + b.getPoststed() + "   " + b.getPostnr();
+                        s += "\n" + b.getGateadresse() + "   " + b.getPoststed() + "   " + b.getPostnr();
                         antallboliger++;
                     }
                 }
@@ -475,7 +476,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         // for boligsøkere
         Set s = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().getMengde();
         Iterator<Boligsoeker> iter = s.iterator();
-        Object[][] celler = new Object[s.size()][KOLONNENAVN.length];
+        Object[][] celler = new Object[s.size()][BSKOLONNENAVN.length];
         Boligsoeker b;
         for (int rad = 0; rad < s.size(); rad++) {
             if (iter.hasNext()) {
@@ -483,7 +484,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 celler[rad] = b.tilArray();
             }
         }
-        DefaultTableModel moddell = new DefaultTableModel(celler, KOLONNENAVN) {
+        DefaultTableModel moddell = new DefaultTableModel(celler, BSKOLONNENAVN) {
             // Redefinerer getColumnClass for riktig sortering av JTable
             public Class getColumnClass(int column) {
                 switch (column) {
@@ -524,8 +525,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         int maxByggeaar = maxBoligByggeaar.getText().equals("") ? MAX : Integer.parseInt(maxBoligByggeaar.getText());
         int minPris = minBoligPris.getText().equals("") ? MIN : Integer.parseInt(minBoligPris.getText());
         int maxPris = maxBoligPris.getText().equals("") ? MAX : Integer.parseInt(maxBoligPris.getText());
-        Date minDato = (minBoligDato.getText().equals("") || minBoligDato.getText().equals("dd.mm.åååå")) ? null : StartVindu.konverterDato(minBoligDato.getText());
-        Date maxDato = (maxBoligDato.getText().equals("") || maxBoligDato.getText().equals("dd.mm.åååå")) ? null : StartVindu.konverterDato(maxBoligDato.getText());
+        Date minDato = (minBoligDato.getText().equals("") || minBoligDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(minBoligDato.getText());
+        Date maxDato = (maxBoligDato.getText().equals("") || maxBoligDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(maxBoligDato.getText());
 
         // enebolig felt
         int minEtasjer = boligMinEtasjer.getText().equals("") ? MIN : Integer.parseInt(boligMinEtasjer.getText());
@@ -628,10 +629,13 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         output.append(liste);
     }
 
-    public void tegnBoligTabell(){
+    public void tegnBoligTabell() {
+        // for boliger
+        int antRader;
+        UtleierMengde um = StartVindu.getUtleierVindu().getUtleierMengde();
         
     }
-    
+
     public void visAlleBoliger() {
         Iterator<Utleier> ulIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
         Utleier ul;
@@ -770,13 +774,13 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     public void focusGained(FocusEvent fe) {
 
         if (fe.getSource() == minBoligDato) {
-            if (minBoligDato.getText().equals("dd.mm.åååå")) {
+            if (minBoligDato.getText().equals(StartVindu.DATOFORMAT)) {
                 minBoligDato.setText("");
             }
         }
         // fungerer ikke hvis vi bruker "else-if" for flere felter
         if (fe.getSource() == maxBoligDato) {
-            if (maxBoligDato.getText().equals("dd.mm.åååå")) {
+            if (maxBoligDato.getText().equals(StartVindu.DATOFORMAT)) {
                 maxBoligDato.setText("");
             }
         }
@@ -786,13 +790,13 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         if (fe.getSource() == minBoligDato) {
             if (minBoligDato.getText().equals("")) {
-                minBoligDato.setText("dd.mm.åååå");
+                minBoligDato.setText(StartVindu.DATOFORMAT);
             }
         }
         // fungerer ikke hvis vi bruker "else-if" for flere felter
         if (fe.getSource() == maxBoligDato) {
             if (maxBoligDato.getText().equals("")) {
-                maxBoligDato.setText("dd.mm.åååå");
+                maxBoligDato.setText(StartVindu.DATOFORMAT);
             }
         }
     }

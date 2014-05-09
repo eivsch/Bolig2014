@@ -117,7 +117,8 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
 
         fellesPanel.add(new JLabel("Avetert dato: "));
         avertertDato = new JTextField(10);
-        avertertDato.setText("dd.mm.åååå");
+        Date d = new Date();
+        avertertDato.setText(StartVindu.ENKELDATOFORMAT.format(d));
         avertertDato.addFocusListener(this);
         fellesPanel.add(avertertDato);
 
@@ -180,12 +181,12 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         Bolig bolig;
         Date dato = StartVindu.konverterDato(avertertDato.getText());
         if (dato == null) {
-            output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
+            output.setText("Feil ved innlesing av dato. Kotroller format (" + StartVindu.DATOFORMAT + ").");
             return;
         }
         // Kontrollerer tallverdier ved RegEx for å unngå parseException.
         JTextField[] testRegEx = {postnr, areal, byggeaar, pris, tomtestorrelse};
-        if (!(StartVindu.kontrollerRegEx(StartVindu.patternHeltall, testRegEx))) {
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, testRegEx))) {
             output.setText("Feil ved innlesning av tallverdier. Bruk kun heltall");
             return;
         }
@@ -297,18 +298,14 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
     }
     
     public void focusGained(FocusEvent fe){
-        
-        if(fe.getSource() == avertertDato)
-            if(avertertDato.getText().equals("dd.mm.åååå"))
-                avertertDato.setText("");
-        // fungerer ikke hvis vi bruker "else-if" for flere felter
+        // fungerer ikke hvis vi bruker "else-if" for flere */
     }
 
     public void focusLost(FocusEvent fe) {
         
         if(fe.getSource() == avertertDato)
             if(avertertDato.getText().equals(""))
-                avertertDato.setText("dd.mm.åååå");
+                avertertDato.setText(StartVindu.DATOFORMAT);
         // fungerer ikke hvis vi bruker "else-if" for flere felter
     }
 }

@@ -30,7 +30,7 @@ public abstract class Bolig implements Serializable {
         this.gateadresse = gateadresse;
         this.postnr = postnr;
         this.poststed = poststed;
-        
+
         this.areal = areal;
         this.byggeaar = byggeaar;
         this.dato = dato;
@@ -42,119 +42,126 @@ public abstract class Bolig implements Serializable {
     }
 
     // get-metoder
-    public String getGateadresse(){
+    public String getGateadresse() {
         return gateadresse;
     }
-    
-    public int getPostnr(){
+
+    public int getPostnr() {
         return postnr;
     }
-    
-    public String getPoststed(){
+
+    public String getPoststed() {
         return poststed;
     }
 
-    public String getType(){
+    public String getType() {
         return type;
     }
 
-    public String getBeskrivelse(){
+    public String getBeskrivelse() {
         return beskrivelse;
     }
 
-    public Date getDato(){
+    public Date getDato() {
         return dato;
     }
 
-    public int getAreal(){
+    public int getAreal() {
         return areal;
     }
 
-    public int getSoverom(){
+    public int getSoverom() {
         return soverom;
     }
 
-    public int getByggeaar(){
+    public int getByggeaar() {
         return byggeaar;
     }
 
-    public int getPris(){
+    public int getPris() {
         return pris;
     }
-    
-    public boolean getLedig(){
+
+    public boolean getLedig() {
         return ledig;
     }
 
     // set-metoder
-    public void setGateadresse( String a ){
+    public void setGateadresse(String a) {
         gateadresse = a;
     }
- 
-    public void setPostnr( int p ){
+
+    public void setPostnr(int p) {
         postnr = p;
     }
- 
-    public void setPoststed( String p ){
+
+    public void setPoststed(String p) {
         poststed = p;
     }
- 
-    public void setType( String t ){
+
+    public void setType(String t) {
         type = t;
     }
 
-    public void setBeskrivelse( String b ){
+    public void setBeskrivelse(String b) {
         beskrivelse = b;
     }
 
-    public void setDato( Date a ){
+    public void setDato(Date a) {
         dato = a;
     }
 
-    public void setInneAreal( int i ){
+    public void setInneAreal(int i) {
         areal = i;
     }
 
-    public void setAntRom( int a ){
+    public void setAntRom(int a) {
         soverom = a;
     }
 
-    public void setByggeaar( int b){
+    public void setByggeaar(int b) {
         byggeaar = b;
     }
 
-    public void setPris( int p ){
+    public void setPris(int p) {
         pris = p;
     }
-    
-    public void boligErOpptatt(){
+
+    public void boligErOpptatt() {
         ledig = false;
     }
-    
-    public void boligErLedig(){
+
+    public void boligErLedig() {
         ledig = true;
     }
-    
+
+    public Object tilArray() {
+        Object[] rad = {gateadresse, new Integer(postnr), poststed, new Integer(pris), 
+            new Integer(areal), new Integer(byggeaar), dato};
+        return rad;
+    }
+
     // her må vi sette in en equals-metode for å komparere to boliger
     public boolean equals(Object o) {
-        if(o instanceof Bolig){
+        if (o instanceof Bolig) {
             Bolig b = (Bolig) o;
-            
+
             //foreløpig løsning. Boligene er like hvis de har samme adresse.
-            if( b.getGateadresse().equals(gateadresse) 
-                    && b.getPostnr() == postnr 
-                    && b.getPoststed().equals(poststed) )
+            if (b.getGateadresse().equals(gateadresse)
+                    && b.getPostnr() == postnr
+                    && b.getPoststed().equals(poststed)) {
                 return true;
+            }
         }
         return false;
     }
 
     public String toString() {
-        String s = "Gateadresse: " + gateadresse + "\nPostnummer: " + postnr + "\nPoststed: " + poststed 
-                + "\nType: " + type + "\nBeskrivelse: " + beskrivelse 
-                + "\nDato: " + StartVindu.datoFormat.format(dato) + "\nAreal: " + areal 
+        String s = "Gateadresse: " + gateadresse + "\nPostnummer: " + postnr + "\nPoststed: " + poststed
+                + "\nType: " + type + "\nBeskrivelse: " + beskrivelse
+                + "\nDato: " + StartVindu.ENKELDATOFORMAT.format(dato) + "\nAreal: " + areal
                 + "\nAntall rom: " + soverom + "\nByggeår: " + byggeaar
-                + "\nPris: " + pris + "\nLedig: " + (ledig ? "ja": "nei");
+                + "\nPris: " + pris + "\nLedig: " + (ledig ? "ja" : "nei");
 
         return s;
     }
