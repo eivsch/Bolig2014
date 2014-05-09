@@ -17,7 +17,7 @@ Ingen krav
 true
 1
 false
-false 
+false
 Oddlaug
 Botnen
 Ensjøveien 6
@@ -37,7 +37,7 @@ Enebolig/rekkehus
 false
 0
 true
-false 
+false
 Oda
 Leidland
 Gransdalen 8
@@ -57,7 +57,7 @@ Leilighet
 false
 4
 true
-true 
+true
 Wiggo
 Mørland
 Godals vei 6
@@ -77,7 +77,7 @@ Ingen krav
 false
 0
 false
-true 
+true
 Aisha
 Næss
 Brattelia 1
@@ -97,7 +97,7 @@ Enebolig/rekkehus
 false
 4
 false
-false 
+false
 Brita
 Gåsland
 Breigata 4
@@ -117,7 +117,7 @@ Enebolig/rekkehus
 true
 0
 false
-false 
+false
 Kjellaug
 Gundersen
 Bjerkelia 6
@@ -137,7 +137,7 @@ Enebolig/rekkehus
 false
 0
 true
-true 
+true
 Vanessa
 Bjerkli
 Gjøkbakken 9
@@ -157,7 +157,7 @@ Ingen krav
 true
 0
 false
-false 
+false
 Hamza
 Gjøen
 Grantunet 5
@@ -177,7 +177,7 @@ Leilighet
 false
 0
 false
-false 
+false
 Fabian
 Rostad
 Gaupefaret 8
@@ -197,7 +197,7 @@ Enebolig/rekkehus
 false
 0
 true
-false 
+false
 Christer
 Skaare
 Brageveien 4
@@ -217,7 +217,7 @@ Ingen krav
 false
 0
 false
-false 
+false
 Torlaug
 Gjerløw
 Arnes vei 6
@@ -237,7 +237,7 @@ Ingen krav
 false
 5
 true
-false 
+false
 Jarand
 Risnes
 Amagerveien 1
@@ -257,7 +257,7 @@ Leilighet
 false
 0
 true
-false 
+false
 Susan
 Skråmestø
 Arups gate 9
@@ -277,7 +277,7 @@ Enebolig/rekkehus
 true
 1
 false
-false 
+false
 Tuva
 Jensen
 Gamlehagen 5
@@ -297,7 +297,7 @@ Enebolig/rekkehus
 true
 0
 true
-true 
+true
 Peter
 Lura
 Grenseveien 4
@@ -317,7 +317,7 @@ Enebolig/rekkehus
 false
 0
 false
-false 
+false
 Adolf
 Ramstad
 Brattbakken 2
@@ -337,7 +337,7 @@ Ingen krav
 false
 0
 true
-true 
+true
 Dordi
 Paulsen
 Baglerfaret 4
@@ -357,7 +357,7 @@ Enebolig/rekkehus
 false
 0
 false
-true 
+true
 Amalie
 Hidle
 Graahbakken 2
@@ -377,7 +377,7 @@ Leilighet
 false
 0
 false
-true 
+true
 Hamid
 Evertsen
 Arbins gate 4
@@ -397,7 +397,7 @@ Ingen krav
 false
 0
 true
-true 
+true
 Anja
 Ophaug
 Glacisgata 2
@@ -417,7 +417,7 @@ Ingen krav
 false
 0
 false
-true 
+true
 Vera
 Haraldseid
 Geviret 4
@@ -437,7 +437,7 @@ Leilighet
 false
 7
 false
-true 
+true
 Katrine
 Aaland
 Agdergata 2
@@ -457,7 +457,7 @@ Enebolig/rekkehus
 false
 1
 false
-true 
+true
 Enok
 Hegge
 Gråkamveien 5
@@ -477,7 +477,7 @@ Ingen krav
 true
 0
 false
-true 
+true
 Emilia
 Salvesen
 Båhusveien 7
@@ -497,7 +497,7 @@ Enebolig/rekkehus
 true
 0
 false
-true 
+true
 Samira
 Ølberg
 Evens gate 8
@@ -517,7 +517,7 @@ Ingen krav
 false
 0
 true
-true 
+true
 Mattis
 Zahl
 Bølersletta 6
@@ -537,7 +537,7 @@ Leilighet
 false
 0
 false
-true 
+true
 Gisle
 Stange
 Griniveien 7
@@ -557,7 +557,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Villy
 Schie
 Apalveien 6
@@ -577,7 +577,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Nathalie
 Krogstad
 Gimleveien 1
@@ -597,7 +597,7 @@ Ingen krav
 false
 0
 false
-false 
+false
 Hassan
 Skinnes
 Bekkefaret 8
@@ -617,7 +617,7 @@ Leilighet
 false
 2
 true
-false 
+false
 Olai
 Skjønberg
 Grensestien 5
@@ -637,7 +637,7 @@ Leilighet
 true
 0
 false
-false 
+false
 Nadia
 Holt
 Grasveien 7
@@ -657,7 +657,7 @@ Ingen krav
 false
 0
 false
-true 
+true
 Niklas
 Byrkjeland
 Ekornveien 9
@@ -677,7 +677,7 @@ Leilighet
 false
 9
 false
-false 
+false
 Birgitta
 Haukenes
 Bygdøy allé 9
@@ -697,7 +697,7 @@ Ingen krav
 false
 0
 false
-false 
+false
 Niels
 Molvær
 Bjørnefaret 1
@@ -717,7 +717,7 @@ Leilighet
 false
 0
 false
-false 
+false
 Kolbjørn
 Westad
 Arilds vei 6
@@ -737,7 +737,7 @@ Ingen krav
 false
 0
 false
-true 
+true
 Adrian
 Visnes
 Brunas vei 5
@@ -757,7 +757,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Andres
 Hellerud
 Bamseveien 2
@@ -777,7 +777,7 @@ Leilighet
 false
 1
 true
-false 
+false
 Betsy
 Waaler
 Brynshøgda 9
@@ -797,7 +797,7 @@ Leilighet
 false
 0
 false
-false 
+false
 Øistein
 Groven
 Gjøaveien 1
@@ -817,7 +817,7 @@ Enebolig/rekkehus
 false
 0
 true
-false 
+false
 Anthony
 Heggedal
 Gildevangen 8
@@ -837,7 +837,7 @@ Leilighet
 false
 0
 false
-true 
+true
 Martina
 Røhne
 Glads vei 8
@@ -857,7 +857,7 @@ Enebolig/rekkehus
 true
 6
 true
-true 
+true
 Amir
 Dyrseth
 Oslovei 5
@@ -877,7 +877,7 @@ Enebolig/rekkehus
 true
 0
 false
-false 
+false
 Arnt
 Sundstrøm
 Eddaveien 8
@@ -897,7 +897,7 @@ Enebolig/rekkehus
 true
 0
 true
-false 
+false
 Sølvi
 Sollie
 Akersgata 9
@@ -917,7 +917,7 @@ Enebolig/rekkehus
 false
 0
 true
-true 
+true
 Ådne
 Kalland
 Elgveien 6
@@ -937,7 +937,7 @@ Ingen krav
 false
 0
 false
-false 
+false
 Noralf
 Presthus
 Glitreveien 5
@@ -957,7 +957,7 @@ Leilighet
 false
 0
 false
-true 
+true
 Kaare
 Edland
 Bauneveien 5
@@ -977,7 +977,7 @@ Enebolig/rekkehus
 false
 0
 true
-true 
+true
 Casper
 Petterson
 Bjartveien 4
@@ -997,7 +997,7 @@ Leilighet
 false
 0
 true
-false 
+false
 Kai
 Fuglerud
 Byggveien 7
@@ -1017,7 +1017,7 @@ Ingen krav
 true
 0
 true
-false 
+false
 Norvald
 Nordhagen
 Almeveien 8
@@ -1037,7 +1037,7 @@ Leilighet
 true
 0
 false
-false 
+false
 Martinus
 Mogstad
 Bergstien 3
@@ -1057,7 +1057,7 @@ Ingen krav
 false
 1
 true
-false 
+false
 Helmer
 Bøthun
 Egedes gate 2
@@ -1077,7 +1077,7 @@ Ingen krav
 false
 0
 true
-false 
+false
 Alise
 Granmo
 Bregneveien 6
@@ -1097,7 +1097,7 @@ Leilighet
 false
 0
 false
-false 
+false
 Odvar
 Sandvold
 Beverkollen 7
@@ -1117,7 +1117,7 @@ Ingen krav
 true
 0
 true
-false 
+false
 Kine
 Abbas
 Breiens vei 3
@@ -1137,7 +1137,7 @@ Enebolig/rekkehus
 true
 3
 true
-true 
+true
 Karstein
 Lynum
 Bispeluelia 2
@@ -1157,7 +1157,7 @@ Enebolig/rekkehus
 true
 8
 false
-false 
+false
 Konstanse
 Forland
 Bispegata 1
@@ -1177,7 +1177,7 @@ Leilighet
 false
 0
 false
-false 
+false
 Dan
 Kruse
 Ekelyveien 6
@@ -1197,7 +1197,7 @@ Leilighet
 false
 0
 false
-true 
+true
 Ahmet
 Kvalnes
 Bislettgata 8
@@ -1217,7 +1217,7 @@ Enebolig/rekkehus
 false
 0
 false
-true 
+true
 Guttorm
 Runde
 Barnålveien 6
@@ -1237,7 +1237,7 @@ Ingen krav
 false
 0
 true
-false 
+false
 Rigmor
 Bakketun
 Bestumåsen 4
@@ -1257,7 +1257,7 @@ Leilighet
 true
 3
 false
-true 
+true
 Remi
 Sandstad
 Berglyveien 7
@@ -1277,7 +1277,7 @@ Ingen krav
 true
 0
 true
-true 
+true
 Kyrre
 Brekke
 Grorudveien 9
@@ -1297,7 +1297,7 @@ Leilighet
 false
 0
 false
-true 
+true
 Dorthea
 Skar
 Akersbakken 3
@@ -1317,7 +1317,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Åshild
 Børstad
 Elvefaret 6
@@ -1337,7 +1337,7 @@ Ingen krav
 false
 10
 false
-false 
+false
 Edith
 Føreland
 Bueveien 4
@@ -1357,7 +1357,7 @@ Ingen krav
 false
 0
 false
-true 
+true
 Marta
 Storm
 Bygdøylund 3
@@ -1377,7 +1377,7 @@ Leilighet
 true
 0
 false
-false 
+false
 Janet
 Mork
 Granveien 9
@@ -1397,7 +1397,7 @@ Enebolig/rekkehus
 false
 10
 true
-true 
+true
 Annie
 Gjestvang
 Engveien 6
@@ -1417,7 +1417,7 @@ Leilighet
 false
 0
 false
-true 
+true
 Flemming
 Lindal
 Arbins gate 7
@@ -1437,7 +1437,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Laurits
 Svela
 Grønmoveien 8
@@ -1457,7 +1457,7 @@ Enebolig/rekkehus
 false
 5
 true
-false 
+false
 Bror
 Hogstad
 Brynjeveien 6
@@ -1477,7 +1477,7 @@ Ingen krav
 false
 0
 true
-true 
+true
 Mariam
 Elmi
 Elgtråkket 1
@@ -1497,7 +1497,7 @@ Enebolig/rekkehus
 false
 9
 true
-false 
+false
 Edel
 Sandanger
 Aspestien 8
@@ -1517,7 +1517,7 @@ Enebolig/rekkehus
 false
 1
 false
-true 
+true
 Brynjulf
 Aanensen
 Bølerskogen 9
@@ -1537,7 +1537,7 @@ Enebolig/rekkehus
 false
 0
 false
-false 
+false
 Valborg
 Gamst
 Gamlelinja 6
@@ -1557,7 +1557,7 @@ Leilighet
 false
 0
 false
-false 
+false
 Anine
 Sandbakken
 Brugata 7
@@ -1577,7 +1577,7 @@ Enebolig/rekkehus
 true
 0
 true
-true 
+true
 Eystein
 Bergseth
 Eneboveien 4
@@ -1597,7 +1597,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Ann-kristin
 Strandberg
 Brynsveien 2
@@ -1617,7 +1617,7 @@ Ingen krav
 false
 0
 true
-false 
+false
 Vibeke
 Haugsvær
 Barliveien 1
@@ -1637,7 +1637,7 @@ Ingen krav
 false
 3
 true
-true 
+true
 Elinor
 Bakkan
 Bøgata 6
@@ -1657,7 +1657,7 @@ Ingen krav
 true
 0
 false
-false 
+false
 Gudbrand
 Aasbø
 Greveveien 1
@@ -1677,7 +1677,7 @@ Ingen krav
 true
 5
 false
-false 
+false
 Maya
 Sikveland
 Gamleveien 2
@@ -1697,7 +1697,7 @@ Enebolig/rekkehus
 false
 1
 true
-false 
+false
 William
 Langnes
 Eterveien 4
@@ -1717,7 +1717,7 @@ Ingen krav
 true
 5
 true
-false 
+false
 Jacob
 Winje
 Brinken 1
@@ -1737,7 +1737,7 @@ Enebolig/rekkehus
 true
 5
 true
-false 
+false
 Gøran
 Rønningen
 Gisles vei 5
@@ -1757,7 +1757,7 @@ Ingen krav
 false
 0
 true
-false 
+false
 Agnar
 Johannesen
 Bjerkefaret 9
@@ -1777,7 +1777,7 @@ Enebolig/rekkehus
 false
 0
 true
-true 
+true
 Ludvig
 Valde
 Ankerveien 7
@@ -1797,7 +1797,7 @@ Leilighet
 true
 8
 true
-false 
+false
 Hanna
 Sæterdal
 Grågåsveien 4
@@ -1817,7 +1817,7 @@ Ingen krav
 false
 0
 true
-true 
+true
 Gabriel
 Hveem
 Blokkaveien 6
@@ -1837,7 +1837,7 @@ Ingen krav
 true
 2
 false
-false 
+false
 Maren
 Kaland
 Grandeveien 2
@@ -1857,7 +1857,7 @@ Leilighet
 true
 2
 true
-true 
+true
 Åge
 Eriksrud
 Bredes vei 1
@@ -1877,7 +1877,7 @@ Enebolig/rekkehus
 false
 0
 true
-false 
+false
 Annar
 Klemetsen
 Avstikkeren 6
@@ -1897,7 +1897,7 @@ Ingen krav
 true
 4
 false
-true 
+true
 Andrew
 Opedal
 Bølerbakken 4
@@ -1917,7 +1917,7 @@ Ingen krav
 true
 8
 true
-false 
+false
 Norunn
 Andersen
 Brugata 6
@@ -1937,7 +1937,7 @@ Ingen krav
 true
 4
 true
-true 
+true
 Sturla
 Lillestøl
 Bærumsveien 9
@@ -1957,7 +1957,7 @@ Ingen krav
 false
 8
 false
-false 
+false
 Ole-jørgen
 Berstad
 Bakkeveien 4
@@ -1977,7 +1977,7 @@ Leilighet
 true
 0
 false
-false 
+false
 Ahmad
 Friberg
 Bjørnveien 4
@@ -1997,7 +1997,7 @@ Ingen krav
 false
 0
 false
-false 
+false
 Narve
 Nordgård
 Gabels gate 8
@@ -2017,7 +2017,7 @@ Leilighet
 true
 0
 true
-false 
+false
 Venke
 Sætra
 Borgenveien 2
@@ -2037,7 +2037,7 @@ Ingen krav
 false
 4
 true
-false 
+false
 Are
 Gjessing
 Bergsalléen 9
@@ -2057,7 +2057,7 @@ Enebolig/rekkehus
 true
 8
 true
-true 
+true
 Torger
 Bremnes
 Bålveien 5
@@ -2077,7 +2077,7 @@ Ingen krav
 false
 0
 true
-false 
+false
 Catrine
 Nerli
 Giskehagen 4
@@ -2097,7 +2097,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Gunnvor
 Laland
 Grønnegata 8
@@ -2117,7 +2117,7 @@ Leilighet
 false
 9
 false
-false 
+false
 Guri
 Grude
 Bygdøy allé 1
@@ -2137,7 +2137,7 @@ Ingen krav
 true
 0
 true
-false 
+false
 Aagot
 Marthinsen
 Borggata 5
@@ -2157,7 +2157,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Jannike
 Eid
 Gardeveien 8
@@ -2177,7 +2177,7 @@ Leilighet
 true
 0
 false
-true 
+true
 Gullborg
 Johannessen
 Bergensgata 8
@@ -2197,7 +2197,7 @@ Enebolig/rekkehus
 false
 0
 true
-false 
+false
 Ailin
 Stormark
 Gjøvikgata 5
@@ -2217,7 +2217,7 @@ Leilighet
 false
 8
 false
-true 
+true
 Vilhelm
 Bratberg
 Erlends vei 6
@@ -2237,7 +2237,7 @@ Leilighet
 false
 0
 false
-false 
+false
 Haldis
 Dramstad
 Askeveien 2
@@ -2257,7 +2257,7 @@ Enebolig/rekkehus
 true
 10
 true
-false 
+false
 Maia
 Furunes
 Brennaveien 6
@@ -2277,7 +2277,7 @@ Leilighet
 true
 0
 true
-false 
+false
 Veronica
 Haarberg
 Bryggegata 4
@@ -2297,7 +2297,7 @@ Ingen krav
 true
 0
 false
-false 
+false
 Hildur
 Lid
 Grønland 4
@@ -2317,7 +2317,7 @@ Enebolig/rekkehus
 false
 0
 false
-true 
+true
 Cicilie
 Stornes
 Grønliveien 9
@@ -2337,7 +2337,7 @@ Enebolig/rekkehus
 false
 0
 false
-false 
+false
 Jonn
 Stensvold
 Bekkeveien 2
@@ -2357,7 +2357,7 @@ Ingen krav
 true
 0
 true
-false 
+false
 Hallstein
 Fjeld
 Godliaveien 4
@@ -2377,7 +2377,7 @@ Leilighet
 false
 0
 true
-false 
+false
 Abdul
 Ree
 Gabbi Lunds vei 8
@@ -2397,7 +2397,7 @@ Ingen krav
 true
 0
 false
-false 
+false
 Aron
 Myran
 Gårdsveien 8
@@ -2417,7 +2417,7 @@ Enebolig/rekkehus
 true
 0
 false
-false 
+false
 Jomar
 Westbye
 Bleikøya 9
@@ -2437,7 +2437,7 @@ Enebolig/rekkehus
 true
 0
 true
-false 
+false
 Ørnulf
 Sellevold
 Elverumgata 7
@@ -2457,7 +2457,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Idar
 Finnøy
 Eftasåsen 3
@@ -2477,7 +2477,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Matilde
 Lindås
 Storgata 7
@@ -2497,7 +2497,7 @@ Enebolig/rekkehus
 false
 4
 false
-true 
+true
 Annfrid
 Solheim
 Grindbakken 9
@@ -2517,7 +2517,7 @@ Leilighet
 true
 0
 false
-false 
+false
 Emily
 Bergseng
 Enoks vei 8
@@ -2537,7 +2537,7 @@ Leilighet
 false
 0
 false
-true 
+true
 Oline
 Hårstad
 Grusveien 1
@@ -2557,7 +2557,7 @@ Ingen krav
 false
 0
 true
-true 
+true
 Ana
 Bashir
 Bodøgata 7
@@ -2577,7 +2577,7 @@ Ingen krav
 true
 0
 true
-false 
+false
 Henning
 Angell
 Aslakveien 9
@@ -2597,7 +2597,7 @@ Enebolig/rekkehus
 true
 0
 true
-true 
+true
 Cecilia
 Hellebust
 Astrids vei 7
@@ -2617,7 +2617,7 @@ Ingen krav
 true
 0
 false
-true 
+true
 Tine
 Støylen
 Brynsalléen 4
@@ -2637,7 +2637,7 @@ Leilighet
 false
 0
 true
-false 
+false
 Katrin
 Revheim
 Granstangen 3
@@ -2657,7 +2657,7 @@ Ingen krav
 false
 0
 false
-false 
+false
 Ingjerd
 Eikenes
 Granstangen 8
@@ -2677,7 +2677,7 @@ Leilighet
 true
 3
 true
-false 
+false
 Peder
 Aadland
 Gruvelia 1
@@ -2697,7 +2697,7 @@ Enebolig/rekkehus
 false
 0
 false
-true 
+true
 Idunn
 Steinnes
 Asalveien 4
@@ -2717,7 +2717,7 @@ Enebolig/rekkehus
 true
 0
 false
-true 
+true
 Torvald
 Borg
 Grensen 7
@@ -2737,7 +2737,7 @@ Leilighet
 false
 7
 false
-false 
+false
 Wencke
 Minge
 Askergata 7
@@ -2757,7 +2757,7 @@ Leilighet
 false
 3
 false
-false 
+false
 Eskild
 Mathiassen
 Gullkroken 9
@@ -2777,7 +2777,7 @@ Enebolig/rekkehus
 true
 0
 false
-true 
+true
 Luis
 Molvik
 Ekraveien 9
@@ -2797,7 +2797,7 @@ Ingen krav
 true
 0
 false
-false 
+false
 Jonatan
 Nesheim
 Grankvisten 1
@@ -2817,7 +2817,7 @@ Leilighet
 false
 0
 true
-true 
+true
 Eldrid
 Haugsdal
 Aurskoggata 6
@@ -2837,7 +2837,7 @@ Enebolig/rekkehus
 false
 3
 false
-true 
+true
 Ørjan
 Slyngstad
 Brekkeveien 9
@@ -2857,7 +2857,7 @@ Leilighet
 false
 2
 true
-true 
+true
 Nelly
 Svensen
 Bikuben 2
@@ -2877,7 +2877,7 @@ Enebolig/rekkehus
 false
 9
 false
-false 
+false
 Mildrid
 Goa
 Gruegata 5
@@ -2897,7 +2897,7 @@ Ingen krav
 true
 0
 true
-true 
+true
 Alvhild
 Melberg
 Granliveien 4
@@ -2917,7 +2917,7 @@ Enebolig/rekkehus
 true
 3
 true
-true 
+true
 Kitty
 Sundli
 Gydas vei 7
@@ -2937,7 +2937,7 @@ Ingen krav
 true
 0
 true
-true 
+true
 David
 Unhjem
 Bjølsengata 8
@@ -2957,7 +2957,7 @@ Ingen krav
 false
 0
 false
-true 
+true
 Marina
 Østvang
 Gunnars vei 6
@@ -2977,4 +2977,1044 @@ Enebolig/rekkehus
 false
 0
 true
-false 
+false
+Ella
+Westgård
+Bentsegata 7
+3173
+Vear
+jgeorg@cox.net
+12923552
+lo
+Enebolig/rekkehus
+46
+8
+0
+10300
+0
+0
+0
+false
+0
+true
+true
+Markus
+Rødal
+Grorudveien 1
+6570
+Smøla
+edwin.ghigliotty@faa.gov
+93670508
+træl
+Enebolig/rekkehus
+229
+0
+1942
+27400
+22.11.2000
+0
+0
+false
+0
+true
+true
+Anbjørg
+Knutsen
+Granebakken 4
+6280
+Søvik
+dmgflg@aol.com
+73031639
+tube
+Leilighet
+142
+4
+1960
+0
+0
+5
+0
+false
+0
+true
+false
+Karsten
+Hessen
+Bølerlia 7
+4885
+Grimstad
+giffinja@aol.com
+38672556
+veske
+Enebolig/rekkehus
+176
+5
+0
+4100
+0
+0
+0
+false
+0
+true
+false
+Abdi
+Onarheim
+Bjerkastien 7
+3538
+Sollihøgda
+jgonq@aol.com
+75994942
+velling
+Enebolig/rekkehus
+0
+0
+0
+25200
+10.10.1999
+0
+364
+true
+0
+true
+true
+Zahra
+Reime
+Bergslia 8
+7960
+Salsbruket
+lmumford3@comcast.net
+83404102
+glans
+Leilighet
+0
+0
+1984
+28500
+0
+0
+0
+false
+0
+true
+false
+Nancy
+Abdi
+Badebakken 5
+6715
+Barmen
+sonya18795@aol.com
+38925923
+saft
+Ingen krav
+128
+1
+1922
+1300
+0
+1
+0
+false
+10
+true
+true
+Aleksandra
+Aakvik
+Asperudåsen 6
+7016
+Trondheim
+pdgoebel@fairpoint.net
+20292523
+yngel
+Leilighet
+0
+7
+1923
+0
+0
+2
+367
+true
+8
+false
+true
+Dina
+Søgaard
+Badstugata 5
+8890
+Leirfjord
+spwineguy@aol.com
+45089193
+klase
+Enebolig/rekkehus
+0
+3
+0
+15100
+0
+4
+0
+false
+0
+true
+true
+Benedicte
+Zimmermann
+Bakketoppen 5
+3213
+Sandefjord
+aag@hci.net
+69140329
+ånd
+Ingen krav
+109
+4
+0
+2100
+0
+0
+0
+false
+3
+true
+true
+Julian
+Gunnarsen
+Asperudlia 3
+3227
+Sandefjord
+magokay@hotmail.com
+38407494
+krem
+Ingen krav
+190
+8
+0
+0
+0
+4
+489
+true
+6
+true
+false
+Thora
+Fjeldstad
+Austliveien 6
+3103
+Tønsberg
+burton530@verizon.net
+88156792
+masse
+Ingen krav
+0
+1
+1983
+0
+7.7.2002
+0
+0
+false
+0
+false
+false
+Alise
+Sandø
+Alnafetgata 2
+4436
+Gyland
+ron@rivcom.net
+46773016
+brissel
+Enebolig/rekkehus
+0
+0
+0
+12100
+11.1.2014
+3
+0
+false
+0
+false
+false
+Hjørdis
+Skauge
+Bølerveien 1
+7190
+Bessaker
+boogeyman79@hotmail.com
+75495776
+kalv
+Enebolig/rekkehus
+0
+1
+0
+0
+0
+1
+0
+false
+10
+true
+false
+Wanja
+Helgestad
+Beverveien 9
+7261
+Sistranda
+dongran338@webtv.net
+22912854
+pant
+Ingen krav
+196
+4
+1954
+0
+19.6.2011
+0
+0
+false
+0
+false
+false
+Ranveig
+Lindstrøm
+Baneveien 2
+3506
+Hønefoss
+capt bopps@firstva.com
+36233773
+moster
+Enebolig/rekkehus
+0
+2
+1986
+5800
+0
+5
+0
+false
+9
+false
+true
+Torild
+Vorland
+Grinda 7
+7529
+Hegra
+carlbgrimmett@comcast.net
+50864070
+fjøl
+Leilighet
+231
+8
+1999
+0
+7.12.2012
+1
+0
+false
+1
+false
+true
+Fredrikke
+Myrhaug
+Bjørnehiet 5
+0474
+Oslo
+wrmrgr2@sbcglobal.net
+63391526
+brusk
+Ingen krav
+0
+0
+0
+27300
+6.7.2005
+4
+0
+false
+0
+false
+true
+Oddfrid
+Rossebø
+Adventveien 1
+9900
+Kirkenes
+steveg8466@aol.com
+82328680
+knyst
+Enebolig/rekkehus
+40
+6
+1920
+0
+0
+4
+0
+false
+9
+false
+true
+Edna
+Aae
+Bygdøyveien 7
+1871
+Ørje
+lg@shapirosher.com
+42114778
+grav
+Leilighet
+0
+0
+1997
+0
+0
+0
+0
+false
+0
+true
+true
+Sophie
+Hamborg
+Eikeveien 2
+4275
+Sævelandsvik
+cecil@cecilgunter.com
+92754817
+dorg
+Leilighet
+76
+0
+1956
+13300
+0
+1
+0
+false
+0
+true
+true
+Mali
+Dalby
+Bankplassen 8
+3620
+Flesberg
+jerrygutschow1@gmail.com
+27807343
+rem
+Enebolig/rekkehus
+0
+6
+2010
+26400
+0
+4
+0
+false
+0
+false
+true
+Margot
+Folgerø
+Bestumveien 5
+5501
+Haugesund
+wb0ytj@juno.com
+74456403
+pynt
+Leilighet
+0
+0
+1970
+0
+0
+4
+363
+true
+0
+true
+false
+Birk
+Sætre
+Benveien 4
+7633
+Frosta
+osure23@optimum.net
+35271281
+dolp
+Leilighet
+62
+8
+2004
+23100
+0
+0
+0
+false
+0
+false
+true
+Vebjørn
+Kvaal
+Grundingen 1
+0085
+Oslo
+rbh1948@i-55.com
+69666495
+stolpe
+Enebolig/rekkehus
+102
+0
+1902
+0
+0
+3
+75
+true
+0
+true
+true
+Tordis
+Bjørlo
+Beiteveien 1
+3991
+Brevik
+dickhanley17@cox.net
+57248667
+toddy
+Ingen krav
+253
+0
+1942
+0
+0
+2
+215
+true
+0
+true
+true
+Lauritz
+Møller
+Akersveien 5
+0179
+Oslo
+arlie@mywesleycommons.org
+89664097
+kusine
+Leilighet
+182
+8
+1923
+5600
+0
+5
+0
+false
+0
+false
+true
+Palma
+Sundby
+Akerlia 3
+1480
+Slattum
+ltjgnavy@gmail.com
+61807871
+lugg
+Ingen krav
+264
+8
+0
+19300
+0
+0
+0
+false
+0
+false
+false
+Fritz
+Moholt
+Beddingen 8
+2013
+Skjetten
+bjhdd710@cox.net
+53799614
+lunge
+Enebolig/rekkehus
+32
+5
+0
+19400
+0
+3
+0
+false
+0
+false
+false
+Lovise
+Søvik
+Grenseveien 1
+3966
+Stathelle
+jack_who@sbcglobal.net
+71024817
+linjal
+Enebolig/rekkehus
+0
+0
+1951
+23300
+0
+2
+317
+true
+0
+false
+true
+Mia
+Grønvold
+Binneveien 7
+1878
+Hærland
+trhemail@aol.com
+35100993
+terskel
+Leilighet
+0
+6
+1957
+20200
+0
+0
+0
+false
+0
+false
+false
+Tor-arne
+Bjørgo
+Brekkelia 9
+9161
+Burfjord
+hartlej5354@gmail.com
+41512438
+sepe
+Leilighet
+128
+2
+1942
+0
+4.8.2009
+3
+320
+true
+0
+false
+false
+Torkild
+Herdlevær
+Grevlinglia 5
+8201
+Fauske
+fh7118@yahoo.com
+91936165
+mort
+Enebolig/rekkehus
+147
+7
+1984
+0
+0
+0
+0
+false
+7
+true
+true
+Rasmus
+Bratsberg
+Guldberglia 1
+2364
+Næroset
+brwn3006@bellsouth.net
+76971204
+kabal
+Ingen krav
+157
+5
+1963
+2600
+10.10.2000
+0
+232
+true
+0
+false
+true
+Viggo
+Sømme
+Grubbegata 3
+1160
+Oslo
+hmhavers@cs.com
+32043993
+gro
+Leilighet
+205
+5
+1949
+4800
+0
+5
+0
+false
+0
+false
+true
+Oliver
+Norman
+Apalveien 5
+0201
+Oslo
+cardinal1771@comcast.net
+88333244
+kumle
+Leilighet
+39
+0
+1951
+5500
+0
+0
+292
+true
+7
+true
+true
+Carine
+Mongstad
+Golfstubben 1
+3906
+Porsgrunn
+bill.heine@snet.net
+83801969
+nips
+Ingen krav
+96
+7
+1945
+0
+0
+2
+423
+true
+0
+false
+true
+Arve
+Jenssen
+Brønnveien 7
+2090
+Hurdal
+don17fes@frontiernet.net
+88148417
+flod
+Ingen krav
+63
+5
+1913
+0
+14.2.2006
+3
+0
+false
+0
+false
+false
+Elizabeth
+Frøysa
+Gransdalen 1
+0356
+Oslo
+jhendricks@greenlynk.com
+68653193
+talg
+Enebolig/rekkehus
+176
+0
+1905
+0
+20.9.2010
+2
+0
+false
+0
+false
+true
+Alv
+Hove
+Elvefaret 2
+2410
+Hernes
+rhendricks21@comcast.net
+60977213
+sykdom
+Ingen krav
+0
+1
+1998
+1800
+0
+1
+0
+false
+0
+false
+false
+Martha
+Erstad
+Grønland 3
+5630
+Strandebarm
+cameo ant@aol.com
+26288017
+væske
+Ingen krav
+65
+1
+1967
+20300
+0
+3
+0
+false
+0
+true
+true
+Lisbet
+Røstad
+Aagots vei 7
+0881
+Oslo
+fajmh@verizon.net
+49506794
+hud
+Leilighet
+190
+3
+1905
+5500
+9.1.1998
+3
+337
+true
+3
+true
+false
+Tormod
+Skramstad
+Alnagata 2
+1341
+Slependen
+donbell1934@verizon.net
+91994280
+tram
+Ingen krav
+186
+0
+1941
+0
+0
+0
+156
+true
+0
+true
+false
+Ingvald
+Oppegaard
+Eltonveien 8
+9714
+Snefjord
+furlough45@comcast.net
+25895644
+brodd
+Ingen krav
+53
+7
+1942
+0
+20.2.2006
+2
+0
+false
+0
+false
+true
+Natalia
+Sandbæk
+Einars vei 8
+3284
+Kvelde
+hinz77@msn.com
+16721718
+nestle
+Enebolig/rekkehus
+0
+8
+1986
+26000
+0
+2
+417
+true
+6
+false
+true
+Nicolai
+Aurstad
+Gryteveien 6
+5822
+Bergen
+larryandkip@echoes.net
+22226593
+bøtte
+Leilighet
+122
+0
+0
+22900
+0
+2
+221
+true
+0
+true
+false
+Amina
+Holmsen
+Galgeberg 2
+2091
+Hurdal
+jdhoeschen@charter.net
+40108640
+majones
+Enebolig/rekkehus
+60
+2
+1909
+9700
+12.3.2014
+3
+0
+false
+2
+true
+false
+Michelle
+Bakkehaug
+Arbos gate 3
+1056
+Oslo
+trmhogan@comcast.net
+62368829
+spade
+Enebolig/rekkehus
+298
+4
+0
+3500
+0
+5
+425
+true
+1
+true
+false
+Thoralf
+Furulund
+Bjørkehavna 8
+7098
+Saupstad
+haroldholl@comcast.net
+23090536
+reke
+Enebolig/rekkehus
+299
+0
+1937
+26500
+0
+3
+97
+true
+0
+true
+true
+Andrine
+Mikkelborg
+Eiriks gate 9
+1274
+Oslo
+halhollingsworth@aol.com
+34546966
+hanske
+Enebolig/rekkehus
+246
+5
+0
+22600
+0
+2
+0
+false
+0
+true
+true
+Agnethe
+Eikeland
+Einerveien 8
+1804
+Spydeberg
+lenholmberg@msn.com
+61886375
+taffel
+Enebolig/rekkehus
+78
+0
+1967
+0
+0
+3
+422
+true
+0
+false
+true
+Andre
+Sæter
+Bomveien 2
+3472
+Bødalen
+ochoners47@verizon.net
+57755551
+skurk
+Leilighet
+0
+0
+1974
+3400
+27.9.2012
+1
+0
+false
+0
+true
+false

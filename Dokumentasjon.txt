@@ -75,4 +75,15 @@ Sigurd kunne ikke komme fordi han hadde fått neglerots betennelse i den ene tåen
 Gretar skriver:
 Har programmert visBoligInfo() metoden i InformasjonVindu.java. Metoden viser info om en bolig og hvilken boligsøkere har krav som passer til den boligen.
 Har sett FocusListener til alle DATO felt i alle vinduer, slik at feltet viser "dd.mm.åååå" men når man klikker/"tab"-er i feltet forsvinder teksten og man kan skrive i et tom felt.
-Har fikset metoden PasserTilBolig i Boligsøker.java, som returnerer TRUE hvis en bolig passer til boligsøkerens krav, men FALSE ellers
+Har fikset metoden PasserTilBolig i Boligsøker.java, som returnerer TRUE hvis en bolig passer til boligsøkerens krav, men FALSE ellers.
+
+07.05
+Gretar skriver:
+Har programmert metoden for å søke etter bolig(er) med kriteria. Metoden heter finnBoliger() og ligger i InformasjonVindu.java. Dette var en stor metode.
+Neste skrittene:
+  - lage et stort datasett som vi kan bruke til å teste programmet
+  - sette REGEX til alle nødvendig feltene
+  - fokusere på brukergrensesnittet når programmet fungerer, f.eks. programmere lukkeknappen til alle vinduene sånn at når brukeren åpner vinduet igjen, så ser det alltid det samme ut (default start utseende).
+
+08.05
+Har opprettet tre .txt filer som hver inneholder henholdsvis 100 utleiere, 200 boligsøkere og 593 boliger. Denne tekstfilene brukes av programmet til å registere utleiere, boligsøkere og boliger til utleierene. Man trykker på en knapp på StartVinduet (BARE EN GANG) til å opprette dataene. Tekstfilene var laget i Excel, med random-funksjon til å legge til størrelse, antall soverom, osv.
