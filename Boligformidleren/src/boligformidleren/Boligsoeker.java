@@ -224,6 +224,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
     // toString-metode
     public String toString() {
         String s = super.toString() + "\nPersonlige opplysninger: " + pInfo + 
+                "\nStatus: " + (leterEtterBolig ?"Leter etter bolig":"Leter ikke etter bolig") +
                 "\nKrav: " + 
                 "\nBoligype: " + type + 
                 "\nMin. areal: " + areal + 

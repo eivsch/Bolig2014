@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
+import javax.swing.table.DefaultTableModel;
 
 public class InformasjonVindu extends JFrame implements ActionListener, FocusListener {
 
@@ -399,58 +400,27 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             return;
         }
         if (bs != null) {
-            output.setText(bs.toString());
+            // Viser hvilke boliger personen passer til
+            int antallboliger = 0;
+            String s = " mulige boliger: ";
+            Iterator<Utleier> utleierIterator = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
+            Utleier utleier;
+            while (utleierIterator.hasNext()) {
+                utleier = utleierIterator.next();
+                Iterator<Bolig> boligIterator = utleier.getBoligliste().getListe().iterator();
+                Bolig b;
+                while (boligIterator.hasNext()) {
+                    b = boligIterator.next();
+                    if (bs.passerTilBolig(b)) {
+                        s +="\n" + b.getGateadresse() + "   " + b.getPoststed() + "   " + b.getPostnr();
+                        antallboliger++;
+                    }
+                }
+            }
+            output.setText(bs.toString() + "\n" + antallboliger + s);
             return;
         }
         output.setText("Feil - finner ikke person " + fornavn.getText() + " " + etternavn.getText());
-    }
-
-    // utskrift av alle registrerte boligsøkere, med opplysninger om hvilken bolig de eventuelt er interessert i
-    public void visAlleBoligsoekere() {
-        Iterator<Boligsoeker> bsIter = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().getMengde().iterator();
-
-        Boligsoeker bs;
-        output.setText("Boligsøkere og boliger som oppfyller boligsøkerens krav (gateadresse, postnummer, poststed)\n");
-        String utskrift = "";
-
-        while (bsIter.hasNext()) {
-            bs = bsIter.next();
-            utskrift += "\nNavn: " + bs.getFornavn() + " " + bs.getEtternavn()
-                    + "\nBoliger: ";
-
-            Iterator<Utleier> ulIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
-            Utleier ul;
-            BoligListe bl;
-
-            while (ulIter.hasNext()) {
-                ul = ulIter.next();
-                bl = ul.getBoligliste();
-                Bolig b;
-                Iterator<Bolig> bIter = bl.getListe().iterator();
-                boolean tom = true;
-
-                while (bIter.hasNext()) {
-                    b = bIter.next();
-
-                    if (b.getLedig() && bs.passerTilBolig(b)) {
-                        utskrift += "\n" + b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
-                        tom = false;
-                    }
-                }
-
-                if (tom) {
-                    utskrift += "\nIngen bolig oppfyller boligsøkerens krav";
-                }
-
-                utskrift += "\n";
-            }
-        }
-
-        if (utskrift.equals("")) {
-            output.setText("Ingen boligsøker registerert");
-        }
-
-        output.append(utskrift);
     }
 
     // henter og viser informasjon om en bolig og liste over interesserte boligsøkere
@@ -501,7 +471,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         poststed.setText("");
     }
 
-    public void tegnTabell() {
+    public void tegnBoligsoekerTabell() {
         // for boligsøkere
         Set s = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().getMengde();
         Iterator<Boligsoeker> iter = s.iterator();
@@ -513,9 +483,31 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 celler[rad] = b.tilArray();
             }
         }
-        JTable tabell = new JTable(celler, KOLONNENAVN);
+        DefaultTableModel moddell = new DefaultTableModel(celler, KOLONNENAVN) {
+            // Redefinerer getColumnClass for riktig sortering av JTable
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return String.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return Integer.class;
+                    case 3:
+                        return Integer.class;
+                    case 4:
+                        return Integer.class;
+                    case 5:
+                        return String.class;
+                    default:
+                        return String.class;
+                }
+            }
+        };
+        JTable tabell = new JTable(moddell);
         tabellPanel.removeAll();
         tabellPanel.add(new JScrollPane(tabell));
+        tabell.setAutoCreateRowSorter(true);
     }
 
     public void finnBoliger() {
@@ -636,6 +628,10 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         output.append(liste);
     }
 
+    public void tegnBoligTabell(){
+        
+    }
+    
     public void visAlleBoliger() {
         Iterator<Utleier> ulIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
         Utleier ul;
@@ -682,21 +678,46 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         if (e.getSource() == hentInfoPerson) {
             hentInfoPerson();
+            masterPanel.remove(tabellPanel);
+            masterPanel.add(under);
+            masterPanel.revalidate();
+            masterPanel.repaint();
         } else if (e.getSource() == visAlleBoligsoekere) {
-            tegnTabell();//visAlleBoligsoekere();
+            tegnBoligsoekerTabell();//visAlleBoligsoekere();
             masterPanel.remove(under);
             masterPanel.add(tabellPanel, BorderLayout.CENTER);
             masterPanel.revalidate();
+            masterPanel.repaint();
         } else if (e.getSource() == visBoligInfo) {
             visBoligInfo();
+            masterPanel.remove(tabellPanel);
+            masterPanel.add(under);
+            masterPanel.revalidate();
+            masterPanel.repaint();
         } else if (e.getSource() == finnBoliger) {
             finnBoliger();
+            masterPanel.remove(tabellPanel);
+            masterPanel.add(under);
+            masterPanel.revalidate();
+            masterPanel.repaint();
         } else if (e.getSource() == visAlleBoliger) {
             visAlleBoliger();
+            masterPanel.remove(tabellPanel);
+            masterPanel.add(under);
+            masterPanel.revalidate();
+            masterPanel.repaint();
         } else if (e.getSource() == finnKontrakter) {
             finnKontrakter();
+            masterPanel.remove(tabellPanel);
+            masterPanel.add(under);
+            masterPanel.revalidate();
+            masterPanel.repaint();
         } else if (e.getSource() == visAlleKontrakter) {
             visAlleKontrakter();
+            masterPanel.remove(tabellPanel);
+            masterPanel.add(under);
+            masterPanel.revalidate();
+            masterPanel.repaint();
         } else if (e.getSource() == boligtype) {
             // bolig drop-down box
 
