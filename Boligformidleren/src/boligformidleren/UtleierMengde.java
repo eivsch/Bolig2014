@@ -95,6 +95,17 @@ public class UtleierMengde implements Serializable {
         }
         return usortertKopiMengde;
     }
+    
+    public int antallBoliger(){
+        int antRader = 0;
+        Iterator<Utleier> utleierIter = mengde.iterator();
+        Utleier utleier;
+        while(utleierIter.hasNext()){
+            utleier = utleierIter.next();
+            antRader += utleier.getBoligliste().getListe().size();
+        }
+        return antRader;
+    }
 
     public Set<Utleier> getSortertMengde() {
         return mengde;

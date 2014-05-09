@@ -84,7 +84,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     // for JTable
     private final String[] BSKOLONNENAVN = {"Navn", "Sted", "Pris", "Areal",
         "Soverom", "Boligtype", "Fra Dato"};
-    private final String[] BOLIGKOLONNENAVN = {"1", "2", "3", "4", "5", "6", "7"};
+    private final String[] BOLIGKOLONNENAVN = {"Adresse", "Poststed", "Postnummer",
+        "Pris", "Areal", "Byggeår", "Avertert fra"};
 
     private JTextArea output;
 
@@ -508,6 +509,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         JTable tabell = new JTable(moddell);
         tabellPanel.removeAll();
         tabellPanel.add(new JScrollPane(tabell));
+        tabellPanel.revalidate();
         tabell.setAutoCreateRowSorter(true);
     }
 
@@ -631,9 +633,50 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
     public void tegnBoligTabell() {
         // for boliger
-        int antRader;
-        UtleierMengde um = StartVindu.getUtleierVindu().getUtleierMengde();
-        
+        int maxAntRader = StartVindu.getUtleierVindu().getUtleierMengde().antallBoliger();
+        Object[][] celler = new Object[maxAntRader][BOLIGKOLONNENAVN.length];
+        Iterator<Utleier> utleierIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
+        int radTeller = 0;
+        while (utleierIter.hasNext()) {
+            Utleier u = utleierIter.next();
+            Iterator<Bolig> boligIter = u.getBoligliste().getListe().iterator();
+            for (int rad = radTeller; rad < maxAntRader; rad++) {
+                if (boligIter.hasNext()) {
+                    Bolig b = boligIter.next();
+                    celler[rad] = b.tilArray();
+                    radTeller++;
+                }
+            }
+        }
+
+        DefaultTableModel moddell = new DefaultTableModel(celler, BOLIGKOLONNENAVN) {
+            // Redefinerer getColumnClass for riktig sortering av JTable
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return String.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return Integer.class;
+                    case 3:
+                        return Integer.class;
+                    case 4:
+                        return Integer.class;
+                    case 5:
+                        return Integer.class;
+                    case 6:
+                        return Integer.class;
+                    default:
+                        return String.class;
+                }
+            }
+        };
+        JTable tabell = new JTable(moddell);
+        tabellPanel.removeAll();
+        tabellPanel.add(new JScrollPane(tabell));
+        tabellPanel.revalidate();
+        tabell.setAutoCreateRowSorter(true);
     }
 
     public void visAlleBoliger() {
@@ -705,9 +748,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.revalidate();
             masterPanel.repaint();
         } else if (e.getSource() == visAlleBoliger) {
-            visAlleBoliger();
-            masterPanel.remove(tabellPanel);
-            masterPanel.add(under);
+            tegnBoligTabell();
+            masterPanel.remove(under);
+            masterPanel.add(tabellPanel, BorderLayout.CENTER);
             masterPanel.revalidate();
             masterPanel.repaint();
         } else if (e.getSource() == finnKontrakter) {
