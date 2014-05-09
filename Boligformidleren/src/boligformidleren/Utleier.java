@@ -24,6 +24,16 @@ public class Utleier extends Person implements Comparable<Utleier> {
         this.firma = firma;
         liste = new BoligListe();
     }
+    
+    // get metode
+    public String getFirma(){
+        return firma;
+    }
+    
+    // set metode
+    public void setFirma(String f){
+        firma = f;
+    }
 
     // registrerer ny bolig til utleieren
     public void regBolig(Bolig b) {

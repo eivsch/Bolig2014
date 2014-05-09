@@ -19,11 +19,11 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class UtleierVindu extends JFrame implements ActionListener {
+public class UtleierVindu extends JFrame implements ActionListener, FocusListener {
 
     private JTextField RegPersFornavn, RegPersEtternavn, RegPersGateadr, RegPersPostnr, RegPersPoststed, RegEpost, RegTlf, RegFirma;
     private JTextArea output;
-    private JButton regUtleier, slettUtleier, skrivUt;
+    private JButton regUtleier, slettUtleier, endreGateadresse, endrePostnr, endrePoststed, endreEpost, endreTelefonnr, endreFirma, skrivUt;
     private int antRad, antKol, gap;
     private JPanel masterPanel, grid, under;
 
@@ -37,7 +37,7 @@ public class UtleierVindu extends JFrame implements ActionListener {
 
         // antall rader, antall kolonner og gap størrelse for GridLayout
         antRad = 10;
-        antKol = 2;
+        antKol = 3;
         gap = 5;
 
         masterPanel = new JPanel(new BorderLayout());
@@ -46,47 +46,74 @@ public class UtleierVindu extends JFrame implements ActionListener {
         masterPanel.add(grid, BorderLayout.PAGE_START);
         masterPanel.add(under, BorderLayout.CENTER);
         this.getContentPane().add(masterPanel);
-        setSize(300, 500);
+        setSize(400, 700);
 
         output = new JTextArea();
         output.setEditable(false);
         JScrollPane scroll = new JScrollPane(output);
         under.add(scroll, BorderLayout.CENTER);
 
-        // textfields
+        // felt og knapper
         grid.add(new JLabel("Fornavn: "));
         RegPersFornavn = new JTextField(10);
+        RegPersFornavn.addFocusListener(this);
         grid.add(RegPersFornavn);
+        grid.add(new JLabel(""));   // tom felt, ingen knapp for endring av fornavn
 
         grid.add(new JLabel("Etternavn: "));
         RegPersEtternavn = new JTextField(10);
+        RegPersEtternavn.addFocusListener(this);
         grid.add(RegPersEtternavn);
+        grid.add(new JLabel(""));   // tom felt, ingen knapp for endring av etternavn
 
         grid.add(new JLabel("Gateadresse: "));
         RegPersGateadr = new JTextField(10);
         grid.add(RegPersGateadr);
-
+        
+        endreGateadresse = new JButton("Endre");
+        endreGateadresse.addActionListener(this);
+        grid.add(endreGateadresse);
+        
         grid.add(new JLabel("Postnummer: "));
         RegPersPostnr = new JTextField(10);
         grid.add(RegPersPostnr);
+        
+        endrePostnr = new JButton("Endre");
+        endrePostnr.addActionListener(this);
+        grid.add(endrePostnr);
 
         grid.add(new JLabel("Poststed: "));
         RegPersPoststed = new JTextField(10);
         grid.add(RegPersPoststed);
+        
+        endrePoststed = new JButton("Endre");
+        endrePoststed.addActionListener(this);
+        grid.add(endrePoststed);
 
         grid.add(new JLabel("E-post: "));
         RegEpost = new JTextField(10);
         grid.add(RegEpost);
+        
+        endreEpost = new JButton("Endre");
+        endreEpost.addActionListener(this);
+        grid.add(endreEpost);
 
-        grid.add(new JLabel("Telefon: "));
+        grid.add(new JLabel("Telefonnummer: "));
         RegTlf = new JTextField(10);
         grid.add(RegTlf);
+        
+        endreTelefonnr = new JButton("Endre");
+        endreTelefonnr.addActionListener(this);
+        grid.add(endreTelefonnr);
 
         grid.add(new JLabel("Firma: "));
         RegFirma = new JTextField(10);
         grid.add(RegFirma);
+        
+        endreFirma = new JButton("Endre");
+        endreFirma.addActionListener(this);
+        grid.add(endreFirma);
 
-        // buttons
         regUtleier = new JButton("Register utleier");
         regUtleier.addActionListener(this);
         grid.add(regUtleier);
@@ -172,6 +199,21 @@ public class UtleierVindu extends JFrame implements ActionListener {
          * person- mengde, kontraktliste etc .toString)
          */
         output.setText(utleierMengde.toString() + "\n");
+        output.setCaretPosition(0);
+    }
+    
+    public void endreGateadresse(String ny){
+        if(ny.equals(""))
+            return;
+        
+        Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(RegPersFornavn.getText(), RegPersEtternavn.getText());
+        
+        if(ul == null)
+            return;
+        output.setText("Gateadresse endret\n"
+                + "Gammel:\t" + ul.getGateadresse());
+        ul.setGateadresse(ny);
+        output.append("\nNy:\t" + ul.getGateadresse());
     }
 
     public void skrivUtleierTilFil() {
@@ -211,7 +253,33 @@ public class UtleierVindu extends JFrame implements ActionListener {
             utskrift();
         } else if (e.getSource() == slettUtleier) {
             slettUtleier();
+        } else if (e.getSource() == endreGateadresse){
+            endreGateadresse(RegPersGateadr.getText());
         }
+    }
+    
+    public void focusGained(FocusEvent fe){
+        
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
+        
+    }
+    
+    public void focusLost(FocusEvent fe) {
+        
+        if(fe.getSource() == RegPersFornavn || fe.getSource() == RegPersEtternavn)
+            if(!RegPersFornavn.getText().equals("") && !RegPersEtternavn.getText().equals("")){
+                Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(RegPersFornavn.getText(), RegPersEtternavn.getText());
+                
+                if(ul != null){
+                    RegPersGateadr.setText(ul.getGateadresse());
+                    RegPersPostnr.setText(Integer.toString(ul.getPostnr()));
+                    RegPersPoststed.setText(ul.getPoststed());
+                    RegEpost.setText(ul.getEpost());
+                    RegTlf.setText(Integer.toString(ul.getTelefonnr()));
+                    RegFirma.setText(ul.getFirma());
+                }
+            }
+        // fungerer ikke hvis vi bruker "else-if" for flere felter
     }
 
 }

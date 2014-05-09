@@ -5,3 +5,6 @@ E: Bruke JTable i utskrift-området til at få opplysingene til å se bedre ut
 E: vi gjør forutsetningen at hver boligsøker kan kun ha en "gyldig" leiekontrakt (som er ikke udatert)
 
 G: Opprette f.eks. "postnummer.java" hvor man har alle postnummere og poststeder i Norge. Når man skal registrere person eller bolig, så bruker mann denne filen for "auto-fill", dvs. man trenger ikke å skrive poststed. Det hjelper til ved feilhåndtering.
+
+E: Det kan være for mye jobb at brukeren kan endre navnet på en utleier eller boligsøker, så vi gjør forutsetningen at dette skal ikke være en mulighet.
+
