@@ -44,8 +44,9 @@ public class StartVindu extends JFrame implements ActionListener {
     public static final String PATTERNDATO = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
     public static final String PATTERNHELTALL = "[0-9]*";
     public static final SimpleDateFormat ENKELDATOFORMAT = new SimpleDateFormat("dd.MM.yyyy");
-    public static final String PATTERNTALLBOKSTAV = "[0-9]*.[a-zA-Z]";
-    public static final String PATTERNBOKSTAV = "[a-zA-Z]";
+    //public static final String PATTERNTALLBOKSTAV = "[0-9a-zæøåA-ZÆØÅ ,.\\-]{4,40}";
+    public static final String PATTERNTALLBOKSTAV = "[a-zæøåA-ZÆØÅ ]{4,40}[ ][0-9]{1,3}";
+    public static final String PATTERNBOKSTAV = "[a-zæøåA-ZÆØÅ]{2,30}";
 
     public StartVindu() {
         super("Boligformidleren");
