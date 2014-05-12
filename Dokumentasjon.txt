@@ -86,4 +86,10 @@ Neste skrittene:
   - fokusere på brukergrensesnittet når programmet fungerer, f.eks. programmere lukkeknappen til alle vinduene sånn at når brukeren åpner vinduet igjen, så ser det alltid det samme ut (default start utseende).
 
 08.05
+Gretar skriver:
 Har opprettet tre .txt filer som hver inneholder henholdsvis 100 utleiere, 200 boligsøkere og 593 boliger. Denne tekstfilene brukes av programmet til å registere utleiere, boligsøkere og boliger til utleierene. Man trykker på en knapp på StartVinduet (BARE EN GANG) til å opprette dataene. Tekstfilene var laget i Excel, med random-funksjon til å legge til størrelse, antall soverom, osv.
+
+09.05
+Gretar skriver:
+Har oppdatert boligsøkere.txt filen og sette mye høyere krav til hver boligsøker. Det er 50% sjanse for hver felt at boligsøkeren har noen krav, dvs. 50% sjanse at han har ingen krav (dette var 30% tidligere).
+Jeg sette "Endre" knapper for feltene i UtleierVinduet og en FocusListener som sjekker om der finnes noen | når brukeren skriver fornavn og etternavn. Hvis det finnes noen, så bruker vi "autofill" til alle feltene.
