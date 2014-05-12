@@ -36,16 +36,19 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
     // felles felt for eneboliger og leiligheter
     private final String[] TYPE = {"Ingen krav", "Enebolig/rekkehus", "Leilighet"};   // boligtype drop-down list
+    private final String[] KRAVANTSOVEROM = {"Ingen krav", "1", "2", "3", "4", "5", "6", "7", "8"};
+
     private JComboBox kravType, kravRom;
     private JTextField kravAreal, kravByggeaar, kravPris, kravAvertertDato;
 
     // felt for eneboliger
+    private final String[] KRAVETASJERENEBOLIG = {"Ingen krav", "1", "2", "3", "4", "5"};
     private JComboBox kravMaxEtasjer;
     private JTextField kravTomtestorrelse;
     private JCheckBox kravKjeller;
 
     // felt for leiligheter   
-    private final String[] ETASJEKRAVLEILIGHET = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    private final String[] KRAVETASJELEILIGHET = {"Ingen krav", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     private JComboBox kravEtasje;
     private JCheckBox kravHeis, kravBalkong;
 
@@ -67,7 +70,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         boligsoekerMengde = new BoligsoekerMengde();
 
         int antRadFelles = 14;  // en rad for hver felles felt plus to for boligtyper
-        int antRadKnapp = 2;
+        int antRadKnapp = 1;
         int antRadEnebolig = 3; // en rad for hver enebolig variabel
         int antRadLeilighet = 3; // en rad for hver leilighet variabel
         int antKol = 3;
@@ -175,7 +178,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endreAreal);
 
         fellesPanel.add(new JLabel("Min. soverom: "));
-        kravRom = new JComboBox(StartVindu.ANTSOVEROM);
+        kravRom = new JComboBox(KRAVANTSOVEROM);
         kravRom.setSelectedIndex(0);
         fellesPanel.add(kravRom);
         
@@ -211,7 +214,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
         // enebolig felt
         eneboligPanel.add(new JLabel("Max. etasjer: "));
-        kravMaxEtasjer = new JComboBox(StartVindu.ETASJERENEBOLIG);
+        kravMaxEtasjer = new JComboBox(KRAVETASJERENEBOLIG);
         kravMaxEtasjer.setSelectedIndex(0);
         eneboligPanel.add(kravMaxEtasjer);
         
@@ -237,7 +240,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
         // leilighet felt
         leilighetPanel.add(new JLabel("Max. etasje: "));
-        kravEtasje = new JComboBox(ETASJEKRAVLEILIGHET);
+        kravEtasje = new JComboBox(KRAVETASJELEILIGHET);
         kravEtasje.setSelectedIndex(0);
         leilighetPanel.add(kravEtasje);
         
@@ -300,9 +303,15 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
         String type = (String) kravType.getSelectedItem();
         int postnrSomHeltall, tlfnrSomHeltall, areal, byggeaar, pris, tomtestorrelse;
-        int rom = Integer.parseInt((String) kravRom.getSelectedItem());
-        int etasjeKravLeilighet = Integer.parseInt((String) kravEtasje.getSelectedItem());
-        int etasjeKravEnebolig = Integer.parseInt((String) kravMaxEtasjer.getSelectedItem());
+        int rom = 0;
+        if(!((String)kravRom.getSelectedItem()).equals(KRAVANTSOVEROM[0]))
+            Integer.parseInt((String) kravRom.getSelectedItem());
+        int etasjeKravLeilighet = 0;
+        if(!((String)kravEtasje.getSelectedItem()).equals(KRAVETASJERENEBOLIG[0]))
+            etasjeKravLeilighet = Integer.parseInt((String) kravEtasje.getSelectedItem());
+        int etasjeKravEnebolig = 0;
+        if(!((String)kravMaxEtasjer.getSelectedItem()).equals(KRAVETASJELEILIGHET[0]))
+            etasjeKravEnebolig = Integer.parseInt((String) kravMaxEtasjer.getSelectedItem());
 
         // Kontrollerer tallverdier ved RegEx for å unngå parseException
         JTextField[] regExTest = {postnr, tlf, kravAreal,
@@ -524,7 +533,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
                 output.setText(felt + " endret"
                 + "\nGammel:\t" + gammel 
-                + "\nNy:\t" + bs.getPersInfo());
+                + "\nNy:\t" + bs.getType());
                 
                 break;
             }
@@ -551,7 +560,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
                 break;
             }
             case "Soverom":{
-                if(ny.equals(Integer.toString(bs.getSoverom()))){
+                if((ny.equals(KRAVANTSOVEROM[0]) && bs.getSoverom() == 0) || (ny.equals(Integer.toString(bs.getSoverom()))) ){
                     output.setText(felt + " allerede lik: " + ny);
                     return;
                 }
@@ -564,7 +573,10 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
                 }
                 
                 gammel = Integer.toString(bs.getSoverom());
-                bs.setSoverom(Integer.parseInt(ny));
+                if(ny.equals(KRAVANTSOVEROM[0]))
+                    bs.setSoverom(0);
+                else
+                    bs.setSoverom(Integer.parseInt(ny));
 
                 output.setText(felt + " endret"
                 + "\nGammel:\t" + gammel 
@@ -654,7 +666,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
                 break;
             }
             case "Etasjer":{
-                if(ny.equals(Integer.toString(bs.getMaxAntEtasjer()))){
+                if((ny.equals(KRAVETASJERENEBOLIG[0]) && bs.getMaxAntEtasjer() == 0) || (ny.equals(Integer.toString(bs.getMaxAntEtasjer())))){
                     output.setText(felt + " allerede lik: " + ny);
                     return;
                 }
@@ -667,7 +679,10 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
                 }
                 
                 gammel = Integer.toString(bs.getMaxAntEtasjer());
-                bs.setMaxAntEtasjer(Integer.parseInt(ny));
+                if(ny.equals(KRAVETASJERENEBOLIG[0]))
+                    bs.setMaxAntEtasjer(0);
+                else
+                    bs.setMaxAntEtasjer(Integer.parseInt(ny));
 
                 output.setText(felt + " endret"
                 + "\nGammel:\t" + gammel 
@@ -720,7 +735,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
                 break;
             }
             case "Etasje":{
-                if(ny.equals(Integer.toString(bs.getMaxEtasje()))){
+                if((ny.equals(KRAVETASJELEILIGHET[0]) && bs.getMaxEtasje() == 0) || (ny.equals(Integer.toString(bs.getMaxEtasje())))){
                     output.setText(felt + " allerede lik: " + ny);
                     return;
                 }
@@ -733,7 +748,10 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
                 }
                 
                 gammel = Integer.toString(bs.getMaxEtasje());
-                bs.setMaxEtasje(Integer.parseInt(ny));
+                if(ny.equals(KRAVETASJELEILIGHET[0]))
+                    bs.setMaxEtasje(0);
+                else
+                    bs.setMaxEtasje(Integer.parseInt(ny));
 
                 output.setText(felt + " endret"
                 + "\nGammel:\t" + gammel 
@@ -950,14 +968,23 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
                     pInfo.setText(bs.getPersInfo());
                     kravType.setSelectedItem(bs.getType());
                     kravAreal.setText(Integer.toString(bs.getAreal()));
-                    kravRom.setSelectedItem(bs.getSoverom());
+                    if(bs.getSoverom() == 0)
+                        kravRom.setSelectedItem(Integer.toString(0));
+                    else
+                        kravRom.setSelectedItem(Integer.toString(bs.getSoverom()));
                     kravByggeaar.setText(Integer.toString(bs.getByggeaar()));
                     kravPris.setText(Integer.toString(bs.getPris()));
                     kravAvertertDato.setText(bs.getDato() == null ? StartVindu.DATOFORMAT: StartVindu.ENKELDATOFORMAT.format(bs.getDato()));
-                    kravMaxEtasjer.setSelectedItem(Integer.toString(bs.getMaxAntEtasjer()));
+                    if(bs.getMaxAntEtasjer() == 0)
+                        kravMaxEtasjer.setSelectedItem(Integer.toString(0));
+                    else
+                        kravMaxEtasjer.setSelectedItem(Integer.toString(bs.getMaxAntEtasjer()));
                     kravTomtestorrelse.setText(Integer.toString(bs.getTomtestorrelse()));
                     kravKjeller.setSelected(bs.getKjeller());
-                    kravEtasje.setSelectedItem(Integer.toString(bs.getMaxEtasje()));
+                    if(bs.getMaxEtasje() == 0)
+                        kravMaxEtasjer.setSelectedItem(Integer.toString(0));
+                    else
+                        kravEtasje.setSelectedItem(Integer.toString(bs.getMaxEtasje()));
                     kravHeis.setSelected(bs.getHeis());
                     kravBalkong.setSelected(bs.getBalkong());
                 }
