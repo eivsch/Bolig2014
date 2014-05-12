@@ -25,7 +25,9 @@ public class UtleierMengde implements Serializable {
     }
 
     public boolean fjern(Utleier ul) {
-        return mengde.remove(ul);
+        if( ul.getBoligliste().getListe().isEmpty())
+            return mengde.remove(ul);
+        return false;
     }
 
     // Returnere et personobjektet som hører til navnet

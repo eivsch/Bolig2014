@@ -23,7 +23,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
 
     private JTextField RegPersFornavn, RegPersEtternavn, RegPersGateadr, RegPersPostnr, RegPersPoststed, RegEpost, RegTlf, RegFirma;
     private JTextArea output;
-    private JButton regUtleier, slettUtleier, endreGateadresse, endrePostnr, endrePoststed, endreEpost, endreTelefonnr, endreFirma, skrivUt;
+    private JButton regUtleier, slettUtleier, endreGateadresse, endrePostnr, endrePoststed, endreEpost, endreTelefonnr, endreFirma, blankFelter;
     private int antRad, antKol, gap;
     private JPanel masterPanel, grid, under;
 
@@ -46,7 +46,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         masterPanel.add(grid, BorderLayout.PAGE_START);
         masterPanel.add(under, BorderLayout.CENTER);
         this.getContentPane().add(masterPanel);
-        setSize(400, 700);
+        setSize(400, 450);
 
         output = new JTextArea();
         output.setEditable(false);
@@ -114,6 +114,11 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         endreFirma.addActionListener(this);
         grid.add(endreFirma);
 
+        // tom rad
+        grid.add(new JLabel(""));
+        grid.add(new JLabel(""));
+        grid.add(new JLabel(""));
+        
         regUtleier = new JButton("Register utleier");
         regUtleier.addActionListener(this);
         grid.add(regUtleier);
@@ -122,13 +127,14 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         slettUtleier.addActionListener(this);
         grid.add(slettUtleier);
 
-        skrivUt = new JButton("Vis alle utleiere");
-        skrivUt.addActionListener(this);
-        grid.add(skrivUt);
+        blankFelter = new JButton("Blank felter");
+        blankFelter.addActionListener(this);
+        grid.add(blankFelter);
 
         lesUtleierFraFil();
     }
 
+    // get metode
     public UtleierMengde getUtleierMengde() {
         return utleierMengde;
     }
@@ -166,22 +172,28 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         output.setText("Utleier " + fornavn + " " + etternavn + " registrert");
         blankFelter();
     }
-
+    
+    // sjekker om utleier har boliger til utleie og sletter hvis ikke
     public void slettUtleier() {
         String fornavn = RegPersFornavn.getText();
         String etternavn = RegPersEtternavn.getText();
         Utleier ul = utleierMengde.finnUtleier(fornavn, etternavn);
+        
         if (ul == null) {
-            output.setText("Utleier " + fornavn + " " + etternavn + " ble ikke funnet, kontroller skrivefeil.");
+            output.setText("Utleier " + fornavn + " " + etternavn + " ble ikke funnet");
             return;
         }
-        // try-catch ?
-        if (utleierMengde.fjern(ul)) {
-            output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
+        
+        if (!utleierMengde.fjern(ul)){
+            output.setText("Feil - utleier har boliger til utleie");
+            return;
         }
+        
+        output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
         blankFelter();
     }
 
+    // blanker alle feltene
     public void blankFelter() {
         RegPersFornavn.setText("");
         RegPersEtternavn.setText("");
@@ -193,27 +205,156 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         RegFirma.setText("");
     }
 
-    public void utskrift() {
-        /**
-         * Få skrevet ut alt som er registrert til et tekstområde. (Kall på
-         * person- mengde, kontraktliste etc .toString)
-         */
-        output.setText(utleierMengde.toString() + "\n");
-        output.setCaretPosition(0);
-    }
-    
-    public void endreGateadresse(String ny){
-        if(ny.equals(""))
+    // metoden endrer en felt for utleieren
+    public void endreFelt(String felt, String ny){
+        if(ny.equals("")){
+            output.setText("Feil - du må skrive noe i feltet");
             return;
+        }
         
         Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(RegPersFornavn.getText(), RegPersEtternavn.getText());
         
-        if(ul == null)
+        if(ul == null){
+            output.setText("Finner ikke utleier");
             return;
-        output.setText("Gateadresse endret\n"
-                + "Gammel:\t" + ul.getGateadresse());
-        ul.setGateadresse(ny);
-        output.append("\nNy:\t" + ul.getGateadresse());
+        }
+        
+        String gammel = "";
+        
+        switch(felt){
+            case "Gateadresse":{ 
+                if(ny.equals(ul.getGateadresse())){
+                    output.setText(felt + " allerede lik: " + ny);
+                    return;
+                }
+                
+                // ja-nei 
+                String svar = StartVindu.visJaNeiMelding( "Vil du endre gateadressen?", "Endring av data");
+                if ( svar.equals("Nei")){
+                    output.setText(felt + " ikke endret");
+                    return;
+                }
+                
+                gammel = ul.getGateadresse();
+                ul.setGateadresse(ny);
+
+                output.setText(felt + " endret"
+                + "\nGammel:\t" + gammel 
+                + "\nNy:\t" + ul.getGateadresse());
+                
+                break;
+            }
+            case "Postnummer":{
+                if(ny.equals(Integer.toString(ul.getPostnr()))){
+                    output.setText(felt + " allerede lik: " + ny);
+                    return;
+                }
+                
+                // ja-nei 
+                String svar = StartVindu.visJaNeiMelding( "Vil du endre postnummeret?", "Endring av data");
+                if ( svar.equals("Nei")){
+                    output.setText(felt + " ikke endret");
+                    return;
+                }
+                
+                gammel = Integer.toString(ul.getPostnr());
+                ul.setPostnr(Integer.parseInt(ny));
+                
+                output.setText(felt + " endret"
+                + "\nGammel:\t" + gammel 
+                + "\nNy:\t" + ul.getPostnr());
+                
+                break;
+            }
+            case "Poststed":{
+                if(ny.equals(ul.getPoststed())){
+                    output.setText(felt + " allerede lik: " + ny);
+                    return;
+                }
+                
+                // ja-nei 
+                String svar = StartVindu.visJaNeiMelding( "Vil du endre poststedet?", "Endring av data");
+                if ( svar.equals("Nei")){
+                    output.setText(felt + " ikke endret");
+                    return;
+                }
+                
+                gammel = ul.getPoststed();
+                ul.setPoststed(ny);
+                
+                output.setText(felt + " endret"
+                + "\nGammel:\t" + gammel 
+                + "\nNy:\t" + ul.getPoststed());
+                
+                break;
+            }
+            case "Epost":{
+                if(ny.equals(ul.getEpost())){
+                    output.setText(felt + " allerede lik: " + ny);
+                    return;
+                }
+                
+                // ja-nei 
+                String svar = StartVindu.visJaNeiMelding( "Vil du endre eposten?", "Endring av data");
+                if ( svar.equals("Nei")){
+                    output.setText(felt + " ikke endret");
+                    return;
+                }
+                
+                gammel = ul.getEpost();
+                ul.setEpost(ny);
+                
+                output.setText(felt + " endret"
+                + "\nGammel:\t" + gammel 
+                + "\nNy:\t" + ul.getEpost());
+                
+                break;
+            }
+            case "Telefonnummer":{
+                if(ny.equals(Integer.toString(ul.getTelefonnr()))){
+                    output.setText(felt + " allerede lik: " + ny);
+                    return;
+                }
+                
+                // ja-nei 
+                String svar = StartVindu.visJaNeiMelding( "Vil du endre telefonnummeret?", "Endring av data");
+                if ( svar.equals("Nei")){
+                    output.setText(felt + " ikke endret");
+                    return;
+                }
+                
+                gammel = Integer.toString(ul.getTelefonnr());
+                ul.setTelefonnr(Integer.parseInt(ny));
+                
+                output.setText(felt + " endret"
+                + "\nGammel:\t" + gammel 
+                + "\nNy:\t" + ul.getTelefonnr());
+                
+                break;
+            }
+            case "Firma":{
+                if(ny.equals(ul.getFirma())){
+                    output.setText(felt + " allerede lik: " + ny);
+                    return;
+                }
+                
+                // ja-nei 
+                String svar = StartVindu.visJaNeiMelding( "Vil du endre firmaet?", "Endring av data");
+                if ( svar.equals("Nei")){
+                    output.setText(felt + " ikke endret");
+                    return;
+                }
+                
+                gammel = ul.getFirma();
+                ul.setFirma(ny);
+
+                output.setText(felt + " endret"
+                + "\nGammel:\t" + gammel 
+                + "\nNy:\t" + ul.getFirma());
+                
+                break;
+            }
+        }
     }
 
     public void skrivUtleierTilFil() {
@@ -249,12 +390,22 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == regUtleier) {
             regUtleier();
-        } else if (e.getSource() == skrivUt) {
-            utskrift();
+        } else if (e.getSource() == blankFelter) {
+            blankFelter();
         } else if (e.getSource() == slettUtleier) {
             slettUtleier();
         } else if (e.getSource() == endreGateadresse){
-            endreGateadresse(RegPersGateadr.getText());
+            endreFelt("Gateadresse", RegPersGateadr.getText());
+        } else if (e.getSource() == endrePostnr){
+            endreFelt("Postnummer", RegPersPostnr.getText());
+        } else if (e.getSource() == endrePoststed){
+            endreFelt("Poststed", RegPersPoststed.getText());
+        } else if (e.getSource() == endreEpost){
+            endreFelt("Epost", RegEpost.getText());
+        } else if (e.getSource() == endreTelefonnr){
+            endreFelt("Telefonnummer", RegTlf.getText());
+        } else if (e.getSource() == endreFirma){
+            endreFelt("Firma", RegFirma.getText());
         }
     }
     

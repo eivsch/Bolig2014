@@ -261,6 +261,20 @@ public class StartVindu extends JFrame implements ActionListener {
     public static void visFeilmelding(Object o) {
         JOptionPane.showMessageDialog(null, o);
     }
+    
+    public static String visJaNeiMelding(String melding, String vindutekst){
+        String[] alternativer = { "Ja", "Nei" };
+        
+        int svar = JOptionPane.showOptionDialog( null,
+                        melding, vindutekst,
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                        null, alternativer, alternativer[ 0 ] );
+        
+        if ( svar == JOptionPane.YES_OPTION)
+            return alternativer[0];
+        else
+            return alternativer[1];
+    }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttons[0]) {
