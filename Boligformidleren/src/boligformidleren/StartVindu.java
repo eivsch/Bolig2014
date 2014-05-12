@@ -105,7 +105,13 @@ public class StartVindu extends JFrame implements ActionListener {
         }
         return true;
     }
-
+    
+    public static boolean kontrollerRegEx(String pattern, String input) {
+        if (!input.matches(pattern))
+            return false;
+        return true;
+    }
+    
     public static int konverterBlanktFeltTilHeltall(JTextField jtf) {
         if (jtf.getText().equals("")) {
             return 0;

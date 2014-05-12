@@ -51,6 +51,11 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
     }
     
     // get metoder
+    
+    public String getPersInfo(){
+        return pInfo;
+    }
+    
     public int getAreal(){
         return areal;
     }
@@ -104,6 +109,10 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
     }
     
     // set metoder
+    public void setPersInfo(String p){
+        pInfo = p;
+    }
+    
     public void setAreal(int a){
         areal = a;
     }
