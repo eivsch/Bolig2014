@@ -1,7 +1,7 @@
 /*
  * Innhold: Vindu som åpnes når programmet er kjørt
  * Sist oppdatert:
- * Programmert av: Gretar
+ * Programmert av: Gretar, Sigurd
  */
 package boligformidleren;
 
@@ -44,6 +44,8 @@ public class StartVindu extends JFrame implements ActionListener {
     public static final String PATTERNDATO = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
     public static final String PATTERNHELTALL = "[0-9]*";
     public static final SimpleDateFormat ENKELDATOFORMAT = new SimpleDateFormat("dd.MM.yyyy");
+    public static final String PATTERNTALLBOKSTAV = "[0-9]*.[a-zA-Z]";
+    public static final String PATTERNBOKSTAV = "[a-zA-Z]";
 
     public StartVindu() {
         super("Boligformidleren");
