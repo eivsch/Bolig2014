@@ -1,7 +1,7 @@
 /*
  * Innhold: Vindu som brukes for å hente informasjon om personer, boliger og kontrakter
  * Sist oppdatert: 30.04.2014 kl.13:45
- * Programmert av: Gretar
+ * Programmert av: Gretar, Sigurd
  */
 package boligformidleren;
 
@@ -434,10 +434,27 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         String adr = gateadresse.getText();
         String pnr = postnr.getText();
         String psted = poststed.getText();
-
+        JTextField[] pstnr = {postnr};
+        JTextField[] adrs = {gateadresse};
+        JTextField[] pststed = {poststed};
+        
+        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, pstnr))){
+            output.setText("Feil ved innlesing post nummer. Kun hele tallverdier.");
+            return;
+        }
+        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, adrs))){
+            output.setText("Feil ved innlesing av adresse. Kun tall og bokstaver.");
+            return;
+        }
+        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, pststed))){
+            output.setText("Feil ved innlesing av poststed. Kun bokstaver.");
+            return;
+        }
+        
         if (adr.equals("") || pnr.equals("") || psted.equals("")) {
             output.setText("Feil - du må fylle i alle felter over");
             return;
+       
         }
 
         // her må komme regex for feltene

@@ -173,7 +173,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         blankFelter();
     }
     
-    // sjekker om utleier har boliger til utleie og sletter hvis ikke
+    // sletter utleireren hvis brukeren har svart bekreftende på et kontrollspørsmål og utleieren har ikke noen boliger til utleie
     public void slettUtleier() {
         String fornavn = RegPersFornavn.getText();
         String etternavn = RegPersEtternavn.getText();
@@ -181,6 +181,10 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         
         if (ul == null) {
             output.setText("Utleier " + fornavn + " " + etternavn + " ble ikke funnet");
+            return;
+        }
+        
+        if(StartVindu.visJaNeiMelding("Vil du slette utleieren?", "Slett utleier").equals("Nei")){
             return;
         }
         
@@ -229,11 +233,8 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                 }
                 
                 // ja-nei 
-                String svar = StartVindu.visJaNeiMelding( "Vil du endre gateadressen?", "Endring av data");
-                if ( svar.equals("Nei")){
-                    output.setText(felt + " ikke endret");
+                if(StartVindu.visJaNeiMelding( "Vil du endre gateadressen?", "Endring av data").equals("Nei"))
                     return;
-                }
                 
                 gammel = ul.getGateadresse();
                 ul.setGateadresse(ny);
@@ -273,11 +274,8 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                 }
                 
                 // ja-nei 
-                String svar = StartVindu.visJaNeiMelding( "Vil du endre poststedet?", "Endring av data");
-                if ( svar.equals("Nei")){
-                    output.setText(felt + " ikke endret");
+                if(StartVindu.visJaNeiMelding( "Vil du endre poststedet?", "Endring av data").equals("Nei"))
                     return;
-                }
                 
                 gammel = ul.getPoststed();
                 ul.setPoststed(ny);
@@ -295,11 +293,8 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                 }
                 
                 // ja-nei 
-                String svar = StartVindu.visJaNeiMelding( "Vil du endre eposten?", "Endring av data");
-                if ( svar.equals("Nei")){
-                    output.setText(felt + " ikke endret");
+                if(StartVindu.visJaNeiMelding( "Vil du endre eposten?", "Endring av data").equals("Nei"))
                     return;
-                }
                 
                 gammel = ul.getEpost();
                 ul.setEpost(ny);
@@ -317,11 +312,8 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                 }
                 
                 // ja-nei 
-                String svar = StartVindu.visJaNeiMelding( "Vil du endre telefonnummeret?", "Endring av data");
-                if ( svar.equals("Nei")){
-                    output.setText(felt + " ikke endret");
+                if(StartVindu.visJaNeiMelding( "Vil du endre telefonnummeret?", "Endring av data").equals("Nei"))
                     return;
-                }
                 
                 gammel = Integer.toString(ul.getTelefonnr());
                 ul.setTelefonnr(Integer.parseInt(ny));
@@ -339,11 +331,8 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                 }
                 
                 // ja-nei 
-                String svar = StartVindu.visJaNeiMelding( "Vil du endre firmaet?", "Endring av data");
-                if ( svar.equals("Nei")){
-                    output.setText(felt + " ikke endret");
+                if(StartVindu.visJaNeiMelding( "Vil du endre firmaet?", "Endring av data").equals("Nei"))
                     return;
-                }
                 
                 gammel = ul.getFirma();
                 ul.setFirma(ny);
