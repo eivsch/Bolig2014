@@ -93,3 +93,7 @@ Har opprettet tre .txt filer som hver inneholder henholdsvis 100 utleiere, 200 b
 Gretar skriver:
 Har oppdatert boligsøkere.txt filen og sette mye høyere krav til hver boligsøker. Det er 50% sjanse for hver felt at boligsøkeren har noen krav, dvs. 50% sjanse at han har ingen krav (dette var 30% tidligere).
 Jeg sette "Endre" knapper for feltene i UtleierVinduet og en FocusListener som sjekker om der finnes noen | når brukeren skriver fornavn og etternavn. Hvis det finnes noen, så bruker vi "autofill" til alle feltene.
+
+10.05
+Gretar skriver:
+Har sett "Endre" knapper til hvert felt i Boligsøker vinduet. Har også sett autofill. Nu skal UtleierVindu og BoligsoekerVindu være klar og alt skal fungere (registrere, endre, slette) utenfør REGEX.
