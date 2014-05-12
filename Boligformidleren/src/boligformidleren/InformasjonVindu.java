@@ -438,7 +438,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         // her må komme regex for feltene
         Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(adr, Integer.parseInt(pnr), psted);
-
+        Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleierViaBolig(b);
+        // Sjekker om boligen finnes, vet dermed også om utleieren finnes/ikke finnes.
         if (b == null) {
             output.setText("Finner ikke boligen");
             return;
@@ -463,7 +464,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         }
 
         // utskrift
-        output.setText("Bolig informasjon:\n" + b.toString());
+        output.setText("Bolig informasjon:\n" + b.toString() + "\nUtleier: " + u.getFornavn() + " " + u.getEtternavn());
         output.append("\n\nBoligen oppfyller kravene hos flg. boligsøkere:\n");
         output.append(interesserte);
 

@@ -40,6 +40,18 @@ public class UtleierMengde implements Serializable {
         }
         return null;
     }
+    // Returnerer utleieren som leier ut parameter bolig. Returnerer null hvis bolig ikke finnes.
+    public Utleier finnUtleierViaBolig(Bolig b){
+        Iterator<Utleier> utleierIter = mengde.iterator();
+        Utleier ul;
+        while(utleierIter.hasNext()){
+            ul = utleierIter.next();
+            if(ul.getBoligliste().getListe().contains(b)){
+                return ul;
+            }
+        }
+        return null;
+    }
     
     // søker i hele utleiermengden etter bolig ut fra en gitt adresse
     public Bolig finnBolig(String gateadresse, int postnr, String poststed){
