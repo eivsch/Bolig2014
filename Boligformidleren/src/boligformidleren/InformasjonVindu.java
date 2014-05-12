@@ -35,7 +35,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
     // person panel
     private JTextField fornavn, etternavn;
-    private JButton hentInfoPerson, visAlleBoligsoekere;
+    private JButton hentInfoPerson, visAlleBoligsoekere, gaaTilPerson;
 
     // bolig panel
     private JTextField gateadresse, postnr, poststed;
@@ -198,7 +198,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         visAlleBoligsoekere = new JButton("Vis alle boligsøkere");
         visAlleBoligsoekere.addActionListener(this);
         personPanel.add(visAlleBoligsoekere);
-
+        
+        gaaTilPerson = new JButton("Gå til person");
+        gaaTilPerson.addActionListener(this);
         // venstre bolig panel
         venstreBoligPanel.add(new JLabel("Gateadresse: "));
         gateadresse = new JTextField(10);
@@ -474,8 +476,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         poststed.setText("");
     }
 
-    public void tegnBoligsoekerTabell() {
-        // for boligsøkere
+    public Object[][] lagBoligsoekerTabellArray() {
         Set s = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().getMengde();
         Iterator<Boligsoeker> iter = s.iterator();
         Object[][] celler = new Object[s.size()][BSKOLONNENAVN.length];
@@ -486,7 +487,12 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 celler[rad] = b.tilArray();
             }
         }
-        DefaultTableModel moddell = new DefaultTableModel(celler, BSKOLONNENAVN) {
+        return celler;
+    }
+
+    public void tegnBoligsoekerTabell() {
+        DefaultTableModel moddell = new DefaultTableModel(
+                lagBoligsoekerTabellArray(), BSKOLONNENAVN) {
             // Redefinerer getColumnClass for riktig sortering av JTable
             public Class getColumnClass(int column) {
                 switch (column) {
@@ -510,6 +516,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         JTable tabell = new JTable(moddell);
         tabellPanel.removeAll();
         tabellPanel.add(new JScrollPane(tabell));
+        tabellPanel.add(gaaTilPerson, BorderLayout.PAGE_END);
         tabellPanel.revalidate();
         tabell.setAutoCreateRowSorter(true);
     }
@@ -632,8 +639,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         output.append(liste);
     }
 
-    public void tegnBoligTabell() {
-        // for boliger
+    public Object[][] lagBoligTabellArray() {
         int maxAntRader = StartVindu.getUtleierVindu().getUtleierMengde().antallBoliger();
         Object[][] celler = new Object[maxAntRader][BOLIGKOLONNENAVN.length];
         Iterator<Utleier> utleierIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
@@ -649,8 +655,12 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 }
             }
         }
+        return celler;
+    }
 
-        DefaultTableModel moddell = new DefaultTableModel(celler, BOLIGKOLONNENAVN) {
+    public void tegnBoligTabell() {
+        Object[][] celler = lagBoligTabellArray();
+        DefaultTableModel model = new DefaultTableModel(celler, BOLIGKOLONNENAVN) {
             // Redefinerer getColumnClass for riktig sortering av JTable
             public Class getColumnClass(int column) {
                 switch (column) {
@@ -673,42 +683,15 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 }
             }
         };
-        JTable tabell = new JTable(moddell);
+        JTable tabell = new JTable(model);
         tabellPanel.removeAll();
         tabellPanel.add(new JScrollPane(tabell));
         tabellPanel.revalidate();
         tabell.setAutoCreateRowSorter(true);
     }
 
-    public void visAlleBoliger() {
-        Iterator<Utleier> ulIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
-        Utleier ul;
-        BoligListe bl;
-        String utskrift = "";
-        String liste = "";
-        int antall = 0;
+    public void tilLogg(String loggtekst) {
 
-        while (ulIter.hasNext()) {
-            ul = ulIter.next();
-            bl = ul.getBoligliste();
-            Bolig b;
-            Iterator<Bolig> bIter = bl.getListe().iterator();
-
-            while (bIter.hasNext()) {
-                b = bIter.next();
-                liste += "\n" + b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
-                antall++;
-            }
-        }
-        if (antall > 0) {
-            utskrift += "Antall boliger: " + antall
-                    + "\nBoliger (gateadresse, postnummer, poststed):\n";
-        } else {
-            utskrift = "Ingen bolig registrert";
-        }
-
-        output.setText(utskrift);
-        output.append(liste);
     }
 
     public void finnKontrakter() {
