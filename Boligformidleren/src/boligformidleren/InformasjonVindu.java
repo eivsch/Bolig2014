@@ -35,7 +35,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
     // person panel
     private JTextField fornavn, etternavn;
-    private JButton hentInfoPerson, visAlleBoligsoekere, gaaTilPerson;
+    private JButton hentInfoPerson, visAlleBoligsoekere, visAlleUtleiere,
+            gaaTilBoligsoeker, gaaTilUtleier;
 
     // bolig panel
     private JTextField gateadresse, postnr, poststed;
@@ -82,7 +83,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     private JButton finnKontrakter, visAlleKontrakter;
 
     // for JTable
-    private JTable boligsoekerTabell, boligTabell;
+    private JTable boligsoekerTabell, boligTabell, utleierTabell;
 
     private JTextArea output;
 
@@ -196,8 +197,16 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         visAlleBoligsoekere.addActionListener(this);
         personPanel.add(visAlleBoligsoekere);
 
-        gaaTilPerson = new JButton("Gå til person");
-        gaaTilPerson.addActionListener(this);
+        visAlleUtleiere = new JButton("Vis alle utleiere");
+        visAlleUtleiere.addActionListener(this);
+        personPanel.add(visAlleUtleiere);
+
+        gaaTilBoligsoeker = new JButton("Gå til boligsøker");
+        gaaTilBoligsoeker.addActionListener(this);
+
+        gaaTilUtleier = new JButton("Gå til utleier");
+        gaaTilUtleier.addActionListener(this);
+
         // venstre bolig panel
         venstreBoligPanel.add(new JLabel("Gateadresse: "));
         gateadresse = new JTextField(10);
@@ -214,7 +223,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         visBoligInfo = new JButton("Vis bolig info");
         visBoligInfo.addActionListener(this);
         venstreBoligPanel.add(visBoligInfo);
-        
+
         gaaTilBolig = new JButton("Gå til bolig");
         gaaTilBolig.addActionListener(this);
 
@@ -515,13 +524,45 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         visBoligInfo();
     }
 
+    public void tegnUtleierTabell() {
+        UtleierTabellmodell utm = new UtleierTabellmodell();
+        utleierTabell = new JTable(utm);
+        utleierTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        utleierTabell.setAutoCreateRowSorter(true);
+        //skjuler gitte kolonner fra display
+        String[] skjules = utm.getKolonnerSkalSkjules();
+        for (int i = 0; i < skjules.length; i++) {
+            TableColumn tc = utleierTabell.getColumn(skjules[i]);
+            tc.setMinWidth(0);
+            tc.setMaxWidth(0);
+            tc.setPreferredWidth(0);
+        }
+    }
+
+    // Henter data om utleier fra tabell for å vise denne for brukeren. Henter
+    // dataene fra kolonnene som skal skjules
+    public void hentUtleierFraTabell() {
+        UtleierTabellmodell utm = new UtleierTabellmodell();
+        int[] nokkelkolonner = utm.getKolonnerSkalSkjulesIndeks();
+        JTextField[] navnefelt = {fornavn, etternavn};
+
+        // Setter data fra tabell inn i riktige inputfelter.
+        int rad = utleierTabell.getSelectedRow();
+        Object o;
+        for (int i = 0; i < nokkelkolonner.length; i++) {
+            o = utleierTabell.getValueAt(rad, nokkelkolonner[i]);
+            navnefelt[i].setText(o.toString());
+        }
+        hentInfoPerson();
+    }
+
     public void tegnBoligsoekerTabell() {
         BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
         boligsoekerTabell = new JTable(bstm);
         boligsoekerTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         boligsoekerTabell.setAutoCreateRowSorter(true);
         //skjuler gitte kolonner fra display
-        String skjules[] = bstm.getKolonnerSkalSkjules();
+        String[] skjules = bstm.getKolonnerSkalSkjules();
         for (int i = 0; i < skjules.length; i++) {
             TableColumn tc = boligsoekerTabell.getColumn(skjules[i]);
             tc.setMinWidth(0);
@@ -673,7 +714,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         //...
     }
 
-    public void skrivUt(String s) {
+    public void melding(String s) {
         JOptionPane.showMessageDialog(null, s);
     }
 
@@ -692,19 +733,35 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             tabellPanel.removeAll();
             tegnBoligsoekerTabell();
             tabellPanel.add(new JScrollPane(boligsoekerTabell));
-            tabellPanel.add(gaaTilPerson, BorderLayout.PAGE_END);
+            tabellPanel.add(gaaTilBoligsoeker, BorderLayout.PAGE_END);
             tabellPanel.revalidate();
             masterPanel.remove(under);
             masterPanel.add(tabellPanel, BorderLayout.CENTER);
             masterPanel.revalidate();
             masterPanel.repaint();
-        } else if (e.getSource() == gaaTilPerson) {
+        } else if (e.getSource() == visAlleUtleiere) {
+            tabellPanel.removeAll();
+            tegnUtleierTabell();
+            tabellPanel.add(new JScrollPane(utleierTabell));
+            tabellPanel.add(gaaTilUtleier, BorderLayout.PAGE_END);
+            tabellPanel.revalidate();
+            masterPanel.remove(under);
+            masterPanel.add(tabellPanel, BorderLayout.CENTER);
+            masterPanel.revalidate();
+            masterPanel.repaint();
+        } else if (e.getSource() == gaaTilBoligsoeker) {
             hentBoligsoekerFraTabell();
             masterPanel.remove(tabellPanel);
             masterPanel.add(under);
             masterPanel.revalidate();
             masterPanel.repaint();
-        } else if (e.getSource() == visBoligInfo) {
+        } else if(e.getSource() == gaaTilUtleier){
+            hentUtleierFraTabell();
+            masterPanel.remove(tabellPanel);
+            masterPanel.add(under);
+            masterPanel.revalidate();
+            masterPanel.repaint();
+        }else if (e.getSource() == visBoligInfo) {
             visBoligInfo();
             masterPanel.remove(tabellPanel);
             masterPanel.add(under);
@@ -726,7 +783,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.add(tabellPanel, BorderLayout.CENTER);
             masterPanel.revalidate();
             masterPanel.repaint();
-        } else if (e.getSource() == gaaTilBolig){
+        } else if (e.getSource() == gaaTilBolig) {
             hentBoligFraTabell();
             masterPanel.remove(tabellPanel);
             masterPanel.add(under);

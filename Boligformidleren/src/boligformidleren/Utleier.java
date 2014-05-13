@@ -17,22 +17,29 @@ public class Utleier extends Person implements Comparable<Utleier> {
     private BoligListe liste;
 
     // konstruktør
-    public Utleier(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr,
-            String firma) {
+    public Utleier(String fornavn, String etternavn, String gateadresse, int postnr,
+            String poststed, String epost, int tlfnr, String firma) {
 
         super(fornavn, etternavn, gateadresse, postnr, poststed, epost, tlfnr);
         this.firma = firma;
         liste = new BoligListe();
     }
-    
+
     // get metode
-    public String getFirma(){
+    public String getFirma() {
         return firma;
     }
-    
+
     // set metode
-    public void setFirma(String f){
+    public void setFirma(String f) {
         firma = f;
+    }
+
+    public Object[] tilArray() {
+        Object[] rad = {super.getEtternavn() + ", " + super.getFornavn(), firma,
+            super.getEpost(), new Integer(super.getTelefonnr()), 
+            super.getFornavn(), super.getEtternavn()};
+        return rad;
     }
 
     // registrerer ny bolig til utleieren
@@ -48,12 +55,12 @@ public class Utleier extends Person implements Comparable<Utleier> {
     public BoligListe getBoligliste() {
         return liste;
     }
-    
+
     /**
      * Ufullstendig compareTo-metode. Kun for å kunne lagre Utleiere i en
      * TreeSet som ikke tar imot en komparator i kontruktøren
      */
-    public int compareTo(Utleier ul){
+    public int compareTo(Utleier ul) {
         return ul.getEtternavn().compareTo(this.getEtternavn());
     }
 
