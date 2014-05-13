@@ -50,7 +50,14 @@ public class Utleier extends Person implements Comparable<Utleier> {
             return;
         }
     }
-
+    
+    // sletter bolig fra utleieren
+    public void slettBolig(Bolig b){
+        if(b != null)
+            liste.fjern(b);
+        else
+            return;
+    }
     // returnerer boliglisten knyttet til denne utleieren
     public BoligListe getBoligliste() {
         return liste;
