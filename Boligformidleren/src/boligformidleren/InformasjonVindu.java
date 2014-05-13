@@ -444,6 +444,12 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         JTextField[] pstnr = {postnr};
         JTextField[] adrs = {gateadresse};
         JTextField[] pststed = {poststed};
+        
+        if (adr.equals("") || pnr.equals("") || psted.equals("")) {
+            output.setText("Feil - du må fylle i alle felter over");
+            return;
+
+        }
 
         if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, pstnr))) {
             output.setText("Feil ved innlesing post nummer. Kun hele tallverdier.");
@@ -456,12 +462,6 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, pststed))) {
             output.setText("Feil ved innlesing av poststed. Kun bokstaver.");
             return;
-        }
-
-        if (adr.equals("") || pnr.equals("") || psted.equals("")) {
-            output.setText("Feil - du må fylle i alle felter over");
-            return;
-
         }
 
         // her må komme regex for feltene
