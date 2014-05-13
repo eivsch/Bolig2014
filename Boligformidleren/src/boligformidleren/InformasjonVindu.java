@@ -1,6 +1,6 @@
 /*
  * Innhold: Vindu som brukes for å hente informasjon om personer, boliger og kontrakter
- * Sist oppdatert: 30.04.2014 kl.13:45
+ * Sist oppdatert: 13.05.2014 kl.12:15
  * Programmert av: Gretar, Sigurd
  */
 package boligformidleren;
