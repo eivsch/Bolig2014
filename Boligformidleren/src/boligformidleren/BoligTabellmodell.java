@@ -16,6 +16,7 @@ public class BoligTabellmodell extends AbstractTableModel {
 
     private final String[] KOLONNENAVN = {"Adresse", "Poststed", "Postnummer",
         "Pris", "Areal", "Byggeår", "Avertert fra"};
+    private final int[] NOKKELKOLONNER = {0, 1, 2};
     private Object[][] celler;
 
     //Tegner tabell i konstruktør
@@ -73,5 +74,9 @@ public class BoligTabellmodell extends AbstractTableModel {
             default:
                 return String.class;
         }
+    }
+    
+    public int[] getNokellkolonner(){
+        return NOKKELKOLONNER;
     }
 }

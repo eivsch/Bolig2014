@@ -39,7 +39,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
     // bolig panel
     private JTextField gateadresse, postnr, poststed;
-    private JButton visBoligInfo;
+    private JButton visBoligInfo, gaaTilBolig;
 
     // bolig type panel
     private JComboBox boligtype;
@@ -82,9 +82,6 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     private JButton finnKontrakter, visAlleKontrakter;
 
     // for JTable
-    private final String[] BOLIGKOLONNENAVN = {"Adresse", "Poststed", "Postnummer",
-        "Pris", "Areal", "Byggeår", "Avertert fra"};
-
     private JTable boligsoekerTabell, boligTabell;
 
     private JTextArea output;
@@ -217,6 +214,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         visBoligInfo = new JButton("Vis bolig info");
         visBoligInfo.addActionListener(this);
         venstreBoligPanel.add(visBoligInfo);
+        
+        gaaTilBolig = new JButton("Gå til bolig");
+        gaaTilBolig.addActionListener(this);
 
         // høyre bolig panel
         // bolig felles panel
@@ -500,6 +500,21 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         boligTabell.setAutoCreateRowSorter(true);
     }
 
+    public void hentBoligFraTabell() {
+        BoligTabellmodell btm = new BoligTabellmodell();
+        int[] nokkelkolonner = btm.getNokellkolonner();
+        JTextField[] nokkelfelt = {gateadresse, poststed, postnr};
+
+        // Setter data fra tabell inn i riktige inputfelter
+        int rad = boligTabell.getSelectedRow();
+        Object o;
+        for (int i = 0; i < nokkelkolonner.length; i++) {
+            o = boligTabell.getValueAt(rad, nokkelkolonner[i]);
+            nokkelfelt[i].setText(o.toString());
+        }
+        visBoligInfo();
+    }
+
     public void tegnBoligsoekerTabell() {
         BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
         boligsoekerTabell = new JTable(bstm);
@@ -516,18 +531,17 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     }
 
     // Henter data om boligsøker fra tabell for å vise denne for brukeren. Henter
-    // data fra kolonnene som skal skjules
-    public void hentBoligsoekerFraTabell(JTable tabell) {
-        JTextField[] navnefelt = {fornavn, etternavn};
+    // dataene fra kolonnene som skal skjules
+    public void hentBoligsoekerFraTabell() {
         BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
         int[] nokkelkolonner = bstm.getKolonnerSkalSkjulesIndeks();
+        JTextField[] navnefelt = {fornavn, etternavn};
 
-        // Setter data fra tabell inn i riktige inputfelter og kaller på 
-        // hentInfoPerson.
-        int rad = tabell.getSelectedRow();
+        // Setter data fra tabell inn i riktige inputfelter.
+        int rad = boligsoekerTabell.getSelectedRow();
         Object o;
         for (int i = 0; i < nokkelkolonner.length; i++) {
-            o = tabell.getValueAt(rad, nokkelkolonner[i]);
+            o = boligsoekerTabell.getValueAt(rad, nokkelkolonner[i]);
             navnefelt[i].setText(o.toString());
         }
         hentInfoPerson();
@@ -685,7 +699,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.revalidate();
             masterPanel.repaint();
         } else if (e.getSource() == gaaTilPerson) {
-            hentBoligsoekerFraTabell(boligsoekerTabell);
+            hentBoligsoekerFraTabell();
             masterPanel.remove(tabellPanel);
             masterPanel.add(under);
             masterPanel.revalidate();
@@ -706,9 +720,16 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             tabellPanel.removeAll();
             tegnBoligtabell();
             tabellPanel.add(new JScrollPane(boligTabell));
+            tabellPanel.add(gaaTilBolig, BorderLayout.PAGE_END);
             tabellPanel.revalidate();
             masterPanel.remove(under);
             masterPanel.add(tabellPanel, BorderLayout.CENTER);
+            masterPanel.revalidate();
+            masterPanel.repaint();
+        } else if (e.getSource() == gaaTilBolig){
+            hentBoligFraTabell();
+            masterPanel.remove(tabellPanel);
+            masterPanel.add(under);
             masterPanel.revalidate();
             masterPanel.repaint();
         } else if (e.getSource() == finnKontrakter) {
