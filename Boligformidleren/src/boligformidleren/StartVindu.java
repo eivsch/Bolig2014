@@ -43,6 +43,7 @@ public class StartVindu extends JFrame implements ActionListener {
     // RegEx
     public static final String PATTERNDATO = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
     public static final String PATTERNHELTALL = "[0-9]*";
+    public static final String PATTERNPOSTNUMMER = "[0-9]{1,4}";    // postnummer "0001" er lagret som "1"
     public static final SimpleDateFormat ENKELDATOFORMAT = new SimpleDateFormat("dd.MM.yyyy");
     //public static final String PATTERNTALLBOKSTAV = "[0-9a-zæøåA-ZÆØÅ ,.\\-]{4,40}";
     public static final String PATTERNTALLBOKSTAV = "[a-zæøåA-ZÆØÅ ]{4,40}[ ][0-9]{1,3}";
