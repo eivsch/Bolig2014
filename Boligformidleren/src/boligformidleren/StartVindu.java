@@ -15,17 +15,21 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.border.EmptyBorder;
 
 public class StartVindu extends JFrame implements ActionListener {
 
-    private final String vinduer[] = {"<html><center>Utleier<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Boligsøker<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Bolig<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Kontrakt<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Hente informasjon</html>", "<html><center>Generate data<br><br>Trykk kun en gang!</html>"};
-    private JButton buttons[];
+    //private final String vinduer[] = {"<html><center>Utleier<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Boligsøker<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Bolig<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Kontrakt<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Hente informasjon</html>", "<html><center>Generate data<br><br>Trykk kun en gang!</html>"};
+    //private JButton buttons[];
 
     /*
      Vinduer som åpnes når man trykker på knappene på forsiden/startvinduet
      Vinduene inneholder alle mengder/lister som brukes i programmet og
      må derfor være "static" så andre klasser har aksess til disse
      */
+    private JPanel masterPanel, topLabels, top, under;
+    private JButton utleierKnapp, boligsoekerKnapp, boligKnapp, kontraktKnapp, infoKnapp, dataKnapp;
+    
     private static UtleierVindu utleierVindu;
     private static BoligsoekerVindu boligsoekerVindu;
     private static BoligVindu boligVindu;
@@ -59,6 +63,7 @@ public class StartVindu extends JFrame implements ActionListener {
         kontraktVindu = new KontraktVindu();
         informasjonVindu = new InformasjonVindu();
 
+        /*
         antKnapper = vinduer.length;
         antRad = (int) (Math.sqrt(antKnapper));    // hvis 2-8 knapper så 2 rader, hvis 9-15 knapper så 3 rader, osv.
         antKol = antKnapper - antRad;
@@ -77,6 +82,58 @@ public class StartVindu extends JFrame implements ActionListener {
         setSize(600, 600);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        */
+        
+        masterPanel = new JPanel(new GridLayout(2,1,10,20));
+        top = new JPanel(new GridLayout(1,5,20,20));
+        under = new JPanel(new BorderLayout());
+        
+        masterPanel.add(top);
+        masterPanel.add(under);
+        masterPanel.setBorder(new EmptyBorder(20, 20, 20, 20) );
+        
+        // knapper
+        Icon ikonUtleier = new ImageIcon(getClass().getResource( "ikonUtleier.gif" ));
+        Icon ikonUtleierValgt = new ImageIcon(getClass().getResource( "ikonUtleierValgt.gif" ));
+        Icon ikonBoligsoeker = new ImageIcon(getClass().getResource( "ikonBoligsoeker.gif" ));
+        Icon ikonBoligsoekerValgt = new ImageIcon(getClass().getResource( "ikonBoligsoekerValgt.gif" ));
+        Icon ikonBolig = new ImageIcon(getClass().getResource( "ikonBolig.gif" ));
+        Icon ikonBoligValgt = new ImageIcon(getClass().getResource( "ikonBoligValgt.gif" ));
+        Icon ikonKontrakt = new ImageIcon(getClass().getResource( "ikonKontrakt.gif" ));
+        Icon ikonKontraktValgt = new ImageIcon(getClass().getResource( "ikonKontraktValgt.gif" ));
+        Icon ikonInformasjon = new ImageIcon(getClass().getResource( "ikonInformasjon.gif" ));
+        Icon ikonInformasjonValgt = new ImageIcon(getClass().getResource( "ikonInformasjonValgt.gif" ));
+        utleierKnapp = new JButton("", ikonUtleier);
+        utleierKnapp.setRolloverIcon( ikonUtleierValgt );
+        utleierKnapp.addActionListener(this);
+        boligsoekerKnapp = new JButton("", ikonBoligsoeker);
+        boligsoekerKnapp.setRolloverIcon( ikonBoligsoekerValgt );
+        boligsoekerKnapp.addActionListener(this);
+        boligKnapp = new JButton("", ikonBolig);
+        boligKnapp.setRolloverIcon( ikonBoligValgt );
+        boligKnapp.addActionListener(this);
+        kontraktKnapp = new JButton("", ikonKontrakt);
+        kontraktKnapp.setRolloverIcon( ikonKontraktValgt );
+        kontraktKnapp.addActionListener(this);
+        infoKnapp = new JButton("", ikonInformasjon);
+        infoKnapp.setRolloverIcon( ikonInformasjonValgt );
+        infoKnapp.addActionListener(this);
+        dataKnapp = new JButton("Generer data");
+        dataKnapp.addActionListener(this);
+        
+        top.add(utleierKnapp);
+        top.add(boligsoekerKnapp);
+        top.add(boligKnapp);
+        top.add(kontraktKnapp);
+        //top.add(dataKnapp);
+        
+        under.add(infoKnapp, BorderLayout.CENTER);
+        
+        
+        this.getContentPane().add(masterPanel);
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(700, 300);
         
         // lukkeknapp for UtleierVindu
         utleierVindu.addWindowListener(
@@ -334,21 +391,21 @@ public class StartVindu extends JFrame implements ActionListener {
 
     // lyttemetode
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == buttons[0]) {
+        if (e.getSource() == utleierKnapp) {
             utleierVindu.setLocation(0, 0);
             utleierVindu.setVisible(true);
-        } else if (e.getSource() == buttons[1]) {
+        } else if (e.getSource() == boligsoekerKnapp) {
             boligsoekerVindu.setLocation(400, 0);
             boligsoekerVindu.setVisible(true);
-        } else if (e.getSource() == buttons[2]) {
+        } else if (e.getSource() == boligKnapp) {
             boligVindu.setLocation(800, 0);
             boligVindu.setVisible(true);
-        } else if (e.getSource() == buttons[3]) {
+        } else if (e.getSource() == kontraktKnapp) {
             kontraktVindu.setLocation(1200, 0);
             kontraktVindu.setVisible(true);
-        } else if (e.getSource() == buttons[4]) {
+        } else if (e.getSource() == infoKnapp) {
             informasjonVindu.setVisible(true);
-        } else if( e.getSource() == buttons[5]){
+        } else if( e.getSource() == dataKnapp){
             generateData();
         }
     }
