@@ -16,8 +16,11 @@ import javax.swing.table.AbstractTableModel;
 public class BoligsoekerTabellmodell extends AbstractTableModel {
 
     private final String[] KOLONNENAVN = {"Navn", "Sted", "Pris", "Areal",
-        "Soverom", "Boligtype", "Fra Dato"};
+        "Soverom", "Boligtype", "Fra Dato", "skjul1", "skjul2"};
     private Object[][] celler;
+    // Enkelte kolonner skal kun brukes for å lese inn data og skal dermed skjules
+    // for brukeren. Bestemmer her hvilke.
+    private final int SKALSKJULES[] = {7, 8};
 
     //Tegner tabell i konstruktør
     public BoligsoekerTabellmodell() {
@@ -31,6 +34,10 @@ public class BoligsoekerTabellmodell extends AbstractTableModel {
                 celler[rad] = b.tilArray();
             }
         }
+    }
+
+    public String getColumnName(int kolonne) {
+        return KOLONNENAVN[kolonne];
     }
 
     public Object getValueAt(int rad, int kolonne) {
@@ -62,5 +69,17 @@ public class BoligsoekerTabellmodell extends AbstractTableModel {
             default:
                 return String.class;
         }
-    }  
+    }
+
+    public int[] getKolonnerSkalSkjulesIndeks() {
+        return SKALSKJULES;
+    }
+
+    public String[] getKolonnerSkalSkjules() {
+        String[] skalSkjules = new String[SKALSKJULES.length];
+        for (int i = 0; i < SKALSKJULES.length; i++) {
+            skalSkjules[i] = KOLONNENAVN[SKALSKJULES[i]];
+        }
+        return skalSkjules;
+    }
 }

@@ -218,7 +218,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
     public Object[] tilArray(){
         Object[] rad = {super.getEtternavn() + ", " + super.getFornavn(),
             super.getPoststed(), new Integer(pris), new Integer(areal), new Integer(soverom), 
-            type, dato == null ? "Ikke oppgitt": StartVindu.ENKELDATOFORMAT.format(dato)};
+            type, dato == null ? "Ikke oppgitt": StartVindu.ENKELDATOFORMAT.format(dato), super.getFornavn(), super.getEtternavn()};
         return rad;
     }
 

@@ -11,8 +11,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Set;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class InformasjonVindu extends JFrame implements ActionListener, FocusListener {
 
@@ -82,19 +82,17 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     private JButton finnKontrakter, visAlleKontrakter;
 
     // for JTable
-    private final String[] BSKOLONNENAVN = {"Navn", "Sted", "Pris", "Areal",
-        "Soverom", "Boligtype", "Fra Dato"};
     private final String[] BOLIGKOLONNENAVN = {"Adresse", "Poststed", "Postnummer",
         "Pris", "Areal", "Byggeår", "Avertert fra"};
 
     private JTable boligsoekerTabell;
-    
+
     private JTextArea output;
 
     // konstruktør
     public InformasjonVindu() {
         super("Informasjon");
-        
+
         // labels
         JLabel labelPerson = new JLabel("<html><center><font size=\"5\">Personer</html>");
         JLabel labelBolig1 = new JLabel("<html><font size=\"5\">Boliger</html>");
@@ -437,24 +435,24 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         JTextField[] pstnr = {postnr};
         JTextField[] adrs = {gateadresse};
         JTextField[] pststed = {poststed};
-        
-        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, pstnr))){
+
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, pstnr))) {
             output.setText("Feil ved innlesing post nummer. Kun hele tallverdier.");
             return;
         }
-        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, adrs))){
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, adrs))) {
             output.setText("Feil ved innlesing av adresse. Kun tall og bokstaver.");
             return;
         }
-        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, pststed))){
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, pststed))) {
             output.setText("Feil ved innlesing av poststed. Kun bokstaver.");
             return;
         }
-        
+
         if (adr.equals("") || pnr.equals("") || psted.equals("")) {
             output.setText("Feil - du må fylle i alle felter over");
             return;
-       
+
         }
 
         // her må komme regex for feltene
@@ -495,18 +493,36 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         poststed.setText("");
     }
 
-    public void nyTegn(){
+    public void nyTegn() {
         BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
         boligsoekerTabell = new JTable(bstm);
         boligsoekerTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         boligsoekerTabell.setAutoCreateRowSorter(true);
+        //skjuler gitte kolonner fra display
+        String skjules[] = bstm.getKolonnerSkalSkjules();
+        for(int i = 0; i < skjules.length; i++){
+            TableColumn tc = boligsoekerTabell.getColumn(skjules[i]);
+            tc.setMinWidth(0);
+            tc.setMaxWidth(0);
+            tc.setPreferredWidth(0);
+        }
     }
-    
+    // Henter data om boligsøker fra tabell for å vise denne for brukeren. Henter
+    // data fra kolonnene som skal skjules
     public void hentBoligsoekerFraTabell(JTable tabell) {
-        int rad = 0;
-        int kolonner = 1;
+        JTextField[] navnefelt = {fornavn, etternavn};
+        BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
+        int[] nokkelkolonner = bstm.getKolonnerSkalSkjulesIndeks();
+        
+        // Setter data fra tabell inn i riktige inputfelter og kaller på 
+        // hentInfoPerson.
+        int rad = tabell.getSelectedRow();
         Object o;
-        output.setText("");
+        for (int i = 0; i < nokkelkolonner.length; i++) {
+            o = tabell.getValueAt(rad, nokkelkolonner[i]);
+            navnefelt[i].setText(o.toString());
+        }
+        hentInfoPerson();
     }
 
     public void finnBoliger() {
@@ -685,14 +701,16 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     public void visAlleKontrakter() {
         //...
     }
-    public void skrivUt(String s){
+
+    public void skrivUt(String s) {
         JOptionPane.showMessageDialog(null, s);
     }
+
     // Lyttemetode
     public void actionPerformed(ActionEvent e) {
         String valgtBoligType = (String) boligtype.getSelectedItem();
         String valgtKontraktType = (String) kontrakttype.getSelectedItem();
-        
+
         if (e.getSource() == hentInfoPerson) {
             hentInfoPerson();
             masterPanel.remove(tabellPanel);
@@ -709,8 +727,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.add(tabellPanel, BorderLayout.CENTER);
             masterPanel.revalidate();
             masterPanel.repaint();
-        } else if(e.getSource() == gaaTilPerson) {
-            int rad = boligsoekerTabell.getSelectedRow();
+        } else if (e.getSource() == gaaTilPerson) {
+            hentBoligsoekerFraTabell(boligsoekerTabell);
             masterPanel.remove(tabellPanel);
             masterPanel.add(under);
             masterPanel.revalidate();
