@@ -8,6 +8,11 @@ package boligformidleren;
 import java.util.Iterator;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Bestemmer kolonnenavn og størrelse på tabellarray. Bestemmer også hvilke
+ * kolonner som er nøkkelkolonner, altså boligens ID. Tabellmodellen henter radene
+ * fra tilArray-metode i klassen Bolig.
+ */
 public class BoligTabellmodell extends AbstractTableModel {
 
     private final String[] KOLONNENAVN = {"Adresse", "Poststed", "Postnummer",
@@ -28,13 +33,13 @@ public class BoligTabellmodell extends AbstractTableModel {
             for (int rad = radTeller; rad < maxAntRader; rad++) {
                 if (boligIter.hasNext()) {
                     Bolig b = boligIter.next();
-                    celler[rad] = b.tilArray();
+                    celler[rad] = b.tilRad();
                     radTeller++;
                 }
             }
         }
     }
-
+    // Redefinerer arvede metoder
     public String getColumnName(int kolonne) {
         return KOLONNENAVN[kolonne];
     }
@@ -71,8 +76,8 @@ public class BoligTabellmodell extends AbstractTableModel {
                 return String.class;
         }
     }
-    
-    public int[] getNokellkolonner(){
+    // Returnerer kolonneindeksen til kolonnene som utgjør boligens ID.
+    public int[] getNokellkolonner() {
         return NOKKELKOLONNER;
     }
 }

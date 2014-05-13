@@ -135,19 +135,20 @@ public abstract class Bolig implements Serializable {
         ledig = true;
     }
 
-    public Object[] tilArray() {
+    // Lager en array som skal tilsvare en rad i en boligtabell.
+    public Object[] tilRad() {
         Object[] rad = {gateadresse, poststed, new Integer(postnr), 
             new Integer(pris), new Integer(areal), new Integer(byggeaar), 
             StartVindu.ENKELDATOFORMAT.format(dato)};
         return rad;
     }
 
-    // her må vi sette in en equals-metode for å komparere to boliger
+    // redefinert equals-metode for å sammelikne to boliger
     public boolean equals(Object o) {
         if (o instanceof Bolig) {
             Bolig b = (Bolig) o;
 
-            //foreløpig løsning. Boligene er like hvis de har samme adresse.
+            // Boligene regnes som like hvis de har samme adresse.
             if (b.getGateadresse().equals(gateadresse)
                     && b.getPostnr() == postnr
                     && b.getPoststed().equals(poststed)) {

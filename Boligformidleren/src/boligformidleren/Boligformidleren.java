@@ -1,8 +1,8 @@
 /*
  * INNHOLD:
- * Driverklasse for programmet (main-metode).
+ * Main-metode.
  *
- * Sist oppdatert: 27.03.2014, 11:32.
+ * Sist oppdatert: 13.05.2014, 11:32.
  * Programmert av: Eivind
  */
 
@@ -12,7 +12,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
- *Klassen har til hensikt å kjøre programmet.
+ * Klassen skal kjøre og avslutte programmet, i tilegg til å skrive data til fil
+ * ved lukking.
  */
 public class Boligformidleren {
 

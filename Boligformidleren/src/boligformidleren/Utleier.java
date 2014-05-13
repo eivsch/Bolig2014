@@ -35,7 +35,8 @@ public class Utleier extends Person implements Comparable<Utleier> {
         firma = f;
     }
 
-    public Object[] tilArray() {
+    // Lager en array som skal tilsvare en rad i en utleiertabell.
+    public Object[] tilRad() {
         Object[] rad = {super.getEtternavn() + ", " + super.getFornavn(), firma,
             super.getEpost(), new Integer(super.getTelefonnr()), 
             super.getFornavn(), super.getEtternavn()};
@@ -64,8 +65,9 @@ public class Utleier extends Person implements Comparable<Utleier> {
     }
 
     /**
-     * Ufullstendig compareTo-metode. Kun for å kunne lagre Utleiere i en
-     * TreeSet som ikke tar imot en komparator i kontruktøren
+     * Enkel compareTo-metode. Kun for å kunne lagre Utleiere i en
+     * TreeSet som ikke tar imot en comparator i kontruktøren, slik at skriving
+     * til fil muliggjøres.
      */
     public int compareTo(Utleier ul) {
         return ul.getEtternavn().compareTo(this.getEtternavn());

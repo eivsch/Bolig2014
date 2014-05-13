@@ -3,7 +3,6 @@
  * Sist oppdatert: 05.05.2014 kl.11:50
  * Programmert av: Eivind, Gretar
  */
-
 package boligformidleren;
 
 import java.util.Date;
@@ -38,194 +37,207 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         this.pris = pris;
         this.soverom = soverom;
         this.type = type;
-        
+
         // enebolig krav
         this.maxAntEtasjer = maxAntEtasjer;
         this.tomtestorrelse = tomtestorrelse;
         this.kjeller = kjeller;
-        
+
         // leilighet krav
         this.maxEtasje = maxEtasje;
         this.balkong = balkong;
         this.heis = heis;
     }
-    
+
     // get metoder
-    
-    public String getPersInfo(){
+    public String getPersInfo() {
         return pInfo;
     }
-    
-    public int getAreal(){
+
+    public int getAreal() {
         return areal;
     }
-    
-    public int getByggeaar(){
+
+    public int getByggeaar() {
         return byggeaar;
     }
-    
-    public Date getDato(){
+
+    public Date getDato() {
         return dato;
     }
-    
-    public int getPris(){
+
+    public int getPris() {
         return pris;
     }
-    
-    public int getSoverom(){
+
+    public int getSoverom() {
         return soverom;
     }
-    
-    public String getType(){
+
+    public String getType() {
         return type;
     }
-    
-    public int getMaxAntEtasjer(){
+
+    public int getMaxAntEtasjer() {
         return maxAntEtasjer;
     }
-    
-    public int getTomtestorrelse(){
+
+    public int getTomtestorrelse() {
         return tomtestorrelse;
     }
-    
-    public boolean getKjeller(){
+
+    public boolean getKjeller() {
         return kjeller;
     }
-    
-    public int getMaxEtasje(){
+
+    public int getMaxEtasje() {
         return maxEtasje;
     }
-    
-    public boolean getBalkong(){
+
+    public boolean getBalkong() {
         return balkong;
     }
-    
-    public boolean getHeis(){
+
+    public boolean getHeis() {
         return heis;
     }
-    
-    public boolean getLeterEtterBolig(){
+
+    public boolean getLeterEtterBolig() {
         return leterEtterBolig;
     }
-    
+
     // set metoder
-    public void setPersInfo(String p){
+    public void setPersInfo(String p) {
         pInfo = p;
     }
-    
-    public void setAreal(int a){
+
+    public void setAreal(int a) {
         areal = a;
     }
-    
-    public void setByggeaar(int b){
+
+    public void setByggeaar(int b) {
         byggeaar = b;
     }
-    
-    public void setDato(Date d){
+
+    public void setDato(Date d) {
         dato = d;
     }
-    
-    public void setPris(int p){
+
+    public void setPris(int p) {
         pris = p;
     }
-    
-    public void setSoverom(int s){
+
+    public void setSoverom(int s) {
         soverom = s;
     }
-    
-    public void setType(String t){
+
+    public void setType(String t) {
         type = t;
     }
-    
-    public void setMaxAntEtasjer(int m){
+
+    public void setMaxAntEtasjer(int m) {
         maxAntEtasjer = m;
     }
-    
-    public void setTomtestorrelse(int t){
+
+    public void setTomtestorrelse(int t) {
         tomtestorrelse = t;
     }
-    
-    public void setKjeller(boolean k){
+
+    public void setKjeller(boolean k) {
         kjeller = k;
     }
-    
-    public void setMaxEtasje(int m){
+
+    public void setMaxEtasje(int m) {
         maxEtasje = m;
     }
-    
-    public void setBalkong(boolean b){
+
+    public void setBalkong(boolean b) {
         balkong = b;
     }
-    
-    public void setHeis(boolean h){
+
+    public void setHeis(boolean h) {
         heis = h;
     }
-    
-    // sjekker om bolig passer til boligsøkerens krav
-    public boolean passerTilBolig(Bolig b){
-        if( b == null)
+
+    // sjekker om paramteren bolig passer til boligsøkerens krav
+    public boolean passerTilBolig(Bolig b) {
+        if (b == null) {
             return false;
-        
-        if(!b.getLedig())
+        }
+
+        if (!b.getLedig()) {
             return false;
-        
+        }
+
         boolean passer = true;
 
-        if(areal != 0 && areal > b.getAreal()){
-            passer = false;
-        }if(byggeaar != 0 && byggeaar > b.getByggeaar()){
-            passer = false;
-        }if(dato != null && dato.after(b.getDato())){
-            passer = false;
-        }if(pris != 0 && pris < b.getPris()){
-            passer = false;
-        }if(soverom != 0 && soverom > b.getSoverom()){
-            passer = false;
-        }if(!type.equals("Ingen krav") && !type.equals(b.getType())){
+        if (areal != 0 && areal > b.getAreal()) {
             passer = false;
         }
-        
-        if(b instanceof Enebolig){
+        if (byggeaar != 0 && byggeaar > b.getByggeaar()) {
+            passer = false;
+        }
+        if (dato != null && dato.after(b.getDato())) {
+            passer = false;
+        }
+        if (pris != 0 && pris < b.getPris()) {
+            passer = false;
+        }
+        if (soverom != 0 && soverom > b.getSoverom()) {
+            passer = false;
+        }
+        if (!type.equals("Ingen krav") && !type.equals(b.getType())) {
+            passer = false;
+        }
+
+        if (b instanceof Enebolig) {
             Enebolig e = (Enebolig) b;
-            
-            if(maxAntEtasjer != 0 && maxAntEtasjer < e.getAntEtasjer())
+
+            if (maxAntEtasjer != 0 && maxAntEtasjer < e.getAntEtasjer()) {
                 passer = false;
-            if(tomtestorrelse != 0 && tomtestorrelse > e.getTomtAreal())
+            }
+            if (tomtestorrelse != 0 && tomtestorrelse > e.getTomtAreal()) {
                 passer = false;
-            if(kjeller && !e.getKjeller())
+            }
+            if (kjeller && !e.getKjeller()) {
                 passer = false;
+            }
         }
-        
-        if(b instanceof Leilighet){
+
+        if (b instanceof Leilighet) {
             Leilighet l = (Leilighet) b;
-            
-            if(maxEtasje != 0 && maxEtasje < l.getEtasje())
+
+            if (maxEtasje != 0 && maxEtasje < l.getEtasje()) {
                 passer = false;
-            if(balkong && !l.getBalkong())
+            }
+            if (balkong && !l.getBalkong()) {
                 passer = false;
-            if(heis && !l.getHeis())
+            }
+            if (heis && !l.getHeis()) {
                 passer = false;
+            }
         }
-        
+
         return passer;
     }
-            
-    
-    public void leterIkkeEtterBolig(){
+
+    public void leterIkkeEtterBolig() {
         leterEtterBolig = false;
     }
-    
-    public Object[] tilArray(){
+
+    // Lager en array som skal tilsvare en rad i en boligsøkertabell.
+    public Object[] tilRad() {
         Object[] rad = {super.getEtternavn() + ", " + super.getFornavn(),
-            super.getPoststed(), new Integer(pris), new Integer(areal), new Integer(soverom), 
-            type, dato == null ? "Ikke oppgitt": StartVindu.ENKELDATOFORMAT.format(dato), 
+            super.getPoststed(), new Integer(pris), new Integer(areal), new Integer(soverom),
+            type, dato == null ? "Ikke oppgitt" : StartVindu.ENKELDATOFORMAT.format(dato),
             super.getFornavn(), super.getEtternavn()};
         return rad;
     }
 
     /**
-     * Ufullstendig compareTo-metode. Kun for å kunne lagre Utleiere i en
-     * TreeSet som ikke tar imot en komparator i kontruktøren
+     * Enkel compareTo-metode. Kun for å kunne lagre Utleiere i en TreeSet som
+     * ikke tar imot en comparator i kontruktøren, slik at lagring til fil
+     * muliggjøres.
      */
     public int compareTo(Boligsoeker bs) {
         return bs.getEtternavn().compareTo(this.getEtternavn());
@@ -233,21 +245,21 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
     // toString-metode
     public String toString() {
-        String s = super.toString() + "\nPersonlige opplysninger: " + pInfo + 
-                "\nStatus: " + (leterEtterBolig ?"Leter etter bolig":"Leter ikke etter bolig") +
-                "\nKrav: " + 
-                "\nBoligype: " + type + 
-                "\nMin. areal: " + areal + 
-                "\nMin. sovesrom: " + soverom + 
-                "\nMin. byggeår: " + byggeaar + 
-                "\nMax. leiepris: " + pris + 
-                "\nMax. antall etasjer: " + maxAntEtasjer + 
-                "\nMin. tomtestørrelse: " + tomtestorrelse + 
-                "\nKjeller: " + (kjeller ? "ja": "nei") +
-                "\nMax. etasje: " + maxEtasje + 
-                "\nHeis: " + (heis ? "ja": "nei") + 
-                "\nBalkong: " + (balkong ? "ja": "nei") + 
-                "\nDato: " + (dato == null ? "Ikke oppgitt": StartVindu.ENKELDATOFORMAT.format(dato));
+        String s = super.toString() + "\nPersonlige opplysninger: " + pInfo
+                + "\nStatus: " + (leterEtterBolig ? "Leter etter bolig" : "Leter ikke etter bolig")
+                + "\nKrav: "
+                + "\nBoligype: " + type
+                + "\nMin. areal: " + areal
+                + "\nMin. sovesrom: " + soverom
+                + "\nMin. byggeår: " + byggeaar
+                + "\nMax. leiepris: " + pris
+                + "\nMax. antall etasjer: " + maxAntEtasjer
+                + "\nMin. tomtestørrelse: " + tomtestorrelse
+                + "\nKjeller: " + (kjeller ? "ja" : "nei")
+                + "\nMax. etasje: " + maxEtasje
+                + "\nHeis: " + (heis ? "ja" : "nei")
+                + "\nBalkong: " + (balkong ? "ja" : "nei")
+                + "\nDato: " + (dato == null ? "Ikke oppgitt" : StartVindu.ENKELDATOFORMAT.format(dato));
         return s;
     }
 }

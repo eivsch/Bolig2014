@@ -9,6 +9,12 @@ import java.util.Iterator;
 import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Bestemmer kolonnenavn, størrelse på tabellarray, og hvilke kolonner som skal
+ * være skjulte. Skjulte kolonner er også nøkkelkolonner som utgjør
+ * boligsøkerens ID. Tabellmodellen henter radene fra tilArray-metode i klassen
+ * Boligsoeker.
+ */
 public class BoligsoekerTabellmodell extends AbstractTableModel {
 
     private final String[] KOLONNENAVN = {"Navn", "Sted", "Pris", "Areal",
@@ -27,11 +33,12 @@ public class BoligsoekerTabellmodell extends AbstractTableModel {
         for (int rad = 0; rad < s.size(); rad++) {
             if (iter.hasNext()) {
                 b = iter.next();
-                celler[rad] = b.tilArray();
+                celler[rad] = b.tilRad();
             }
         }
     }
 
+    // Redefinerer arvede metoder.
     public String getColumnName(int kolonne) {
         return KOLONNENAVN[kolonne];
     }
@@ -66,16 +73,16 @@ public class BoligsoekerTabellmodell extends AbstractTableModel {
                 return String.class;
         }
     }
-
-    public int[] getKolonnerSkalSkjulesIndeks() {
-        return SKALSKJULES;
-    }
-
+    // Returnerer kolonnenavnene til de av tabellens kolonner som skal være skjulte.
     public String[] getKolonnerSkalSkjules() {
         String[] skalSkjules = new String[SKALSKJULES.length];
         for (int i = 0; i < SKALSKJULES.length; i++) {
             skalSkjules[i] = KOLONNENAVN[SKALSKJULES[i]];
         }
         return skalSkjules;
+    }
+    // Returnerer kolonneindeksen til de av tabellens kolonner som skal være skjulte
+    public int[] getKolonnerSkalSkjulesIndeks() {
+        return SKALSKJULES;
     }
 }
