@@ -1,17 +1,13 @@
 /*
- * Innhold:
- * Sist oppdatert:
- * Programmert av:
+ * Innhold: Tabellmodell for visning av boliger
+ * Sist oppdatert: 13.05.2014
+ * Programmert av: Eivind
  */
 package boligformidleren;
 
 import java.util.Iterator;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Eivind
- */
 public class BoligTabellmodell extends AbstractTableModel {
 
     private final String[] KOLONNENAVN = {"Adresse", "Poststed", "Postnummer",

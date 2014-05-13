@@ -1,6 +1,6 @@
 /*
- * Innhold: Liste over kontrakter i en ArrayList
- * Sist oppdatert:
+ * Innhold: Liste over kontrakter i to ArrayLister.
+ * Sist oppdatert: 13.05.2014
  * Programmert av: Eivind
  */
 package boligformidleren;
@@ -9,8 +9,11 @@ import java.util.*;
 import java.io.*;
 
 /**
- *
- * Beskrivelse *
+ * Klassen KontraktListe håndterer lagring og behandling av programmets opprettede 
+ * kontrakter. Kontraktene er skilt i to lister, en for gjeldende og en for utløpte
+ * Viktige funksjoner er blant annet å for hver programoppstart sjekke hvilke
+ * gjeldende kontrakter som har passert utløpstdatoen og flytte disse over fra
+ * kontraktListeGjeldende til kontraktListeArkiv.
  */
 public class KontraktListe implements Serializable {
 
@@ -41,43 +44,6 @@ public class KontraktListe implements Serializable {
         }
         return null;
     }
-    
-    /* Tatt ut pga ny organisering av utløpte/gjeldende kontrakter
-    
-    public int antallGjeldendeKontrakterRegistrertPaaBoligsoeker(Boligsoeker bs) {
-        Iterator<Kontrakt> kIter = kontraktListeGjeldende.iterator();
-        Kontrakt k;
-        int antKontrakter = 0;
-        while (kIter.hasNext()) {
-            k = kIter.next();
-            if (k.getBoligsoeker().equals(bs)) {
-                antKontrakter++;
-            }
-        }
-        return antKontrakter;
-    }
-
-    
-     * Returnerer en kontraktarray for leietakeren. Returnerer null dersom
-     * leietakeren ikke har opprettet noen kontrakter.
-     *
-    public Kontrakt[] finnGjeldendeKontrakter(Boligsoeker bs) {
-        Iterator<Kontrakt> kIter = kontraktListeGjeldende.iterator();
-        int storrelse = antallGjeldendeKontrakterRegistrertPaaBoligsoeker(bs);
-        if (storrelse == 0) {
-            return null;
-        }
-        Kontrakt[] kA = new Kontrakt[storrelse];
-        Kontrakt k;
-        while (kIter.hasNext()) {
-            k = kIter.next();
-            int indeks = 0;
-            if (k.getBoligsoeker().equals(bs)) {
-                kA[indeks++] = k;
-            }
-        }
-        return kA;
-    }*/
     
     public String sjekkUtloepteOgArkiver(Date idag){
         Iterator<Kontrakt> kIter = kontraktListeGjeldende.iterator();

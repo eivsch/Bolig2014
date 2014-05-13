@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Date;
 import java.util.Iterator;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 public class InformasjonVindu extends JFrame implements ActionListener, FocusListener {

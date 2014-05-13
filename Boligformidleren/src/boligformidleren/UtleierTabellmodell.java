@@ -1,7 +1,7 @@
 /*
- * Innhold:
- * Sist oppdatert:
- * Programmert av:
+ * Innhold: Tabellmodell for visning av utleiere.
+ * Sist oppdatert: 13.05.2014
+ * Programmert av: Eivind
  */
 package boligformidleren;
 
@@ -9,14 +9,10 @@ import java.util.Iterator;
 import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author Eivind
- */
 public class UtleierTabellmodell extends AbstractTableModel {
 
     private final String[] KOLONNENAVN = {"Navn", "Firma", "Epost", "Tlf",
-        "skjul1", "skjul2"};
+        "fornavnskjult", "fornavnskjult"};
     private Object[][] celler;
     // Enkelte kolonner skal kun brukes for å lese inn data og skal dermed skjules
     // for brukeren. Bestemmer her hvilke.
