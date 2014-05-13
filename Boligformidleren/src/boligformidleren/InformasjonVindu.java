@@ -85,7 +85,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     private final String[] BOLIGKOLONNENAVN = {"Adresse", "Poststed", "Postnummer",
         "Pris", "Areal", "Byggeår", "Avertert fra"};
 
-    private JTable boligsoekerTabell;
+    private JTable boligsoekerTabell, boligTabell;
 
     private JTextArea output;
 
@@ -493,27 +493,35 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         poststed.setText("");
     }
 
-    public void nyTegn() {
+    public void tegnBoligtabell() {
+        BoligTabellmodell btm = new BoligTabellmodell();
+        boligTabell = new JTable(btm);
+        boligTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        boligTabell.setAutoCreateRowSorter(true);
+    }
+
+    public void tegnBoligsoekerTabell() {
         BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
         boligsoekerTabell = new JTable(bstm);
         boligsoekerTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         boligsoekerTabell.setAutoCreateRowSorter(true);
         //skjuler gitte kolonner fra display
         String skjules[] = bstm.getKolonnerSkalSkjules();
-        for(int i = 0; i < skjules.length; i++){
+        for (int i = 0; i < skjules.length; i++) {
             TableColumn tc = boligsoekerTabell.getColumn(skjules[i]);
             tc.setMinWidth(0);
             tc.setMaxWidth(0);
             tc.setPreferredWidth(0);
         }
     }
+
     // Henter data om boligsøker fra tabell for å vise denne for brukeren. Henter
     // data fra kolonnene som skal skjules
     public void hentBoligsoekerFraTabell(JTable tabell) {
         JTextField[] navnefelt = {fornavn, etternavn};
         BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
         int[] nokkelkolonner = bstm.getKolonnerSkalSkjulesIndeks();
-        
+
         // Setter data fra tabell inn i riktige inputfelter og kaller på 
         // hentInfoPerson.
         int rad = tabell.getSelectedRow();
@@ -643,57 +651,6 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         output.append(liste);
     }
 
-    public Object[][] lagBoligTabellArray() {
-        int maxAntRader = StartVindu.getUtleierVindu().getUtleierMengde().antallBoliger();
-        Object[][] celler = new Object[maxAntRader][BOLIGKOLONNENAVN.length];
-        Iterator<Utleier> utleierIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
-        int radTeller = 0;
-        while (utleierIter.hasNext()) {
-            Utleier u = utleierIter.next();
-            Iterator<Bolig> boligIter = u.getBoligliste().getListe().iterator();
-            for (int rad = radTeller; rad < maxAntRader; rad++) {
-                if (boligIter.hasNext()) {
-                    Bolig b = boligIter.next();
-                    celler[rad] = b.tilArray();
-                    radTeller++;
-                }
-            }
-        }
-        return celler;
-    }
-
-    public void tegnBoligTabell() {
-        Object[][] celler = lagBoligTabellArray();
-        DefaultTableModel model = new DefaultTableModel(celler, BOLIGKOLONNENAVN) {
-            // Redefinerer getColumnClass for riktig sortering av JTable
-            public Class getColumnClass(int column) {
-                switch (column) {
-                    case 0:
-                        return String.class;
-                    case 1:
-                        return String.class;
-                    case 2:
-                        return Integer.class;
-                    case 3:
-                        return Integer.class;
-                    case 4:
-                        return Integer.class;
-                    case 5:
-                        return Integer.class;
-                    case 6:
-                        return Integer.class;
-                    default:
-                        return String.class;
-                }
-            }
-        };
-        JTable tabell = new JTable(model);
-        tabellPanel.removeAll();
-        tabellPanel.add(new JScrollPane(tabell));
-        tabellPanel.revalidate();
-        tabell.setAutoCreateRowSorter(true);
-    }
-
     public void finnKontrakter() {
         //...
     }
@@ -719,7 +676,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.repaint();
         } else if (e.getSource() == visAlleBoligsoekere) {
             tabellPanel.removeAll();
-            nyTegn();
+            tegnBoligsoekerTabell();
             tabellPanel.add(new JScrollPane(boligsoekerTabell));
             tabellPanel.add(gaaTilPerson, BorderLayout.PAGE_END);
             tabellPanel.revalidate();
@@ -746,7 +703,10 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.revalidate();
             masterPanel.repaint();
         } else if (e.getSource() == visAlleBoliger) {
-            tegnBoligTabell();
+            tabellPanel.removeAll();
+            tegnBoligtabell();
+            tabellPanel.add(new JScrollPane(boligTabell));
+            tabellPanel.revalidate();
             masterPanel.remove(under);
             masterPanel.add(tabellPanel, BorderLayout.CENTER);
             masterPanel.revalidate();
