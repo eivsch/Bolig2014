@@ -227,6 +227,21 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
     public void utskrift() {
         output.setText(kontraktListe.toString());
     }
+    
+    // blanker alle felter i vinduet
+    public void blankFelter() {
+        gateadresse.setText("");
+        postnr.setText("");
+        poststed.setText("");
+        utleierFornavn.setText("");
+        utleierEtternavn.setText("");
+        leietakerFornavn.setText("");
+        leietakerEtternavn.setText("");
+        pris.setText("");
+        sluttDatoFelt.setText("");
+        startDatoFelt.setText("");
+        output.setText("");
+    }
 
     // filbehandling
     public void skrivKontraktTilFil() {

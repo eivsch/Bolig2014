@@ -828,6 +828,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         kravEtasje.setSelectedIndex(0);
         kravHeis.setSelected(false);
         kravBalkong.setSelected(false);
+        output.setText("");
     }
 
     // skriver boligsøkermengden til fil

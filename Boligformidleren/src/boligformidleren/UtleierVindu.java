@@ -207,6 +207,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         RegEpost.setText("");
         RegTlf.setText("");
         RegFirma.setText("");
+        output.setText("");
     }
 
     // metoden endrer en felt for utleieren

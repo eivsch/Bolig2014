@@ -54,7 +54,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         super("Bolig");
 
         int antRadFelles = 10;  // en rad for hver felles felt plus to for boligtyper
-        int antRadKnapp = 4;
+        int antRadKnapp = 3;
         int antRadEnebolig = 3; // en rad for hver enebolig variabel
         int antRadLeilighet = 3; // en rad for hver leilighet variabel
         int antKol = 3;
@@ -707,6 +707,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         balkong.setSelected(false);
         utleierFornavn.setText("");
         utleierEtternavn.setText("");
+        output.setText("");
     }
     
     // Lyttemetode

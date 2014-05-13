@@ -1,5 +1,5 @@
 /*
- * Innhold: Vindu som åpnes når programmet er kjørt
+ * Innhold: Startvindu som åpnes når programmet er kjørt
  * Sist oppdatert:
  * Programmert av: Gretar, Sigurd
  */
@@ -49,6 +49,7 @@ public class StartVindu extends JFrame implements ActionListener {
     public static final String PATTERNTALLBOKSTAV = "[a-zæøåA-ZÆØÅ ]{4,40}[ ][0-9]{1,3}";
     public static final String PATTERNBOKSTAV = "[a-zæøåA-ZÆØÅ]{2,30}";
 
+    // konstruktør
     public StartVindu() {
         super("Boligformidleren");
 
@@ -76,8 +77,45 @@ public class StartVindu extends JFrame implements ActionListener {
         setSize(600, 600);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        // lukkeknapp for UtleierVindu
+        utleierVindu.addWindowListener(
+                new WindowAdapter(){
+                    public void windowClosing(WindowEvent e){
+                        utleierVindu.blankFelter();
+                    }
+                }
+        );
+        
+        // lukkeknapp for BoligsoekerVindu
+        boligsoekerVindu.addWindowListener(
+                new WindowAdapter(){
+                    public void windowClosing(WindowEvent e){
+                        boligsoekerVindu.blankFelter();
+                    }
+                }
+        );
+        
+        // lukkeknapp for BoligVindu
+        boligVindu.addWindowListener(
+                new WindowAdapter(){
+                    public void windowClosing(WindowEvent e){
+                        boligVindu.blankFelter();
+                    }
+                }
+        );
+        
+        // lukkeknapp for KontraktVindu
+        kontraktVindu.addWindowListener(
+                new WindowAdapter(){
+                    public void windowClosing(WindowEvent e){
+                        kontraktVindu.blankFelter();
+                    }
+                }
+        );
     }
 
+    // get metoder
     public static UtleierVindu getUtleierVindu() {
         return utleierVindu;
     }
@@ -98,6 +136,7 @@ public class StartVindu extends JFrame implements ActionListener {
         return informasjonVindu;
     }
 
+    // sjekker helt array av tekstfelter om de passer til regex-pattern
     public static boolean kontrollerRegEx(String pattern, JTextField[] input) {
         for (int i = 0; i < input.length; i++) {
             if (!input[i].getText().matches(pattern)) {
@@ -107,12 +146,14 @@ public class StartVindu extends JFrame implements ActionListener {
         return true;
     }
     
+    // sjekker om en tekststreng (input) passer til en regex-pattern
     public static boolean kontrollerRegEx(String pattern, String input) {
         if (!input.matches(pattern))
             return false;
         return true;
     }
     
+    // konverterer en tom felt til et heltall (0)
     public static int konverterBlanktFeltTilHeltall(JTextField jtf) {
         if (jtf.getText().equals("")) {
             return 0;
@@ -121,6 +162,7 @@ public class StartVindu extends JFrame implements ActionListener {
         }
     }
 
+    // sjekker om en felt er tom
     public static boolean tekstFeltErTomt(JTextField[] jtf) {
         for (int i = 0; i < jtf.length; i++) {
             if (jtf[i].getText().equals("")) {
@@ -130,6 +172,7 @@ public class StartVindu extends JFrame implements ActionListener {
         return false;
     }
 
+    // konverterer en tekststreng av format dd.mm.åååå til et DATE objekt
     public static Date konverterDato(String datostreng) {
         if (!datostreng.matches(PATTERNDATO)) {
             return null;
@@ -142,6 +185,7 @@ public class StartVindu extends JFrame implements ActionListener {
         }
     }
     
+    // generer data fra .txt filer
     public void generateData(){
         
         UtleierMengde um = utleierVindu.getUtleierMengde();
@@ -254,9 +298,9 @@ public class StartVindu extends JFrame implements ActionListener {
         catch(IOException e){
             System.out.println(e.getMessage());
         }
-        
     }
 
+    // skriver utleiermengden, boligsøkermengden og kontraktlisten til fil
     public void skrivTilFil() {
         utleierVindu.skrivUtleierTilFil();
         boligsoekerVindu.skrivBoligsoekerTilFil();
@@ -264,14 +308,17 @@ public class StartVindu extends JFrame implements ActionListener {
         // evt. andre vinduer som skal skrives til fil
     }
 
+    // viser pop-up feilmelding vindu
     public static void visFeilmelding(StackTraceElement[] ste) {
         JOptionPane.showMessageDialog(null, ste);
     }
 
+    // viser pop-up feilmelding vindu
     public static void visFeilmelding(Object o) {
         JOptionPane.showMessageDialog(null, o);
     }
     
+    // viser pop-up ja/nei vindu
     public static String visJaNeiMelding(String melding, String vindutekst){
         String[] alternativer = { "Ja", "Nei" };
         
@@ -286,14 +333,19 @@ public class StartVindu extends JFrame implements ActionListener {
             return alternativer[1];
     }
 
+    // lyttemetode
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttons[0]) {
+            utleierVindu.setLocation(0, 0);
             utleierVindu.setVisible(true);
         } else if (e.getSource() == buttons[1]) {
+            boligsoekerVindu.setLocation(400, 0);
             boligsoekerVindu.setVisible(true);
         } else if (e.getSource() == buttons[2]) {
+            boligVindu.setLocation(800, 0);
             boligVindu.setVisible(true);
         } else if (e.getSource() == buttons[3]) {
+            kontraktVindu.setLocation(1200, 0);
             kontraktVindu.setVisible(true);
         } else if (e.getSource() == buttons[4]) {
             informasjonVindu.setVisible(true);
