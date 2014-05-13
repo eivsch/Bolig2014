@@ -590,6 +590,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     public void finnBoliger() {
         final int MAX = 2147483647;
         final int MIN = -2147483648;
+        
+        
 
         // felles felt
         String type = (String) boligtype.getSelectedItem();
@@ -603,6 +605,24 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         int maxPris = maxBoligPris.getText().equals("") ? MAX : Integer.parseInt(maxBoligPris.getText());
         Date minDato = (minBoligDato.getText().equals("") || minBoligDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(minBoligDato.getText());
         Date maxDato = (maxBoligDato.getText().equals("") || maxBoligDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(maxBoligDato.getText());
+        
+        //RegEx
+        JTextField[] jtf = {minBoligAreal,maxBoligAreal,minBoligRom,maxBoligRom,minBoligByggeaar,maxBoligByggeaar,minBoligPris,maxBoligPris,boligMinEtasjer,boligMaxEtasjer,boligMinTomtestorrelse,boligMaxTomtestorrelse,boligMinEtasje,boligMaxEtasje};
+        JTextField[] dato = {minBoligDato,maxBoligDato};
+        
+        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, jtf))){
+            output.setText("Feil ved innlesing av felter. Må kun inneholde hele tall.");
+            return;
+        }
+        /*if(minBoligDato.getText().equals("dd.mm.åååå") || maxBoligDato.getText().equals("dd.mm.åååå")){
+            
+        }*/
+        
+        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, dato))){
+            output.setText("Feil ved innlesing av dato. Sjekk format.");
+            return;
+        }
+        
 
         // enebolig felt
         int minEtasjer = boligMinEtasjer.getText().equals("") ? MIN : Integer.parseInt(boligMinEtasjer.getText());
