@@ -305,7 +305,6 @@ public class StartVindu extends JFrame implements ActionListener {
         utleierVindu.skrivUtleierTilFil();
         boligsoekerVindu.skrivBoligsoekerTilFil();
         kontraktVindu.skrivKontraktTilFil();
-        // evt. andre vinduer som skal skrives til fil
     }
 
     // viser pop-up feilmelding vindu
