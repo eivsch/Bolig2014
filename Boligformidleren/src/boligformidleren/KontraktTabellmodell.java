@@ -14,9 +14,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public class KontraktTabellmodell extends AbstractTableModel {
 
-    private final String[] KOLONNENAVN = {"Adresse", "Poststed", "Postnummer",
+    private final String[] KOLONNENAVN = {"Adresse", "Sted",
         "Utleier", "Leietaker", "Begynte", "Avsluttes"};
-    private final int[] NOKKELKOLONNER = {0, 1, 2};
     private Object[][] celler;
     
     //Tegner tabell i kontruktør
@@ -48,24 +47,5 @@ public class KontraktTabellmodell extends AbstractTableModel {
 
     public int getRowCount() {
         return celler.length;
-    }
-
-    public Class getColumnClass(int kolonne) {
-        switch (kolonne) {
-            case 0:
-                return String.class;
-            case 1:
-                return String.class;
-            case 2:
-                return Integer.class;
-            case 3:
-                return String.class;
-            case 4:
-                return String.class;
-            case 5:
-                return String.class;
-            default:
-                return String.class;
-        }
     }
 }
