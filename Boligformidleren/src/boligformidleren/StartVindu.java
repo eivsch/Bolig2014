@@ -125,7 +125,16 @@ public class StartVindu extends JFrame implements ActionListener {
         top.add(boligsoekerKnapp);
         top.add(boligKnapp);
         top.add(kontraktKnapp);
-        //top.add(dataKnapp);
+        
+        
+        // vi må fjerne denne linje før programmet leveres!!!!!
+        // vi må fjerne denne linje før programmet leveres!!!!!
+        // vi må fjerne denne linje før programmet leveres!!!!!
+        top.add(dataKnapp);
+        // vi må fjerne denne linje før programmet leveres!!!!!
+        // vi må fjerne denne linje før programmet leveres!!!!!
+        // vi må fjerne denne linje før programmet leveres!!!!!
+        
         
         under.add(infoKnapp, BorderLayout.CENTER);
         
