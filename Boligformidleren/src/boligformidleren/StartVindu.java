@@ -51,7 +51,7 @@ public class StartVindu extends JFrame implements ActionListener {
     public static final SimpleDateFormat ENKELDATOFORMAT = new SimpleDateFormat("dd.MM.yyyy");
     //public static final String PATTERNTALLBOKSTAV = "[0-9a-zæøåA-ZÆØÅ ,.\\-]{4,40}";
     public static final String PATTERNTALLBOKSTAV = "[a-zæøåA-ZÆØÅ ]{4,40}[ ][0-9]{1,3}";
-    public static final String PATTERNBOKSTAV = "[a-zæøåA-ZÆØÅ ]{2,30}";
+    public static final String PATTERNBOKSTAV = "[a-zæøåA-ZÆØÅ\\- ]{2,30}";
     
     // konstruktør
     public StartVindu() {
