@@ -1026,7 +1026,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         if (antallArkiv > 0) {
             output.append("\n\nArkiverte kontrakter: ");
-            output.append(listeGjeldende);
+            output.append(listeArkiv);
         }
     }
 
