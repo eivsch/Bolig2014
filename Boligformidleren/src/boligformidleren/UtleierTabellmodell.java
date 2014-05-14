@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class UtleierTabellmodell extends AbstractTableModel {
 
     private final String[] KOLONNENAVN = {"Navn", "Firma", "Epost", "Tlf",
-        "fornavnskjult", "fornavnskjult"};
+        "fornavnskjult", "etternavnskjult"};
     private Object[][] celler;
     // Enkelte kolonner skal kun brukes for å lese inn data og skal dermed skjules
     // for brukeren. Bestemmer her hvilke.
@@ -68,7 +68,7 @@ public class UtleierTabellmodell extends AbstractTableModel {
                 return String.class;
         }
     }
-    // Returnerer kolonnenavnene til de av tabellens kolonner som skal være skjulte.
+    // Returnerer kolonnenavnene på kolonnene som skal være skjulte i en array.
     public String[] getKolonnerSkalSkjules() {
         String[] skalSkjules = new String[SKALSKJULES.length];
         for (int i = 0; i < SKALSKJULES.length; i++) {

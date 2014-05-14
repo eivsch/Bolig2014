@@ -220,7 +220,12 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
         return passer;
     }
-
+    
+    // Setter boligsøker til "leter etter bolig".
+    public void leterEtterBolig(){
+        leterEtterBolig = true;
+    }
+    // Setter boligsøker til "leter ikke etter bolig".
     public void leterIkkeEtterBolig() {
         leterEtterBolig = false;
     }

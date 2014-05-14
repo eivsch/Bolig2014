@@ -19,6 +19,10 @@ import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.util.Date;
 
+/**
+ *
+ * @author Eivind
+ */
 public class KontraktVindu extends JFrame implements ActionListener, FocusListener {
 
     private JTextField gateadresse, postnr, poststed, utleierFornavn, utleierEtternavn,
@@ -113,16 +117,17 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         skrivUt.addActionListener(this);
         grid.add(skrivUt);
 
-        // åpner fil når konstruktør kjøres
+        // leser fil når konstruktør kjøres
         lesKontraktFraFil();
         sjekkOmKontraktErUtloept();
     }
 
-    // get-metode
+    // get-metode for kontraktListe objektet.
     public KontraktListe getKontraktListe() {
         return kontraktListe;
     }
 
+    // Metode for registrering av kontrakt.
     public void regKontrakt() {
         // Kontrollerer tallverdier for å unngå parseException
         JTextField[] testRegExTall = {postnr, pris};
@@ -137,6 +142,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             output.setText("Vennligst fyll inn alle felter!");
             return;
         }
+        // henter inn brukerinput
         String adr = gateadresse.getText();
         int pnr = Integer.parseInt(postnr.getText());
         String psted = poststed.getText();
@@ -147,11 +153,18 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         int leiepris = Integer.parseInt(pris.getText());
         Date startDato = StartVindu.konverterDato(startDatoFelt.getText()),
                 sluttDato = StartVindu.konverterDato(sluttDatoFelt.getText());
+        // Sjekker om bruker har skrevet dato på riktig format
         if (sluttDato == null || startDato == null) {
             output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
             return;
         }
+        // sjekker om startdato mot formodning skulle være etter sluttdato
+        if (startDato.after(sluttDato)) {
+            output.setText("Startdato må være før sluttdato!");
+            return;
+        }
 
+        //Opretter objekter som trengs for å registrere en ny kontrakt
         Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(adr, pnr, psted);
         Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(uFornavn, uEtternavn);
         Boligsoeker bs = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().finnBoligsoeker(lFornavn, lEtternavn);
@@ -163,31 +176,23 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             output.setText("Feil - bolig er opptatt");
             return;
         } else if (u == null) {
-            output. setText("Feil - finner ikke utleier");
+            output.setText("Feil - finner ikke utleier");
             return;
         } else if (bs == null) {
             output.setText("Feil - finner ikke leietaker");
             return;
         }
 
-        // Sjekker om boligsøkeren har registrert en gjeldende kontrakt.
+        // Sjekker om boligsøkeren alt har registrert en gjeldende kontrakt.
         if (kontraktListe.finnGjeldendeKontrakt(bs) != null) {
-            output.setText("Kunden har allerede inngått en kontrakt");
+            output.setText("Boligsøkeren har allerede inngått en kontrakt");
             return;
         }
-        /*Kontrakt[] kontrakter = kontraktListe.finnGjeldendeKontrakter(bs);
-         if (kontrakter != null) {
-         for (int i = 0; i < kontrakter.length; i++) {
-         if (startDato.before(kontrakter[i].getSluttDato())) {
-         output.setText("Kunden har allerede registrert en kontrakt innenfor gitt tidsrom!");
-         return;
-         }
-         }
-         }*/
+        // Oppretter kontrakt og setter inn i liste
         Kontrakt k = new Kontrakt(b, u, bs, leiepris, startDato, sluttDato);
-
         kontraktListe.settInn(k);
 
+        // Endrer statusfelter for boligen og boligsøkeren
         b.boligErOpptatt();
         bs.leterIkkeEtterBolig();
 
@@ -198,15 +203,16 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         // Forandrer sluttdato i kontrakten tilsvarende oppsigelsestid.
     }
 
+    /**
+     * Skal sjekke alle kontrakter i registeret, dersom de er utløpt skal
+     * gjeldende bolig settes til "ledig", og gjeldende boligsøker settes til
+     * "leter etter bolig". Dette gjøres hver gang programmet starter, det er
+     * derfor viktig at programmet avsluttes ordentlig minst en gang hver dag.
+     */
     public void sjekkOmKontraktErUtloept() {
-        /**
-         * Skal sjekke alle kontrakter i registeret, dersom de er utløpt skal
-         * gjeldende bolig settes til "ledig". Dette gjøres hver gang programmet
-         * starter, det er derfor viktig at programmet avsluttes ordentlig minst
-         * en gang hver dag.
-         */
         Date idag;
         String s, melding = "Følgende kontrakter er utløpt og ble fjernet:\n";
+        // Henter og formatterer dagens dato.
         try {
             idag = StartVindu.ENKELDATOFORMAT.parse(StartVindu.ENKELDATOFORMAT.format(
                     new Date()));
@@ -214,6 +220,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             StartVindu.visFeilmelding(pe);
             return;
         }
+        // Sjekker hvilke kontrakter som er utløpt og skriver ut deres toString.
         do {
             s = kontraktListe.sjekkUtloepteOgArkiver(idag);
             if (s != null) {
@@ -223,11 +230,12 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
 
         output.setText(melding);
     }
-
+    
+    // Skrive ut alt som ligger lagret i KontraktListe-objektet
     public void utskrift() {
         output.setText(kontraktListe.toString());
     }
-    
+
     // blanker alle felter i vinduet
     public void blankFelter() {
         gateadresse.setText("");
@@ -277,26 +285,34 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             siOppKontrakt();
         }
     }
-    
-    public void focusGained(FocusEvent fe){
-        
-        if(fe.getSource() == sluttDatoFelt)
-            if(sluttDatoFelt.getText().equals("dd.mm.åååå"))
+
+    public void focusGained(FocusEvent fe) {
+
+        if (fe.getSource() == sluttDatoFelt) {
+            if (sluttDatoFelt.getText().equals("dd.mm.åååå")) {
                 sluttDatoFelt.setText("");
+            }
+        }
         // fungerer ikke hvis vi bruker "else-if" for flere felter
-        if(fe.getSource() == startDatoFelt)
-            if(startDatoFelt.getText().equals("dd.mm.åååå"))
+        if (fe.getSource() == startDatoFelt) {
+            if (startDatoFelt.getText().equals("dd.mm.åååå")) {
                 startDatoFelt.setText("");
+            }
+        }
     }
 
     public void focusLost(FocusEvent fe) {
-        
-        if(fe.getSource() == sluttDatoFelt)
-            if(sluttDatoFelt.getText().equals(""))
+
+        if (fe.getSource() == sluttDatoFelt) {
+            if (sluttDatoFelt.getText().equals("")) {
                 sluttDatoFelt.setText("dd.mm.åååå");
+            }
+        }
         // fungerer ikke hvis vi bruker "else-if" for flere felter
-        if(fe.getSource() == startDatoFelt)
-            if(startDatoFelt.getText().equals(""))
+        if (fe.getSource() == startDatoFelt) {
+            if (startDatoFelt.getText().equals("")) {
                 startDatoFelt.setText("dd.mm.åååå");
+            }
+        }
     }
 }

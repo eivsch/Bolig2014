@@ -61,8 +61,8 @@ public class Kontrakt implements Serializable {
 
     // Skal legge informasjon om en kontrakt i en tabellrad. 
     public Object[] tilRad() {
-        Object[] rad = {b.getGateadresse(), new Integer(b.getPostnr()) + ", " + 
-                b.getPoststed(), u.getFornavn() + " " + u.getEtternavn(), 
+        Object[] rad = {b.getGateadresse(), b.getPoststed(), new Integer(b.getPostnr()), 
+                u.getFornavn() + " " + u.getEtternavn(), 
                 bs.getFornavn() + " " + bs.getEtternavn(), 
                 StartVindu.ENKELDATOFORMAT.format(startDato), 
                 StartVindu.ENKELDATOFORMAT.format(sluttDato)};

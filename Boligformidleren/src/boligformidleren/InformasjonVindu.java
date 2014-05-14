@@ -1,7 +1,7 @@
 /*
  * Innhold: Vindu som brukes for å hente informasjon om personer, boliger og kontrakter
  * Sist oppdatert: 13.05.2014 kl.12:15
- * Programmert av: Gretar, Sigurd
+ * Programmert av: Gretar, Sigurd, Eivind
  */
 package boligformidleren;
 
@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import javax.swing.table.TableColumn;
 
 public class InformasjonVindu extends JFrame implements ActionListener, FocusListener {
@@ -79,10 +80,10 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     private JCheckBox kontraktHeis, kontraktBalkong;
 
     // kontrakt knapp panel
-    private JButton finnKontrakter, visAlleKontrakter;
+    private JButton finnKontrakter, visGjeldendeKontrakter, visKontraktHistorikk;
 
     // for JTable
-    private JTable boligsoekerTabell, boligTabell, utleierTabell;
+    private JTable boligsoekerTabell, boligTabell, utleierTabell, kontraktTabell;
 
     private JTextArea output;
 
@@ -391,9 +392,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         finnKontrakter.addActionListener(this);
         kontraktKnappPanel.add(finnKontrakter);
 
-        visAlleKontrakter = new JButton("Vis alle kontrakter");
-        visAlleKontrakter.addActionListener(this);
-        kontraktKnappPanel.add(visAlleKontrakter);
+        visGjeldendeKontrakter = new JButton("Vis gjeldende kontrakter");
+        visGjeldendeKontrakter.addActionListener(this);
+        kontraktKnappPanel.add(visGjeldendeKontrakter);
     }
 
     // hent opplysninger om en navngitt person
@@ -726,8 +727,12 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         //...
     }
 
-    public void visAlleKontrakter() {
-        //...
+    public void tegnGjeldendeKontraktTabell() {
+        List<Kontrakt> gjeldende = StartVindu.getKontraktVindu().getKontraktListe().getKontraktListeGjeldende();
+        KontraktTabellmodell ktm = new KontraktTabellmodell(gjeldende);
+        kontraktTabell = new JTable(ktm);
+        kontraktTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        kontraktTabell.setAutoCreateRowSorter(true);
     }
 
     public void melding(String s) {
@@ -811,10 +816,13 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.add(under);
             masterPanel.revalidate();
             masterPanel.repaint();
-        } else if (e.getSource() == visAlleKontrakter) {
-            visAlleKontrakter();
-            masterPanel.remove(tabellPanel);
-            masterPanel.add(under);
+        } else if (e.getSource() == visGjeldendeKontrakter) {
+            tabellPanel.removeAll();
+            tegnGjeldendeKontraktTabell();
+            tabellPanel.add(new JScrollPane(kontraktTabell));
+            tabellPanel.revalidate();
+            masterPanel.remove(under);
+            masterPanel.add(tabellPanel, BorderLayout.CENTER);
             masterPanel.revalidate();
             masterPanel.repaint();
         } else if (e.getSource() == boligtype) {
