@@ -24,6 +24,19 @@ public class KontraktListe implements Serializable {
         kontraktListeGjeldende.add(k);
     }
     
+    // Returnerer totalt antall lagrede kontrakter
+    public int antKontrakter(){
+        return kontraktListeGjeldende.size() + kontraktListeArkiv.size();
+    }
+    
+    public List<Kontrakt> getKontraktListeGjeldende(){
+        return kontraktListeGjeldende;
+    }
+
+    public List<Kontrakt> getKontraktListeArkiv() {
+        return kontraktListeArkiv;
+    }
+    
     public void fjernGjeldendeKontraktOgArkiver(Kontrakt k){
         kontraktListeGjeldende.remove(k);
         // Setter boligen i kontrakten til "ledig".
