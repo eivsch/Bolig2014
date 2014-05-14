@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
 
 public class InformasjonVindu extends JFrame implements ActionListener, FocusListener {
@@ -69,14 +70,14 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     // kontrakt min-max panel
     private JTextField minKontraktAreal, maxKontraktAreal, minKontraktRom, maxKontraktRom,
             minKontraktByggeaar, maxKontraktByggeaar, minKontraktPris, maxKontraktPris,
-            minKontraktDato, maxKontraktDato;
+            minKontraktStartDato, maxKontraktStartDato, minKontraktSluttDato, maxKontraktSluttDato;
 
     // kontrakt enekontrakt panel
-    private JTextField kontraktEtasjer, kontraktTomtestorrelse;
+    private JTextField kontraktMinEtasjer, kontraktMaxEtasjer, kontraktMinTomtestorrelse, kontraktMaxTomtestorrelse;
     private JCheckBox kontraktKjeller;
 
     // kontrakt leilighet panel
-    private JTextField kontraktEtasje;
+    private JTextField kontraktMinEtasje, kontraktMaxEtasje;
     private JCheckBox kontraktHeis, kontraktBalkong;
 
     // kontrakt knapp panel
@@ -106,13 +107,14 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         labelBolig2.setHorizontalAlignment(JLabel.CENTER);
         labelKontrakt.setHorizontalAlignment(JLabel.CENTER);
 
-        // antall rader, antall kolonner og gap størrelse for top-panelene (GridLayout)
+        // antallGjeldende rader, antallGjeldende kolonner og gap størrelse for top-panelene (GridLayout)
         int antRadTopPanel = 1;
         int antKolTopPanel = 4;
         int antRadPersonPanel = 8;
         int antRadBoligPanel = 8;
         int antRadTypePanel = 1;
         int antRadMinMaxPanel = 6;
+        int antRadKontraktMinMaxPanel = 7;
         int antRadEneboligLeilighetPanel = 3;
         int antRadKnappPanel = 2;
         int defaultKolonner = 2;
@@ -128,24 +130,24 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         // paneler
         masterPanel = new JPanel(new BorderLayout());
         top = new JPanel(new BorderLayout());
-        topLabels = new JPanel(new GridLayout(antRadTopPanel, antKolTopPanel, gap, gapTop));
-        topContent = new JPanel(new GridLayout(antRadTopPanel, antKolTopPanel, gapTop, gap));
-        personPanel = new JPanel(new GridLayout(antRadPersonPanel, defaultKolonner, gap, gap));
-        venstreBoligPanel = new JPanel(new GridLayout(antRadBoligPanel, defaultKolonner, gap, gap));
-        hoyreBoligPanel = new JPanel(new BorderLayout());
-        boligFellesPanel = new JPanel(new BorderLayout());
-        boligFellesTypePanel = new JPanel(new GridLayout(antRadTypePanel, defaultKolonner, gap, gap));
-        boligFellesMinMaxPanel = new JPanel(new GridLayout(antRadMinMaxPanel, antMinMaxKolonner, gap, gap));
-        boligEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
-        boligLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
-        boligKnappPanel = new JPanel(new GridLayout(antRadKnappPanel, antKnappKolonner, gap, gap));
-        kontraktPanel = new JPanel(new BorderLayout());
-        kontraktFellesPanel = new JPanel(new BorderLayout());
-        kontraktFellesTypePanel = new JPanel(new GridLayout(antRadTypePanel, defaultKolonner, gap, gap));
-        kontraktFellesMinMaxPanel = new JPanel(new GridLayout(antRadMinMaxPanel, antMinMaxKolonner, gap, gap));
-        kontraktEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, defaultKolonner, gap, gap));
-        kontraktLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, defaultKolonner, gap, gap));
-        kontraktKnappPanel = new JPanel(new GridLayout(antRadKnappPanel, antKnappKolonner, gap, gap));
+            topLabels = new JPanel(new GridLayout(antRadTopPanel, antKolTopPanel, gap, gapTop));
+            topContent = new JPanel(new GridLayout(antRadTopPanel, antKolTopPanel, gapTop, gap));
+                personPanel = new JPanel(new GridLayout(antRadPersonPanel, defaultKolonner, gap, gap));
+                venstreBoligPanel = new JPanel(new GridLayout(antRadBoligPanel, defaultKolonner, gap, gap));
+                hoyreBoligPanel = new JPanel(new BorderLayout());
+                    boligFellesPanel = new JPanel(new BorderLayout());
+                    boligFellesTypePanel = new JPanel(new GridLayout(antRadTypePanel, defaultKolonner, gap, gap));
+                    boligFellesMinMaxPanel = new JPanel(new GridLayout(antRadMinMaxPanel, antMinMaxKolonner, gap, gap));
+                    boligEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
+                    boligLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
+                    boligKnappPanel = new JPanel(new GridLayout(antRadKnappPanel, antKnappKolonner, gap, gap));
+                kontraktPanel = new JPanel(new BorderLayout());
+                    kontraktFellesPanel = new JPanel(new BorderLayout());
+                    kontraktFellesTypePanel = new JPanel(new GridLayout(antRadTypePanel, defaultKolonner, gap, gap));
+                    kontraktFellesMinMaxPanel = new JPanel(new GridLayout(antRadKontraktMinMaxPanel, antMinMaxKolonner, gap, gap));
+                    kontraktEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
+                    kontraktLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
+                    kontraktKnappPanel = new JPanel(new GridLayout(antRadKnappPanel, antKnappKolonner, gap, gap));
         under = new JPanel(new BorderLayout());
         tabellPanel = new JPanel(new BorderLayout());
 
@@ -153,6 +155,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         masterPanel.add(under, BorderLayout.CENTER);
         top.add(topLabels, BorderLayout.PAGE_START);
         top.add(topContent, BorderLayout.CENTER);
+        top.setBorder(new EmptyBorder(10, 10, 10, 10) );
 
         topLabels.add(labelPerson);
         topLabels.add(labelBolig1);
@@ -204,7 +207,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         gaaTilBoligsoeker = new JButton("Gå til boligsøker");
         gaaTilBoligsoeker.addActionListener(this);
 
-        gaaTilUtleier = new JButton("Gå til utleier");
+        gaaTilUtleier = new JButton("Gå til valgt utleier");
         gaaTilUtleier.addActionListener(this);
 
         // venstre bolig panel
@@ -355,20 +358,30 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         kontraktFellesMinMaxPanel.add(minKontraktPris);
         kontraktFellesMinMaxPanel.add(maxKontraktPris);
 
-        kontraktFellesMinMaxPanel.add(new JLabel("Dato: "));
-        minKontraktDato = new JTextField(10);
-        maxKontraktDato = new JTextField(10);
-        kontraktFellesMinMaxPanel.add(minKontraktDato);
-        kontraktFellesMinMaxPanel.add(maxKontraktDato);
+        kontraktFellesMinMaxPanel.add(new JLabel("Start-dato: "));
+        minKontraktStartDato = new JTextField(10);
+        maxKontraktStartDato = new JTextField(10);
+        kontraktFellesMinMaxPanel.add(minKontraktStartDato);
+        kontraktFellesMinMaxPanel.add(maxKontraktStartDato);
+        
+        kontraktFellesMinMaxPanel.add(new JLabel("Slutt-dato: "));
+        minKontraktSluttDato = new JTextField(10);
+        maxKontraktSluttDato = new JTextField(10);
+        kontraktFellesMinMaxPanel.add(minKontraktSluttDato);
+        kontraktFellesMinMaxPanel.add(maxKontraktSluttDato);
 
         // kontrakt enebolig panel
         kontraktEneboligPanel.add(new JLabel("Antall etasjer: "));
-        kontraktEtasjer = new JTextField(10);
-        kontraktEneboligPanel.add(kontraktEtasjer);
+        kontraktMinEtasjer = new JTextField(10);
+        kontraktMaxEtasjer = new JTextField(10);
+        kontraktEneboligPanel.add(kontraktMinEtasjer);
+        kontraktEneboligPanel.add(kontraktMaxEtasjer);
 
         kontraktEneboligPanel.add(new JLabel("Tomtestørrelse: "));
-        kontraktTomtestorrelse = new JTextField(10);
-        kontraktEneboligPanel.add(kontraktTomtestorrelse);
+        kontraktMinTomtestorrelse = new JTextField(10);
+        kontraktMaxTomtestorrelse = new JTextField(10);
+        kontraktEneboligPanel.add(kontraktMinTomtestorrelse);
+        kontraktEneboligPanel.add(kontraktMaxTomtestorrelse);
 
         kontraktEneboligPanel.add(new JLabel("Kjeller: "));
         kontraktKjeller = new JCheckBox("");
@@ -376,13 +389,16 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         // kontrakt leilighet panel
         kontraktLeilighetPanel.add(new JLabel("Etasje: "));
-        kontraktEtasje = new JTextField(10);
-        kontraktLeilighetPanel.add(kontraktEtasje);
+        kontraktMinEtasje = new JTextField(10);
+        kontraktMaxEtasje = new JTextField(10);
+        kontraktLeilighetPanel.add(kontraktMinEtasje);
+        kontraktLeilighetPanel.add(kontraktMaxEtasje);
 
         kontraktLeilighetPanel.add(new JLabel("Heis: "));
         kontraktHeis = new JCheckBox("");
         kontraktLeilighetPanel.add(kontraktHeis);
-
+        kontraktLeilighetPanel.add(new JLabel("")); // tom felt
+        
         kontraktLeilighetPanel.add(new JLabel("Balkong: "));
         kontraktBalkong = new JCheckBox();
         kontraktLeilighetPanel.add(kontraktBalkong);
@@ -410,6 +426,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         if (ul != null) {
             output.setText(ul.toString());
+            output.setCaretPosition(0);
             return;
         }
         if (bs != null) {
@@ -431,9 +448,11 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 }
             }
             output.setText(bs.toString() + "\n" + antallboliger + s);
+            output.setCaretPosition(0);
             return;
         }
         output.setText("Feil - finner ikke person " + fornavn.getText() + " " + etternavn.getText());
+        
     }
 
     // henter og viser informasjon om en bolig og liste over interesserte boligsøkere
@@ -441,6 +460,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         String adr = gateadresse.getText();
         String pnr = postnr.getText();
         String psted = poststed.getText();
+        JTextField[] pstnr = {postnr};
+        JTextField[] adrs = {gateadresse};
+        JTextField[] pststed = {poststed};
         
         if (adr.equals("") || pnr.equals("") || psted.equals("")) {
             output.setText("Feil - du må fylle i alle felter over");
@@ -448,15 +470,15 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         }
 
-        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, postnr.getText()))) {
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, pstnr))) {
             output.setText("Feil ved innlesing post nummer. Kun hele tallverdier.");
             return;
         }
-        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, gateadresse.getText()))) {
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, adrs))) {
             output.setText("Feil ved innlesing av adresse. Kun tall og bokstaver.");
             return;
         }
-        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, poststed.getText()))) {
+        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, pststed))) {
             output.setText("Feil ved innlesing av poststed. Kun bokstaver.");
             return;
         }
@@ -492,6 +514,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         output.setText("Bolig informasjon:\n" + b.toString() + "\nUtleier: " + u.getFornavn() + " " + u.getEtternavn());
         output.append("\n\nBoligen oppfyller kravene hos flg. boligsøkere:\n");
         output.append(interesserte);
+        output.setCaretPosition(0);
 
         // blank felter
         gateadresse.setText("");
@@ -585,11 +608,10 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         hentInfoPerson();
     }
 
+    // viser boliger ut fra min-max søkekriteria
     public void finnBoliger() {
         final int MAX = 2147483647;
         final int MIN = -2147483648;
-        
-        
 
         // felles felt
         String type = (String) boligtype.getSelectedItem();
@@ -706,7 +728,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 }
 
                 if (passer) {
-                    liste += "\n" + b.getGateadresse() + "\t" + b.getPostnr() + "\t" + b.getPoststed();
+                    liste += "\n" + b.getGateadresse() + ", " + b.getPostnr() + ", " + b.getPoststed();
                     antall++;
                 }
             }
@@ -724,7 +746,226 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     }
 
     public void finnKontrakter() {
-        //...
+        final int MAX = 2147483647;
+        final int MIN = -2147483648;
+        
+        
+
+        // felles felt
+        String type = (String) kontrakttype.getSelectedItem();
+        int minAreal = minKontraktAreal.getText().equals("") ? MIN : Integer.parseInt(minKontraktAreal.getText());
+        int maxAreal = maxKontraktAreal.getText().equals("") ? MAX : Integer.parseInt(maxKontraktAreal.getText());
+        int minRom = minKontraktRom.getText().equals("") ? MIN : Integer.parseInt(minKontraktRom.getText());
+        int maxRom = maxKontraktRom.getText().equals("") ? MAX : Integer.parseInt(maxKontraktRom.getText());
+        int minByggeaar = minKontraktByggeaar.getText().equals("") ? MIN : Integer.parseInt(minKontraktByggeaar.getText());
+        int maxByggeaar = maxKontraktByggeaar.getText().equals("") ? MAX : Integer.parseInt(maxKontraktByggeaar.getText());
+        int minPris = minKontraktPris.getText().equals("") ? MIN : Integer.parseInt(minKontraktPris.getText());
+        int maxPris = maxKontraktPris.getText().equals("") ? MAX : Integer.parseInt(maxKontraktPris.getText());
+        Date minStartDato = (minKontraktStartDato.getText().equals("") || minKontraktStartDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(minKontraktStartDato.getText());
+        Date maxStartDato = (maxKontraktStartDato.getText().equals("") || maxKontraktStartDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(maxKontraktStartDato.getText());
+        Date minSluttDato = (minKontraktSluttDato.getText().equals("") || minKontraktSluttDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(minKontraktSluttDato.getText());
+        Date maxSluttDato = (maxKontraktSluttDato.getText().equals("") || maxKontraktSluttDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(maxKontraktSluttDato.getText());
+        
+        //RegEx
+        JTextField[] jtf = {minKontraktAreal,maxKontraktAreal,minKontraktRom,maxKontraktRom,minKontraktByggeaar,maxKontraktByggeaar,minKontraktPris,maxKontraktPris,boligMinEtasjer,boligMaxEtasjer,boligMinTomtestorrelse,boligMaxTomtestorrelse,boligMinEtasje,boligMaxEtasje};
+        JTextField[] dato = {minKontraktStartDato,maxKontraktStartDato,minKontraktSluttDato,maxKontraktSluttDato};
+        
+        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, jtf))){
+            output.setText("Feil ved innlesing av felter. Må kun inneholde hele tall.");
+            return;
+        }
+        /*if(minBoligDato.getText().equals("dd.mm.åååå") || maxBoligDato.getText().equals("dd.mm.åååå")){
+            
+        }*/
+        
+        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, dato))){
+            output.setText("Feil ved innlesing av dato. Sjekk format.");
+            return;
+        }
+        
+
+        // enebolig felt
+        int minEtasjer = kontraktMinEtasjer.getText().equals("") ? MIN : Integer.parseInt(kontraktMinEtasjer.getText());
+        int maxEtasjer = kontraktMaxEtasjer.getText().equals("") ? MAX : Integer.parseInt(kontraktMaxEtasjer.getText());
+        int minTomtestorrelse = kontraktMinTomtestorrelse.getText().equals("") ? MIN : Integer.parseInt(kontraktMinTomtestorrelse.getText());
+        int maxTomtestorrelse = kontraktMaxTomtestorrelse.getText().equals("") ? MAX : Integer.parseInt(kontraktMaxTomtestorrelse.getText());
+        boolean kjeller = kontraktKjeller.isSelected();
+
+        // leilighet felt
+        int minEtasje = kontraktMinEtasje.getText().equals("") ? MIN : Integer.parseInt(kontraktMinEtasje.getText());
+        int maxEtasje = kontraktMaxEtasje.getText().equals("") ? MAX : Integer.parseInt(kontraktMaxEtasje.getText());
+        boolean heis = kontraktHeis.isSelected();
+        boolean balkong = kontraktBalkong.isSelected();
+
+        // søker i gjennom alle kontrakter (gjeldende og arkivert) og sjekker hvis hver bolig passer til kravene
+        Iterator<Kontrakt> kIterGjeldende = StartVindu.getKontraktVindu().getKontraktListe().getKontraktListeGjeldende().iterator();
+        Iterator<Kontrakt> kIterArkiv = StartVindu.getKontraktVindu().getKontraktListe().getKontraktListeArkiv().iterator();
+        Kontrakt k;
+        String utskrift = "";
+        String listeGjeldende = "";
+        String listeArkiv = "";
+        int antallGjeldende = 0;
+        int antallArkiv = 0;
+
+        // sjekker alle gjeldende kontrakter
+        while (kIterGjeldende.hasNext()) {
+            k = kIterGjeldende.next();
+            boolean passer = true;
+
+            // sjekker alle intervalene
+            if (k.getBolig().getAreal() < minAreal || k.getBolig().getAreal() > maxAreal) {
+                passer = false;
+            }
+            if (k.getBolig().getSoverom() < minRom || k.getBolig().getSoverom() > maxRom) {
+                passer = false;
+            }
+            if (k.getBolig().getByggeaar() < minByggeaar || k.getBolig().getSoverom() > maxByggeaar) {
+                passer = false;
+            }
+            if (k.getPris() < minPris || k.getPris() > maxPris) {
+                passer = false;
+            }
+            if (minStartDato != null) {
+                if (k.getStartDato().before(minStartDato)) {
+                    passer = false;
+                }
+            }
+            if (maxStartDato != null) {
+                if (k.getStartDato().after(maxStartDato)) {
+                    passer = false;
+                }
+            }
+            if (minSluttDato != null) {
+                if (k.getSluttDato().before(minSluttDato)) {
+                    passer = false;
+                }
+            }
+            if (maxSluttDato != null) {
+                if (k.getSluttDato().after(maxSluttDato)) {
+                    passer = false;
+                }
+            }
+
+            if (k.getBolig() instanceof Enebolig) {
+                Enebolig e = (Enebolig) k.getBolig();
+
+                if (e.getAntEtasjer() < minEtasjer || e.getAntEtasjer() > maxEtasjer) {
+                    passer = false;
+                }
+                if (e.getTomtAreal() < minTomtestorrelse || e.getTomtAreal() > maxTomtestorrelse) {
+                    passer = false;
+                }
+                if (!e.getKjeller() && kjeller) {
+                    passer = false;
+                }
+            }
+
+            if (k.getBolig() instanceof Leilighet) {
+                Leilighet l = (Leilighet) k.getBolig();
+
+                if (l.getEtasje() < minEtasjer || l.getEtasje() > maxEtasjer) {
+                    passer = false;
+                }
+                if (!l.getBalkong() && balkong) {
+                    passer = false;
+                }
+                if (!l.getHeis() && heis) {
+                    passer = false;
+                }
+            }
+
+            if (passer) {
+                listeGjeldende += "\n" + k.toString() + "\n";
+                antallGjeldende++;
+            }
+        }
+        
+        // sjekker alle arkiverte kontrakter
+        while (kIterArkiv.hasNext()) {
+            k = kIterArkiv.next();
+            boolean passer = true;
+
+            // sjekker alle intervalene
+            if (k.getBolig().getAreal() < minAreal || k.getBolig().getAreal() > maxAreal) {
+                passer = false;
+            }
+            if (k.getBolig().getSoverom() < minRom || k.getBolig().getSoverom() > maxRom) {
+                passer = false;
+            }
+            if (k.getBolig().getByggeaar() < minByggeaar || k.getBolig().getSoverom() > maxByggeaar) {
+                passer = false;
+            }
+            if (k.getPris() < minPris || k.getPris() > maxPris) {
+                passer = false;
+            }
+            if (minStartDato != null) {
+                if (k.getStartDato().before(minStartDato)) {
+                    passer = false;
+                }
+            }
+            if (maxStartDato != null) {
+                if (k.getStartDato().after(maxStartDato)) {
+                    passer = false;
+                }
+            }
+            if (minSluttDato != null) {
+                if (k.getSluttDato().before(minSluttDato)) {
+                    passer = false;
+                }
+            }
+            if (maxSluttDato != null) {
+                if (k.getSluttDato().after(maxSluttDato)) {
+                    passer = false;
+                }
+            }
+
+            if (k.getBolig() instanceof Enebolig) {
+                Enebolig e = (Enebolig) k.getBolig();
+
+                if (e.getAntEtasjer() < minEtasjer || e.getAntEtasjer() > maxEtasjer) {
+                    passer = false;
+                }
+                if (e.getTomtAreal() < minTomtestorrelse || e.getTomtAreal() > maxTomtestorrelse) {
+                    passer = false;
+                }
+                if (!e.getKjeller() && kjeller) {
+                    passer = false;
+                }
+            }
+
+            if (k.getBolig() instanceof Leilighet) {
+                Leilighet l = (Leilighet) k.getBolig();
+
+                if (l.getEtasje() < minEtasjer || l.getEtasje() > maxEtasjer) {
+                    passer = false;
+                }
+                if (!l.getBalkong() && balkong) {
+                    passer = false;
+                }
+                if (!l.getHeis() && heis) {
+                    passer = false;
+                }
+            }
+
+            if (passer) {
+                listeArkiv += "\n" + k.toString() + "\n";
+                antallArkiv++;
+            }
+            
+        }
+
+        utskrift += "\nAntall gjeldende kontrakter som tilsvarer kriteriene:" + antallGjeldende;
+        utskrift += "\nAntall arkiverte kontrakter som tilsvarer kriteriene:" + antallArkiv;
+        output.setText(utskrift);
+        if (antallGjeldende > 0) {
+            output.append("\n\nGjeldende kontrakter: ");
+            output.append(listeGjeldende);
+        } 
+        
+        if (antallArkiv > 0) {
+            output.append("\n\nArkiverte kontrakter: ");
+            output.append(listeGjeldende);
+        } 
     }
 
     public void tegnGjeldendeKontraktTabell() {
@@ -754,7 +995,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             tabellPanel.removeAll();
             tegnBoligsoekerTabell();
             tabellPanel.add(new JScrollPane(boligsoekerTabell));
-            tabellPanel.add(gaaTilBoligsoeker, BorderLayout.PAGE_END);
+            tabellPanel.add(gaaTilBoligsoeker, BorderLayout.PAGE_START);
             tabellPanel.revalidate();
             masterPanel.remove(under);
             masterPanel.add(tabellPanel, BorderLayout.CENTER);
@@ -764,7 +1005,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             tabellPanel.removeAll();
             tegnUtleierTabell();
             tabellPanel.add(new JScrollPane(utleierTabell));
-            tabellPanel.add(gaaTilUtleier, BorderLayout.PAGE_END);
+            tabellPanel.add(gaaTilUtleier, BorderLayout.PAGE_START);
             tabellPanel.revalidate();
             masterPanel.remove(under);
             masterPanel.add(tabellPanel, BorderLayout.CENTER);
@@ -798,7 +1039,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             tabellPanel.removeAll();
             tegnBoligtabell();
             tabellPanel.add(new JScrollPane(boligTabell));
-            tabellPanel.add(gaaTilBolig, BorderLayout.PAGE_END);
+            tabellPanel.add(gaaTilBolig, BorderLayout.PAGE_START);
             tabellPanel.revalidate();
             masterPanel.remove(under);
             masterPanel.add(tabellPanel, BorderLayout.CENTER);

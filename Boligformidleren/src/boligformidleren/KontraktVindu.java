@@ -197,6 +197,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         bs.leterIkkeEtterBolig();
 
         output.setText("Kontrakt registrert:\n" + k.toString());
+        output.setCaretPosition(0);
     }
 
     public void siOppKontrakt() {
