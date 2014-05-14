@@ -204,7 +204,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         visAlleUtleiere.addActionListener(this);
         personPanel.add(visAlleUtleiere);
 
-        gaaTilBoligsoeker = new JButton("Gå til boligsøker");
+        gaaTilBoligsoeker = new JButton("Gå til valgt boligsøker");
         gaaTilBoligsoeker.addActionListener(this);
 
         gaaTilUtleier = new JButton("Gå til valgt utleier");
@@ -227,7 +227,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         visBoligInfo.addActionListener(this);
         venstreBoligPanel.add(visBoligInfo);
 
-        gaaTilBolig = new JButton("Gå til bolig");
+        gaaTilBolig = new JButton("Gå til valgt bolig");
         gaaTilBolig.addActionListener(this);
 
         // høyre bolig panel
@@ -648,19 +648,6 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         final int MAX = 2147483647;
         final int MIN = -2147483648;
 
-        // felles felt
-        String type = (String) boligtype.getSelectedItem();
-        int minAreal = minBoligAreal.getText().equals("") ? MIN : Integer.parseInt(minBoligAreal.getText());
-        int maxAreal = maxBoligAreal.getText().equals("") ? MAX : Integer.parseInt(maxBoligAreal.getText());
-        int minRom = minBoligRom.getText().equals("") ? MIN : Integer.parseInt(minBoligRom.getText());
-        int maxRom = maxBoligRom.getText().equals("") ? MAX : Integer.parseInt(maxBoligRom.getText());
-        int minByggeaar = minBoligByggeaar.getText().equals("") ? MIN : Integer.parseInt(minBoligByggeaar.getText());
-        int maxByggeaar = maxBoligByggeaar.getText().equals("") ? MAX : Integer.parseInt(maxBoligByggeaar.getText());
-        int minPris = minBoligPris.getText().equals("") ? MIN : Integer.parseInt(minBoligPris.getText());
-        int maxPris = maxBoligPris.getText().equals("") ? MAX : Integer.parseInt(maxBoligPris.getText());
-        Date minDato = (minBoligDato.getText().equals("") || minBoligDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(minBoligDato.getText());
-        Date maxDato = (maxBoligDato.getText().equals("") || maxBoligDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(maxBoligDato.getText());
-
         //RegEx
         JTextField[] jtf = {minBoligAreal,maxBoligAreal,minBoligRom,maxBoligRom,minBoligByggeaar,maxBoligByggeaar,minBoligPris,maxBoligPris,boligMinEtasjer,boligMaxEtasjer,boligMinTomtestorrelse,boligMaxTomtestorrelse,boligMinEtasje,boligMaxEtasje};
         JTextField[] dato = {minBoligDato,maxBoligDato};
@@ -669,8 +656,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         
         // vi må sjekke først hvis feltene er tom eller ikke
         // det skal være OK hvis de er tom
-        if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, dato))){
-            output.setText("Feil - bruk kun heltall i alle felt utenfør dato");
+        String melding = StartVindu.kontrollerRegExTomFeltOK(StartVindu.PATTERNHELTALL, jtf);
+        if(!melding.equals("")){
+            output.setText("Feil - bruk heltall istedetfor " + melding);
             return;
         }
         
@@ -708,6 +696,19 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         }
         */
 
+        // felles felt
+        String type = (String) boligtype.getSelectedItem();
+        int minAreal = minBoligAreal.getText().equals("") ? MIN : Integer.parseInt(minBoligAreal.getText());
+        int maxAreal = maxBoligAreal.getText().equals("") ? MAX : Integer.parseInt(maxBoligAreal.getText());
+        int minRom = minBoligRom.getText().equals("") ? MIN : Integer.parseInt(minBoligRom.getText());
+        int maxRom = maxBoligRom.getText().equals("") ? MAX : Integer.parseInt(maxBoligRom.getText());
+        int minByggeaar = minBoligByggeaar.getText().equals("") ? MIN : Integer.parseInt(minBoligByggeaar.getText());
+        int maxByggeaar = maxBoligByggeaar.getText().equals("") ? MAX : Integer.parseInt(maxBoligByggeaar.getText());
+        int minPris = minBoligPris.getText().equals("") ? MIN : Integer.parseInt(minBoligPris.getText());
+        int maxPris = maxBoligPris.getText().equals("") ? MAX : Integer.parseInt(maxBoligPris.getText());
+        Date minDato = (minBoligDato.getText().equals("") || minBoligDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(minBoligDato.getText());
+        Date maxDato = (maxBoligDato.getText().equals("") || maxBoligDato.getText().equals(StartVindu.DATOFORMAT)) ? null : StartVindu.konverterDato(maxBoligDato.getText());
+
         // enebolig felt
         int minEtasjer = boligMinEtasjer.getText().equals("") ? MIN : Integer.parseInt(boligMinEtasjer.getText());
         int maxEtasjer = boligMaxEtasjer.getText().equals("") ? MAX : Integer.parseInt(boligMaxEtasjer.getText());
@@ -739,7 +740,10 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 b = bIter.next();
                 boolean passer = true;
 
-                // sjekker alle intervalene
+                // sjekker alle søkekriterierne
+                if(!type.equals(BOLIGTYPE[0]))
+                    if(!b.getType().equals(type))
+                        passer = false;
                 if (b.getAreal() < minAreal || b.getAreal() > maxAreal) {
                     passer = false;
                 }
@@ -765,7 +769,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
                 if (b instanceof Enebolig) {
                     Enebolig e = (Enebolig) b;
-
+                    System.out.println(e.getKjeller());
                     if (e.getAntEtasjer() < minEtasjer || e.getAntEtasjer() > maxEtasjer) {
                         passer = false;
                     }
@@ -776,11 +780,11 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                         passer = false;
                     }
                 }
-
-                if (b instanceof Leilighet) {
+                else{
+                //if (b instanceof Leilighet) {
                     Leilighet l = (Leilighet) b;
 
-                    if (l.getEtasje() < minEtasjer || l.getEtasje() > maxEtasjer) {
+                    if (l.getEtasje() < minEtasje || l.getEtasje() > maxEtasje) {
                         passer = false;
                     }
                     if (!l.getBalkong() && balkong) {

@@ -221,6 +221,16 @@ public class StartVindu extends JFrame implements ActionListener {
         return true;
     }
     
+    // sjekker helt array av tekstfelter om de passer til regex-pattern
+    public static String kontrollerRegExTomFeltOK(String pattern, JTextField[] input) {
+        for (int i = 0; i < input.length; i++) {
+            if(!input[i].getText().equals(""))
+                if (!input[i].getText().matches(pattern))
+                    return input[i].getText();
+        }
+        return "";
+    }
+    
     // sjekker om en tekststreng (input) passer til en regex-pattern
     public static boolean kontrollerRegEx(String pattern, String input) {
         if (!input.matches(pattern))
@@ -314,8 +324,8 @@ public class StartVindu extends JFrame implements ActionListener {
                             parameter[4], parameter[5], Integer.parseInt(parameter[6]), parameter[7], parameter[8],
                             Integer.parseInt(parameter[9]), Integer.parseInt(parameter[10]), Integer.parseInt(parameter[11]),
                             Integer.parseInt(parameter[12]), konverterDato(parameter[13]), Integer.parseInt(parameter[14]),
-                            Integer.parseInt(parameter[15]), parameter[16] == "true" ? true: false, Integer.parseInt(parameter[17]),
-                            parameter[18] == "true" ? true: false, parameter[19] == "true" ? true: false);
+                            Integer.parseInt(parameter[15]), parameter[16].equals("true") ? true: false, Integer.parseInt(parameter[17]),
+                            parameter[18].equals("true") ? true: false, parameter[19].equals("true") ? true: false);
                     bm.settInn(bs);
                     teller = 0;
                 }
@@ -349,7 +359,7 @@ public class StartVindu extends JFrame implements ActionListener {
                         Bolig b = new Leilighet(parameter[0], Integer.parseInt(parameter[1]), parameter[2], parameter[3], parameter[4],
                                 konverterDato(parameter[5]), Integer.parseInt(parameter[6]), Integer.parseInt(parameter[7]),
                                 Integer.parseInt(parameter[8]), Integer.parseInt(parameter[9]),
-                                Integer.parseInt(parameter[13]), parameter[14] == "true" ? true: false, parameter[15] == "true" ? true: false);
+                                Integer.parseInt(parameter[13]), parameter[14].equals("true") ? true: false, parameter[15].equals("true") ? true: false);
                         Utleier ul = um.finnUtleier(parameter[16].trim(), parameter[17].trim());
                         ul.regBolig(b);
                         teller = 0;
@@ -358,7 +368,7 @@ public class StartVindu extends JFrame implements ActionListener {
                         Bolig b = new Enebolig(parameter[0], Integer.parseInt(parameter[1]), parameter[2], parameter[3], parameter[4],
                                 konverterDato(parameter[5]), Integer.parseInt(parameter[6]), Integer.parseInt(parameter[7]),
                                 Integer.parseInt(parameter[8]), Integer.parseInt(parameter[9]),
-                                Integer.parseInt(parameter[10]), Integer.parseInt(parameter[11]), parameter[12] == "true" ? true: false);
+                                Integer.parseInt(parameter[10]), Integer.parseInt(parameter[11]), parameter[12].equals("true") ? true: false);
                         Utleier ul = um.finnUtleier(parameter[16].trim(), parameter[17].trim());
                         ul.regBolig(b);
                         teller = 0;
