@@ -373,8 +373,43 @@ public class StartVindu extends JFrame implements ActionListener {
         catch(IOException e){
             System.out.println(e.getMessage());
         }
+        
+        // generate kontrakter
+        try(BufferedReader inntekst = new BufferedReader(new FileReader("kontrakter.txt"))){
+            String innlinje = null;
+            int teller = 0;
+            int antParameterPerPerson = 10;
+            String[] parameter = new String[antParameterPerPerson];
+            
+            do{
+                innlinje = inntekst.readLine();
+                
+                if(innlinje != null){
+                    parameter[teller++] = innlinje;
+                }
+                if(teller == antParameterPerPerson){
+                    Bolig b = utleierVindu.getUtleierMengde().finnBolig(parameter[0], Integer.parseInt(parameter[1]), parameter[2]);
+                    Utleier ul = utleierVindu.getUtleierMengde().finnUtleier(parameter[3], parameter[4]);
+                    Boligsoeker bs = boligsoekerVindu.getBoligsoekerMengde().finnBoligsoeker(parameter[5], parameter[6]);
+                    Kontrakt k = new Kontrakt(b, ul, bs, Integer.parseInt(parameter[7]), konverterDato(parameter[8]), konverterDato(parameter[9]));
+                    
+                    kontraktVindu.getKontraktListe().settInn(k);
+                    b.boligErOpptatt();
+                    bs.leterIkkeEtterBolig();
+                    
+                    teller = 0;
+                }
+            }while(innlinje != null);
+                    
+        }
+        catch(FileNotFoundException fnfe){
+            System.out.println(fnfe.getMessage());
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+        }
     }
-
+                    
     // skriver utleiermengden, boligsøkermengden og kontraktlisten til fil
     public void skrivTilFil() {
         utleierVindu.skrivUtleierTilFil();
