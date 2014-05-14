@@ -1,0 +1,27 @@
+27.03 - startet å opprette klassehierarki for Bolig og Person.
+02.04 - Eivind: lagt til Personmengde og Personsammenlikner. skal være mulig å legge personobjekter inn i datastruktur. Ikke fått testet.
+03.04 - Lagde Kontraktliste, tenkte ut enkelte registreringsmetoder i Vindusklassen.
+04.04 - Hadde møte (fredag) gretar reiser søndag. prøvde å fordele lit, bli enige om hvor vi går videre. Ikke så mye koding. Øvd på brukergrensesnitt.
+07.04 - Gjorde en utskriftsmetode (testing) sjekket at det gikk an å registrere en person. Hlest skulle sigurd gjort d, men klarte ikke...
+11.04 - Prøvde å gjøre registrere boligmetoden, samt få skrevet ut registrerte boliger sammen med registrerte personer. Fikk problemer. Må vurdere
+        om vi skal splitte opp Personmengde i Boligsøkermengde og Utleiermengde, tror det blir mindre tungvindt. Gretar ferie, påskeferie imorgen,
+        vanskelig å diskutere med folk.
+18.04 - Splittet personmengde i Utleiermengde og BoligsoekerMengde. Prøvde å få til  registrer bolig funksjonen, men usikker på om det fungerte.
+25.04 - Jobbet litt peu en peu siste dager med bare diverse småting og metoder. Begynte idag på filbehandling, kun for å teste enkelt i starten. Møtte på problemer
+        spesielt pga TreeSet som er sortert ikke lar seg serialisere.
+28.04 - Fortsatte filbehenadling og fikk fiksa. Kan foreløpig kun lagre Utleiere og Boligsoekere. Vurderer forskjellige løsninger i programmet, muligens en egen 
+        filbehandlingsklasse.
+29.04 - (2150 linjer) Trenger testing av flg: Registrering av flere boliger med samme adresse skal ikke være mulig. Trenger å lage filer med mange personer og boliger for testing.
+                      Testing på alfabetisk sortering.
+30.04 - (2300 ca)     Jobbet hovedsaklig med datoformatering.
+01.05 - (2631 linjer) Møttes på skolen igjen (jeg og gretar, har gjort hver gang denne uka). Drev med litt feilhåndtering, ca 3 1/2 time.
+02.05 - (           ) Kom på skolen ca 12, må dra igjen ca kl. 14, så ikke fått jobbet så mye idag. Går sakte fremover. Drevet med mer feilhåndtering/kontrollering
+                      av brukerinput.
+05.05 -               Møttes igjen, jobbet som vanlig, kom et stykke videre. Begynner å nærme oss leveringsfrist også. Har en god del igjen, spesielt på dokumentsjonssiden.
+06.05 - (3408 linjer) Jobbet bra idag, fikk gjort mye, spess med kontrakter og sjekking av utgåtte kontrkter, registrering osv.
+08.05 - Startet med JTable i Informasjonsvindu.
+11.05 - Sigurd kom, første gang siden påske. Jobbet mye med JTable, prøver å få til at man kan klikke på et navn også kommer det info om personen.
+
+
+
+Kan vi endre bolig fra en utleier til en annen? Ja, hvis man først sletter boligen hos en utleier også registrerer den hos en annen igjen.

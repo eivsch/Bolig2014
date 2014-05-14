@@ -421,7 +421,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         kontraktKnappPanel.add(visGjeldendeKontrakter);
     }
 
-    // hent opplysninger om en navngitt person
+    // hent detaljerte opplysninger om en navngitt person
     public void hentInfoPerson() {
         Utleier ul = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(
                 fornavn.getText(), etternavn.getText());
@@ -438,7 +438,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             return;
         }
         if (bs != null) {
-            // Viser hvilke boliger personen passer til
+            // Skriver ut hvilke boliger personen passer til
             int antallboliger = 0;
             String s = " mulige boliger: ";
             Iterator<Utleier> utleierIterator = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
@@ -460,7 +460,6 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             return;
         }
         output.setText("Feil - finner ikke person " + fornavn.getText() + " " + etternavn.getText());
-
     }
 
     // henter og viser informasjon om en bolig og liste over interesserte boligsøkere
@@ -530,35 +529,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         poststed.setText("");
     }
 
-    public void tegnBoligtabell() {
-        BoligTabellmodell btm = new BoligTabellmodell();
-        boligTabell = new JTable(btm);
-        boligTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        boligTabell.setAutoCreateRowSorter(true);
-    }
-
-    // Skal hente informasjon om en bolig på valgt rad i tabell.
-    public void hentBoligFraTabell() {
-        // Henter hvilker kolonner som inneholder boligens ID.
-        BoligTabellmodell btm = new BoligTabellmodell();
-        int[] nokkelkolonner = btm.getNokellkolonner();
-
-        // Henter valgt rad. -1 returneres hvis ingen rad er valgt.
-        int rad = boligTabell.getSelectedRow();
-        if (rad == -1) {
-            output.setText("Du må velge en rad!");
-            return;
-        }
-        // Setter data fra tabell inn i riktige inputfelter
-        JTextField[] nokkelfelt = {gateadresse, poststed, postnr};
-        Object o;
-        for (int i = 0; i < nokkelkolonner.length; i++) {
-            o = boligTabell.getValueAt(rad, nokkelkolonner[i]);
-            nokkelfelt[i].setText(o.toString());
-        }
-        visBoligInfo();
-    }
-
+    // Metoder for å lage tabeller
     public void tegnUtleierTabell() {
         UtleierTabellmodell utm = new UtleierTabellmodell();
         utleierTabell = new JTable(utm);
@@ -574,9 +545,63 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         }
     }
 
-    // Henter data om utleier fra valgt rad i tabell. Henter dataene fra kolonnene 
-    // som skal skjules
+    public void tegnBoligsoekerTabell() {
+        BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
+        boligsoekerTabell = new JTable(bstm);
+        boligsoekerTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        boligsoekerTabell.setAutoCreateRowSorter(true);
+        //skjuler gitte kolonner fra display
+        String[] skjules = bstm.getKolonnerSkalSkjules();
+        for (int i = 0; i < skjules.length; i++) {
+            TableColumn tc = boligsoekerTabell.getColumn(skjules[i]);
+            tc.setMinWidth(0);
+            tc.setMaxWidth(0);
+            tc.setPreferredWidth(0);
+        }
+    }
+
+    public void tegnBoligtabell() {
+        BoligTabellmodell btm = new BoligTabellmodell();
+        boligTabell = new JTable(btm);
+        boligTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        boligTabell.setAutoCreateRowSorter(true);
+    }
+
+    public void tegnGjeldendeKontraktTabell() {
+        List<Kontrakt> gjeldende = StartVindu.getKontraktVindu().getKontraktListe().getKontraktListeGjeldende();
+        KontraktTabellmodell ktm = new KontraktTabellmodell(gjeldende);
+        kontraktTabell = new JTable(ktm);
+        kontraktTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+    
+    /**
+     * Metoder for å hente informasjon fra en valgt tabellrad og vise mer 
+     * detaljerte opplysninger om objektet tabellraden forestiller.
+     */ 
+    public void hentBoligsoekerFraTabell() {
+        // Henter hvilke kolonner som inneholder boligsøkerens ID.
+        // Dette er de samme kolonnene som skal være skjulte for brukeren.
+        BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
+        int[] nokkelkolonner = bstm.getKolonnerSkalSkjulesIndeks();
+
+        // Henter valgt rad. -1 returneres hvis ingen rad er valgt.
+        int rad = boligsoekerTabell.getSelectedRow();
+        if (rad == -1) {
+            output.setText("Du må velge en rad!");
+            return;
+        }
+        // Setter data fra tabell inn i riktige inputfelter.
+        JTextField[] navnefelt = {fornavn, etternavn};
+        Object o;
+        for (int i = 0; i < nokkelkolonner.length; i++) {
+            o = boligsoekerTabell.getValueAt(rad, nokkelkolonner[i]);
+            navnefelt[i].setText(o.toString());
+        }
+        hentInfoPerson();
+    }
+
     public void hentUtleierFraTabell() {
+        // Henter hvilke kolonner som inneholder boligsøkerens ID.
         UtleierTabellmodell utm = new UtleierTabellmodell();
         int[] nokkelkolonner = utm.getKolonnerSkalSkjulesIndeks();
 
@@ -597,41 +622,25 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         hentInfoPerson();
     }
 
-    public void tegnBoligsoekerTabell() {
-        BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
-        boligsoekerTabell = new JTable(bstm);
-        boligsoekerTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        boligsoekerTabell.setAutoCreateRowSorter(true);
-        //skjuler gitte kolonner fra display
-        String[] skjules = bstm.getKolonnerSkalSkjules();
-        for (int i = 0; i < skjules.length; i++) {
-            TableColumn tc = boligsoekerTabell.getColumn(skjules[i]);
-            tc.setMinWidth(0);
-            tc.setMaxWidth(0);
-            tc.setPreferredWidth(0);
-        }
-    }
-
-    // Henter data om boligsøker fra tabell for å vise denne for brukeren. Henter
-    // dataene fra kolonnene som skal skjules
-    public void hentBoligsoekerFraTabell() {
-        BoligsoekerTabellmodell bstm = new BoligsoekerTabellmodell();
-        int[] nokkelkolonner = bstm.getKolonnerSkalSkjulesIndeks();
+    public void hentBoligFraTabell() {
+        // Henter hvilker kolonner som inneholder boligens ID.
+        BoligTabellmodell btm = new BoligTabellmodell();
+        int[] nokkelkolonner = btm.getNokellkolonner();
 
         // Henter valgt rad. -1 returneres hvis ingen rad er valgt.
-        int rad = boligsoekerTabell.getSelectedRow();
+        int rad = boligTabell.getSelectedRow();
         if (rad == -1) {
             output.setText("Du må velge en rad!");
             return;
         }
-        // Setter data fra tabell inn i riktige inputfelter.
-        JTextField[] navnefelt = {fornavn, etternavn};
+        // Setter data fra tabell inn i riktige inputfelter
+        JTextField[] nokkelfelt = {gateadresse, poststed, postnr};
         Object o;
         for (int i = 0; i < nokkelkolonner.length; i++) {
-            o = boligsoekerTabell.getValueAt(rad, nokkelkolonner[i]);
-            navnefelt[i].setText(o.toString());
+            o = boligTabell.getValueAt(rad, nokkelkolonner[i]);
+            nokkelfelt[i].setText(o.toString());
         }
-        hentInfoPerson();
+        visBoligInfo();
     }
 
     // viser boliger ut fra min-max søkekriteria
@@ -1019,14 +1028,6 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             output.append("\n\nArkiverte kontrakter: ");
             output.append(listeGjeldende);
         }
-    }
-
-    public void tegnGjeldendeKontraktTabell() {
-        List<Kontrakt> gjeldende = StartVindu.getKontraktVindu().getKontraktListe().getKontraktListeGjeldende();
-        KontraktTabellmodell ktm = new KontraktTabellmodell(gjeldende);
-        kontraktTabell = new JTable(ktm);
-        kontraktTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        kontraktTabell.setAutoCreateRowSorter(true);
     }
 
     public void melding(String s) {

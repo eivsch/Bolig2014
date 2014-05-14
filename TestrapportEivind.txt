@@ -1,0 +1,26 @@
+Testet for at en leitaker ikke skal vises som interessert på en bolig. -ES
+
+Kan se ut som at når en bolig er registrert som opptatt, så vises heller ingen
+boligsøkere som interesserte i den boligen.
+
+KONTRAKTTESTING
+Tester for at en leietaker ikke skal kunne ha flere gjeldende kontrakter: 
+Testet 1 gang med to gjeldende kontrakter innenfor samme tidsperiode. Fungerte
+som det skulle. Testet deretter om jeg fikk registrert en ny kontrakt som først
+skulle tre i kraft etter at nåværende kontrakt var utgått, dette er det foreløpig
+ingen støtte for i programmet, men får tilfredstillende feilmelding. Prøvde derretter
+å registrere kontrakt som har startdato før nåværende kontrakt, fungerte også som
+det skulle. Får heller ikke registrert kontrakt som har både start og sluttdato før
+nåværende kontrakts start.
+
+Testet 1 gang for startdato etter sluttdato, fungerte som det skulle.
+
+FEIL! -En leietaker som har utgått kontrakt blir fortsatt behandlet som "leter ikke
+etter bolig", og vises ikke opp som interessert på boliger. - ES. Fikset, 14.05, testet
+en gang og det fungerte som det skulle.
+
+Testet 1 gang for at en bolig ikke skal kunne ha mer enn 1 kontrakt på seg. Fungerer
+som det skal.
+
+FEIL! Testet "Gå til bolig" - funksjonen. Fungerte ikke når poststed var i flere ord. 
+FIKSET - Var feil i RegEx
