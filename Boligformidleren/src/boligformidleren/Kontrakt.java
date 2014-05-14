@@ -11,21 +11,19 @@ import java.io.*;
 import java.util.Date;
 
 /**
- * Klassen skal representere en kontrakt. Kontrakt skal ikke kunne endres
- * og derfor settes fungerer toString()-metoden egentlig som en get-metode,
- * dvs. den returneren alle informasjon om kontrakten.
+ * Klassen skal representere en kontrakt. Kontrakt skal ikke kunne endres.
  */
 public class Kontrakt implements Serializable {
-    
+
     private String utskrift;
     private Date startDato, sluttDato;
     private int pris;
     private Bolig b;
     private Utleier u;
     private Boligsoeker bs;
-    
+
     // konstruktør
-    public Kontrakt( Bolig b, Utleier u, Boligsoeker bs, int pris, Date startDato, Date sluttDato){
+    public Kontrakt(Bolig b, Utleier u, Boligsoeker bs, int pris, Date startDato, Date sluttDato) {
         this.startDato = startDato;
         this.sluttDato = sluttDato;
         this.pris = pris;
@@ -46,8 +44,8 @@ public class Kontrakt implements Serializable {
     public Date getSluttDato(){
         return sluttDato;
     }
-    
-    public Boligsoeker getBoligsoeker(){
+
+    public Boligsoeker getBoligsoeker() {
         return bs;
     }
 
@@ -67,5 +65,15 @@ public class Kontrakt implements Serializable {
                    "\nSluttdato:\t" + StartVindu.ENKELDATOFORMAT.format(sluttDato) +
                    "\nLeiepris:\t" + pris;
         return utskrift;
+    }
+
+    // Skal legge informasjon om en kontrakt i en tabellrad. 
+    public Object[] tilRad() {
+        Object[] rad = {b.getGateadresse(), new Integer(b.getPostnr()) + ", " + 
+                b.getPoststed(), u.getFornavn() + " " + u.getEtternavn(), 
+                bs.getFornavn() + " " + bs.getEtternavn(), 
+                StartVindu.ENKELDATOFORMAT.format(startDato), 
+                StartVindu.ENKELDATOFORMAT.format(sluttDato)};
+        return rad;
     }
 }

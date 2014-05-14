@@ -21,17 +21,21 @@ public class KontraktListe implements Serializable {
     private List<Kontrakt> kontraktListeArkiv = new ArrayList<Kontrakt>();
 
     // get metoder
-    public List getKontraktListeGjeldende(){
-        return kontraktListeGjeldende;
-    }
-    
-    public List getKontraktListeArkiv(){
-        return kontraktListeArkiv;
-    }
-    
-    
     public void settInn(Kontrakt k) {
         kontraktListeGjeldende.add(k);
+    }
+    
+    // Returnerer totalt antall lagrede kontrakter
+    public int antKontrakter(){
+        return kontraktListeGjeldende.size() + kontraktListeArkiv.size();
+    }
+    
+    public List<Kontrakt> getKontraktListeGjeldende(){
+        return kontraktListeGjeldende;
+    }
+
+    public List<Kontrakt> getKontraktListeArkiv() {
+        return kontraktListeArkiv;
     }
     
     public void fjernGjeldendeKontraktOgArkiver(Kontrakt k){
