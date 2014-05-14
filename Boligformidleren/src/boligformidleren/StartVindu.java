@@ -179,6 +179,15 @@ public class StartVindu extends JFrame implements ActionListener {
                     }
                 }
         );
+        
+        // lukkeknapp for InformasjonVindu
+        informasjonVindu.addWindowListener(
+                new WindowAdapter(){
+                    public void windowClosing(WindowEvent e){
+                        //informasjonVindu.blankFelter();
+                    }
+                }
+        );
     }
 
     // get metoder

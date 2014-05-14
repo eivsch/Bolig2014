@@ -32,13 +32,19 @@ public class Kontrakt implements Serializable {
         this.b = b;
         this.u = u;
         this.bs = bs;
-        
-        utskrift = "Bolig-info:\n" + b.toString() +
-                   "\n\nUtleier-info:\n" + u.toString() +
-                   "\n\nLeietaker-info:\n" + bs.toString() +
-                   "\n\nLeiepris:\n" + pris +
-                   "\n\nStartDato:\n" + StartVindu.ENKELDATOFORMAT.format(startDato) +
-                   "\n\nSluttdato: " + StartVindu.ENKELDATOFORMAT.format(sluttDato);
+    }
+    
+    // get metoder
+    public int getPris(){
+        return pris;
+    }
+    
+    public Date getStartDato(){
+        return startDato;
+    }
+    
+    public Date getSluttDato(){
+        return sluttDato;
     }
     
     public Boligsoeker getBoligsoeker(){
@@ -48,16 +54,18 @@ public class Kontrakt implements Serializable {
     public Bolig getBolig() {
         return b;
     }
-
-    public Date getSluttDato() {
-        return sluttDato;
-    }
-
-    public Date getStartDato() {
-        return startDato;
+    
+    public Utleier getUtleier(){
+        return u;
     }
     
     public String toString(){
+        utskrift = "Bolig-info:\t" + b.getGateadresse() + ", " + b.getPostnr() + " " + b.getPoststed() +
+                   "\nUtleier-info:\t" + u.getFornavn() + " " + u.getEtternavn() +
+                   "\nLeietaker-info:\t" + bs.getFornavn() + " " + bs.getEtternavn() +
+                   "\nStartDato:\t" + StartVindu.ENKELDATOFORMAT.format(startDato) +
+                   "\nSluttdato:\t" + StartVindu.ENKELDATOFORMAT.format(sluttDato) +
+                   "\nLeiepris:\t" + pris;
         return utskrift;
     }
 }

@@ -20,6 +20,16 @@ public class KontraktListe implements Serializable {
     private List<Kontrakt> kontraktListeGjeldende = new ArrayList<Kontrakt>();
     private List<Kontrakt> kontraktListeArkiv = new ArrayList<Kontrakt>();
 
+    // get metoder
+    public List getKontraktListeGjeldende(){
+        return kontraktListeGjeldende;
+    }
+    
+    public List getKontraktListeArkiv(){
+        return kontraktListeArkiv;
+    }
+    
+    
     public void settInn(Kontrakt k) {
         kontraktListeGjeldende.add(k);
     }
