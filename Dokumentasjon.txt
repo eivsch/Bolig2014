@@ -98,3 +98,12 @@ Jeg sette "Endre" knapper for feltene i UtleierVinduet og en FocusListener som s
 Gretar skriver:
 Har sett "Endre" knapper til hvert felt i Boligsøker vinduet. Har også sett autofill. Nu skal UtleierVindu og BoligsoekerVindu være klar og alt skal fungere (registrere, endre, slette) utenfør REGEX.
 Har fikset endring av drop-down felter (soverom, etasjer for enebolig, etasje for leilighet), som hadde noen feil men fungerer nu.
+
+12.05
+Gretar skriver:
+EndreFelt-funksjonen var mye mer vanskelig enn jeg trodde at få til å fungere riktig. Men nu har jeg tested det og det skal fungere ordenlig nu for Utleiervinduet og boligsøkervinduet. Boligsøkervinduet trengte en "ingen krav" mulighet i drop-down listen for boligtypen og antall soverom. Jeg har fikset det.
+
+13.05
+Gretar skriver:
+Endring av attributer for boliger i BoligVinduet har også blitt velding vanskelig til å få at fungere ordentlig. Når brukeren vil endre boligtypen f.eks. fra "enebolig/rekkehus" til "leilighet" så måtte jeg først opprette et nytt leilighet-objekt og legge det inn i boliglisten for denne utleieren og så fjerne denne gamle eneboligen. Men det fungerer greit nu.
+Jeg har endret det utseende for Startvinduet.
