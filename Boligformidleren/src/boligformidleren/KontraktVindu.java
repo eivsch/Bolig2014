@@ -247,8 +247,8 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         leietakerFornavn.setText("");
         leietakerEtternavn.setText("");
         pris.setText("");
-        sluttDatoFelt.setText("");
-        startDatoFelt.setText("");
+        sluttDatoFelt.setText("dd.mm.åååå");
+        startDatoFelt.setText("dd.mm.åååå");
         output.setText("");
     }
 
