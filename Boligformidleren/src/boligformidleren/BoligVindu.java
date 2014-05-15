@@ -1,6 +1,6 @@
 /*
  * Innhold: Vindu som brukes for registrering, slettning og endring av boliger.
- * Sist oppdatert: 29.04.2014 kl.14:45
+ * Sist oppdatert: 15.05.2014 kl.18:52
  * Programmert av: Gretar, Eivind
  */
 package boligformidleren;
@@ -8,8 +8,6 @@ package boligformidleren;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -106,7 +104,6 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         boligtype.setSelectedIndex(0);
         boligtype.addActionListener(this);
         fellesPanel.add(boligtype);
-        
         endreType = new JButton("Endre");
         endreType.addActionListener(this);
         fellesPanel.add(endreType);
