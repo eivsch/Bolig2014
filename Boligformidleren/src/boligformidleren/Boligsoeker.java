@@ -171,19 +171,19 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
         boolean passer = true;
 
-        if (areal != StartVindu.INGENKRAV && areal > b.getAreal()) {
+        if (areal != StartVindu.getINGENKRAV() && areal > b.getAreal()) {
             passer = false;
         }
-        if (byggeaar != StartVindu.INGENKRAV && byggeaar > b.getByggeaar()) {
+        if (byggeaar != StartVindu.getINGENKRAV() && byggeaar > b.getByggeaar()) {
             passer = false;
         }
         if (dato != null && dato.after(b.getDato())) {
             passer = false;
         }
-        if (pris != StartVindu.INGENKRAV && pris < b.getPris()) {
+        if (pris != StartVindu.getINGENKRAV() && pris < b.getPris()) {
             passer = false;
         }
-        if (soverom != StartVindu.INGENKRAV && soverom > b.getSoverom()) {
+        if (soverom != StartVindu.getINGENKRAV() && soverom > b.getSoverom()) {
             passer = false;
         }
         if (!type.equals("Ingen krav") && !type.equals(b.getType())) {
@@ -193,10 +193,10 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         if (b instanceof EneboligRekkehus) {
             EneboligRekkehus e = (EneboligRekkehus) b;
 
-            if (maxAntEtasjer != StartVindu.INGENKRAV && maxAntEtasjer < e.getAntEtasjer()) {
+            if (maxAntEtasjer != StartVindu.getINGENKRAV() && maxAntEtasjer < e.getAntEtasjer()) {
                 passer = false;
             }
-            if (tomtestorrelse != StartVindu.INGENKRAV && tomtestorrelse > e.getTomtAreal()) {
+            if (tomtestorrelse != StartVindu.getINGENKRAV() && tomtestorrelse > e.getTomtAreal()) {
                 passer = false;
             }
             if (kjeller && !e.getKjeller()) {
@@ -207,7 +207,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         if (b instanceof Leilighet) {
             Leilighet l = (Leilighet) b;
 
-            if (maxEtasje != StartVindu.INGENKRAV && maxEtasje < l.getEtasje()) {
+            if (maxEtasje != StartVindu.getINGENKRAV() && maxEtasje < l.getEtasje()) {
                 passer = false;
             }
             if (balkong && !l.getBalkong()) {
@@ -264,7 +264,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
                 + "\nMax. etasje: " + maxEtasje
                 + "\nHeis: " + (heis ? "ja" : "nei")
                 + "\nBalkong: " + (balkong ? "ja" : "nei")
-                + "\nDato: " + (dato == null ? "Ikke oppgitt" : StartVindu.ENKELDATOFORMAT.format(dato));
+                + "\nDato: " + (dato == null ? "Ikke oppgitt" : StartVindu.getENKELDATOFORMAT().format(dato));
         return s;
     }
 }

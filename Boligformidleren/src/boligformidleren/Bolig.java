@@ -162,7 +162,7 @@ public abstract class Bolig implements Serializable {
         String s = "Gateadresse: " + gateadresse + "\nPostnummer: " + postnr + 
                 "\nPoststed: " + poststed + "\n\nType: " + type + 
                 "\n\nBeskrivelse: " + beskrivelse + "\n\nAvertert fra: " + 
-                StartVindu.ENKELDATOFORMAT.format(dato) + "\n\nAreal: " + areal
+                StartVindu.getENKELDATOFORMAT().format(dato) + "\n\nAreal: " + areal
                 + "\nAntall rom: " + soverom + "\nByggeår: " + byggeaar
                 + "\nPris: " + pris + "\nLedig: " + (ledig ? "ja" : "nei");
 

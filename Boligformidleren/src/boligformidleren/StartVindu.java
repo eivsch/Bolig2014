@@ -40,22 +40,22 @@ public class StartVindu extends JFrame implements ActionListener {
     private int antKnapper, antRad, antKol, gap;
 
     // Konstanter
-    public static final String[] ANTSOVEROM = {"1", "2", "3", "4", "5", "6", "7", "8"};
-    public static final String[] ETASJERENEBOLIG = {"1", "2", "3", "4", "5"};
-    public static final String DATOFORMAT = "dd.mm.åååå";
-    public static final int INGENKRAV = 0;
+    private static final String[] ANTSOVEROM = {"1", "2", "3", "4", "5", "6", "7", "8"};
+    private static final String[] ETASJERENEBOLIG = {"1", "2", "3", "4", "5"};
+    private static final String DATOFORMAT = "dd.mm.åååå";
+    private static final int INGENKRAV = 0;
 
     // RegEx
-    public static final String PATTERNDATO = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
-    public static final String PATTERNHELTALL = "[0-9]*";
-    public static final String PATTERNPOSTNUMMER = "[0-9]{1,4}";    // postnummer "0001" er lagret som "1"
-    public static final String PATTERNTELEFONNUMMER = "[0-9]{8}";    // postnummer "0001" er lagret som "1"
-    public static final SimpleDateFormat ENKELDATOFORMAT = new SimpleDateFormat("dd.MM.yyyy");
-    //public static final String PATTERNTALLBOKSTAV = "[0-9a-zæøåA-ZÆØÅ ,.\\-]{4,40}";
-    public static final String PATTERNTALLBOKSTAV = "[a-zæøåA-ZÆØÅ ]{4,40}[ ][0-9]{1,3}";
-    public static final String PATTERNTALLELLERBOKSTAV = "[a-zæøåA-ZÆØÅ0-9 ]{1,40}";
-    public static final String PATTERNBOKSTAV = "[a-zæøåA-ZÆØÅ\\- ]{2,30}";
-    public static final String PATTERNEPOST = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}";
+    private static final String PATTERNDATO = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
+    private static final String PATTERNHELTALL = "[0-9]*";
+    private static final String PATTERNPOSTNUMMER = "[0-9]{1,4}";    // postnummer "0001" er lagret som "1"
+    private static final String PATTERNTELEFONNUMMER = "[0-9]{8}";    // postnummer "0001" er lagret som "1"
+    private static final SimpleDateFormat ENKELDATOFORMAT = new SimpleDateFormat("dd.MM.yyyy");
+    //private static final String PATTERNTALLBOKSTAV = "[0-9a-zæøåA-ZÆØÅ ,.\\-]{4,40}";
+    private static final String PATTERNTALLBOKSTAV = "[a-zæøåA-ZÆØÅ ]{4,40}[ ][0-9]{1,3}";
+    private static final String PATTERNTALLELLERBOKSTAV = "[a-zæøåA-ZÆØÅ0-9 ]{1,40}";
+    private static final String PATTERNBOKSTAV = "[a-zæøåA-ZÆØÅ\\- ]{2,30}";
+    private static final String PATTERNEPOST = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}";
     
     // konstruktør
     public StartVindu() {
@@ -215,6 +215,58 @@ public class StartVindu extends JFrame implements ActionListener {
         return informasjonVindu;
     }
 
+    public static String[] getANTSOVEROM() {
+        return ANTSOVEROM;
+    }
+
+    public static String[] getETASJERENEBOLIG() {
+        return ETASJERENEBOLIG;
+    }
+
+    public static String getDATOFORMAT() {
+        return DATOFORMAT;
+    }
+
+    public static int getINGENKRAV() {
+        return INGENKRAV;
+    }
+
+    public static String getPATTERNDATO() {
+        return PATTERNDATO;
+    }
+
+    public static String getPATTERNHELTALL() {
+        return PATTERNHELTALL;
+    }
+
+    public static String getPATTERNPOSTNUMMER() {
+        return PATTERNPOSTNUMMER;
+    }
+
+    public static String getPATTERNTELEFONNUMMER() {
+        return PATTERNTELEFONNUMMER;
+    }
+
+    public static SimpleDateFormat getENKELDATOFORMAT() {
+        return ENKELDATOFORMAT;
+    }
+
+    public static String getPATTERNTALLBOKSTAV() {
+        return PATTERNTALLBOKSTAV;
+    }
+
+    public static String getPATTERNTALLELLERBOKSTAV() {
+        return PATTERNTALLELLERBOKSTAV;
+    }
+
+    public static String getPATTERNBOKSTAV() {
+        return PATTERNBOKSTAV;
+    }
+
+    public static String getPATTERNEPOST() {
+        return PATTERNEPOST;
+    }
+
     // sjekker helt array av tekstfelter om de passer til regex-pattern
     public static boolean kontrollerRegEx(String pattern, JTextField[] input) {
         for (int i = 0; i < input.length; i++) {
@@ -263,7 +315,7 @@ public class StartVindu extends JFrame implements ActionListener {
 
     // konverterer en tekststreng av format dd.mm.åååå til et DATE objekt
     public static Date konverterDato(String datostreng) {
-        if (!datostreng.matches(PATTERNDATO)) {
+        if (!datostreng.matches(getPATTERNDATO())) {
             return null;
         }
         try {
