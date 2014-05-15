@@ -1,5 +1,5 @@
 /*
- * Innhold: Vindu som brukes for registrering og slettning av boligsøkere
+ * Innhold: Vindu som brukes for registrering, slettning og endring av boligsøkere
  * Sist oppdatert: 06.05.2014 kl.12:00
  * Programmert av: Gretar, Eivind
  */

@@ -1,5 +1,5 @@
 /*
- * Innhold: Vindu som brukes for registrering og slettning av utleiere
+ * Innhold: Vindu som brukes for registrering, slettning og endring av utleiere
  * Sist oppdatert: 29.04.2014 kl.14:45
  * Programmert av: Gretar
  */
