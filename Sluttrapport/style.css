@@ -35,6 +35,11 @@ code{
 	color: darkred;
 }
 
+#caption{
+	font-size: 12px;
+	text-align: center;
+}
+
 #generell{
 	margin-top: 50px;
 	margin-bottom: 80px;
