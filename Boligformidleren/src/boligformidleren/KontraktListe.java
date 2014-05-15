@@ -33,20 +33,6 @@ public class KontraktListe implements Serializable {
         return kontraktArkiv;
     }
     
-    /** 
-     * Skal sette paramteren d til ny sluttdato i kontrakten som ligger
-     * registrert på boligsøkeren bs. Skal ikke kunne gjøres for arkiverte 
-     * kontrakter. Returnerer true hvis datoen ble endret.
-     */
-    public boolean settNyGjeldendeSluttDato(Boligsoeker bs, Date d){
-        Kontrakt k = finnGjeldendeKontrakt(bs);
-        if(k == null){
-            return false;
-        }
-        k.setSluttDato(d);
-        return true;
-    }
-
     // Skal returnere en arrayList som innehlder alle kontrakter.
     public List<Kontrakt> getAlleKontrakter() {
         Iterator<Kontrakt> iter1 = kontraktListeGjeldende.iterator(), iter2 = kontraktArkiv.iterator();

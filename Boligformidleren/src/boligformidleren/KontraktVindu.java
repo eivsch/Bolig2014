@@ -312,6 +312,94 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
     
     public void siOppKontrakt() {
         // Forandrer sluttdato i kontrakten tilsvarende oppsigelsestid.
+        
+        // regex
+        if(!regexOK())
+            return;
+        
+        // henter inn brukerinput
+        String adr = gateadresse.getText();
+        int pnr = Integer.parseInt(postnr.getText());
+        String psted = poststed.getText();
+        String uFornavn = utleierFornavn.getText();
+        String uEtternavn = utleierEtternavn.getText();
+        String lFornavn = leietakerFornavn.getText();
+        String lEtternavn = leietakerEtternavn.getText();
+        int leiepris = Integer.parseInt(pris.getText());
+        Date startDato = StartVindu.konverterDato(startDatoFelt.getText()),
+                sluttDato = StartVindu.konverterDato(sluttDatoFelt.getText());
+        // Sjekker om bruker har skrevet dato på riktig format
+        if (sluttDato == null || startDato == null) {
+            output.setText("Feil ved innlesing av dato. Kotroller format (dd.mm.åååå)");
+            return;
+        }
+        // sjekker om startdato mot formodning skulle være etter sluttdato
+        if (startDato.after(sluttDato)) {
+            output.setText("Startdato må være før sluttdato!");
+            return;
+        }
+
+        //Opretter objekter som trengs for å registrere en ny kontrakt
+        Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(adr, pnr, psted);
+        Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleier(uFornavn, uEtternavn);
+        Boligsoeker bs = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().finnBoligsoeker(lFornavn, lEtternavn);
+
+        if (b == null) {
+            output.setText("Feil - finner ikke bolig");
+            return;
+        } else if (u == null) {
+            output.setText("Feil - finner ikke utleier");
+            return;
+        } else if (bs == null) {
+            output.setText("Feil - finner ikke leietaker");
+            return;
+        }
+
+        // finner kontrakt som skal endres
+        Kontrakt k = kontraktListe.finnGjeldendeKontrakt(bs);
+        
+        if(k == null){
+            output.setText("Feil - finner ikke kontrakt");
+            return;
+        }
+        
+        // bruker må skrive en ny sluttdato
+        String nySluttDato = JOptionPane.showInputDialog("Skriv en ny sluttdato (dd.mm.åååå):");
+        
+        // vi må sjekke om den nye sluttdatoen er gyldig
+        if(nySluttDato.equals("")){
+            output.setText("Feil - du må fylle inn en ny sluttdato");
+            return;
+        }
+        else{
+            if(StartVindu.konverterDato(nySluttDato) == null){
+                output.setText("Feil - den nye sluttdatoen må være på format\n('" + StartVindu.DATOFORMAT + "').");
+                return;
+            }
+        }
+        
+        if(StartVindu.konverterDato(nySluttDato).before(k.getStartDato())){
+            output.setText("Feil - den nye sluttdatoen må ikke være før " + StartVindu.ENKELDATOFORMAT.format(k.getStartDato()));
+            return;
+        }
+        Date idag = new Date();
+        if(StartVindu.konverterDato(nySluttDato).before(idag)){
+            output.setText("Feil - den nye sluttdatoen må ikke være før dagens dato");
+            return;
+        }
+        
+        if(StartVindu.konverterDato(nySluttDato).equals(k.getSluttDato())){
+            output.setText("Feil - den nye sluttdatoen er allerede lik " + nySluttDato);
+            return;
+        }
+        
+        
+        k.setSluttDato(StartVindu.konverterDato(nySluttDato));
+        blankFelter();
+        output.setText("Ny sluttdato registrert:\n" + nySluttDato);
+        output.setCaretPosition(0);
+        
+        
     }
 
     /**
