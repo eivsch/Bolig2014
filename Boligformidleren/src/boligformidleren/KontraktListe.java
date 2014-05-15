@@ -83,6 +83,20 @@ public class KontraktListe implements Serializable {
         }
         return null;
     }
+    
+    // Tar imot en bolig som parameter. Returnerer kontrakten denne har 
+    // registrert i kontraktListeGjeldende.
+    public Kontrakt finnGjeldendeKontrakt(Bolig b) {
+        Iterator<Kontrakt> kIter = kontraktListeGjeldende.iterator();
+        Kontrakt k;
+        while (kIter.hasNext()) {
+            k = kIter.next();
+            if (k.getBolig().equals(b)) {
+                return k;
+            }
+        }
+        return null;
+    }
 
     /**
      * Tar imot en parameter dato, sjekker kontraktene i kontraktListeGjeldende

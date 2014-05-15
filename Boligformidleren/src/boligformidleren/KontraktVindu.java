@@ -58,14 +58,17 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         // textfields
         grid.add(new JLabel("Gateadresse: "));
         gateadresse = new JTextField(10);
+        gateadresse.addFocusListener(this);
         grid.add(gateadresse);
 
         grid.add(new JLabel("Postnummer: "));
         postnr = new JTextField(10);
+        postnr.addFocusListener(this);
         grid.add(postnr);
 
         grid.add(new JLabel("Poststed: "));
         poststed = new JTextField(10);
+        poststed.addFocusListener(this);
         grid.add(poststed);
 
         grid.add(new JLabel("Fornavn (utleier): "));
@@ -303,10 +306,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
                 return false;
             }
         }
-        
-        
-        
-        
+
         return true;
     }
     
@@ -425,5 +425,23 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
                 startDatoFelt.setText("dd.mm.åååå");
             }
         }
+        if(fe.getSource() == gateadresse || fe.getSource() == postnr || fe.getSource() == poststed)
+            if(!gateadresse.getText().equals("") && !postnr.getText().equals("") && !poststed.getText().equals("") && StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, postnr.getText())){
+                
+                Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText());
+                Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleierViaBolig(b);
+                Kontrakt k = kontraktListe.finnGjeldendeKontrakt(b);
+                if(k != null){
+                    Boligsoeker bs = k.getBoligsoeker();
+                
+                    utleierFornavn.setText(u.getFornavn());
+                    utleierEtternavn.setText(u.getEtternavn());
+                    leietakerFornavn.setText(bs.getFornavn());
+                    leietakerEtternavn.setText(bs.getEtternavn());
+                    pris.setText(Integer.toString(k.getPris()));
+                    startDatoFelt.setText(StartVindu.ENKELDATOFORMAT.format(k.getStartDato()));
+                    sluttDatoFelt.setText(StartVindu.ENKELDATOFORMAT.format(k.getSluttDato()));
+                }
+            }
     }
 }
