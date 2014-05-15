@@ -17,17 +17,12 @@ import java.io.*;
  */
 public class KontraktListe implements Serializable {
 
-    private List<Kontrakt> kontraktListeGjeldende = new ArrayList<Kontrakt>();
-    private List<Kontrakt> kontraktArkiv = new ArrayList<Kontrakt>();
+    private List<Kontrakt> kontraktListeGjeldende = new ArrayList<>();
+    private List<Kontrakt> kontraktArkiv = new ArrayList<>();
 
     // get metoder
     public void settInn(Kontrakt k) {
         kontraktListeGjeldende.add(k);
-    }
-
-    // Returnerer totalt antall lagrede kontrakter
-    public int antKontrakter() {
-        return kontraktListeGjeldende.size() + kontraktArkiv.size();
     }
 
     public List<Kontrakt> getKontraktListeGjeldende() {
@@ -37,26 +32,27 @@ public class KontraktListe implements Serializable {
     public List<Kontrakt> getKontraktListeArkiv() {
         return kontraktArkiv;
     }
+    
+    // Skal returnere en arrayList som innehlder alle kontrakter.
+    public List<Kontrakt> getAlleKontrakter() {
+        Iterator<Kontrakt> iter1 = kontraktListeGjeldende.iterator(), iter2 = kontraktArkiv.iterator();
+        List<Kontrakt> l = new ArrayList<>();
+        while(iter1.hasNext()){
+            l.add(iter1.next());
+        }
+        while(iter2.hasNext()){
+            l.add(iter2.next());
+        }
+        return l;
+    }
 
-    /**
-     * Metode for å fjerne parameteren kontrakt fra kontraktListeGjeldende,
-     * legge den over i kontraktArkiv, sette boligen til "ledig" og tidligere
-     * leietaker til "leter etter bolig".
-     */
-    public void fjernGjeldendeKontraktOgArkiver(Kontrakt k) {
-        kontraktListeGjeldende.remove(k);
-        // Setter boligen i kontrakten til "ledig".
-        Bolig b1 = k.getBolig();
-        Bolig b2 = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(b1.getGateadresse(),
-                b1.getPostnr(), b1.getPoststed());
-        b2.boligErLedig();
-        // Setter leietakeren i kontrakten til "leter etter bolig".
-        Boligsoeker bs1 = k.getBoligsoeker();
-        Boligsoeker bs2 = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().
-                finnBoligsoeker(bs1.getFornavn(), bs1.getEtternavn());
-        bs2.leterEtterBolig();
-        // Legger kontrakten ove ri arkiv.
-        kontraktArkiv.add(k);
+    // Returnerer antall lagrede gjeldende kontrakter
+    public int antGjeldendeKontrakter() {
+        return kontraktListeGjeldende.size();
+    }
+    // Returnerer antall arkiverte kontrakter
+    public int antArkiverteKontrakter(){
+        return kontraktArkiv.size();
     }
 
     // Tar imot en boligsøker som parameter. Returnerer kontrakten denne har 
@@ -93,11 +89,32 @@ public class KontraktListe implements Serializable {
         return null;
     }
 
+    /**
+     * Metode for å fjerne parameteren kontrakt fra kontraktListeGjeldende,
+     * legge den over i kontraktArkiv, sette boligen til "ledig" og tidligere
+     * leietaker til "leter etter bolig".
+     */
+    public void fjernGjeldendeKontraktOgArkiver(Kontrakt k) {
+        kontraktListeGjeldende.remove(k);
+        // Setter boligen i kontrakten til "ledig".
+        Bolig b1 = k.getBolig();
+        Bolig b2 = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(b1.getGateadresse(),
+                b1.getPostnr(), b1.getPoststed());
+        b2.boligErLedig();
+        // Setter leietakeren i kontrakten til "leter etter bolig".
+        Boligsoeker bs1 = k.getBoligsoeker();
+        Boligsoeker bs2 = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().
+                finnBoligsoeker(bs1.getFornavn(), bs1.getEtternavn());
+        bs2.leterEtterBolig();
+        // Legger kontrakten ove ri arkiv.
+        kontraktArkiv.add(k);
+    }
+
     // Skriver ut alt som ligger lagret i objektet.
     public String toString() {
         Iterator<Kontrakt> gIter = kontraktListeGjeldende.iterator();
         Iterator<Kontrakt> aIter = kontraktArkiv.iterator();
-        
+
         String kontrakter = "Gjeldende Kontrakter: \n";
 
         while (gIter.hasNext()) {
