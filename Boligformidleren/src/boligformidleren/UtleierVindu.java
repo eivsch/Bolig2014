@@ -202,6 +202,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         output.setText("");
     }
     
+    // sjekker regular expression på alle feltene
     public boolean regexOK(){
         // Kontrollerer alle felt ved RegEx for å unngå exceptions (f.eks parseException, NullPointerException, osv.)
         // fornavn
@@ -444,7 +445,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                 
                 // regex
                 if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLELLERBOKSTAV, ny)){
-                    output.setText("Feil - firma må kun inneholde norkse bokstaver og/eller heltall");
+                    output.setText("Feil - firma må kun inneholde bokstaver og/eller heltall");
                     return;
                 }
                 
