@@ -478,15 +478,15 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         }
 
         if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, pstnr))) {
-            output.setText("Feil ved innlesing post nummer. Kun hele tallverdier.");
+            output.setText("Feil ved innlesing postnummer. Bruk heltall (4 sifre).");
             return;
         }
         if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, adrs))) {
-            output.setText("Feil ved innlesing av adresse. Kun tall og bokstaver.");
+            output.setText("Feil ved innlesing av adresse. Kun bokstaver (min. 4 tegn) og heltall (1-3 sifre).");
             return;
         }
         if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, pststed))) {
-            output.setText("Feil ved innlesing av poststed. Kun bokstaver.");
+            output.setText("Feil ved innlesing av poststed. Kun bokstaver (min 2 tegn).");
             return;
         }
 
@@ -654,7 +654,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         
         String melding = StartVindu.kontrollerRegExTomFeltOK(StartVindu.PATTERNHELTALL, jtf);
         if(!melding.equals("")){
-            output.setText("Feil - bruk heltall istedetfor " + melding);
+            output.setText("Feil - bruk heltall istedenfor " + melding);
             return;
         }
         
@@ -810,7 +810,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         String melding = StartVindu.kontrollerRegExTomFeltOK(StartVindu.PATTERNHELTALL, jtf);
         if(!melding.equals("")){
-            output.setText("Feil - bruk heltall istedetfor " + melding);
+            output.setText("Feil - bruk heltall istedenfor " + melding);
             return;
         }
         

@@ -142,17 +142,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
     //registrer utleier
     public void regUtleier() {
 
-        // Kontrollerer tallverdier ved RegEx for å unngå parseException
-        JTextField[] testRegEx = {RegPersPostnr, RegTlf};
-        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, testRegEx))) {
-            output.setText("Feil ved innelsning av tallverdier. Bruk kun heltall");
-            return;
-        }
-        // Gir melding til bruker om han/hun har glemt å fylle noen felter, unntatt firmafeltet.
-        JTextField[] testTomme = {RegPersFornavn, RegPersEtternavn, RegPersGateadr,
-            RegPersPostnr, RegPersPoststed, RegEpost, RegTlf};
-        if (StartVindu.tekstFeltErTomt(testTomme)) {
-            output.setText("Vennligst fyll inn alle felter! (Firma er valgfritt)");
+        if(!regexOK()){
             return;
         }
 
@@ -169,12 +159,14 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                 RegEpost.getText(), Integer.parseInt(RegTlf.getText()), RegFirma.getText());
 
         utleierMengde.settInn(u);
-        output.setText("Utleier " + fornavn + " " + etternavn + " registrert");
         blankFelter();
+        output.setText("Utleier " + fornavn + " " + etternavn + " registrert");
+        
     }
     
     // sletter utleireren hvis brukeren har svart bekreftende på et kontrollspørsmål og utleieren har ikke noen boliger til utleie
     public void slettUtleier() {
+        
         String fornavn = RegPersFornavn.getText();
         String etternavn = RegPersEtternavn.getText();
         Utleier ul = utleierMengde.finnUtleier(fornavn, etternavn);
@@ -192,9 +184,9 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
             output.setText("Feil - utleier har boliger til utleie");
             return;
         }
-        
-        output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
+
         blankFelter();
+        output.setText("Utleier " + fornavn + " " + etternavn + " slettet");
     }
 
     // blanker alle feltene
@@ -208,6 +200,95 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         RegTlf.setText("");
         RegFirma.setText("");
         output.setText("");
+    }
+    
+    public boolean regexOK(){
+        // Kontrollerer alle felt ved RegEx for å unngå exceptions (f.eks parseException, NullPointerException, osv.)
+        // fornavn
+        if(RegPersFornavn.getText().equals("")){
+            output.setText("Feil - du må fylle inn fornavn");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, RegPersFornavn.getText()))){
+                output.setText("Feil - du må kun bruke norske bokstaver (min. 2 tegn) i fornavn");
+                return false;
+            }
+        }
+        // etternavn
+        if(RegPersEtternavn.getText().equals("")){
+            output.setText("Feil - du må fylle inn etternavn");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, RegPersEtternavn.getText()))){
+                output.setText("Feil - du må kun bruke norske bokstaver (min. 2 tegn) i etternavn");
+                return false;
+            }
+        }
+        // gateadresse
+        if(RegPersGateadr.getText().equals("")){
+            output.setText("Feil - du må fylle inn gateadresse");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, RegPersGateadr.getText()))){
+                output.setText("Feil - du må kun bruke bokstaver (min. 4 tegn)\nog heltall (1-3 sifre) i gateadresse");
+                return false;
+            }
+        }
+        // postnummer
+        if(RegPersPostnr.getText().equals("")){
+            output.setText("Feil - du må fylle inn postnummer");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, RegPersPostnr.getText()))){
+                output.setText("Feil - du må kun bruke heltall (4 sifre) i postnummer");
+                return false;
+            }
+        }
+        // poststed
+        if(RegPersPoststed.getText().equals("")){
+            output.setText("Feil - du må fylle inn poststed");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, RegPersPoststed.getText()))){
+                output.setText("Feil - du må kun bruke bokstaver (min. 2 tegn) i poststed");
+                return false;
+            }
+        }
+        // epost
+        if(RegEpost.getText().equals("")){
+            output.setText("Feil - du må fylle inn epost");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNEPOST, RegEpost.getText()))){
+                output.setText("Feil - epost må være på format\n'aaa@bbb.ccc' (ikke norsk bokstaver)");
+                return false;
+            }
+        }
+        // telefonnummer
+        if(RegTlf.getText().equals("")){
+            output.setText("Feil - du må fylle inn telefonnummer");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTELEFONNUMMER, RegTlf.getText()))){
+                output.setText("Feil - telefonnummer må inneholde 8 sifre");
+                return false;
+            }
+        }
+        // firma
+        if(!RegFirma.getText().equals("")){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLELLERBOKSTAV, RegFirma.getText()))){
+                output.setText("Feil - firma må kun inneholde norkse bokstaver og/eller heltall");
+                return false;
+            }
+        }
+        return true;
     }
 
     // metoden endrer en felt for utleieren
@@ -233,6 +314,12 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                     return;
                 }
                 
+                // regex
+                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, ny)){
+                    output.setText("Feil - du må kun bruke bokstaver (min. 4 tegn)\nog heltall (1-3 sifre) i gateadresse");
+                    return;
+                }
+                
                 // ja-nei 
                 if(StartVindu.visJaNeiMelding( "Vil du endre gateadressen?", "Endring av data").equals("Nei"))
                     return;
@@ -249,6 +336,12 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
             case "Postnummer":{
                 if(ny.equals(Integer.toString(ul.getPostnr()))){
                     output.setText(felt + " allerede lik: " + ny);
+                    return;
+                }
+                
+                // regex
+                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, ny)){
+                    output.setText("Feil - du må kun bruke heltall (4 sifre) i postnummer");
                     return;
                 }
                 
@@ -274,6 +367,12 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                     return;
                 }
                 
+                // regex
+                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, ny)){
+                    output.setText("Feil - du må kun bruke bokstaver (min. 2 tegn) i poststed");
+                    return;
+                }
+                
                 // ja-nei 
                 if(StartVindu.visJaNeiMelding( "Vil du endre poststedet?", "Endring av data").equals("Nei"))
                     return;
@@ -290,6 +389,12 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
             case "Epost":{
                 if(ny.equals(ul.getEpost())){
                     output.setText(felt + " allerede lik: " + ny);
+                    return;
+                }
+                
+                // regex
+                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNEPOST, ny)){
+                    output.setText("Feil - epost må være på format\n'aaa@bbb.ccc' (ikke norsk bokstaver)");
                     return;
                 }
                 
@@ -312,6 +417,12 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
                     return;
                 }
                 
+                // regex
+                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNTELEFONNUMMER, ny)){
+                    output.setText("Feil - telefonnummer må inneholde 8 sifre");
+                    return;
+                }
+                
                 // ja-nei 
                 if(StartVindu.visJaNeiMelding( "Vil du endre telefonnummeret?", "Endring av data").equals("Nei"))
                     return;
@@ -328,6 +439,12 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
             case "Firma":{
                 if(ny.equals(ul.getFirma())){
                     output.setText(felt + " allerede lik: " + ny);
+                    return;
+                }
+                
+                // regex
+                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLELLERBOKSTAV, ny)){
+                    output.setText("Feil - firma må kun inneholde norkse bokstaver og/eller heltall");
                     return;
                 }
                 
