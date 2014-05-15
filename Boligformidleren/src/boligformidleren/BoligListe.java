@@ -14,17 +14,19 @@ public class BoligListe implements Serializable {
 
     List<Bolig> liste = new LinkedList<>();
 
+    // get metode
+    public List getListe(){
+        return liste;
+    }
+    
     // Setter inn nytt Bolig-objekt bakerst i lista
     public void settInn(Bolig b) {
         liste.add(b);
     }
     
+    // fjerner et Bolig-objekt
     public boolean fjern(Bolig b){
         return liste.remove(b);
-    }
-    
-    public List getListe(){
-        return liste;
     }
     
     // Finner bolig på gitt adresse
