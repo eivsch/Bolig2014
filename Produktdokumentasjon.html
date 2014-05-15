@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> Produktdokumentasjon</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+<body>
+	
+	<header>
+		<h2> Boligformidling </h2>
+		<p>Eivind Schulstad - s198752 - Dataingeniør</p>
+		<p>Gretar Ævarsson - s198586 - Informasjonsteknologi</p>
+		<p>Sigurd Hølleland - s198597 - Informasjonsteknologi</p>
+	</header>
+		 <section id="content">
+		   <h2>Produktdokumentasjon</h2>
+		 	<h3>Filbehandlingen</h3>
+
+		 	<p>Programmet lagrer data på 3 forskjellige filer, hhv. boligsoekermengde.data,
+kontraktliste.data og utleiermengde.data. Når for eksempel boligsøkere registreres
+legges objektene inn i en TreeSet, og det er denne som i sin tur skrives til fila 
+boligsoekermengde.data. Omtrent tilsvarende skjer for utleiere og kontrakter. </p>
+
+<p>Hver av disse datastrukturene har altså sine egne skrivTilFil og lesFraFil-metoder, 
+som ligger i deres tilsvarende -Vindu klasser. Disse kalles opp hver gang programmet 
+avsluttes og startes opp.</p>
+
+<p>Vi valgte å definere en egen norsk tilpasset sorteringsrekkefølge for utleiere og 
+boligsøkere. Dette ble gjort ved at TreeSet'en de to datatypene ligger lagret i er
+opprettet sammen med en Comparator som definerer sorteringen gjennom en
+RuleBasedCollator. Denne RuleBasedCollator er ikke serialiserbar noe som kompliserer 
+filbehandlingen av utleiere og boligsøkere noe. Måten det er løst på i programmet er 
+at de sorterte mengdene av utleiere og boligsøkere kopieres over i en usortert mengde 
+når skrivTilFil-operasjonen gjennomføres. Dette gjennom metodene kopierMengdeUsortert 
+i UtleierMengde og BoligsoekerMengde. Objektene skrives altså usortert over til fil. 
+Objektene leses deretter inn en for en og legges inn i TreeSet'en hvor de sorteres.</p>
+
+<p>For kontrakter er det hele mye enklere. Programmet oppretter et KontraktListe-objekt
+der listen over gjeldende og utløpte kontrakter ligger. Hele dette objektet skrives
+til og leses fra fil ved hver oppstart/avslutning.</p>
+
+<h3>Om kontrakters utløpstid</h3>
+
+<p>Lagringen og behandlingen av oppretede kontrakter foregår i klassen KontraktListe.
+Her ligger det to lister av typen ArrayList, den ene for kontrakter som fortsatt er
+gjeldende, den andre for kontrakter som er utløpt. Ideen/hensikten er at alle nylige
+opprettede kontrakter legges i en separat liste, når utløpsdatoen for kontraktene er
+passert flyttes disse automatisk over i en annen liste. Dette skiller gjeldende og
+kontrakter fra kontrakter som kun er av historisk betydning på en enkel og
+oversiktlig måte, forutsetningen er selvsagt at datokontrollen er god nok. En mulig
+svakhet ved datokontrollen i dette programmet er at den kun gjennomføres for hver 
+oppstart, dvs. programmet sjekker utløpsdatoen i kontrakten opp mot dagens dato,
+er utløpsdatoen passert legges kontrakten(e) over i arkivet. Brukeren av programmet
+er derfor avhengig av å avslutte og starte opp igjen programmet minst en gang daglig.</p>
+
+<p>
+Dette får en muligens subtil betydning ved registrering av kontrakter, nemlig at alle
+nyregistrerte kontrakter behandles som "gjeldende" uavhengig av om den satte sluttdatoen 
+er før dagens dato. Det er altså først etter en restart av programmet at kontrakten 
+vil bli sjekket og lagt i arkivet.</p>
+
+<h3>Mer om kontrakter</h3>
+
+<p>
+Kontraktregistreringen fungerer slik at en boligsøker kun kan ha en gjeldende
+kontrakt registrert på seg til enhver tid. Det er altså ikke mulig å leie flere
+enn en bolig av gangen. Det er valgt slik for å gjøre programmet og håndteringen av
+kontrakter enklere. Dette betyr at så lenge en boligsøker er registrert med en
+gjeldende kontrakt, er det ikke mulig å registrere en ny kontrakt på samme boligsøker.
+Det samme gjelder for boligen. Den har et statusfelt "ledig"(true). Når en bolig knyttes
+til en kontrakt blir statusfeltet satt til "ikke ledig"(false), og det er ikke mulig
+å registrere en ny kontrakt på denne boligen. Når en kontrakt går ut forandres statusen
+samtidig til "ledig" igjen.</p>
+
+<h3>Om tabeller</h3>
+
+<p>
+Alle tabeller i programmet er av typen JTable, og har en egen definert tabellmodell
+som bestemmer innhold og utseende til tabellen. Dette ligger i klassene
+BoligTabellmodell, BoligsoekerTabellmodell og UtleierTabellmodell. En viktig funksjon
+ved tabellene er at brukeren skal kunne velge en rad, trykke på "Gå til ..." knappen
+for å få opp detaljert informasjon om personen/boligen i raden. For å få til dette
+ligger det to kolonner i hhv. utleier og boligsøkertabellen som inneholder fornavn og 
+etternavn som er skjulte for brukeren, og som kun brukes av metodene hentXxxFraTabell 
+i InformasjonVindu.</p>
+
+
+		 </section>
+		<footer>
+			<p> <em> <u> Eivind (DataIng - s198752), Gretar (IT - s198586), Sigurd (IT - s198597)</u> </em> </P>
+		</footer>			
+		
+</body>
+</html>
