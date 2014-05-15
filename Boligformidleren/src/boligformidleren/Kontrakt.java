@@ -65,8 +65,8 @@ public class Kontrakt implements Serializable {
         utskrift = "Bolig-info:\t" + b.getGateadresse() + ", " + b.getPostnr() + " " + b.getPoststed() +
                    "\nUtleier-info:\t" + u.getFornavn() + " " + u.getEtternavn() +
                    "\nLeietaker-info:\t" + bs.getFornavn() + " " + bs.getEtternavn() +
-                   "\nStartDato:\t" + StartVindu.ENKELDATOFORMAT.format(startDato) +
-                   "\nSluttdato:\t" + StartVindu.ENKELDATOFORMAT.format(sluttDato) +
+                   "\nStartDato:\t" + StartVindu.getENKELDATOFORMAT().format(startDato) +
+                   "\nSluttdato:\t" + StartVindu.getENKELDATOFORMAT().format(sluttDato) +
                    "\nLeiepris:\t" + pris;
         return utskrift;
     }

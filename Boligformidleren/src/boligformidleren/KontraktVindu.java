@@ -202,7 +202,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, gateadresse.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNTALLBOKSTAV(), gateadresse.getText()))){
                 output.setText("Feil - du må kun bruke bokstaver (min. 4 tegn)\nog heltall (1-3 sifre) i gateadresse");
                 return false;
             }
@@ -213,7 +213,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, postnr.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNPOSTNUMMER(), postnr.getText()))){
                 output.setText("Feil - du må kun bruke heltall\n(4 sifre) i postnummer");
                 return false;
             }
@@ -224,7 +224,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, poststed.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNBOKSTAV(), poststed.getText()))){
                 output.setText("Feil - du må kun bruke bokstaver\n(min. 2 tegn) i poststed");
                 return false;
             }
@@ -235,7 +235,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, utleierFornavn.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNBOKSTAV(), utleierFornavn.getText()))){
                 output.setText("Feil - du må kun bruke bokstaver\n(min. 2 tegn) i utleierens fornavn");
                 return false;
             }
@@ -246,7 +246,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, utleierEtternavn.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNBOKSTAV(), utleierEtternavn.getText()))){
                 output.setText("Feil - du må kun bruke bokstaver\n(min. 2 tegn) i utleierens etternavn");
                 return false;
             }
@@ -257,7 +257,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, leietakerFornavn.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNBOKSTAV(), leietakerFornavn.getText()))){
                 output.setText("Feil - du må kun bruke norske bokstaver (min. 2 tegn) i leietakerens fornavn");
                 return false;
             }
@@ -268,7 +268,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, leietakerEtternavn.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNBOKSTAV(), leietakerEtternavn.getText()))){
                 output.setText("Feil - du må kun bruke bokstaver\n(min. 2 tegn) i leietakerens etternavn");
                 return false;
             }
@@ -279,30 +279,30 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, pris.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), pris.getText()))){
                 output.setText("Feil - pris må kun inneholde heltall");
                 return false;
             }
         }
         // startdato
-        if(startDatoFelt.getText().equals(StartVindu.DATOFORMAT)){
+        if(startDatoFelt.getText().equals(StartVindu.getDATOFORMAT())){
             output.setText("Feil - du må fylle inn startdato");
             return false;
         }
         else{
             if(StartVindu.konverterDato(startDatoFelt.getText()) == null){
-                output.setText("Feil - dato må være på format\n('" + StartVindu.DATOFORMAT + "').");
+                output.setText("Feil - dato må være på format\n('" + StartVindu.getDATOFORMAT() + "').");
                 return false;
             }
         }
         // slutdato
-        if(sluttDatoFelt.getText().equals(StartVindu.DATOFORMAT)){
+        if(sluttDatoFelt.getText().equals(StartVindu.getDATOFORMAT())){
             output.setText("Feil - du må fylle inn sluttdato");
             return false;
         }
         else{
             if(StartVindu.konverterDato(sluttDatoFelt.getText()) == null){
-                output.setText("Feil - dato må være på format\n('" + StartVindu.DATOFORMAT + "').");
+                output.setText("Feil - dato må være på format\n('" + StartVindu.getDATOFORMAT() + "').");
                 return false;
             }
         }
@@ -373,13 +373,13 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         }
         else{
             if(StartVindu.konverterDato(nySluttDato) == null){
-                output.setText("Feil - den nye sluttdatoen må være på format\n('" + StartVindu.DATOFORMAT + "').");
+                output.setText("Feil - den nye sluttdatoen må være på format\n('" + StartVindu.getDATOFORMAT() + "').");
                 return;
             }
         }
         
         if(StartVindu.konverterDato(nySluttDato).before(k.getStartDato())){
-            output.setText("Feil - den nye sluttdatoen må ikke være før " + StartVindu.ENKELDATOFORMAT.format(k.getStartDato()));
+            output.setText("Feil - den nye sluttdatoen må ikke være før " + StartVindu.getENKELDATOFORMAT().format(k.getStartDato()));
             return;
         }
         Date idag = new Date();
@@ -413,7 +413,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         String s, melding = "Følgende kontrakter er utløpt og ble fjernet:\n";
         // Henter og formatterer dagens dato.
         try {
-            idag = StartVindu.ENKELDATOFORMAT.parse(StartVindu.ENKELDATOFORMAT.format(
+            idag = StartVindu.getENKELDATOFORMAT().parse(StartVindu.getENKELDATOFORMAT().format(
                     new Date()));
         } catch (ParseException pe) {
             StartVindu.visFeilmelding(pe);
@@ -514,9 +514,15 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             }
         }
         if(fe.getSource() == gateadresse || fe.getSource() == postnr || fe.getSource() == poststed)
-            if(!gateadresse.getText().equals("") && !postnr.getText().equals("") && !poststed.getText().equals("") && StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, postnr.getText())){
+            if(!gateadresse.getText().equals("") && !postnr.getText().equals("") 
+                    && !poststed.getText().equals("") && 
+                    StartVindu.kontrollerRegEx(StartVindu.getPATTERNPOSTNUMMER(), 
+                            postnr.getText())){
                 
-                Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText());
+                Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().
+                        finnBolig(gateadresse.getText(), 
+                                Integer.parseInt(postnr.getText()), 
+                                poststed.getText());
                 Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleierViaBolig(b);
                 Kontrakt k = kontraktListe.finnGjeldendeKontrakt(b);
                 if(k != null){
@@ -527,8 +533,8 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
                     leietakerFornavn.setText(bs.getFornavn());
                     leietakerEtternavn.setText(bs.getEtternavn());
                     pris.setText(Integer.toString(k.getPris()));
-                    startDatoFelt.setText(StartVindu.ENKELDATOFORMAT.format(k.getStartDato()));
-                    sluttDatoFelt.setText(StartVindu.ENKELDATOFORMAT.format(k.getSluttDato()));
+                    startDatoFelt.setText(StartVindu.getENKELDATOFORMAT().format(k.getStartDato()));
+                    sluttDatoFelt.setText(StartVindu.getENKELDATOFORMAT().format(k.getSluttDato()));
                 }
             }
     }

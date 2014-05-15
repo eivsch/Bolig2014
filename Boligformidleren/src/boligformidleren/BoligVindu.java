@@ -120,7 +120,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         fellesPanel.add(endreAreal);
 
         fellesPanel.add(new JLabel("Antall soverom: "));
-        antRom = new JComboBox(StartVindu.ANTSOVEROM);
+        antRom = new JComboBox(StartVindu.getANTSOVEROM());
         antRom.setSelectedIndex(0);
         fellesPanel.add(antRom);
         
@@ -147,7 +147,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         fellesPanel.add(new JLabel("Avetert dato: "));
         avertertDato = new JTextField(10);
         Date d = new Date();
-        avertertDato.setText(StartVindu.ENKELDATOFORMAT.format(d));
+        avertertDato.setText(StartVindu.getENKELDATOFORMAT().format(d));
         avertertDato.addFocusListener(this);
         fellesPanel.add(avertertDato);
 
@@ -175,7 +175,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
 
         // enebolig textfields
         eneboligPanel.add(new JLabel("Antall etasjer: "));
-        etasjer = new JComboBox(StartVindu.ETASJERENEBOLIG);
+        etasjer = new JComboBox(StartVindu.getETASJERENEBOLIG());
         etasjer.setSelectedIndex(0);
         eneboligPanel.add(etasjer);
         
@@ -252,7 +252,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
 
         // Kontrollerer tallverdier ved RegEx for å unngå parseException.
         JTextField[] testRegEx = {postnr, areal, byggeaar, pris, tomtestorrelse};
-        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, testRegEx))) {
+        if (!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), testRegEx))) {
             output.setText("Feil ved innlesning av tallverdier. Bruk kun heltall");
             return;
         }
@@ -296,7 +296,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             output.setText("Fant ikke utleier " + fornavn + " " + etternavn);
         }
         else {
-            if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, postnr.getText())){
+            if(!StartVindu.kontrollerRegEx(StartVindu.getPATTERNPOSTNUMMER(), postnr.getText())){
                 output.setText("Feil - ikke gyldig postnummer");
                 return;
             }
@@ -330,7 +330,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, gateadresse.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNTALLBOKSTAV(), gateadresse.getText()))){
                 output.setText("Feil - du må kun bruke bokstaver (min. 4 tegn)\nog heltall (1-3 sifre) i gateadresse");
                 return false;
             }
@@ -341,7 +341,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, postnr.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNPOSTNUMMER(), postnr.getText()))){
                 output.setText("Feil - du må kun bruke heltall (4 sifre) i postnummer");
                 return false;
             }
@@ -352,7 +352,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, poststed.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNBOKSTAV(), poststed.getText()))){
                 output.setText("Feil - du må kun bruke bokstaver (min. 2 tegn) i poststed");
                 return false;
             }
@@ -363,7 +363,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, areal.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), areal.getText()))){
                 output.setText("Feil - areal må kun inneholde heltall");
                 return false;
             }
@@ -374,7 +374,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, byggeaar.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), byggeaar.getText()))){
                 output.setText("Feil - byggeår må kun inneholde heltall");
                 return false;
             }
@@ -385,19 +385,19 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             return false;
         }
         else{
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, pris.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), pris.getText()))){
                 output.setText("Feil - pris må kun inneholde heltall");
                 return false;
             }
         }
         // avertert dato
         if(StartVindu.konverterDato(avertertDato.getText()) == null){
-            output.setText("Feil - dato må være på format ('" + StartVindu.DATOFORMAT + "').");
+            output.setText("Feil - dato må være på format ('" + StartVindu.getDATOFORMAT() + "').");
             return false;
         }
         // beskrivelse
         if(!beskrivelse.getText().equals("")){
-            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLELLERBOKSTAV, beskrivelse.getText()))){
+            if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNTALLELLERBOKSTAV(), beskrivelse.getText()))){
                 output.setText("Feil - beskrivelse må kun inneholde norkse bokstaver og/eller heltall");
                 return false;
             }
@@ -405,7 +405,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         // tomtestørrelse
         if(((String)boligtype.getSelectedItem()).equals(TYPE[1])){
             if(!tomtestorrelse.getText().equals("")){
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, tomtestorrelse.getText()))){
+                if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), tomtestorrelse.getText()))){
                     output.setText("Feil - tomtestørrelse må kun inneholde heltall");
                     return false;
                 }
@@ -422,7 +422,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             return;
         }
         
-        if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, postnr.getText())){
+        if(!StartVindu.kontrollerRegEx(StartVindu.getPATTERNPOSTNUMMER(), postnr.getText())){
             output.setText("Feil - ikke gyldig postnummer");
             return;
         }
@@ -496,7 +496,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                 }
                 
                 // regex
-                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, ny)){
+                if(!StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), ny)){
                     output.setText("Feil - areal må kun inneholde heltall");
                     return;
                 }
@@ -546,7 +546,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                 }
                 
                 // regex
-                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, ny)){
+                if(!StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), ny)){
                     output.setText("Feil - byggeår må kun inneholde heltall");
                     return;
                 }
@@ -574,7 +574,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                 }
                 
                 // regex
-                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, ny)){
+                if(!StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), ny)){
                     output.setText("Feil - pris må kun inneholde heltall");
                     return;
                 }
@@ -597,17 +597,17 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             }
             case "Avertert dato":{
                 // regex
-                if(ny.equals(StartVindu.DATOFORMAT)){
+                if(ny.equals(StartVindu.getDATOFORMAT())){
                     output.setText("Feil - du må skrive noe i feltet");
                     return;
                 }
-                if(!ny.equals(StartVindu.DATOFORMAT)){
-                    if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, ny))){
-                        output.setText("Feil - bruk format '" + StartVindu.DATOFORMAT + "' for dato");
+                if(!ny.equals(StartVindu.getDATOFORMAT())){
+                    if(!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNDATO(), ny))){
+                        output.setText("Feil - bruk format '" + StartVindu.getDATOFORMAT() + "' for dato");
                         return;
                     }
                 }
-                if(!(ny.equals(StartVindu.DATOFORMAT)))
+                if(!(ny.equals(StartVindu.getDATOFORMAT())))
                     if(b.getDato() != null && (b.getDato()).equals(StartVindu.konverterDato(ny))){
                         output.setText(felt + " allerede lik: " + ny);
                         return;
@@ -621,15 +621,15 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                 }
                 
                 if(b.getDato()!= null)
-                    gammel = StartVindu.ENKELDATOFORMAT.format(b.getDato());
+                    gammel = StartVindu.getENKELDATOFORMAT().format(b.getDato());
                 else
-                    gammel = StartVindu.DATOFORMAT;
+                    gammel = StartVindu.getDATOFORMAT();
                 
                 b.setDato(StartVindu.konverterDato(ny));
 
                 output.setText(felt + " endret"
                 + "\nGammel:\t" + gammel 
-                + "\nNy:\t" + StartVindu.ENKELDATOFORMAT.format(b.getDato()));
+                + "\nNy:\t" + StartVindu.getENKELDATOFORMAT().format(b.getDato()));
                 
                 break;
             }
@@ -641,7 +641,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                 
                 // regex
                 if(!ny.equals("")){
-                    if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLELLERBOKSTAV, ny)){
+                    if(!StartVindu.kontrollerRegEx(StartVindu.getPATTERNTALLELLERBOKSTAV(), ny)){
                         output.setText("Feil - beskrivelse må kun inneholde\nbokstaver og/eller heltall");
                         return;
                     }
@@ -691,7 +691,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                     return;
                 }
                 // regex
-                if(!StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, ny)){
+                if(!StartVindu.kontrollerRegEx(StartVindu.getPATTERNHELTALL(), ny)){
                     output.setText("Feil - tomtestørrelse må kun inneholde heltall");
                     return;
                 }
@@ -825,7 +825,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         antRom.setSelectedIndex(0);
         byggeaar.setText("");
         pris.setText("");
-        avertertDato.setText(StartVindu.DATOFORMAT);
+        avertertDato.setText(StartVindu.getDATOFORMAT());
         beskrivelse.setText("");
         etasjer.setSelectedIndex(0);
         tomtestorrelse.setText("");
@@ -914,10 +914,10 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         
         if(fe.getSource() == avertertDato)
             if(avertertDato.getText().equals(""))
-                avertertDato.setText(StartVindu.DATOFORMAT);
+                avertertDato.setText(StartVindu.getDATOFORMAT());
         // fungerer ikke hvis vi bruker "else-if" for flere felter
         if(fe.getSource() == gateadresse || fe.getSource() == postnr || fe.getSource() == poststed)
-            if(!gateadresse.getText().equals("") && !postnr.getText().equals("") && !poststed.getText().equals("") && StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, postnr.getText())){
+            if(!gateadresse.getText().equals("") && !postnr.getText().equals("") && !poststed.getText().equals("") && StartVindu.kontrollerRegEx(StartVindu.getPATTERNPOSTNUMMER(), postnr.getText())){
                 
                 Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText());
                 Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleierViaBolig(b);
@@ -935,7 +935,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                     antRom.setSelectedItem(Integer.toString(b.getSoverom()));
                     byggeaar.setText(Integer.toString(b.getByggeaar()));
                     pris.setText(Integer.toString(b.getPris()));
-                    avertertDato.setText(StartVindu.ENKELDATOFORMAT.format(b.getDato()));
+                    avertertDato.setText(StartVindu.getENKELDATOFORMAT().format(b.getDato()));
                     beskrivelse.setText(b.getBeskrivelse());
                     if(b instanceof EneboligRekkehus){
                         etasjer.setSelectedItem(Integer.toString(e.getAntEtasjer()));
