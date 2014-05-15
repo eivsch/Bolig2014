@@ -20,10 +20,6 @@ public class KontraktListe implements Serializable {
     private List<Kontrakt> kontraktListeGjeldende = new ArrayList<>();
     private List<Kontrakt> kontraktArkiv = new ArrayList<>();
 
-    public void settInn(Kontrakt k) {
-        kontraktListeGjeldende.add(k);
-    }
-
     // get metoder
     public List<Kontrakt> getKontraktListeGjeldende() {
         return kontraktListeGjeldende;
@@ -44,6 +40,11 @@ public class KontraktListe implements Serializable {
             l.add(iter2.next());
         }
         return l;
+    }
+    
+    // setter inn et kontrakt-objekt
+    public void settInn(Kontrakt k) {
+        kontraktListeGjeldende.add(k);
     }
 
     // Returnerer antall lagrede gjeldende kontrakter

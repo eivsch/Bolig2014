@@ -27,6 +27,14 @@ code{
 	color: darkblue;
 }
 
+.green{
+	color: darkgreen;
+}
+
+.red{
+	color: darkred;
+}
+
 #generell{
 	margin-top: 50px;
 	margin-bottom: 80px;
