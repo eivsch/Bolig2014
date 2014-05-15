@@ -8,16 +8,34 @@
 <body>
 	
 	<header>
-		<h2> Boligformidling </h2>
+		<h2>Boligformidling</h2>
 		<p>Eivind Schulstad - s198752 - Dataingeniør</p>
 		<p>Gretar Ævarsson - s198586 - Informasjonsteknologi</p>
 		<p>Sigurd Hølleland - s198597 - Informasjonsteknologi</p>
 	</header>
 		 <section id="content">
-		   <h2>Produktdokumentasjon</h2>
-		 	<h3>Filbehandlingen</h3>
+<h1>Produktdokumentasjon</h1>
 
-		 	<p>Programmet lagrer data på 3 forskjellige filer, hhv. boligsoekermengde.data,
+<h2>Oppbygning av programmet</h2>
+	<h3>Klassehierarki</h3>
+	<p>Vi har tre klasser som utgjør objektene som brukes i programmet, dvs. person, bolig og kontrakt.
+	Person-klassen har to subklasser, utleiere og boligsøkere. Bolig-klassen har også to subklasser, 
+	enebolig/rekkehus og leilighet.</p>
+	<img src="klassehierarki.png" alt="Klassehierarki">
+	
+	<h3>Datastruktur</h3>
+		<p>Objektene lagres i en datastruktur, dvs. Person-objektene lagres i en TreeSet-mengde og hvert Utleier-objekt innholder 
+		en LinkedList-liste over alle boliger vedkommende er knyttet til. Vi valgte TreeSet datastrukturen for Personer fordi det hindrer dobbeltlagring 
+		og er sortert (f.eks. mht. personens navn). Vi valgte LinkedList datastrukturen for Boligene fordi den er effektiv når man skal 
+		sette inn og fjerne objekter, som er en stor del av vår program.</p>
+		<p>Kontrakt klassen inneholder to ArrayList-lister, en for gjeldende kontrakter og en for arkviverte kontrakter.
+		Vi valgte ArrayList-liste fordi der er effektivt å søke gjennom og hente ut data (bruke indekser). 
+		Samtidig skal vi heller ikke fjerne noe fra listen.</p>
+		<img src="datastruktur.png" alt="Datastruktur">	
+
+<h3>Filbehandlingen</h3>
+
+<p>Programmet lagrer data på 3 forskjellige filer, hhv. boligsoekermengde.data,
 kontraktliste.data og utleiermengde.data. Når for eksempel boligsøkere registreres
 legges objektene inn i en TreeSet, og det er denne som i sin tur skrives til fila 
 boligsoekermengde.data. Omtrent tilsvarende skjer for utleiere og kontrakter. </p>
