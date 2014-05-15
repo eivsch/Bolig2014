@@ -348,7 +348,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         // Sjekker om boligsøkeren har registrert en gjeldende kontrakt
         KontraktListe kl = StartVindu.getKontraktVindu().getKontraktListe();
         if(kl.finnGjeldendeKontrakt(bs) != null){
-            output.setText("Boligsøker" + fornavn + " " + etternavn + " har "
+            output.setText("Boligsøker " + fornavn + " " + etternavn + " har "
                     + "inngått kontrakt og kan derfor ikke slettes");
             return;
         }

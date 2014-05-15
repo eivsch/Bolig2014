@@ -29,3 +29,7 @@ FINNBOLIG
 Testet å lage diverse boligtabeller med forskjellige søkerkriterier. Tester deretter
 ved å trykke på "Gå til bolig". Foreløpig ikke funnet noen feil. Også prøvd å
 skrive bokstaver i feltene der det skal være tall, går bra.
+
+SLETT BOLIGSØKER
+Testet og skal ikke være mulig å slette en boligsøker så lenge han har en gjeldende
+kontrakt.

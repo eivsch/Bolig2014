@@ -302,7 +302,12 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             }
             BoligListe bl = ul.getBoligliste();
             Bolig b = bl.finnBolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText());
-            
+            // Sjekker at boligen ikke inngår i en kontrakt
+            if(!b.getLedig()){
+                output.setText("Boligen inngår i en kontrakt og kan derfor ikke"
+                        + " slettes!");
+                return;
+            }
             if( StartVindu.visJaNeiMelding("Vil du slette boligen?", "Slett bolig").equals("Nei"))
                 return;
             
