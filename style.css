@@ -1,0 +1,43 @@
+html{
+	background-color: #222;
+}
+
+body{    
+    font-family: georgia;
+	background-color: white;
+    width: 600px;	
+	margin-left: auto;
+    margin-right: auto;
+	padding: 20px;
+}
+
+img{
+	width: 100%;
+	height: auto;
+}
+
+#generell{
+	margin-top: 50px;
+	margin-bottom: 80px;
+}
+
+#content{
+	margin-top: 50px;
+}
+
+@media print
+{
+	footer{
+		position: fixed;
+		bottom: -800px;
+	}
+	
+    .noprint{
+        display: none !important;
+    }
+}
+
+#pagebreak{
+	page-break-before:always;
+}
+	
