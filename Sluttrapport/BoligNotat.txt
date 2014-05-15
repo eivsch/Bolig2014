@@ -1,0 +1,31 @@
+BOLIG
+
+Alle boliger i programmet er definert av den abstrakte klassen bolig. Her ligger alt
+som er felles for de to konkrete subklassetypene Leilighet og EneboligRekkehus.
+Dette er datafelter for adresse, hvilken type bolig det er, beskrivelse av boligen,
+inneareal, soverom, byggeår, leiepris, hvilken dato den ble avertert fra og om
+boligen er ledig eller ikke.
+
+I klassen er det også bestemt hvordan boliger regnes som like. Dette er definert 
+gjennom klassens equals-metode, som tar to boliger og sammenlikner gateadresse,
+postnr og poststed. Dersom alle feltene er like hverandre er også boligene like.
+Det er derfor nødvendig å fylle inn ekstra informasjon, som f.eks leilighetsnummer,
+i adressefeltet dersom man skal registrere flere leiligheter som ligger i samme blokk.
+
+Det ligger også en metode, kalt tilRad, som bestemmer hvilke og i hvilken rekkefølge
+datafeltene i en bolig skal vises i en tabell ved å legge dem inn i en array.
+
+LEILIGHET
+
+Arver fra Bolig, og har i tillegg datafelter for hvilken etasje leiligheten befinner
+seg i, om det er heis og om det er balkong. toString-metoden bestemmer hvordan
+fulstendig informasjon om en leilighet skal presenteres i brukergrensesnittet.
+
+ENEBOLIGREKKEHUS
+
+Arver fra Bolig, og har i tillegg datafelter for antall etasjer, tomtens areal og om
+huset har kjeller. toString-metoden brukes på samme måte som i Leilighet.
+
+Siden Bolig-klassen er abstrakt er det kun objekter av typen Leilighet og
+EneboligRekkehus som opprettes. Når en av boligtypene er opprettet lagres de direkte
+i en utleiers tilhørende boligliste.

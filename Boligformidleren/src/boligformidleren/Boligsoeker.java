@@ -171,19 +171,19 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
         boolean passer = true;
 
-        if (areal != 0 && areal > b.getAreal()) {
+        if (areal != StartVindu.INGENKRAV && areal > b.getAreal()) {
             passer = false;
         }
-        if (byggeaar != 0 && byggeaar > b.getByggeaar()) {
+        if (byggeaar != StartVindu.INGENKRAV && byggeaar > b.getByggeaar()) {
             passer = false;
         }
         if (dato != null && dato.after(b.getDato())) {
             passer = false;
         }
-        if (pris != 0 && pris < b.getPris()) {
+        if (pris != StartVindu.INGENKRAV && pris < b.getPris()) {
             passer = false;
         }
-        if (soverom != 0 && soverom > b.getSoverom()) {
+        if (soverom != StartVindu.INGENKRAV && soverom > b.getSoverom()) {
             passer = false;
         }
         if (!type.equals("Ingen krav") && !type.equals(b.getType())) {
@@ -193,10 +193,10 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         if (b instanceof EneboligRekkehus) {
             EneboligRekkehus e = (EneboligRekkehus) b;
 
-            if (maxAntEtasjer != 0 && maxAntEtasjer < e.getAntEtasjer()) {
+            if (maxAntEtasjer != StartVindu.INGENKRAV && maxAntEtasjer < e.getAntEtasjer()) {
                 passer = false;
             }
-            if (tomtestorrelse != 0 && tomtestorrelse > e.getTomtAreal()) {
+            if (tomtestorrelse != StartVindu.INGENKRAV && tomtestorrelse > e.getTomtAreal()) {
                 passer = false;
             }
             if (kjeller && !e.getKjeller()) {
@@ -207,7 +207,7 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
         if (b instanceof Leilighet) {
             Leilighet l = (Leilighet) b;
 
-            if (maxEtasje != 0 && maxEtasje < l.getEtasje()) {
+            if (maxEtasje != StartVindu.INGENKRAV && maxEtasje < l.getEtasje()) {
                 passer = false;
             }
             if (balkong && !l.getBalkong()) {

@@ -2,7 +2,7 @@
  * INNHOLD:
  * Klassen Utleier.
  *
- * Sist oppdatert: 27.03.2014, 11:41.
+ * Sist oppdatert: 15.05.2014, 1700.
  * Programmert av: Eivind
  */
 package boligformidleren;
@@ -25,9 +25,14 @@ public class Utleier extends Person implements Comparable<Utleier> {
         liste = new BoligListe();
     }
 
-    // get metode
+    // get metoder
     public String getFirma() {
         return firma;
+    }
+
+    // returnerer boliglisten knyttet til denne utleieren
+    public BoligListe getBoligliste() {
+        return liste;
     }
 
     // set metode
@@ -38,7 +43,7 @@ public class Utleier extends Person implements Comparable<Utleier> {
     // Lager en array som skal tilsvare en rad i en utleiertabell.
     public Object[] tilRad() {
         Object[] rad = {super.getEtternavn() + ", " + super.getFornavn(), firma,
-            super.getEpost(), new Integer(super.getTelefonnr()), 
+            super.getEpost(), new Integer(super.getTelefonnr()),
             super.getFornavn(), super.getEtternavn()};
         return rad;
     }
@@ -47,27 +52,20 @@ public class Utleier extends Person implements Comparable<Utleier> {
     public void regBolig(Bolig b) {
         if (b != null) {
             liste.settInn(b);
-        } else {
-            return;
         }
     }
-    
+
     // sletter bolig fra utleieren
-    public void slettBolig(Bolig b){
-        if(b != null)
+    public void slettBolig(Bolig b) {
+        if (b != null) {
             liste.fjern(b);
-        else
-            return;
-    }
-    // returnerer boliglisten knyttet til denne utleieren
-    public BoligListe getBoligliste() {
-        return liste;
+        }
     }
 
     /**
-     * Enkel compareTo-metode. Kun for å kunne lagre Utleiere i en
-     * TreeSet som ikke tar imot en comparator i kontruktøren, slik at skriving
-     * til fil muliggjøres.
+     * Enkel compareTo-metode. Kun for å kunne lagre Utleiere i en TreeSet som
+     * ikke tar imot en comparator i kontruktøren, slik at skriving til fil
+     * muliggjøres.
      */
     public int compareTo(Utleier ul) {
         return ul.getEtternavn().compareTo(this.getEtternavn());

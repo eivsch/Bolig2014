@@ -1,0 +1,57 @@
+PERSON
+
+Klassen Person er en abstrakt klasse som bestemmer hovedtrekkene ved programmets 
+definisjon av en person. Klassen inneholder datafelter for navn, personens 
+hjemadresse, epost og telefonnr.
+Klassen bestemmer også hvordan personer regnes som like, evt. deres ID. Dette
+er definert gjennom klassens equals-metode som sammenlikner to personer. Dersom
+de har likt fornavn og etternavn regnes de som samme person. Dette er en bevisst
+forenkling av virekligheten for å minke arbeidsmengden noe, og en eventuell ting å
+forbedre i fremtiden.
+
+BOLIGSOEKER
+
+Konkret subklasse til Person. Implementere interface Comparable for å sortere 
+boligsøkerne i en treeSet etter egendefinert (norsk) rekkefølge. Boligsøkeren får en 
+rekke ekstra datafelter som skal tilsvare datafeltene i en Bolig. Dette er fordi en 
+boligsøker skal kunne registrere seg med egne krav til hvilke boliger han/hun ser på 
+som interessante. For eksempel dersom boligsøkeren har lagret 5 som "maxEtasje", 
+skal ikke boligsøkeren vises som interessert i leligheter som ligger høyere enn 5. 
+etasje. Det er også et datafelt for at boligsøkeren skal kunne skrive en kort tekst 
+om seg selv, og et datafelt som indikerer om boligsøkeren for øyeblikket leter etter 
+en bolig. Dette er "true" som default og endres kun når boligsøkeren registrerer en 
+kontrakt med firmaet, og evt. når kontrakten avsluttes. Det kunne vært aktuelt å 
+legge til funksjon for manuell endring av dette datafeltet.
+
+I klassen ligger det også en metode som skal sammenlikne nevnte datafelter med 
+de tilsvarende datafeltene hos en bolig. Dersom ett av boligsøkerens krav ikke
+oppfylles av boligen det sammenliknes med, skal denne boligen ikke regnes som 
+interessant for boligsøkeren. Et viktig moment er at boligsøkeren skal kunne fylle ut
+så mange, eller så få, krav som han/hun ønsker. Dersom det ikke er registrert noe
+krav skal derfor defaultverdier som 0/"ingen krav"/null, ikke være begrensende for
+søket.
+
+I klassen ligger også en metode "tilRad" som bestemmer hvilke og i hvilken rekkefølge
+datafeltene hos en boligsøker skal vises i en tabell ved å legge dem inn i en array.
+
+Det er også redefinert en compareTo-metode for å kunne legge  boligsøkerobjektet i en
+treeSet som ikke tar imot en Comparator i kontruktøren, og en toStringmetode som 
+bestemmer hvordan informasjonen om en boligsøker skal skrives ut i brukergrensesnittet.
+
+UTLEIER
+
+Konkret subklasse til Person.Implementerer interface Comparable for å kunne sortere 
+utleierne i en treeSet etter egendefinert rekkefølge. Legger til to ekstra datafelt, 
+et om hvilket firma utleieren representerer og en boligliste av typen ArrayList, som 
+inneholder alle  boligobjekter utleieren har registrert. Har derfor også metoder for 
+å sette inn og fjerne et boligøbjekt fra listen.
+
+I klassen ligger også en metode "tilRad" som bestemmer hvilke og i hvilken rekkefølge
+datafeltene hos en utleier skal vises i en tabell ved å legge dem inn i en array.
+
+Det er også redefinert en compareTo-metode for å kunne legge  utleierobjektet i en
+treeSet som ikke tar imot en Comparator i kontruktøren, og en toString-metode som 
+bestemmer hvordan informasjonen om en utleier skal skrives ut i brukergrensesnittet.
+
+
+

@@ -43,6 +43,7 @@ public class StartVindu extends JFrame implements ActionListener {
     public static final String[] ANTSOVEROM = {"1", "2", "3", "4", "5", "6", "7", "8"};
     public static final String[] ETASJERENEBOLIG = {"1", "2", "3", "4", "5"};
     public static final String DATOFORMAT = "dd.mm.åååå";
+    public static final int INGENKRAV = 0;
 
     // RegEx
     public static final String PATTERNDATO = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
@@ -183,7 +184,7 @@ public class StartVindu extends JFrame implements ActionListener {
                 }
         );
         
-        // lukkeknapp for InformasjonVindu
+        // lukkeknapp for InformasjonVindu ---> Ikke kodet ferdig!
         informasjonVindu.addWindowListener(
                 new WindowAdapter(){
                     public void windowClosing(WindowEvent e){
