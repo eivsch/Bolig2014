@@ -366,7 +366,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         }
         else{
             if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, RegPersFornavn.getText()))){
-                output.setText("Feil - du må kun bruke norske bokstaver (min. 2 tegn) i fornavn");
+                output.setText("Feil - du må kun bruke bokstaver (min. 2 tegn) i fornavn");
                 return false;
             }
         }
@@ -377,7 +377,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         }
         else{
             if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, RegPersEtternavn.getText()))){
-                output.setText("Feil - du må kun bruke norske bokstaver (min. 2 tegn) i etternavn");
+                output.setText("Feil - du må kun bruke bokstaver (min. 2 tegn) i etternavn");
                 return false;
             }
         }

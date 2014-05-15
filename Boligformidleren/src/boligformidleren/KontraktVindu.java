@@ -2,7 +2,7 @@
  * Innhold: 
  * Vindu som brukes for registrering, slettning av kontrakter.
  * Sist oppdatert:
- * Programmert av: Gretar
+ * Programmert av: Eivind, Gretar
  */
 package boligformidleren;
 
@@ -19,10 +19,6 @@ import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.util.Date;
 
-/**
- *
- * @author Eivind
- */
 public class KontraktVindu extends JFrame implements ActionListener, FocusListener {
 
     private JTextField gateadresse, postnr, poststed, utleierFornavn, utleierEtternavn,
@@ -53,7 +49,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         masterPanel.add(under, BorderLayout.CENTER);
 
         this.getContentPane().add(masterPanel);
-        setSize(300, 500);
+        setSize(300, 600);
 
         output = new JTextArea();
         JScrollPane scroll = new JScrollPane(output);
@@ -129,19 +125,12 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
 
     // Metode for registrering av kontrakt.
     public void regKontrakt() {
-        // Kontrollerer tallverdier for å unngå parseException
-        JTextField[] testRegExTall = {postnr, pris};
-        if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, testRegExTall))) {
-            output.setText("Feil ved innelsning av tallverdier. Bruk kun heltall");
+        
+        // regex
+        if(!regexOK()){
             return;
         }
-        // Gir melding til bruker om han/hun har glemt å fylle noen felter.
-        JTextField[] testTomme = {gateadresse, postnr, poststed, utleierFornavn,
-            utleierEtternavn, leietakerFornavn, leietakerEtternavn, pris};
-        if (StartVindu.tekstFeltErTomt(testTomme)) {
-            output.setText("Vennligst fyll inn alle felter!");
-            return;
-        }
+        
         // henter inn brukerinput
         String adr = gateadresse.getText();
         int pnr = Integer.parseInt(postnr.getText());
@@ -196,10 +185,131 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         b.boligErOpptatt();
         bs.leterIkkeEtterBolig();
 
+        blankFelter();
         output.setText("Kontrakt registrert:\n" + k.toString());
         output.setCaretPosition(0);
     }
 
+    // sjekker regular expression på alle feltene
+    public boolean regexOK(){
+        // Kontrollerer alle felt ved RegEx for å unngå exceptions (f.eks parseException, NullPointerException, osv.)
+        // gateadresse
+        if(gateadresse.getText().equals("")){
+            output.setText("Feil - du må fylle inn gateadresse");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNTALLBOKSTAV, gateadresse.getText()))){
+                output.setText("Feil - du må kun bruke bokstaver (min. 4 tegn)\nog heltall (1-3 sifre) i gateadresse");
+                return false;
+            }
+        }
+        // postnummer
+        if(postnr.getText().equals("")){
+            output.setText("Feil - du må fylle inn postnummer");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNPOSTNUMMER, postnr.getText()))){
+                output.setText("Feil - du må kun bruke heltall\n(4 sifre) i postnummer");
+                return false;
+            }
+        }
+        // poststed
+        if(poststed.getText().equals("")){
+            output.setText("Feil - du må fylle inn poststed");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, poststed.getText()))){
+                output.setText("Feil - du må kun bruke bokstaver\n(min. 2 tegn) i poststed");
+                return false;
+            }
+        }
+        // utleier fornavn
+        if(utleierFornavn.getText().equals("")){
+            output.setText("Feil - du må fylle inn utleierens fornavn");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, utleierFornavn.getText()))){
+                output.setText("Feil - du må kun bruke bokstaver\n(min. 2 tegn) i utleierens fornavn");
+                return false;
+            }
+        }
+        // utleier etternavn
+        if(utleierEtternavn.getText().equals("")){
+            output.setText("Feil - du må fylle inn utleierens etternavn");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, utleierEtternavn.getText()))){
+                output.setText("Feil - du må kun bruke bokstaver\n(min. 2 tegn) i utleierens etternavn");
+                return false;
+            }
+        }
+        // leietaker fornavn
+        if(leietakerFornavn.getText().equals("")){
+            output.setText("Feil - du må fylle inn leietakerens fornavn");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, leietakerFornavn.getText()))){
+                output.setText("Feil - du må kun bruke norske bokstaver (min. 2 tegn) i leietakerens fornavn");
+                return false;
+            }
+        }
+        // leietaker etternavn
+        if(leietakerEtternavn.getText().equals("")){
+            output.setText("Feil - du må fylle inn leietakerens etternavn");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNBOKSTAV, leietakerEtternavn.getText()))){
+                output.setText("Feil - du må kun bruke bokstaver\n(min. 2 tegn) i leietakerens etternavn");
+                return false;
+            }
+        }
+        // pris
+        if(pris.getText().equals("")){
+        output.setText("Feil - du må fylle inn pris");
+            return false;
+        }
+        else{
+            if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNHELTALL, pris.getText()))){
+                output.setText("Feil - pris må kun inneholde heltall");
+                return false;
+            }
+        }
+        // startdato
+        if(startDatoFelt.getText().equals(StartVindu.DATOFORMAT)){
+            output.setText("Feil - du må fylle inn startdato");
+            return false;
+        }
+        else{
+            if(StartVindu.konverterDato(startDatoFelt.getText()) == null){
+                output.setText("Feil - dato må være på format\n('" + StartVindu.DATOFORMAT + "').");
+                return false;
+            }
+        }
+        // slutdato
+        if(sluttDatoFelt.getText().equals(StartVindu.DATOFORMAT)){
+            output.setText("Feil - du må fylle inn sluttdato");
+            return false;
+        }
+        else{
+            if(StartVindu.konverterDato(sluttDatoFelt.getText()) == null){
+                output.setText("Feil - dato må være på format\n('" + StartVindu.DATOFORMAT + "').");
+                return false;
+            }
+        }
+        
+        
+        
+        
+        return true;
+    }
+    
     public void siOppKontrakt() {
         // Forandrer sluttdato i kontrakten tilsvarende oppsigelsestid.
     }
