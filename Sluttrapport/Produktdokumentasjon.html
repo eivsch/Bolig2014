@@ -8,7 +8,7 @@
 <body>
 	
 	<header>
-		<h2>Boligformidling</h2>
+		<h2>Gruppe 16 - Boligformidling</h2>
 		<p>Eivind Schulstad - s198752 - Dataingeniør</p>
 		<p>Gretar Ævarsson - s198586 - Informasjonsteknologi</p>
 		<p>Sigurd Hølleland - s198597 - Informasjonsteknologi</p>
@@ -42,13 +42,18 @@
 		Denne klassen inneholder main-metoden og den oppretter et StartVindu-objekt, som åpnes når programmet er kjørt.
 		Lukkeknappen på StartVinduet er programmert slik at den skriver alle mengder og lister til fil før programmet avsluttes. 
 		
+		Boligformidleren.java inneholder følgende metoder
+		<code><ul>
+			<li>public static void main(String[] args)</li>
+		</ul></code>
+		
 		<h4>StartVindu.java</h4>
 		Denne klassen inneholder alle andre vindu-klassene (utleiervindu, boligsøkervindu, boligvindu, kontraktvindu, informasjonvindu)
 		og kobler dem sammen med get-metoder (static). Dette betyr at alle klassene har tilgang til hver annen i gjennom denne klassen.
 		StartVindu-klassen inneholder i tillegg alle konstanter (static) som brukes av mer enn en klasse, f.eks. regulære uttrykk (regex) mønstre.
 		Til slutt inneholder denne klassen generelle metoder som bruker i andre klasser, f.eks. for regex, skrive data til fil o.fl.
 		
-		StartVindu.java inneholder følgende metoter
+		StartVindu.java inneholder følgende metoder
 		<code><ul>
 			<li>public StartVindu() - konstruktør</li>
 			<li>public static UtleierVindu getUtleierVindu()</li>
@@ -75,7 +80,7 @@
 		og alle metodene som kalles når brukeren trykker på knappene.
 		I tilleg inneholder den UtleierMengde-klassen (hvor alle utleier-objektene ligger).
 		
-		UtleierVindu.java inneholder følgende metoter
+		UtleierVindu.java inneholder følgende metoder
 		<code><ul>
 			<li>public UtleierVindu() - konstruktør</li>
 			<li>public UtleierMengde getUtleierMengde()</li>
@@ -93,11 +98,12 @@
 		
 		<h4>UtleierMengde.java</h4>
 		Denne klassen inneholder mengden selv (TreeSet) og alle metodene som brukes når man vil sette inn et nytt utleier-objekt,
-		fjerne eller finner en utleier.
+		fjerne eller finner en utleier. Før en utleier kan fjernes, sjekker metoden om den har registrerte boliger eller ikke,
+		dvs. den kan ikke fjernes hvis den har ikke tom BoligListe.
 		I tillegg inneholder den metoder for at registrere bolig-objekter til en utleier, fordi man må først søke gjennom alle
 		utleierene om den boligen eksisterer fra før.
 		
-		UtleierMengde.java inneholder følgende metoter
+		UtleierMengde.java inneholder følgende metoder
 		<code><ul>
 			<li>public void focusLost(FocusEvent fe) - brukt for auto-fill</li>
 			<li>public boolean fjern(Utleier ul)</li>
@@ -110,9 +116,366 @@
 			<li>public String toString()</li>
 		</ul></code>
 		
+		
+		<h4>Utleier.java</h4>
+		Denne klassen er en konkret subklasse til Person-klassen. Implementerer interface Comparable for å kunne sortere 
+		utleierne i en TreeSet etter egendefinert rekkefølge. Legger til to ekstra datafelt, 
+		et om hvilket firma utleieren representerer og en boligliste av typen ArrayList, som 
+		inneholder alle  boligobjekter utleieren har registrert. Har derfor også metoder for 
+		å sette inn og fjerne et boligøbjekt fra listen.
+		I klassen ligger også en metode "tilRad" som bestemmer hvilke og i hvilken rekkefølge
+		datafeltene hos en utleier skal vises i en tabell ved å legge dem inn i en array.
+		Det er også redefinert en compareTo-metode for å kunne legge  utleierobjektet i en
+		treeSet som ikke tar imot en Comparator i kontruktøren, og en toString-metode som 
+		bestemmer hvordan informasjonen om en utleier skal skrives ut i brukergrensesnittet.
+		
+		Utleier.java inneholder følgende metoder
+		<code><ul>
+			<li>public Utleier(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr, String firma) - konstruktør</li>
+			<li>public String getFirma()</li>
+			<li>public BoligListe getBoligliste()</li>
+			<li>public void setFirma(String f)</li>
+			<li>public Object[] tilRad()</li>
+			<li>public void regBolig(Bolig b)</li>
+			<li>public void slettBolig(Bolig b)</li>
+			<li>public int compareTo(Utleier ul)</li>
+			<li>public String toString()</li>
+		</ul></code>
+		
+		<h4>BoligListe.java</h4>
+		Hvert utleier-objekt inneholder den klasse, og dessuten inneholder denne klassen listen selv (LinkedList)
+		og alle metodene som brukes når man vil sette inn et nytt bolig-objekt (enten av type 'EneboligRekkehus' eller 'Leilighet'),
+		fjerne eller finner en bolig.
+		
+		BoligListe.java inneholder følgende metoder
+		<code><ul>
+			<li>public List getListe()</li>
+			<li>public void settInn(Bolig b)</li>
+			<li>public boolean fjern(Bolig b)</li>
+			<li>public Bolig finnBolig(String gateadresse, int postnr, String poststed)</li>
+			<li>public String toString()</li>
+		</ul></code>
+		
+		<h4>EneboligRekkehus.java</h4>
+		Denne klassen er en sub-klasse til Bolig-klassen og den arver alt fra Bolig, og har i tillegg datafelter for antall etasjer, tomtens areal og om huset har kjeller.
+		toString-metoden bestemmer hvordan fulstendig informasjon om en leilighet skal presenteres i brukergrensesnittet.
 
-<h3>Filbehandlingen</h3>
+		EneboligRekkehus.java inneholder følgende metoder
+		<code><ul>
+			<li>public EneboligRekkehus(String gateadresse, int postnr, String poststed, String type, String beskrivelse, Date annonsedato, int inneAreal, int antRom, int byggeaar, int pris, int antEtasjer, int tomtAreal, boolean kjeller) - konstruktør</li>
+			<li>public int getAntEtasjer()</li>
+			<li>public int getTomtAreal()</li>
+			<li>public boolean getKjeller()</li>
+			<li>public void setAntEtasjer(int a)</li>
+			<li>public void setTomtAreal(int t)</li>
+			<li>public void setKjeller(boolean k)</li>
+			<li>public String toString()</li>
+		</ul></code>
+		
+		<h4>Leilighet.java</h4>
+		Arver fra Bolig, og har i tillegg datafelter for hvilken etasje leiligheten befinner seg i, om det er heis og om det er balkong. 
+		toString-metoden brukes på samme måte som i EneboligRekkehus-klassen.
+		
+		Leilighet.java inneholder følgende metoder
+		<code><ul>
+			<li>public Leilighet(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
+            Date annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
+            int etasje, boolean heis, boolean balkong) - konstruktør</li>
+			<li>public int getEtasje()</li>
+			<li>public boolean getHeis()</li>
+			<li>public boolean getBalkong()</li>
+			<li>public void setEtasje(int e)</li>
+			<li>public void setHeis(boolean h)</li>
+			<li>public void setBalkong(boolean b)</li>
+			<li>public String toString()</li>
+		</ul></code>
+		
+		<h4>BoligsoekerVindu.java</h4>
+		Denne klassen brukes når man skal registrere, slette eller endre en boligsøker, dvs. den inneholder alle nødvendige felter og knapper
+		og alle metodene som kalles når brukeren trykker på knappene.
+		I tilleg inneholder den BoligsoekerMengde-klassen (hvor alle boligsoeker-objektene ligger).
+		
+		BoligsoekerVindu.java inneholder følgende metoder
+		<code><ul>
+			<li>public BoligsoekerVindu() - konstruktør</li>
+			<li>public BoligsoekerMengde getBoligsoekerMengde()</li>
+			<li>public void regBoligsoeker()</li>
+			<li>public void slettBoligsoeker()</li>
+			<li>public boolean regexOK()</li>
+			<li>public void endreFelt(String felt, String ny)</li>
+			<li>public void blankFelter()</li>
+			<li>public void skrivBoligsoekerTilFil()</li>
+			<li>public void lesBoligsoekerFraFil()</li>
+			<li>public void visFeilmelding(StackTraceElement[] ste)</li>
+			<li>public void visFeilmelding(Object o)</li>
+			<li>public void actionPerformed(ActionEvent e)</li>
+			<li>public void focusGained(FocusEvent fe)</li>
+			<li>public void focusLost(FocusEvent fe)</li>
+		</ul></code>
+		
+		<h4>BoligsoekerMengde.java</h4>
+		Denne klassen inneholder mengden selv (TreeSet) og alle metodene som brukes når man vil sette inn et nytt boligsoeker-objekt,
+		fjerne eller finner en boligsøker.
+		
+		BoligsoekerMengde.java inneholder følgende metoder
+		<code><ul>
+			<li>public void settInn(Boligsoeker b)</li>
+			<li>public boolean fjern(Boligsoeker bs)</li>
+			<li>public Set<Boligsoeker> getMengde()</li>
+			<li>public Boligsoeker finnBoligsoeker(String fornavn, String etternavn)</li>
+			<li>public Set<Boligsoeker> kopierMengdeUsortert()</li>
+			<li>public String toString()</li>
+		</ul></code>
+		
+		<h4>Boligsoeker.java</h4>
+		Denne klassen er også en konkret subklasse til Person-klassen. Implementere interface Comparable for å sortere 
+		boligsøkerne i en treeSet etter egendefinert (norsk) rekkefølge. Boligsøkeren får en 
+		rekke ekstra datafelter som skal tilsvare datafeltene i en Bolig. Dette er fordi en 
+		boligsøker skal kunne registrere seg med egne krav til hvilke boliger han/hun ser på 
+		som interessante. For eksempel dersom boligsøkeren har lagret 5 som "maxEtasje", 
+		skal ikke boligsøkeren vises som interessert i leligheter som ligger høyere enn 5. 
+		etasje. Det er også et datafelt for at boligsøkeren skal kunne skrive en kort tekst 
+		om seg selv, og et datafelt som indikerer om boligsøkeren for øyeblikket leter etter 
+		en bolig. Dette er "true" som default og endres kun når boligsøkeren registrerer en 
+		kontrakt med firmaet, og evt. når kontrakten avsluttes. Det kunne vært aktuelt å 
+		legge til funksjon for manuell endring av dette datafeltet.
 
+		I klassen ligger det også en metode som skal sammenlikne nevnte datafelter med 
+		de tilsvarende datafeltene hos en bolig. Dersom ett av boligsøkerens krav ikke
+		oppfylles av boligen det sammenliknes med, skal denne boligen ikke regnes som 
+		interessant for boligsøkeren. Et viktig moment er at boligsøkeren skal kunne fylle ut
+		så mange, eller så få, krav som han/hun ønsker. Dersom det ikke er registrert noe
+		krav skal derfor defaultverdier som 0/"ingen krav"/null, ikke være begrensende for
+		søket.
+
+		I klassen ligger også en metode "tilRad" som bestemmer hvilke og i hvilken rekkefølge
+		datafeltene hos en boligsøker skal vises i en tabell ved å legge dem inn i en array.
+
+		Det er også redefinert en compareTo-metode for å kunne legge  boligsøkerobjektet i en
+		treeSet som ikke tar imot en Comparator i kontruktøren, og en toStringmetode som 
+		bestemmer hvordan informasjonen om en boligsøker skal skrives ut i brukergrensesnittet.
+
+		
+		Boligsoeker.java inneholder følgende metoder
+		<code><ul>
+			<li>public Boligsoeker(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr, String pInfo, String type, int areal, int soverom, int byggeaar, int pris, Date dato, int maxAntEtasjer, int tomtestorrelse, boolean kjeller, int maxEtasje, boolean heis, boolean balkong) - konstruktør</li>
+			<li>public String getPersInfo()</li>
+			<li>public int getAreal()</li>
+			<li>public int getByggeaar()</li>
+			<li>public Date getDato()</li>
+			<li>public int getPris()</li>
+			<li>public int getSoverom()</li>
+			<li>public String getType()</li>
+			<li>public int getMaxAntEtasjer()</li>
+			<li>public int getTomtestorrelse()</li>
+			<li>public boolean getKjeller()</li>
+			<li>public int getMaxEtasje()</li>
+			<li>public boolean getBalkong()</li>
+			<li>public boolean getHeis()</li>
+			<li>public boolean getLeterEtterBolig()</li>
+			<li>public void setPersInfo(String p)</li>
+			<li>public void setAreal(int a)</li>
+			<li>public void setByggeaar(int b)</li>
+			<li>public void setDato(Date d)</li>
+			<li>public void setPris(int p)</li>
+			<li>public void setSoverom(int s)</li>
+			<li>public void setType(String t)</li>
+			<li>public void setMaxAntEtasjer(int m)</li>
+			<li>public void setTomtestorrelse(int t)</li>
+			<li>public void setKjeller(boolean k)</li>
+			<li>public void setMaxEtasje(int m)</li>
+			<li>public void setBalkong(boolean b)</li>
+			<li>public void setHeis(boolean h)</li>
+			<li>public boolean passerTilBolig(Bolig b)</li>
+			<li>public void leterEtterBolig()</li>
+			<li>public void leterIkkeEtterBolig()</li>
+			<li>public Object[] tilRad()</li>
+			<li>public int compareTo(Boligsoeker bs)</li>
+			<li>public String toString()</li>
+		</ul></code>
+		
+		<h4>BoligVindu.java</h4>
+		Denne klassen brukes når man skal registrere, slette eller endre en bolig, dvs. den inneholder alle nødvendige felter og knapper
+		og alle metodene som kalles når brukeren trykker på knappene.
+		
+		BoligVindu.java inneholder følgende metoder
+		<code><ul>
+			<li>public BoligVindu() - konstruktør</li>
+			<li>public void regBolig(String boligtype)</li>
+			<li>public void slettBolig()</li>
+			<li>public boolean regexOK()</li>
+			<li>public void endreFelt(String felt, String ny)</li>
+			<li>public void boligUtskrift()</li>
+			<li>public void blankFelter()</li>
+			<li>public void actionPerformed(ActionEvent e)</li>
+			<li>public void focusGained(FocusEvent fe)</li>
+			<li>public void focusLost(FocusEvent fe)</li>
+		</ul></code>
+		
+		<h4>KontraktVindu.java</h4>
+		<p>Denne klassen brukes når man skal registrere eller si opp en kontrakt, dvs. den inneholder alle nødvendige felter og knapper
+		og alle metodene som kalles når brukeren trykker på knappene. Den inneholder KontraktListe-klassen hvor alle kontrakt-objektene ligger.
+		Hver gang programmet kjøres, kaller denne klassen på en metode (i KontrakListe-klassen) som sjekker alle gjeldende kontrakter
+		i GjeldendeKontrakter-listen og flytter alle utløpte kontrakter til ArkiverteKontrakter-listen.</p>
+		<p>Når en kontrakt skal registreres, sjekker denne klassen om at boligen er ledig og at boligsøkeren har ikke en gjeldende kontrakt.
+		Når den er registrert, settes boligen til "ikke ledig" og boligsøkeren settes til "leter ikke etter bolig".
+		Vi gjør forutsetningen at hver boligsøker kan kun ha en "gyldig" leiekontrakt (som er ikke udatert).</p>
+		
+		<p>Kontraktregistreringen fungerer slik at en boligsøker kun kan ha en gjeldende
+		kontrakt registrert på seg til enhver tid. Det er altså ikke mulig å leie flere
+		enn en bolig av gangen. Det er valgt slik for å gjøre programmet og håndteringen av
+		kontrakter enklere. Dette betyr at så lenge en boligsøker er registrert med en
+		gjeldende kontrakt, er det ikke mulig å registrere en ny kontrakt på samme boligsøker.
+		Det samme gjelder for boligen. Den har et statusfelt "ledig"(true). Når en bolig knyttes
+		til en kontrakt blir statusfeltet satt til "ikke ledig"(false), og det er ikke mulig
+		å registrere en ny kontrakt på denne boligen. Når en kontrakt går ut forandres statusen
+		samtidig til "ledig" igjen.</p>
+		
+		<p>Lagringen og behandlingen av oppretede kontrakter foregår i klassen KontraktListe.
+		Her ligger det to lister av typen ArrayList, den ene for kontrakter som fortsatt er
+		gjeldende, den andre for kontrakter som er utløpt. Ideen/hensikten er at alle nylige
+		opprettede kontrakter legges i en separat liste, når utløpsdatoen for kontraktene er
+		passert flyttes disse automatisk over i en annen liste. Dette skiller gjeldende og
+		kontrakter fra kontrakter som kun er av historisk betydning på en enkel og
+		oversiktlig måte, forutsetningen er selvsagt at datokontrollen er god nok. En mulig
+		svakhet ved datokontrollen i dette programmet er at den kun gjennomføres for hver 
+		oppstart, dvs. programmet sjekker utløpsdatoen i kontrakten opp mot dagens dato,
+		er utløpsdatoen passert legges kontrakten(e) over i arkivet. Brukeren av programmet
+		er derfor avhengig av å avslutte og starte opp igjen programmet minst en gang daglig.
+
+		Dette får en muligens subtil betydning ved registrering av kontrakter, nemlig at alle
+		nyregistrerte kontrakter behandles som "gjeldende" uavhengig av om den satte sluttdatoen 
+		er før dagens dato. Det er altså først etter en restart av programmet at kontrakten 
+		vil bli sjekket og lagt i arkivet.</p>
+		
+		
+		KontraktVindu.java inneholder følgende metoder
+		<code><ul>
+			<li>public KontraktVindu() - konstruktør</li>
+			<li>public KontraktListe getKontraktListe()</li>
+			<li>public void regKontrakt()</li>
+			<li>public boolean regexOK()</li>
+			<li>public void siOppKontrakt()</li>
+			<li>public void sjekkOmKontraktErUtloept()</li>
+			<li>public void utskrift()</li>
+			<li>public void blankFelter()</li>
+			<li>public void skrivKontraktTilFil()</li>
+			<li>public void lesKontraktFraFil()</li>
+			<li>public void actionPerformed(ActionEvent e)</li>
+			<li>public void focusGained(FocusEvent fe)</li>
+			<li>public void focusLost(FocusEvent fe)</li>
+		</ul></code>
+		
+		<h4>KontraktListe.java</h4>
+		Denne klassen inneholder to lister (ArrayList), en for gjeldende kontrakter og en for arkiverte kontrakter.
+		Den innholder også alle metodene som brukes når man vil sette inn, fjerne eller finner et kontrakt-objekt.
+		
+		
+		KontraktListe.java inneholder følgende metoder
+		<code><ul>
+			<li>public List<Kontrakt> getKontraktListeGjeldende()</li>
+			<li>public List<Kontrakt> getKontraktListeArkiv()</li>
+			<li>public List<Kontrakt> getAlleKontrakter()</li>
+			<li>public void settInn(Kontrakt k)</li>
+			<li>public int antGjeldendeKontrakter()</li>
+			<li>public int antArkiverteKontrakter()</li>
+			<li>public Kontrakt finnGjeldendeKontrakt(Boligsoeker bs)</li>
+			<li>public Kontrakt finnGjeldendeKontrakt(Bolig b)</li>
+			<li>public String sjekkUtloepteOgArkiver(Date idag)</li>
+			<li>public void fjernGjeldendeKontraktOgArkiver(Kontrakt k)</li>
+			<li>public String toString()</li>
+		</ul></code>
+		
+		<h4>Kontrakt.java</h4>
+		Denne klassen representerer en kontrakt for en bolig, mellom en utleier og en boligsøker (leietaker).
+		Hver kontrakt har en startdato og sluttdato og en bestemt pris som trenger ikke at være lik prisen som er registrert for den boligen.
+		
+		Kontrakt.java inneholder følgende metoder
+		<code><ul>
+			<li>public Kontrakt(Bolig b, Utleier u, Boligsoeker bs, int pris, Date startDato, Date sluttDato) - konstruktør</li>
+			<li>public int getPris()</li>
+			<li>public Date getStartDato()</li>
+			<li>public Date getSluttDato()</li>
+			<li>public Boligsoeker getBoligsoeker()</li>
+			<li>public Bolig getBolig()</li>
+			<li>public Utleier getUtleier()</li>
+			<li>public void setSluttDato(Date sluttDato)</li>
+			<li>public String toString()</li>
+			<li>public Object[] tilRad()</li>
+		</ul></code>
+		
+		<h4>InformasjonVindu.java</h4>
+		Denne klassen er den viktigeste klassen i programmet. Den brukes til å vise alle informasjon om utleiere,
+		boligsøkere, boliger og kontrakter. Klassen bruker mange paneler til å vise dataene, begge for utskriftsområder (JTextArea)
+		og for tabeller (JTable).
+		
+		InformasjonVindu.java inneholder følgende metoder
+		<code><ul>
+			<li>public InformasjonVindu() - konstruktør</li>
+			<li>public void hentInfoPerson()</li>
+			<li>public void visBoligInfo()</li>
+			<li>public void tegnUtleierTabell()</li>
+			<li>public void tegnBoligsoekerTabell()</li>
+			<li>public void tegnBoligtabell()</li>
+			<li>public void tegnKontraktTabell()</li>
+			<li>public void hentBoligsoekerFraTabell()</li>
+			<li>public void hentUtleierFraTabell()</li>
+			<li>public void hentBoligFraTabell()</li>
+			<li>public boolean finnBoliger()</li>
+			<li>public void finnKontrakter()</li>
+			<li>public void melding(String s)</li>
+			<li>public void actionPerformed(ActionEvent e)</li>
+			<li>public void focusGained(FocusEvent fe)</li>
+			<li>public void focusLost(FocusEvent fe)</li>
+		</ul></code>
+		
+		
+		<h4>Andre klasser som ikke vises på diagrammet</h4>
+		<h5>Person.java</h5>
+		<p>Klassen Person er en abstrakt klasse som bestemmer hovedtrekkene ved programmets 
+		definisjon av en person. Klassen inneholder datafelter for navn, personens 
+		hjemadresse, epost og telefonnr.</p>
+		<p>Klassen bestemmer også hvordan personer regnes som like, evt. deres ID. Dette
+		er definert gjennom klassens equals-metode som sammenlikner to personer. Dersom
+		de har likt fornavn og etternavn regnes de som samme person. Dette er en bevisst
+		forenkling av virekligheten for å minke arbeidsmengden noe, og en eventuell ting å
+		forbedre i fremtiden.</p>
+		<p>Det kan være for mye jobb at brukeren kan endre navnet på en utleier eller boligsøker, 
+		så vi gjør forutsetningen at dette skal ikke være en mulighet.</p>
+		
+		
+		<h5>Bolig.java</h5>
+		Alle boliger i programmet er definert av den abstrakte klassen bolig. Her ligger alt
+		som er felles for de to konkrete subklassetypene Leilighet og EneboligRekkehus.
+		Dette er datafelter for adresse, hvilken type bolig det er, beskrivelse av boligen,
+		inneareal, soverom, byggeår, leiepris, hvilken dato den ble avertert fra og om
+		boligen er ledig eller ikke. Alle boliger er automatisk ledige når de er opprettet.
+
+		I klassen er det også bestemt hvordan boliger regnes som like. Dette er definert 
+		gjennom klassens equals-metode, som tar to boliger og sammenlikner gateadresse,
+		postnr og poststed. Dersom alle feltene er like hverandre er også boligene like.
+		Det er derfor nødvendig å fylle inn ekstra informasjon, som f.eks leilighetsnummer,
+		i adressefeltet dersom man skal registrere flere leiligheter som ligger i samme blokk.
+
+		Det ligger også en metode, kalt tilRad, som bestemmer hvilke og i hvilken rekkefølge
+		datafeltene i en bolig skal vises i en tabell ved å legge dem inn i en array.
+
+		Siden Bolig-klassen er abstrakt er det kun objekter av typen Leilighet og
+		EneboligRekkehus som opprettes. Når en av boligtypene er opprettet lagres de direkte
+		i en utleiers tilhørende boligliste.
+		
+		<h5>UtleierTabellodell.java, BoligsoekerTabellmodell.java, BoligTabellmodell.java, KontraktTabellmodell.java</h5>
+		Alle tabeller i programmet er av typen JTable, og har en egen definert tabellmodell
+		som bestemmer innhold og utseende til tabellen. Dette ligger i klassene
+		BoligTabellmodell, BoligsoekerTabellmodell, KontraktTabellmodell og UtleierTabellmodell. En viktig funksjon
+		ved tabellene er at brukeren skal kunne velge en rad, trykke på "Gå til ..." knappen
+		for å få opp detaljert informasjon om personen/boligen i raden. For å få til dette
+		ligger det to kolonner i hhv. utleier og boligsøkertabellen som inneholder fornavn og 
+		etternavn som er skjulte for brukeren, og som kun brukes av metodene hentXxxFraTabell 
+		i InformasjonVindu.
+		
+
+<h2>Filbehandling</h2>
 <p>Programmet lagrer data på 3 forskjellige filer, hhv. boligsoekermengde.data,
 kontraktliste.data og utleiermengde.data. Når for eksempel boligsøkere registreres
 legges objektene inn i en TreeSet, og det er denne som i sin tur skrives til fila 
@@ -136,50 +499,61 @@ Objektene leses deretter inn en for en og legges inn i TreeSet'en hvor de sorter
 der listen over gjeldende og utløpte kontrakter ligger. Hele dette objektet skrives
 til og leses fra fil ved hver oppstart/avslutning.</p>
 
-<h3>Om kontrakters utløpstid</h3>
+<h2>Prioritering</h2>
+<p>I planleggingsfasen snakkede vi om at avgrense oppgaven og derfor opprettede vi en prioriteringrekkefølge.
+Vi snakkede om hvilke deler av programmet er viktig (must-have) og hvilke deler er ikke så viktig (nice-to-have).
+Her er hvordan vi prioriterte oppgavene:</p>
+<ol> 
+	<li>Første prioritet (<var class="green">grønt = ferdig</var>, <var class="red">rød = ikke ferdig)</var>:
+		<ul>
+			<li class="green">Må kunne registrere alle objekter og skrive ut alt slik at man får verifisert at informasjonen er blitt lagret.</li>
+			<li class="green">Kunne matche boligsøkere med boliger.</li>
+			<li class="green">Lage enkelt, fungerende brukergrensesnitt(flowlayout).</li>
+			<li class="green">Fungerende skriving/lesing fra fil.</li>
+		</ul>
+	</li>
+	<li>Annen prioritet:
+		<ul>
+			<li class="green">Sletting.</li>
+			<li class="green">Utbedre brukergrensesnitt, utseende og funksjon(mer avansert layout). </li>
+			<li class="green">Vise leiekontrakt-hitorikk. </li>
+			<li class="green">Vise antall boliger for utleie og antall kontrakter som har blitt formidlet. </li>
+			<li class="green">Legge data inn i programmet (for sensor). </li>
+			<li class="green">Behandle brukerinput (regex, feilhåndtering).</li>
+		</ul>
+	</li>
+	<li>Tredje prioritet:
+		<ul>
+			<li class="green">Sortering.</li>
+			<li class="green">Siste finish layout. </li>
+			<li class="green">Søke i historikk for leiekontrakter utifra kriterier.</li>
+			<li class="green">Bruke JTable i utskrift-området til at få opplysingene til å se bedre ut.</li>
+			<li class="red">Opprette f.eks. "postnummer.java" hvor man har alle postnummere og poststeder i Norge. Når man skal registrere person eller bolig, så bruker mann denne filen for "auto-fill", dvs. man trenger ikke å skrive poststed. Det hjelper til ved feilhåndtering.</li>
+			<li class="red">Håndtere hvis to personer har samme navn, f.eks. sstedenfor at <code>finnUtleier()</code> eller 
+			<code>finnBoligsoeker()</code> metodene returnerer et Utleier/Boligsoeker objekt, kan disse returnere 
+			en array av objekter.  Så kan man sjekke størrelsen på arrayen når man skal sjekke hvis to eller 
+			flere personer har samme navn.</li>
+		</ul>
+	</li>
+</ol>
 
-<p>Lagringen og behandlingen av oppretede kontrakter foregår i klassen KontraktListe.
-Her ligger det to lister av typen ArrayList, den ene for kontrakter som fortsatt er
-gjeldende, den andre for kontrakter som er utløpt. Ideen/hensikten er at alle nylige
-opprettede kontrakter legges i en separat liste, når utløpsdatoen for kontraktene er
-passert flyttes disse automatisk over i en annen liste. Dette skiller gjeldende og
-kontrakter fra kontrakter som kun er av historisk betydning på en enkel og
-oversiktlig måte, forutsetningen er selvsagt at datokontrollen er god nok. En mulig
-svakhet ved datokontrollen i dette programmet er at den kun gjennomføres for hver 
-oppstart, dvs. programmet sjekker utløpsdatoen i kontrakten opp mot dagens dato,
-er utløpsdatoen passert legges kontrakten(e) over i arkivet. Brukeren av programmet
-er derfor avhengig av å avslutte og starte opp igjen programmet minst en gang daglig.</p>
+<h2>Generering av data</h2>
+<p>Vi brukte en spesiell metode (ca. 150 kodelinjer) i StartVinduet til a genere data, som vi brukte for testing av programmet.
+Vi opprettede en knapp som kallede på metoden, som las data fra fire .txt filer (utleiere.txt, boligsoekere.txt, boliger.txt og kontrakter.txt).
+Vi genererte .txt filene ved å bruke random funksjonene i Microsoft Excel (se bilde nedenfor).</p>
+<p>Først fann vi lister av norske fornavn og etternavn, samt gateadresser, postnummere og poststeder i Norge. 
+Nest lagde vi tilfeldig krav for boligsøkere og tilfeldig attributer for boliger. Boligene måtte inneholde gyldig fornavn og etternavn for utleierene.</p>
+<p>Kontraktene var mest vanskelig å opprette, fordi vi måtte være sikker om at boligen som skulle gå i kontrakten, 
+skulle ha akkurat samme utleier som skulle registreres i kontrakten.</p>
+<p>Til slutt genererte vi 593 boliger, 201 boligsøkere, 100 utleiere og 100 kontrakter. Disse brukes når man vil hente informasjon fra programmet.</p>
+<img src="screenshot_excel_genere_data.png" alt="Generering av data">
 
-<p>
-Dette får en muligens subtil betydning ved registrering av kontrakter, nemlig at alle
-nyregistrerte kontrakter behandles som "gjeldende" uavhengig av om den satte sluttdatoen 
-er før dagens dato. Det er altså først etter en restart av programmet at kontrakten 
-vil bli sjekket og lagt i arkivet.</p>
+<h2>Testing</h2>
+<p>Vi har testet alt underveis.</p>
 
-<h3>Mer om kontrakter</h3>
+<h2>Videreutvikling</h2>
+<p></p>
 
-<p>
-Kontraktregistreringen fungerer slik at en boligsøker kun kan ha en gjeldende
-kontrakt registrert på seg til enhver tid. Det er altså ikke mulig å leie flere
-enn en bolig av gangen. Det er valgt slik for å gjøre programmet og håndteringen av
-kontrakter enklere. Dette betyr at så lenge en boligsøker er registrert med en
-gjeldende kontrakt, er det ikke mulig å registrere en ny kontrakt på samme boligsøker.
-Det samme gjelder for boligen. Den har et statusfelt "ledig"(true). Når en bolig knyttes
-til en kontrakt blir statusfeltet satt til "ikke ledig"(false), og det er ikke mulig
-å registrere en ny kontrakt på denne boligen. Når en kontrakt går ut forandres statusen
-samtidig til "ledig" igjen.</p>
-
-<h3>Om tabeller</h3>
-
-<p>
-Alle tabeller i programmet er av typen JTable, og har en egen definert tabellmodell
-som bestemmer innhold og utseende til tabellen. Dette ligger i klassene
-BoligTabellmodell, BoligsoekerTabellmodell og UtleierTabellmodell. En viktig funksjon
-ved tabellene er at brukeren skal kunne velge en rad, trykke på "Gå til ..." knappen
-for å få opp detaljert informasjon om personen/boligen i raden. For å få til dette
-ligger det to kolonner i hhv. utleier og boligsøkertabellen som inneholder fornavn og 
-etternavn som er skjulte for brukeren, og som kun brukes av metodene hentXxxFraTabell 
-i InformasjonVindu.</p>
 
 
 		 </section>
