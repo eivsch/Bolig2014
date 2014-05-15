@@ -368,7 +368,7 @@ public class StartVindu extends JFrame implements ActionListener {
                         teller = 0;
                     }
                     else{
-                        Bolig b = new Enebolig(parameter[0], Integer.parseInt(parameter[1]), parameter[2], parameter[3], parameter[4],
+                        Bolig b = new EneboligRekkehus(parameter[0], Integer.parseInt(parameter[1]), parameter[2], parameter[3], parameter[4],
                                 konverterDato(parameter[5]), Integer.parseInt(parameter[6]), Integer.parseInt(parameter[7]),
                                 Integer.parseInt(parameter[8]), Integer.parseInt(parameter[9]),
                                 Integer.parseInt(parameter[10]), Integer.parseInt(parameter[11]), parameter[12].equals("true") ? true: false);

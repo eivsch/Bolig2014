@@ -17,7 +17,6 @@ public class KontraktTabellmodell extends AbstractTableModel {
 
     private final String[] KOLONNENAVN = {"Adresse", "Sted",
         "Utleier", "Leietaker", "Begynte", "Avsluttes"};
-    private final int[] NOKKELKOLONNER = {0, 1, 2};
     private Object[][] celler;
 
     //Tegner tabell i kontruktør

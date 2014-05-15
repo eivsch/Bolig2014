@@ -190,8 +190,8 @@ public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
             passer = false;
         }
 
-        if (b instanceof Enebolig) {
-            Enebolig e = (Enebolig) b;
+        if (b instanceof EneboligRekkehus) {
+            EneboligRekkehus e = (EneboligRekkehus) b;
 
             if (maxAntEtasjer != 0 && maxAntEtasjer < e.getAntEtasjer()) {
                 passer = false;

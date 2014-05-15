@@ -262,7 +262,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                 output.setText("Vennligst fylle inn tomtestørrelse!");
                 return;
             }
-            bolig = new Enebolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[1], beskrivelse.getText(), dato,
+            bolig = new EneboligRekkehus(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText(), TYPE[1], beskrivelse.getText(), dato,
                     Integer.parseInt(areal.getText()), Integer.parseInt((String) antRom.getSelectedItem()), Integer.parseInt(byggeaar.getText()),
                     Integer.parseInt(pris.getText()), Integer.parseInt((String) etasjer.getSelectedItem()), Integer.parseInt(tomtestorrelse.getText()), kjeller.isSelected());
         } else {
@@ -434,11 +434,11 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
             return;
         }
         
-        Enebolig e = null;
+        EneboligRekkehus e = null;
         Leilighet l = null;
         
-        if(b instanceof Enebolig)
-            e = (Enebolig)b;
+        if(b instanceof EneboligRekkehus)
+            e = (EneboligRekkehus)b;
         else
             l = (Leilighet)b;
         
@@ -468,7 +468,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                 ny = "";
                 Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleierViaBolig(b);
                 
-                if(b instanceof Enebolig){
+                if(b instanceof EneboligRekkehus){
                     u.regBolig(new Leilighet(e.getGateadresse(), e.getPostnr(), e.getPoststed(), TYPE[2], e.getBeskrivelse(), e.getDato(),
                     e.getAreal(), e.getSoverom(), e.getByggeaar(), e.getPris(),
                     Integer.parseInt((String) etasje.getSelectedItem()), heis.isSelected(), balkong.isSelected()));
@@ -476,7 +476,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                     u.slettBolig(b);
                 }
                 else{
-                    u.regBolig(new Enebolig(l.getGateadresse(), l.getPostnr(), l.getPoststed(), TYPE[1], l.getBeskrivelse(), l.getDato(),
+                    u.regBolig(new EneboligRekkehus(l.getGateadresse(), l.getPostnr(), l.getPoststed(), TYPE[1], l.getBeskrivelse(), l.getDato(),
                     l.getAreal(), l.getSoverom(), l.getByggeaar(), l.getPris(),
                     Integer.parseInt((String) etasjer.getSelectedItem()), (tomtestorrelse.getText().equals("") ? 0: Integer.parseInt(tomtestorrelse.getText())), kjeller.isSelected()));
                     ny = TYPE[1];
@@ -921,11 +921,11 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                 
                 Bolig b = StartVindu.getUtleierVindu().getUtleierMengde().finnBolig(gateadresse.getText(), Integer.parseInt(postnr.getText()), poststed.getText());
                 Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleierViaBolig(b);
-                Enebolig e = null;
+                EneboligRekkehus e = null;
                 Leilighet l = null;
 
-                if(b instanceof Enebolig)
-                    e = (Enebolig)b;
+                if(b instanceof EneboligRekkehus)
+                    e = (EneboligRekkehus)b;
                 else
                     l = (Leilighet)b;
                 
@@ -937,7 +937,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
                     pris.setText(Integer.toString(b.getPris()));
                     avertertDato.setText(StartVindu.ENKELDATOFORMAT.format(b.getDato()));
                     beskrivelse.setText(b.getBeskrivelse());
-                    if(b instanceof Enebolig){
+                    if(b instanceof EneboligRekkehus){
                         etasjer.setSelectedItem(Integer.toString(e.getAntEtasjer()));
                         tomtestorrelse.setText(Integer.toString(e.getTomtAreal()));
                         kjeller.setSelected(e.getKjeller());

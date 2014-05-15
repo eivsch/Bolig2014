@@ -757,8 +757,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                     }
                 }
 
-                if (b instanceof Enebolig) {
-                    Enebolig e = (Enebolig) b;
+                if (b instanceof EneboligRekkehus) {
+                    EneboligRekkehus e = (EneboligRekkehus) b;
                     if (e.getAntEtasjer() < minEtasjer || e.getAntEtasjer() > maxEtasjer) {
                         passer = false;
                     }
@@ -940,8 +940,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 }
             }
 
-            if (k.getBolig() instanceof Enebolig) {
-                Enebolig e = (Enebolig) k.getBolig();
+            if (k.getBolig() instanceof EneboligRekkehus) {
+                EneboligRekkehus e = (EneboligRekkehus) k.getBolig();
 
                 if (e.getAntEtasjer() < minEtasjer || e.getAntEtasjer() > maxEtasjer) {
                     passer = false;
@@ -1018,8 +1018,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 }
             }
 
-            if (k.getBolig() instanceof Enebolig) {
-                Enebolig e = (Enebolig) k.getBolig();
+            if (k.getBolig() instanceof EneboligRekkehus) {
+                EneboligRekkehus e = (EneboligRekkehus) k.getBolig();
 
                 if (e.getAntEtasjer() < minEtasjer || e.getAntEtasjer() > maxEtasjer) {
                     passer = false;

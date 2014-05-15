@@ -16,7 +16,6 @@ import java.util.Date;
 public class Leilighet extends Bolig {
     private int etasje;
     private boolean heis, balkong;
-    private String diverse;
 
     public Leilighet(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
             Date annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
