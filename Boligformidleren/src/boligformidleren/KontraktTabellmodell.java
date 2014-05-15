@@ -5,6 +5,7 @@
  */
 package boligformidleren;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -18,7 +19,7 @@ public class KontraktTabellmodell extends AbstractTableModel {
         "Utleier", "Leietaker", "Begynte", "Avsluttes"};
     private final int[] NOKKELKOLONNER = {0, 1, 2};
     private Object[][] celler;
-    
+
     //Tegner tabell i kontruktør
     public KontraktTabellmodell(List<Kontrakt> l) {
         int maxAntRader = l.size();
@@ -48,5 +49,24 @@ public class KontraktTabellmodell extends AbstractTableModel {
 
     public int getRowCount() {
         return celler.length;
+    }
+
+    public Class getColumnClass(int kolonne) {
+        switch (kolonne) {
+            case 0:
+                return String.class;
+            case 1:
+                return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
+            case 4:
+                return Date.class;
+            case 5:
+                return Date.class;
+            default:
+                return String.class;
+        }
     }
 }

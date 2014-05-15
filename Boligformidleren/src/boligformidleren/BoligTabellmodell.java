@@ -5,6 +5,7 @@
  */
 package boligformidleren;
 
+import java.util.Date;
 import java.util.Iterator;
 import javax.swing.table.AbstractTableModel;
 
@@ -71,7 +72,7 @@ public class BoligTabellmodell extends AbstractTableModel {
             case 5:
                 return Integer.class;
             case 6:
-                return Integer.class;
+                return Date.class;
             default:
                 return String.class;
         }

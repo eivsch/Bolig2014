@@ -139,7 +139,7 @@ public abstract class Bolig implements Serializable {
     public Object[] tilRad() {
         Object[] rad = {gateadresse, poststed, new Integer(postnr), 
             new Integer(pris), new Integer(areal), new Integer(byggeaar), 
-            StartVindu.ENKELDATOFORMAT.format(dato)};
+            dato};
         return rad;
     }
 

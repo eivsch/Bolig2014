@@ -81,7 +81,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     private JCheckBox kontraktHeis, kontraktBalkong;
 
     // kontrakt knapp panel
-    private JButton finnKontrakter, visGjeldendeKontrakter, visKontraktHistorikk;
+    private JButton finnKontrakter, visKontrakter;
 
     // for JTable
     private JTable boligsoekerTabell, boligTabell, utleierTabell, kontraktTabell;
@@ -367,7 +367,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         maxKontraktStartDato.setText("dd.mm.åååå");
         minKontraktStartDato.addFocusListener(this);
         maxKontraktStartDato.addFocusListener(this);
-        
+
         kontraktFellesMinMaxPanel.add(new JLabel("Slutt-dato: "));
         minKontraktSluttDato = new JTextField(10);
         maxKontraktSluttDato = new JTextField(10);
@@ -416,9 +416,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         finnKontrakter.addActionListener(this);
         kontraktKnappPanel.add(finnKontrakter);
 
-        visGjeldendeKontrakter = new JButton("Vis gjeldende kontrakter");
-        visGjeldendeKontrakter.addActionListener(this);
-        kontraktKnappPanel.add(visGjeldendeKontrakter);
+        visKontrakter = new JButton("Vis gjeldende kontrakter");
+        visKontrakter.addActionListener(this);
+        kontraktKnappPanel.add(visKontrakter);
     }
 
     // hent detaljerte opplysninger om en navngitt person
@@ -567,17 +567,18 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         boligTabell.setAutoCreateRowSorter(true);
     }
 
-    public void tegnGjeldendeKontraktTabell() {
-        List<Kontrakt> gjeldende = StartVindu.getKontraktVindu().getKontraktListe().getKontraktListeGjeldende();
-        KontraktTabellmodell ktm = new KontraktTabellmodell(gjeldende);
+    public void tegnKontraktTabell() {
+        List<Kontrakt> l = StartVindu.getKontraktVindu().getKontraktListe().getAlleKontrakter();
+        KontraktTabellmodell ktm = new KontraktTabellmodell(l);
         kontraktTabell = new JTable(ktm);
         kontraktTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        kontraktTabell.setAutoCreateRowSorter(true);
     }
-    
+
     /**
-     * Metoder for å hente informasjon fra en valgt tabellrad og vise mer 
+     * Metoder for å hente informasjon fra en valgt tabellrad og vise mer
      * detaljerte opplysninger om objektet tabellraden forestiller.
-     */ 
+     */
     public void hentBoligsoekerFraTabell() {
         // Henter hvilke kolonner som inneholder boligsøkerens ID.
         // Dette er de samme kolonnene som skal være skjulte for brukeren.
@@ -649,39 +650,34 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         final int MIN = -2147483648;
 
         //RegEx
-        JTextField[] jtf = {minBoligAreal,maxBoligAreal,minBoligRom,maxBoligRom,minBoligByggeaar,maxBoligByggeaar,minBoligPris,maxBoligPris,boligMinEtasjer,boligMaxEtasjer,boligMinTomtestorrelse,boligMaxTomtestorrelse,boligMinEtasje,boligMaxEtasje};
-        JTextField[] dato = {minBoligDato,maxBoligDato};
-        
+        JTextField[] jtf = {minBoligAreal, maxBoligAreal, minBoligRom, maxBoligRom, minBoligByggeaar, maxBoligByggeaar, minBoligPris, maxBoligPris, boligMinEtasjer, boligMaxEtasjer, boligMinTomtestorrelse, boligMaxTomtestorrelse, boligMinEtasje, boligMaxEtasje};
+        JTextField[] dato = {minBoligDato, maxBoligDato};
+
         String melding = StartVindu.kontrollerRegExTomFeltOK(StartVindu.PATTERNHELTALL, jtf);
-        if(!melding.equals("")){
+        if (!melding.equals("")) {
             output.setText("Feil - bruk heltall istedenfor " + melding);
             return;
         }
-        
-        if(minBoligDato.getText().equals("dd.mm.åååå")){
-            if(maxBoligDato.getText().equals("dd.mm.åååå")){
-                
+
+        if (minBoligDato.getText().equals("dd.mm.åååå")) {
+            if (maxBoligDato.getText().equals("dd.mm.åååå")) {
+
+            } else if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, maxBoligDato.getText()))) {
+                output.setText("Feil - bruk dato på format 'dd.mm.åååå'.");
+                return;
             }
-            else
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, maxBoligDato.getText()))){
+        } else {
+            if (maxBoligDato.getText().equals("dd.mm.åååå")) {
+                if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, minBoligDato.getText()))) {
                     output.setText("Feil - bruk dato på format 'dd.mm.åååå'.");
                     return;
                 }
-        }
-        else{
-            if(maxBoligDato.getText().equals("dd.mm.åååå")){
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, minBoligDato.getText()))){
-                    output.setText("Feil - bruk dato på format 'dd.mm.åååå'.");
-                    return;
-                }
+            } else if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, dato))) {
+                output.setText("Feil - bruk dato på format 'dd.mm.åååå'.");
+                return;
             }
-            else
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, dato))){
-                    output.setText("Feil - bruk dato på format 'dd.mm.åååå'.");
-                    return;
-                }
         }
-        
+
         // felles felt
         String type = (String) boligtype.getSelectedItem();
         int minAreal = minBoligAreal.getText().equals("") ? MIN : Integer.parseInt(minBoligAreal.getText());
@@ -727,9 +723,11 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 boolean passer = true;
 
                 // sjekker alle søkekriterierne
-                if(!type.equals(BOLIGTYPE[0]))
-                    if(!b.getType().equals(type))
+                if (!type.equals(BOLIGTYPE[0])) {
+                    if (!b.getType().equals(type)) {
                         passer = false;
+                    }
+                }
                 if (b.getAreal() < minAreal || b.getAreal() > maxAreal) {
                     passer = false;
                 }
@@ -764,9 +762,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                     if (!e.getKjeller() && kjeller) {
                         passer = false;
                     }
-                }
-                else{
-                //if (b instanceof Leilighet) {
+                } else {
+                    //if (b instanceof Leilighet) {
                     Leilighet l = (Leilighet) b;
 
                     if (l.getEtasje() < minEtasje || l.getEtasje() > maxEtasje) {
@@ -809,60 +806,49 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         JTextField[] dato = {minKontraktStartDato, maxKontraktStartDato, minKontraktSluttDato, maxKontraktSluttDato};
 
         String melding = StartVindu.kontrollerRegExTomFeltOK(StartVindu.PATTERNHELTALL, jtf);
-        if(!melding.equals("")){
+        if (!melding.equals("")) {
             output.setText("Feil - bruk heltall istedenfor " + melding);
             return;
         }
-        
-        if(minKontraktStartDato.getText().equals("dd.mm.åååå")){
-            if(maxKontraktStartDato.getText().equals("dd.mm.åååå")){
-                
+
+        if (minKontraktStartDato.getText().equals("dd.mm.åååå")) {
+            if (maxKontraktStartDato.getText().equals("dd.mm.åååå")) {
+
+            } else if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, maxBoligDato.getText()))) {
+                output.setText("Feil - bruk start dato på format 'dd.mm.åååå'.");
+                return;
             }
-            else
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, maxBoligDato.getText()))){
+        } else {
+            if (maxKontraktStartDato.getText().equals("dd.mm.åååå")) {
+                if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, minKontraktStartDato.getText()))) {
                     output.setText("Feil - bruk start dato på format 'dd.mm.åååå'.");
                     return;
                 }
-        }
-        else{
-            if(maxKontraktStartDato.getText().equals("dd.mm.åååå")){
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, minKontraktStartDato.getText()))){
-                    output.setText("Feil - bruk start dato på format 'dd.mm.åååå'.");
-                    return;
-                }
+            } else if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, dato))) {
+                output.setText("Feil - bruk start dato på format 'dd.mm.åååå'.");
+                return;
             }
-            else
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, dato))){
-                    output.setText("Feil - bruk start dato på format 'dd.mm.åååå'.");
-                    return;
-                }
         }
-        
-        if(minKontraktSluttDato.getText().equals("dd.mm.åååå")){
-            if(maxKontraktSluttDato.getText().equals("dd.mm.åååå")){
-                
+
+        if (minKontraktSluttDato.getText().equals("dd.mm.åååå")) {
+            if (maxKontraktSluttDato.getText().equals("dd.mm.åååå")) {
+
+            } else if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, maxBoligDato.getText()))) {
+                output.setText("Feil - bruk slutt dato på format 'dd.mm.åååå'.");
+                return;
             }
-            else
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, maxBoligDato.getText()))){
+        } else {
+            if (maxKontraktSluttDato.getText().equals("dd.mm.åååå")) {
+                if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, minKontraktSluttDato.getText()))) {
                     output.setText("Feil - bruk slutt dato på format 'dd.mm.åååå'.");
                     return;
                 }
-        }
-        else{
-            if(maxKontraktSluttDato.getText().equals("dd.mm.åååå")){
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, minKontraktSluttDato.getText()))){
-                    output.setText("Feil - bruk slutt dato på format 'dd.mm.åååå'.");
-                    return;
-                }
+            } else if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, dato))) {
+                output.setText("Feil - bruk slutt dato på format 'dd.mm.åååå'.");
+                return;
             }
-            else
-                if(!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, dato))){
-                    output.setText("Feil - bruk slutt dato på format 'dd.mm.åååå'.");
-                    return;
-                }
         }
-        
-        
+
         // felles felt
         String type = (String) kontrakttype.getSelectedItem();
         int minAreal = minKontraktAreal.getText().equals("") ? MIN : Integer.parseInt(minKontraktAreal.getText());
@@ -907,9 +893,11 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             boolean passer = true;
 
             // sjekker alle søkekriterierne
-            if(!type.equals(BOLIGTYPE[0]))
-                if(!k.getBolig().getType().equals(type))
+            if (!type.equals(BOLIGTYPE[0])) {
+                if (!k.getBolig().getType().equals(type)) {
                     passer = false;
+                }
+            }
             if (k.getBolig().getAreal() < minAreal || k.getBolig().getAreal() > maxAreal) {
                 passer = false;
             }
@@ -983,9 +971,11 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             boolean passer = true;
 
             // sjekker alle søkekriterierne
-            if(!type.equals(BOLIGTYPE[0]))
-                if(!k.getBolig().getType().equals(type))
+            if (!type.equals(BOLIGTYPE[0])) {
+                if (!k.getBolig().getType().equals(type)) {
                     passer = false;
+                }
+            }
             if (k.getBolig().getAreal() < minAreal || k.getBolig().getAreal() > maxAreal) {
                 passer = false;
             }
@@ -1150,9 +1140,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.add(under);
             masterPanel.revalidate();
             masterPanel.repaint();
-        } else if (e.getSource() == visGjeldendeKontrakter) {
+        } else if (e.getSource() == visKontrakter) {
             tabellPanel.removeAll();
-            tegnGjeldendeKontraktTabell();
+            tegnKontraktTabell();
             tabellPanel.add(new JScrollPane(kontraktTabell));
             tabellPanel.revalidate();
             masterPanel.remove(under);

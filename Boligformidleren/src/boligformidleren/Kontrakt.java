@@ -71,9 +71,7 @@ public class Kontrakt implements Serializable {
     public Object[] tilRad() {
         Object[] rad = {b.getGateadresse(), new Integer(b.getPostnr()) + ", " + 
                 b.getPoststed(), u.getFornavn() + " " + u.getEtternavn(), 
-                bs.getFornavn() + " " + bs.getEtternavn(), 
-                StartVindu.ENKELDATOFORMAT.format(startDato), 
-                StartVindu.ENKELDATOFORMAT.format(sluttDato)};
+                bs.getFornavn() + " " + bs.getEtternavn(), startDato, sluttDato};
         return rad;
     }
 }

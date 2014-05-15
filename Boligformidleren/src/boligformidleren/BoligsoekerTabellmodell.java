@@ -5,6 +5,7 @@
  */
 package boligformidleren;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.table.AbstractTableModel;
@@ -69,10 +70,13 @@ public class BoligsoekerTabellmodell extends AbstractTableModel {
                 return Integer.class;
             case 5:
                 return String.class;
+            case 6:
+                return Date.class;
             default:
                 return String.class;
         }
     }
+
     // Returnerer kolonnenavnene til de av tabellens kolonner som skal være skjulte.
     public String[] getKolonnerSkalSkjules() {
         String[] skalSkjules = new String[SKALSKJULES.length];
@@ -81,6 +85,7 @@ public class BoligsoekerTabellmodell extends AbstractTableModel {
         }
         return skalSkjules;
     }
+
     // Returnerer kolonneindeksen til de av tabellens kolonner som skal være skjulte
     public int[] getKolonnerSkalSkjulesIndeks() {
         return SKALSKJULES;
