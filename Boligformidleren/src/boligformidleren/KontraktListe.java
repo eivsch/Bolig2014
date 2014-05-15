@@ -20,11 +20,11 @@ public class KontraktListe implements Serializable {
     private List<Kontrakt> kontraktListeGjeldende = new ArrayList<>();
     private List<Kontrakt> kontraktArkiv = new ArrayList<>();
 
-    // get metoder
     public void settInn(Kontrakt k) {
         kontraktListeGjeldende.add(k);
     }
 
+    // get metoder
     public List<Kontrakt> getKontraktListeGjeldende() {
         return kontraktListeGjeldende;
     }
@@ -33,14 +33,28 @@ public class KontraktListe implements Serializable {
         return kontraktArkiv;
     }
     
+    /** 
+     * Skal sette paramteren d til ny sluttdato i kontrakten som ligger
+     * registrert på boligsøkeren bs. Skal ikke kunne gjøres for arkiverte 
+     * kontrakter. Returnerer true hvis datoen ble endret.
+     */
+    public boolean settNyGjeldendeSluttDato(Boligsoeker bs, Date d){
+        Kontrakt k = finnGjeldendeKontrakt(bs);
+        if(k == null){
+            return false;
+        }
+        k.setSluttDato(d);
+        return true;
+    }
+
     // Skal returnere en arrayList som innehlder alle kontrakter.
     public List<Kontrakt> getAlleKontrakter() {
         Iterator<Kontrakt> iter1 = kontraktListeGjeldende.iterator(), iter2 = kontraktArkiv.iterator();
         List<Kontrakt> l = new ArrayList<>();
-        while(iter1.hasNext()){
+        while (iter1.hasNext()) {
             l.add(iter1.next());
         }
-        while(iter2.hasNext()){
+        while (iter2.hasNext()) {
             l.add(iter2.next());
         }
         return l;
@@ -50,8 +64,9 @@ public class KontraktListe implements Serializable {
     public int antGjeldendeKontrakter() {
         return kontraktListeGjeldende.size();
     }
+
     // Returnerer antall arkiverte kontrakter
-    public int antArkiverteKontrakter(){
+    public int antArkiverteKontrakter() {
         return kontraktArkiv.size();
     }
 

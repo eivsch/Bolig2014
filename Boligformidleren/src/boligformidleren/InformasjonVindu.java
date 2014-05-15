@@ -519,8 +519,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         }
 
         // utskrift
-        output.setText("Bolig informasjon:\n" + b.toString() + "\nUtleier: " + u.getFornavn() + " " + u.getEtternavn());
-        output.append("\n\nBoligen oppfyller kravene hos flg. boligsøkere:\n");
+        output.setText("Boliginformasjon:\n\n" + b.toString() + "\n\nUtleier: " + 
+                u.getFornavn() + " " + u.getEtternavn());
+        output.append("\n\nFølgende boligsøkerne kan være interesserte:\n");
         output.append(interesserte);
         output.setCaretPosition(0);
 
@@ -650,8 +651,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         visBoligInfo();
     }
 
-    // viser boliger ut fra min-max søkekriteria
-    public void finnBoliger() {
+    // viser boliger ut fra min-max søkekriteria i en tabell. Dersom bruker har
+    // skrevet ugyldige verdier i søkefelter returneres false.
+    public boolean finnBoliger() {
         final int MAX = 2147483647;
         final int MIN = -2147483648;
 
@@ -662,7 +664,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         String melding = StartVindu.kontrollerRegExTomFeltOK(StartVindu.PATTERNHELTALL, jtf);
         if (!melding.equals("")) {
             output.setText("Feil - bruk heltall istedenfor " + melding);
-            return;
+            return false;
         }
 
         if (minBoligDato.getText().equals("dd.mm.åååå")) {
@@ -670,17 +672,17 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
             } else if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, maxBoligDato.getText()))) {
                 output.setText("Feil - bruk dato på format 'dd.mm.åååå'.");
-                return;
+                return false;
             }
         } else {
             if (maxBoligDato.getText().equals("dd.mm.åååå")) {
                 if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, minBoligDato.getText()))) {
                     output.setText("Feil - bruk dato på format 'dd.mm.åååå'.");
-                    return;
+                    return false;
                 }
             } else if (!(StartVindu.kontrollerRegEx(StartVindu.PATTERNDATO, dato))) {
                 output.setText("Feil - bruk dato på format 'dd.mm.åååå'.");
-                return;
+                return false;
             }
         }
 
@@ -794,12 +796,13 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             }
         }
         BoligTabellmodell btm = new BoligTabellmodell(celler);
-        JTable tabell = new JTable(btm);
-        tabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabell.setAutoCreateRowSorter(true);
+        boligTabell = new JTable(btm);
+        boligTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        boligTabell.setAutoCreateRowSorter(true);
         tabellPanel.removeAll();
-        tabellPanel.add(new JScrollPane(tabell));
+        tabellPanel.add(new JScrollPane(boligTabell));
         tabellPanel.revalidate();
+        return true;
     }
 
     // finner kontrakter ut fra søkekriteria
@@ -1119,11 +1122,18 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.revalidate();
             masterPanel.repaint();
         } else if (e.getSource() == finnBoliger) {
-            finnBoliger();
-            masterPanel.remove(under);
-            masterPanel.add(tabellPanel, BorderLayout.CENTER);
-            masterPanel.revalidate();
-            masterPanel.repaint();
+            if (finnBoliger()) {
+                masterPanel.remove(under);
+                masterPanel.add(tabellPanel, BorderLayout.CENTER);
+                tabellPanel.add(gaaTilBolig, BorderLayout.PAGE_START);
+                masterPanel.revalidate();
+                masterPanel.repaint();
+            } else{
+                masterPanel.remove(tabellPanel);
+                masterPanel.add(under);
+                masterPanel.revalidate();
+                masterPanel.repaint();
+            }
         } else if (e.getSource() == visAlleBoliger) {
             tabellPanel.removeAll();
             tegnBoligtabell();

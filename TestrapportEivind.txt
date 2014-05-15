@@ -24,3 +24,8 @@ som det skal.
 
 FEIL! Testet "Gå til bolig" - funksjonen. Fungerte ikke når poststed var i flere ord. 
 FIKSET - Var feil i RegEx
+
+FINNBOLIG
+Testet å lage diverse boligtabeller med forskjellige søkerkriterier. Tester deretter
+ved å trykke på "Gå til bolig". Foreløpig ikke funnet noen feil. Også prøvd å
+skrive bokstaver i feltene der det skal være tall, går bra.

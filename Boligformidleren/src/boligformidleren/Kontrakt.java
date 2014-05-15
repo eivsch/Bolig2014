@@ -57,6 +57,10 @@ public class Kontrakt implements Serializable {
         return u;
     }
     
+    public void setSluttDato(Date sluttDato){
+        this.sluttDato = sluttDato;
+    }
+    
     public String toString(){
         utskrift = "Bolig-info:\t" + b.getGateadresse() + ", " + b.getPostnr() + " " + b.getPoststed() +
                    "\nUtleier-info:\t" + u.getFornavn() + " " + u.getEtternavn() +

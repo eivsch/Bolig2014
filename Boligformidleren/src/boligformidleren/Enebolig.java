@@ -54,7 +54,7 @@ public class Enebolig extends Bolig {
     }
     
     public String toString(){
-        String s = super.toString() + "Etasjer: " + antEtasjer + "\nTomteareal: "
+        String s = super.toString() + "\nEtasjer: " + antEtasjer + "\nTomteareal: "
                 + tomtAreal + "\nKjeller: " + (kjeller ? "Ja" : "Nei");
         return s;
     }
