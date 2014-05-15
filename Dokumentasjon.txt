@@ -103,12 +103,22 @@ Har fikset endring av drop-down felter (soverom, etasjer for enebolig, etasje fo
 Gretar skriver:
 EndreFelt-funksjonen var mye mer vanskelig enn jeg trodde at få til å fungere riktig. Men nu har jeg tested det og det skal fungere ordenlig nu for Utleiervinduet og boligsøkervinduet. Boligsøkervinduet trengte en "ingen krav" mulighet i drop-down listen for boligtypen og antall soverom. Jeg har fikset det.
 
+Sigurd:
+Fått inn regex for visBoligInfo, testet og fungerer fint. 
+
 13.05
 Gretar skriver:
 Endring av attributer for boliger i BoligVinduet har også blitt velding vanskelig til å få at fungere ordentlig. Når brukeren vil endre boligtypen f.eks. fra "enebolig/rekkehus" til "leilighet" så måtte jeg først opprette et nytt leilighet-objekt og legge det inn i boliglisten for denne utleieren og så fjerne denne gamle eneboligen. Men det fungerer greit nu.
-Jeg har endret det utseende for Startvinduet og sett en lytter til lukkeknappen for hvert vindu, sånn at når den åpnes igjen så er alle felt tom.
+Jeg har endret det utseende for Startvinduet og sett en lytter til lukkeknappen for hvert vindu, sånn at når den åpnes igjen så er alle felt tom.¨
+
+Sigurd:
+Starta på regex for finnBolig søkefelt. fungerer for enkelt feltene men ikke felles feltene, så langt.
 
 14.05
 Gretar skriver:
 Jeg har brukt alt for mye tid for at genere tilfeldelige kontrakter. Men det gikk bra endelig. Har sett regex til alle felter i finnBolig søkekriterierne. Fann feil i genering av data, slik at alle boolean attributer var sett til "false". Har fikset det.
 Har også sett regex til finnKontrakt feltene og fikset alle feil som jeg har funnet når jeg testede det.
+
+15.05
+Sigurd:
+Satt opp brukerveiledning for programmet
