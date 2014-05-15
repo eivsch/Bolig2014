@@ -110,6 +110,7 @@ public class UtleierMengde implements Serializable {
         return usortertKopiMengde;
     }
     
+    // teller hvor mange boliger er registert
     public int antallBoliger(){
         int antRader = 0;
         Iterator<Utleier> utleierIter = mengde.iterator();

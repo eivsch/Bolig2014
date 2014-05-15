@@ -24,14 +24,92 @@
 	<img src="klassehierarki.png" alt="Klassehierarki">
 	
 	<h3>Datastruktur</h3>
-		<p>Objektene lagres i en datastruktur, dvs. Person-objektene lagres i en TreeSet-mengde og hvert Utleier-objekt innholder 
-		en LinkedList-liste over alle boliger vedkommende er knyttet til. Vi valgte TreeSet datastrukturen for Personer fordi det hindrer dobbeltlagring 
-		og er sortert (f.eks. mht. personens navn). Vi valgte LinkedList datastrukturen for Boligene fordi den er effektiv når man skal 
-		sette inn og fjerne objekter, som er en stor del av vår program.</p>
-		<p>Kontrakt klassen inneholder to ArrayList-lister, en for gjeldende kontrakter og en for arkviverte kontrakter.
-		Vi valgte ArrayList-liste fordi der er effektivt å søke gjennom og hente ut data (bruke indekser). 
-		Samtidig skal vi heller ikke fjerne noe fra listen.</p>
-		<img src="datastruktur.png" alt="Datastruktur">	
+	<p>Objektene lagres i en datastruktur, dvs. Person-objektene lagres i en TreeSet-mengde og hvert Utleier-objekt innholder 
+	en LinkedList-liste over alle boliger vedkommende er knyttet til. Vi valgte TreeSet datastrukturen for Personer fordi det hindrer dobbeltlagring 
+	og er sortert (f.eks. mht. personens navn). Vi valgte LinkedList datastrukturen for Boligene fordi den er effektiv når man skal 
+	sette inn og fjerne objekter, som er en stor del av vår program.</p>
+	<p>Kontrakt klassen inneholder to ArrayList-lister, en for gjeldende kontrakter og en for arkviverte kontrakter.
+	Vi valgte ArrayList-liste fordi der er effektivt å søke gjennom og hente ut data (bruke indekser). 
+	Samtidig skal vi heller ikke fjerne noe fra listen.</p>
+	<img src="datastruktur.png" alt="Datastruktur">	
+		
+	<h3>Programstruktur</h3>
+	<p>Programmet har en træstruktur, dvs. alle klassene tilhører en øvrige klasse, utenfør klassen som inneholder
+	main metoden (se diagram her under). Hver klasse er beskrevet nedenfor.</p>
+	<img src="programstruktur.png" alt="Programstruktur">	
+		
+		<h4>Boligformidleren.java</h4>
+		Denne klassen inneholder main-metoden og den oppretter et StartVindu-objekt, som åpnes når programmet er kjørt.
+		Lukkeknappen på StartVinduet er programmert slik at den skriver alle mengder og lister til fil før programmet avsluttes. 
+		
+		<h4>StartVindu.java</h4>
+		Denne klassen inneholder alle andre vindu-klassene (utleiervindu, boligsøkervindu, boligvindu, kontraktvindu, informasjonvindu)
+		og kobler dem sammen med get-metoder (static). Dette betyr at alle klassene har tilgang til hver annen i gjennom denne klassen.
+		StartVindu-klassen inneholder i tillegg alle konstanter (static) som brukes av mer enn en klasse, f.eks. regulære uttrykk (regex) mønstre.
+		Til slutt inneholder denne klassen generelle metoder som bruker i andre klasser, f.eks. for regex, skrive data til fil o.fl.
+		
+		StartVindu.java inneholder følgende metoter
+		<code><ul>
+			<li>public StartVindu() - konstruktør</li>
+			<li>public static UtleierVindu getUtleierVindu()</li>
+			<li>public static BoligsoekerVindu getBoligsoekerVindu()</li>
+			<li>public static BoligVindu getBoligVindu()</li>
+			<li>public static KontraktVindu getKontraktVindu()</li>
+			<li>public static InformasjonVindu getInformasjonVindu()</li>
+			<li>public static boolean kontrollerRegEx(String pattern, JTextField[] input)</li>
+			<li>public static String kontrollerRegExTomFeltOK(String pattern, JTextField[] input)</li>
+			<li>public static boolean kontrollerRegEx(String pattern, String input)</li>
+			<li>public static int konverterBlanktFeltTilHeltall(JTextField jtf)</li>
+			<li>public static boolean tekstFeltErTomt(JTextField[] jtf)</li>
+			<li>public static Date konverterDato(String datostreng)</li>
+			<li>public void generateData() - ikke i bruk (brukt ved utvikling av programmet)</li>
+			<li>public void skrivTilFil()</li>
+			<li>public static void visFeilmelding(StackTraceElement[] ste)</li>
+			<li>public static void visFeilmelding(Object o)</li>
+			<li>public static String visJaNeiMelding(String melding, String vindutekst)</li>
+			<li>public void actionPerformed(ActionEvent e)</li>
+		</ul></code>
+		
+		<h4>UtleierVindu.java</h4>
+		Denne klassen brukes når man skal registrere, slette eller endre en utleier, dvs. den inneholder alle nødvendige felter og knapper
+		og alle metodene som kalles når brukeren trykker på knappene.
+		I tilleg inneholder den UtleierMengde-klassen (hvor alle utleier-objektene ligger).
+		
+		UtleierVindu.java inneholder følgende metoter
+		<code><ul>
+			<li>public UtleierVindu() - konstruktør</li>
+			<li>public UtleierMengde getUtleierMengde()</li>
+			<li>public void regUtleier()</li>
+			<li>public void slettUtleier()</li>
+			<li>public void blankFelter()</li>
+			<li>public boolean regexOK()</li>
+			<li>public void endreFelt(String felt, String ny)</li>
+			<li>public void skrivUtleierTilFil()</li>
+			<li>public void lesUtleierFraFil()</li>
+			<li>public void actionPerformed(ActionEvent e)</li>
+			<li>public void focusGained(FocusEvent fe)</li>
+			<li>public void focusLost(FocusEvent fe) - brukt for auto-fill</li>
+		</ul></code>
+		
+		<h4>UtleierMengde.java</h4>
+		Denne klassen inneholder mengden selv (TreeSet) og alle metodene som brukes når man vil sette inn et nytt utleier-objekt,
+		fjerne eller finner en utleier.
+		I tillegg inneholder den metoder for at registrere bolig-objekter til en utleier, fordi man må først søke gjennom alle
+		utleierene om den boligen eksisterer fra før.
+		
+		UtleierMengde.java inneholder følgende metoter
+		<code><ul>
+			<li>public void focusLost(FocusEvent fe) - brukt for auto-fill</li>
+			<li>public boolean fjern(Utleier ul)</li>
+			<li>public Utleier finnUtleier(String fornavn, String etternavn)</li>
+			<li>public Bolig finnBolig(String gateadresse, int postnr, String poststed)</li>
+			<li>public boolean regBolig(Utleier u, Bolig b)</li>
+			<li>public Set<Utleier> kopierMengdeUsortert()</li>
+			<li>public int antallBoliger()</li>
+			<li>public Set<Utleier> getSortertMengde()</li>
+			<li>public String toString()</li>
+		</ul></code>
+		
 
 <h3>Filbehandlingen</h3>
 

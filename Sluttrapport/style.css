@@ -21,6 +21,12 @@ img{
 	height: auto;
 }
 
+code{
+	font-family: courier new;
+	font-size: 12px;
+	color: darkblue;
+}
+
 #generell{
 	margin-top: 50px;
 	margin-bottom: 80px;
