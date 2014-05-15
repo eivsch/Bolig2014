@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -85,7 +86,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
     // for JTable
     private JTable boligsoekerTabell, boligTabell, utleierTabell, kontraktTabell;
-
+    private JLabel antallKontrakter;
     private JTextArea output;
 
     // konstruktør
@@ -416,7 +417,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         finnKontrakter.addActionListener(this);
         kontraktKnappPanel.add(finnKontrakter);
 
-        visKontrakter = new JButton("Vis gjeldende kontrakter");
+        visKontrakter = new JButton("Vis alle kontrakter");
         visKontrakter.addActionListener(this);
         kontraktKnappPanel.add(visKontrakter);
     }
@@ -568,11 +569,16 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     }
 
     public void tegnKontraktTabell() {
-        List<Kontrakt> l = StartVindu.getKontraktVindu().getKontraktListe().getAlleKontrakter();
-        KontraktTabellmodell ktm = new KontraktTabellmodell(l);
+        KontraktListe kl = StartVindu.getKontraktVindu().getKontraktListe();
+        KontraktTabellmodell ktm = new KontraktTabellmodell(kl.getAlleKontrakter());
         kontraktTabell = new JTable(ktm);
         kontraktTabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         kontraktTabell.setAutoCreateRowSorter(true);
+        // skriver ut en tekst over tabellen med info om hvor mange kontrakter
+        // firmaet har til utleie.
+        antallKontrakter = new JLabel("Antall Boliger til utleie: "
+                + kl.antGjeldendeKontrakter() + "     Antall arkiverte kontrakter: "
+                + kl.antArkiverteKontrakter() + "     Totalt: " + kl.getAlleKontrakter().size());
     }
 
     /**
@@ -708,9 +714,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         Iterator<Utleier> ulIter = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde().iterator();
         Utleier ul;
         BoligListe bl;
-        String utskrift = "";
-        String liste = "";
-        int antall = 0;
+        List<Bolig> bList = new ArrayList<>();
 
         while (ulIter.hasNext()) {
             ul = ulIter.next();
@@ -778,22 +782,24 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 }
 
                 if (passer) {
-                    liste += "\n" + b.getGateadresse() + ", " + b.getPostnr() + ", " + b.getPoststed();
-                    antall++;
+                    bList.add(b);
                 }
             }
         }
-
-        if (antall > 0) {
-            utskrift += "Antall boliger som tilsvarer kriteriene: " + antall
-                    + "\nBoliger (gateadresse, postnummer, poststed):\n";
-        } else {
-            utskrift = "Ingen bolig tilsvarer kriteriene";
+        Object[][] celler = new Object[bList.size()][BoligTabellmodell.ANTALLKOLONNER];
+        Iterator<Bolig> iter = bList.iterator();
+        for (int i = 0; i < bList.size(); i++) {
+            if (iter.hasNext()) {
+                celler[i] = iter.next().tilRad();
+            }
         }
-
-        output.setText(utskrift);
-        output.append(liste);
-        output.setCaretPosition(0);
+        BoligTabellmodell btm = new BoligTabellmodell(celler);
+        JTable tabell = new JTable(btm);
+        tabell.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabell.setAutoCreateRowSorter(true);
+        tabellPanel.removeAll();
+        tabellPanel.add(new JScrollPane(tabell));
+        tabellPanel.revalidate();
     }
 
     // finner kontrakter ut fra søkekriteria
@@ -1114,8 +1120,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             masterPanel.repaint();
         } else if (e.getSource() == finnBoliger) {
             finnBoliger();
-            masterPanel.remove(tabellPanel);
-            masterPanel.add(under);
+            masterPanel.remove(under);
+            masterPanel.add(tabellPanel, BorderLayout.CENTER);
             masterPanel.revalidate();
             masterPanel.repaint();
         } else if (e.getSource() == visAlleBoliger) {
@@ -1144,6 +1150,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             tabellPanel.removeAll();
             tegnKontraktTabell();
             tabellPanel.add(new JScrollPane(kontraktTabell));
+            tabellPanel.add(antallKontrakter, BorderLayout.PAGE_START);
             tabellPanel.revalidate();
             masterPanel.remove(under);
             masterPanel.add(tabellPanel, BorderLayout.CENTER);
