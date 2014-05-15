@@ -10,13 +10,13 @@ package boligformidleren;
 
 import java.util.Date;
 
-public class Enebolig extends Bolig {
+public class EneboligRekkehus extends Bolig {
 
     private int antEtasjer, tomtAreal;
     private boolean kjeller;
 
     // konstruktør
-    public Enebolig(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
+    public EneboligRekkehus(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
             Date annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
             int antEtasjer, int tomtAreal, boolean kjeller) {
         

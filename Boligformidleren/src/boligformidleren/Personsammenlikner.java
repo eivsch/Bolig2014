@@ -1,6 +1,6 @@
 /*
- * Innhold:
- * Sist oppdatert:
+ * Innhold: Sorteringsrekkefølge og sammenlikning av personobjekter.
+ * Sist oppdatert: 15.05.2014, 1500
  * Programmert av: Eivind
  */
 package boligformidleren;
@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import java.io.Serializable;
 
 /**
- *
- * @author Eivind
+ * Klassen definerer en sorteringsrekkefølge for personeer og en compare-
+ * metode for å sammenlikne dem.
  */
 public class Personsammenlikner implements Comparator<Person>, Serializable{
 
