@@ -7,7 +7,8 @@ boligsoekermengde.data. Omtrent tilsvarende skjer for utleiere og kontrakter.
 
 Hver av disse datastrukturene har altså sine egne skrivTilFil og lesFraFil-metoder, 
 som ligger i deres tilsvarende -Vindu klasser. Disse kalles opp hver gang programmet 
-avsluttes og startes opp.
+avsluttes og startes opp. Det brukes kun objekter av typen ObjectOutputStream og
+ObjectInputStream for skriving og lesing fra fil.
 
 Vi valgte å definere en egen norsk tilpasset sorteringsrekkefølge for utleiere og 
 boligsøkere. Dette ble gjort ved at TreeSet'en de to datatypene ligger lagret i er
