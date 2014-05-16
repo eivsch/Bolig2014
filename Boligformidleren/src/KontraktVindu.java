@@ -22,7 +22,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
     private JTextField gateadresse, postnr, poststed, utleierFornavn, utleierEtternavn,
             leietakerFornavn, leietakerEtternavn, pris, sluttDatoFelt, startDatoFelt;
     private JTextArea output;
-    private JButton regKontrakt, siOppKontrakt, skrivUt;
+    private JButton regKontrakt, siOppKontrakt, blankFelter;
     
     // antall rader og kolonner og diverse størrelse
     private final int ANTRAD = 12, ANTKOL = 2, GAP = 5, BREDDE = 300, HOYDE = 600, FELTLENGDE = 10, DEFAULTCARET = 0;
@@ -110,9 +110,9 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         siOppKontrakt.addActionListener(this);
         grid.add(siOppKontrakt);
 
-        skrivUt = new JButton("Vis alle kontrakter");
-        skrivUt.addActionListener(this);
-        grid.add(skrivUt);
+        blankFelter = new JButton("Blank felter");
+        blankFelter.addActionListener(this);
+        grid.add(blankFelter);
 
         // leser fil når konstruktør kjøres
         lesKontraktFraFil();
@@ -427,11 +427,6 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         output.setText(melding);
     }
     
-    // Skrive ut alt som ligger lagret i KontraktListe-objektet
-    public void utskrift() {
-        output.setText(kontraktListe.toString());
-    }
-
     // blanker alle felter i vinduet
     public void blankFelter() {
         gateadresse.setText("");
@@ -475,8 +470,8 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == regKontrakt) {
             regKontrakt();
-        } else if (e.getSource() == skrivUt) {
-            utskrift();
+        } else if (e.getSource() == blankFelter) {
+            blankFelter();
         } else if (e.getSource() == siOppKontrakt) {
             siOppKontrakt();
         }

@@ -24,7 +24,7 @@ public class StartVindu extends JFrame implements ActionListener {
      * må derfor være "static" så andre klasser har aksess til disse
      */
     private JPanel masterPanel, top, under;
-    private JButton utleierKnapp, boligsoekerKnapp, boligKnapp, kontraktKnapp, infoKnapp, dataKnapp;
+    private JButton utleierKnapp, boligsoekerKnapp, boligKnapp, kontraktKnapp, infoKnapp;
     
     private static UtleierVindu utleierVindu;
     private static BoligsoekerVindu boligsoekerVindu;
@@ -40,7 +40,7 @@ public class StartVindu extends JFrame implements ActionListener {
     private final int ANTRADMASTER = 2, ANTKOLMASTER = 1, HGAPMASTER = 10, VGAPMASTER = 20,
             ANTRADTOP = 1, ANTKOLTOP = 5, HGAPTOP = 20, VGAPTOP = 20, BORDERMASTER = 20,
             BREDDE = 700, HOYDE = 300, XPOSUTLEIERVINDU = 0, XPOSBOLIGSOEKERVINDU = 400,
-            XPOSBOLIGVINDU = 800, XPOSKONTRAKTVINDU = 1200, YPOS = 0;
+            XPOSBOLIGVINDU = 800, XPOSKONTRAKTVINDU = 1200, YPOS = 0, XPOSSTARTVINDU = 200, YPOSSTARTVINDU = 200;
 
     // RegEx
     private static final String PATTERNDATO = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
@@ -98,24 +98,11 @@ public class StartVindu extends JFrame implements ActionListener {
         infoKnapp = new JButton("", ikonInformasjon);
         infoKnapp.setRolloverIcon( ikonInformasjonValgt );
         infoKnapp.addActionListener(this);
-        dataKnapp = new JButton("Generer data");
-        dataKnapp.addActionListener(this);
         
         top.add(utleierKnapp);
         top.add(boligsoekerKnapp);
         top.add(boligKnapp);
         top.add(kontraktKnapp);
-        
-        
-        // vi må fjerne denne linje før programmet leveres!!!!!
-        // vi må fjerne denne linje før programmet leveres!!!!!
-        // vi må fjerne denne linje før programmet leveres!!!!!
-        top.add(dataKnapp);
-        // vi må fjerne denne linje før programmet leveres!!!!!
-        // vi må fjerne denne linje før programmet leveres!!!!!
-        // vi må fjerne denne linje før programmet leveres!!!!!
-        
-        
         under.add(infoKnapp, BorderLayout.CENTER);
         
         
@@ -243,6 +230,16 @@ public class StartVindu extends JFrame implements ActionListener {
         return PATTERNEPOST;
     }
 
+    public int getXPOSSTARTVINDU() {
+        return XPOSSTARTVINDU;
+    }
+
+    public int getYPOSSTARTVINDU() {
+        return YPOSSTARTVINDU;
+    }
+    
+    
+
     // sjekker helt array av tekstfelter om de passer til regex-pattern
     public static boolean kontrollerRegEx(String pattern, JTextField[] input) {
         for (int i = 0; i < input.length; i++) {
@@ -302,8 +299,10 @@ public class StartVindu extends JFrame implements ActionListener {
         }
     }
     
-    // generer data fra .txt filer
-    public void generateData(){
+    // Denne metoden var brukt ved utvikling av programmet,
+    // men vi gjerne la den følge med.
+    // Den generer data fra .txt filer
+    /* public void generateData(){
         
         UtleierMengde um = utleierVindu.getUtleierMengde();
         BoligsoekerMengde bm = boligsoekerVindu.getBoligsoekerMengde();
@@ -451,7 +450,8 @@ public class StartVindu extends JFrame implements ActionListener {
             System.out.println(e.getMessage());
         }
     }
-                    
+    */
+    
     // skriver utleiermengden, boligsøkermengden og kontraktlisten til fil
     public void skrivTilFil() {
         utleierVindu.skrivUtleierTilFil();
@@ -500,9 +500,7 @@ public class StartVindu extends JFrame implements ActionListener {
             kontraktVindu.setVisible(true);
         } else if (e.getSource() == infoKnapp) {
             informasjonVindu.setVisible(true);
-        } else if( e.getSource() == dataKnapp){
-            generateData();
-        }
+        } 
     }
 
 }

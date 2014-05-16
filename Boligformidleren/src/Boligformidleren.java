@@ -26,6 +26,7 @@ public class Boligformidleren {
      */
     public static void main(String[] args) {
         final StartVindu vindu = new StartVindu();
+        vindu.setLocation(vindu.getXPOSSTARTVINDU(), vindu.getYPOSSTARTVINDU());
         vindu.addWindowListener(
                 new WindowAdapter(){
                     public void windowClosing(WindowEvent e){
