@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> Logg</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+<body>
+	
+	<header>
+		<h2>Gruppe 16 - Boligformidling</h2>
+		<p>Eivind Schulstad - s198752 - Dataingeniør</p>
+		<p>Gretar Ævarsson - s198586 - Informasjonsteknologi</p>
+		<p>Sigurd Hølleland - s198597 - Informasjonsteknologi</p>
+	</header>
+		 <section id="content">
+<h1>Logg</h1>
+<h2>Logg - Gretar</h2>
+<p>
+18.03.2014
+Første møte. Vi valgte å jobbe med alternativ2: boligregister. Vi skal bruke NetBeans og GitHub. Kom i gang med fremdriftsplan. Prosjekt sett opp i GitHub og der er alt hva vi gjør sett i en loggbok.
+</p><p>
+24.03.2014
+Andre møte. Grupperom 4. etasje. Varighet ca 2 og 1/2 time. 
+Begynte å gå igjennom liste med kravspes. Diskuterte og ble enige om grove trekk av programmets funksjonalitet, som var nyttig. Lagde utkast til useCase-skjema, prioriteringsrekkefølge, skisse 
+over brukergrensesnitt og klassehierarki. Fikk opp GitHub repo. Kom i en viss grad igang med å delegere arbeidsoppgaver, men fortsatt ikke 100% igang.
+</p><p>
+
+27.03.2014 kl 12:45 frem til 14:45
+Tredje møte.
+
+Kommet godt igang med diskusjon om datastruktur. Ferdig med fremdriftsplanen, kommet lenger på kravspec-en og vi har fått ferdig grunningen i Klassehieararkiet.
+</p><p>
+01.04 ca kl 1200 til 1445
+Sigurd syk. Fullførte kravspesifikasjonen/innleveringen. Ingen nevneverdig progress på koding.
+</p><p>
+02.04 kl 10:30 til 12:45
+Sigurd har begynt på brukergrensesnittet (Vindusklassen).
+Gretar lagde set- og get-metoder for Eneboliger og Leiligheter.
+</p><p>
+03.04
+Gretar har opprettet Boligliste.java (LinkedList som hvert Utleier-objekt inneholder) med settInn() og toString() metoder og Kontrakt.java (representerer en kontrakt). Har også testet å sette inn objekter i Boligliste, fungerte greit.
+</p><p>
+04.04
+Gretar jobber på regBolig()-metoder i klassene Personmendge.java og Utleier.java. Metoden skal registrere en bolig til en utleier og søke om at den eksisterer ikke fra før.
+Sigurd hadde problemer med batteriet på laptoppen. Jobber hjemme fra.
+Eivind...
+</p><p>
+23.04
+Gretar skriver:
+har opprettet ny startvindu, så vindu.java har ikke så veldig mye kodelinjer. Istedenfor kommer noe mindre vinduer, en for UTLEIER (register, slett, ...), annen for BOLIGSØKER (register, slett, ...), annen for Enebolig, osv. Vi trenger ikke mer vindu.java. Har også opprettet UtleierVindu.java. Register-uteier-metoden fungerer!
+</p><p>
+24.04
+Gretar skriver:
+har opprettet BoligsoekerVindu.java. Register-boligsoeker-metoden fungerer!
+</p><p>
+25.04
+Gretar skriver:
+har opprettet BoligVindu.java. Den skal fungere sånn at når brukeren velger boligtype (enebolig, leilighet) så dukker opp vedkommende felter, mens felles feltene skal alltid vises. Klassen er ikke ferdig ennu, men har kommet ganske langt.
+</p><p>
+28.04 
+Gretar skriver:
+Har fått Boligvindu.java til å fungere sånn at når bruker skal registrere bolig, må han velge enten enebolig/rekkehus eller leilighet. Når hann velger, så dukker opp riktige datafelter.
+Registrerings-knappen fungerer og nå kan mann registrere en bolig til en utleier.
+</p><p>
+29.04
+Gretar skriver:
+Har opprettet KontraktVindu.java. Der kan brukeren registrere kontrakter mellom utleiere og leietakere. Istedenfor "adresse" felt kommer nu "gateadresse", "postnr" og "poststed" for utleiere, boligsøkere og boliger. Drop-down list for boligtype fungerer nu i BoligsoekerVindu.java men jeg må sette en lytter til det, så riktige felter dukker opp når brukeren velger en boligtype.
+</p><p>
+30.04
+Gretar skriver:
+Har fått drop-down list for BoligsoekerVindu.java til å fungere. Har endret BoligsoekerVindu.java slik at hvis brukeren skriver ikke i alle felt, dvs. en boligsøker har ikke noen krav på noen felt, så fungerer det.
+Har opprettet InformasjonVindu.java som skal vise opplysninger om personer, boliger eller kontrakter. Den er ikke ferdig.
+Vi har ikke sett på Sigurd etter påskeferie, så vi spørte ham på facebook. Han sagde at han var syk.
+</p><p>
+01.05
+Gretar skriver:
+Fortsett med InformasjonVindu.java. Person-delen og bolig-delen ser bra ut. Parameter-delen trenger knapper og jeg har ikke startet ennu med Kontrakt-delen. Fortsetter med det neste gang.
+</p><p>
+02.05
+Gretar skriver:
+Kontrakt delen i InformasjonVindu lagt til. Vinduet ser bra ut og nu må vi legge til metoder for alle knappene.
+</p><p>
+05.05
+Gretar skriver:
+Har sett inn hentInfo() metode inn i InformasjonVindu.java, som henter og viser opplysininger om en navngitt person.
+Har sett inn passerTilBolig(Bolig b) metode inn i Boligsoeker.java som tar i mot et Bolig objekt og sjekker om denne boligen passer til boligsøkeren. Returnerer true eller false.
+Har opprettet en notater-tekstfil hvor vi kan legge til alt som vi vil ha i sluttrapporten.
+Sigurd kunne ikke komme fordi han hadde fått neglerots betennelse i den ene tåen sin.
+</p><p>
+06.05
+Gretar skriver:
+Har programmert visBoligInfo() metoden i InformasjonVindu.java. Metoden viser info om en bolig og hvilken boligsøkere har krav som passer til den boligen.
+Har sett FocusListener til alle DATO felt i alle vinduer, slik at feltet viser "dd.mm.åååå" men når man klikker/"tab"-er i feltet forsvinder teksten og man kan skrive i et tom felt.
+Har fikset metoden PasserTilBolig i Boligsøker.java, som returnerer TRUE hvis en bolig passer til boligsøkerens krav, men FALSE ellers.
+</p><p>
+07.05
+Gretar skriver:
+Har programmert metoden for å søke etter bolig(er) med kriteria. Metoden heter finnBoliger() og ligger i InformasjonVindu.java. Dette var en stor metode.
+Neste skrittene:</p><p>
+  - lage et stort datasett som vi kan bruke til å teste programmet</p><p>
+  - sette REGEX til alle nødvendig feltene</p><p>
+  - fokusere på brukergrensesnittet når programmet fungerer, f.eks. programmere lukkeknappen til alle vinduene sånn at når brukeren åpner vinduet igjen, så ser det alltid det samme ut (default start utseende).
+</p><p>
+08.05
+Gretar skriver:
+Har opprettet tre .txt filer som hver inneholder henholdsvis 100 utleiere, 200 boligsøkere og 593 boliger. Denne tekstfilene brukes av programmet til å registere utleiere, boligsøkere og boliger til utleierene. Man trykker på en knapp på StartVinduet (BARE EN GANG) til å opprette dataene. Tekstfilene var laget i Excel, med random-funksjon til å legge til størrelse, antall soverom, osv.
+</p><p>
+09.05
+Gretar skriver:
+Har oppdatert boligsøkere.txt filen og sette mye høyere krav til hver boligsøker. Det er 50% sjanse for hver felt at boligsøkeren har noen krav, dvs. 50% sjanse at han har ingen krav (dette var 30% tidligere).
+Jeg sette "Endre" knapper for feltene i UtleierVinduet og en FocusListener som sjekker om der finnes noen | når brukeren skriver fornavn og etternavn. Hvis det finnes noen, så bruker vi "autofill" til alle feltene.
+</p><p>
+10.05
+Gretar skriver:
+Har sett "Endre" knapper til hvert felt i Boligsøker vinduet. Har også sett autofill. Nu skal UtleierVindu og BoligsoekerVindu være klar og alt skal fungere (registrere, endre, slette) utenfør REGEX.
+Har fikset endring av drop-down felter (soverom, etasjer for enebolig, etasje for leilighet), som hadde noen feil men fungerer nu.
+</p><p>
+12.05
+Gretar skriver:
+EndreFelt-funksjonen var mye mer vanskelig enn jeg trodde at få til å fungere riktig. Men nu har jeg tested det og det skal fungere ordenlig nu for Utleiervinduet og boligsøkervinduet. Boligsøkervinduet trengte en "ingen krav" mulighet i drop-down listen for boligtypen og antall soverom. Jeg har fikset det.
+</p><p>
+Sigurd:
+Fått inn regex for visBoligInfo, testet og fungerer fint. 
+</p><p>
+13.05
+Gretar skriver:
+Endring av attributer for boliger i BoligVinduet har også blitt velding vanskelig til å få at fungere ordentlig. Når brukeren vil endre boligtypen f.eks. fra "enebolig/rekkehus" til "leilighet" så måtte jeg først opprette et nytt leilighet-objekt og legge det inn i boliglisten for denne utleieren og så fjerne denne gamle eneboligen. Men det fungerer greit nu.
+Jeg har endret det utseende for Startvinduet og sett en lytter til lukkeknappen for hvert vindu, sånn at når den åpnes igjen så er alle felt tom.¨
+</p><p>
+Sigurd:
+Starta på regex for finnBolig søkefelt. fungerer for enkelt feltene men ikke felles feltene, så langt.
+</p><p>
+14.05
+Gretar skriver:
+Jeg har brukt alt for mye tid for at genere tilfeldelige kontrakter. Men det gikk bra endelig. Har sett regex til alle felter i finnBolig søkekriterierne. Fann feil i genering av data, slik at alle boolean attributer var sett til "false". Har fikset det.
+Har også sett regex til finnKontrakt feltene og fikset alle feil som jeg har funnet når jeg testede det.
+</p><p>
+15.05
+Sigurd:
+Satt opp brukerveiledning for programmet
+</p>
+<h2>Logg - Eivind</h2>
+<p>
+27.03 - startet å opprette klassehierarki for Bolig og Person.
+</p><p>02.04 - Eivind: lagt til Personmengde og Personsammenlikner. skal være mulig å legge personobjekter inn i datastruktur. Ikke fått testet.
+</p><p>03.04 - Lagde Kontraktliste, tenkte ut enkelte registreringsmetoder i Vindusklassen.
+</p><p>04.04 - Hadde møte (fredag) gretar reiser søndag. prøvde å fordele lit, bli enige om hvor vi går videre. Ikke så mye koding. Øvd på brukergrensesnitt.
+</p><p>07.04 - Gjorde en utskriftsmetode (testing) sjekket at det gikk an å registrere en person. Hlest skulle sigurd gjort d, men klarte ikke...
+</p><p>11.04 - Prøvde å gjøre registrere boligmetoden, samt få skrevet ut registrerte boliger sammen med registrerte personer. Fikk problemer. Må vurdere
+        om vi skal splitte opp Personmengde i Boligsøkermengde og Utleiermengde, tror det blir mindre tungvindt. Gretar ferie, påskeferie imorgen,
+        vanskelig å diskutere med folk.
+</p><p>18.04 - Splittet personmengde i Utleiermengde og BoligsoekerMengde. Prøvde å få til  registrer bolig funksjonen, men usikker på om det fungerte.
+</p><p>25.04 - Jobbet litt peu en peu siste dager med bare diverse småting og metoder. Begynte idag på filbehandling, kun for å teste enkelt i starten. Møtte på problemer
+        spesielt pga TreeSet som er sortert ikke lar seg serialisere.
+</p><p>28.04 - Fortsatte filbehenadling og fikk fiksa. Kan foreløpig kun lagre Utleiere og Boligsoekere. Vurderer forskjellige løsninger i programmet, muligens en egen 
+        filbehandlingsklasse.
+</p><p>29.04 - (2150 linjer) Trenger testing av flg: Registrering av flere boliger med samme adresse skal ikke være mulig. Trenger å lage filer med mange personer og boliger for testing.
+                      Testing på alfabetisk sortering.
+</p><p>30.04 - (2300 ca)     Jobbet hovedsaklig med datoformatering.
+</p><p>01.05 - (2631 linjer) Møttes på skolen igjen (jeg og gretar, har gjort hver gang denne uka). Drev med litt feilhåndtering, ca 3 1/2 time.
+</p><p>02.05 - (           ) Kom på skolen ca 12, må dra igjen ca kl. 14, så ikke fått jobbet så mye idag. Går sakte fremover. Drevet med mer feilhåndtering/kontrollering
+                      av brukerinput.
+</p><p>05.05 -               Møttes igjen, jobbet som vanlig, kom et stykke videre. Begynner å nærme oss leveringsfrist også. Har en god del igjen, spesielt på dokumentsjonssiden.
+</p><p>06.05 - (3408 linjer) Jobbet bra idag, fikk gjort mye, spess med kontrakter og sjekking av utgåtte kontrkter, registrering osv.
+</p><p>08.05 - Startet med JTable i Informasjonsvindu.
+</p><p>11.05 - Sigurd kom, første gang siden påske. Jobbet mye med JTable, prøver å få til at man kan klikke på et navn også kommer det info om personen.
+</p>
+		 </section>
+		<footer>
+			<p> <em> <u> Eivind (DataIng - s198752), Gretar (IT - s198586), Sigurd (IT - s198597)</u> </em> </P>
+		</footer>			
+		
+</body>
+</html>

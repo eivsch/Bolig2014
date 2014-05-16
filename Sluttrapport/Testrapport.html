@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> Testrapport</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+<body>
+	
+	<header>
+		<h2>Gruppe 16 - Boligformidling</h2>
+		<p>Eivind Schulstad - s198752 - Dataingeniør</p>
+		<p>Gretar Ævarsson - s198586 - Informasjonsteknologi</p>
+		<p>Sigurd Hølleland - s198597 - Informasjonsteknologi</p>
+	</header>
+		 <section id="content">
+<h1>Testrapport</h1>
+<p>Mye av den testing var gjørt underveis, særlig når den regulære uttrykk (regex) var utviklet.
+I tilleg har vi tested brukerinput i alle felter i alle vinduer og prøvet at skrive feil, men vi har
+ikke fundet noen feil. Dette betyr imidlertid ikke at programmet har ikke noen feil.
+Mer om testing for hvert vindu finnes her nedenfor.</p>
+	<h3>Utleiervindu</h3>
+	<p>Når en utleier skal opprettes sjekker programmet om feltene er tom eller ikke og starter fra toppen.
+	Brukeren må fylle inn alle felter, utenfør "Firma".	Hvis brukeren skriver en feil, kommer en melding i
+	utskriftsområdet som sier i hvilken felt feilen ligger.
+	Hvis brukeren skriver fornavn og etternavn på en utleier som eksisterer fra før, så fylles inn
+	alle feltene automatisk (auto-fill). Brukeren kan endre feltene, men endringen må også oppfylle regex-kravene.
+	Vi har også tested når brukeren vil slette en utleier. Utleieren må ikke ha noen boliger registrert
+	før den kan slettes og brukeren må svare et bekreftende spørsmål (ja/nei).</p>
+	<h3>Boligsøkervindu</h3>
+	<p>På samme måte og i utleiervinduet, har vi tested alle knapper og prøvet å skrive feil når en boligsøker
+	skal registreres, slettes eller endres. Hvis brukeren skriver samme navn og en boligsøker har fra før, 
+	fylles inn alle feltene automatisk (vi gjør forutsetningen at to boligsøkere kan ikke ha samme navn).
+	Når brukeren skal opprette en ny boligsøker, må alle feltene som er arvet fra Person-klassen
+	(navn, adresse, epost, tlf) fylles inn. Brukeren bør ikke fylle inn alle krav-feltene, f.eks. areal, pris, osv.
+	Men hvis brukeren skriver noe i feltene sjekker programmet at den inntasting oppfyller alle regex-kravene.
+	Hvis brukeren velger en boligtype, så vises automatisk riktige felter, fordi enebolig/rekkehus har ikke
+	samme attributer som leilighet. Til slutt har vi valgt at bruke drop-down felter for noe af feltene
+	til a unngå skrivefeil fra brukeren.</p>
+	<h3>Boligvindu</h3>
+	<p>Næsten samme testing og for en boligsøken, utenfør at alle feltene må fylles ut når en bolig skal registeres.
+	Hvis brukeren skriver en adresse på en eksisterende bolig, så fylles inn alle feltene automatisk. Det betyr
+	at to boliger ikke kan ha samme adresse, som er logisk.
+	Hvis brukeren skal opprette en ny bolig, må hann skrive en gyldig navn på utleieren som boligen skal
+	registreres på, ellers kommer en feilmelding at utleieren finnes ikke.
+	På samme måte og i boligsøker- og utleiervinduet, må alle nødvendige felt oppfylle regex-kravene ved registrering, slettning og endring.</p>
+	<h3>Kontraktvindu</h3>
+	<p>Her må brukeren skrive en gyldig adresse og riktig navn til utleiren som boligen er registrert på (det skjer
+	automatisk hvis brukeren skriver en gyldig adresse). Boligen må ikke være opptatt, dvs. ikke ha en gjeldende kontrakt
+	fra før og vi har tested det og det fungerer greit. På samme måte må brukeren skrive et gyldig navn på en boligsøker
+	og den må ikke ha statusen "leter ikke etter bolig", dvs. den må ikke være registrert til en gjeldende kontrakt
+	(vi har også testet det og det fungerer). Alle feltene har regex-krav som sjekkes når brukeren trykker på en knapp.
+	Samme regler gjelder hvis brukeren vil si opp en kontrakt og alle feilmeldinger vises i utskriftsområdet.</p>
+	<h3>Informasjonvindu</h3>
+	<p>I dette vinduet skjer ikke noen endringer av data (registering, slettning, endring). Her vises kun info, men alle
+	felter har regex-krav som sjekkes når knappene er trykkt. Vedkommende feilmeldinger vises i utskriftsområdet.
+	</p>
+
+		 </section>
+		<footer>
+			<p> <em> <u> Eivind (DataIng - s198752), Gretar (IT - s198586), Sigurd (IT - s198597)</u> </em> </P>
+		</footer>			
+		
+</body>
+</html>
