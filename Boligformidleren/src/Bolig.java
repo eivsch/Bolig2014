@@ -1,11 +1,8 @@
 /*
- * INNHOLD:
- * Den abstrakte klassen Bolig.
- *
- * Sist oppdatert: 27.03.2014, 11:42.
+ * Innhold: Den abstrakte klassen Bolig.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind, Gretar
  */
-package boligformidleren;
 
 import java.io.*;
 import java.text.SimpleDateFormat;

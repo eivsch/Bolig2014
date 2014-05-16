@@ -1,23 +1,18 @@
 /*
- * INNHOLD:
- * Den abstrakte klassen Person.
- *
- * Sist oppdatert: 29.04.2014, 14:30.
+ * INNHOLD: Den abstrakte klassen Person, som lagrer opplysninger om en person, 
+ *          samt inneholde eventuelle set/get-metoder og toString-metode.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind, Gretar
  */
-package boligformidleren;
 
 import java.io.*;
 
-/**
- * Klassen skal lagre opplysninger om en person, samt inneholde eventuelle
- * set/get-metoder og toString-metode.
- */
 public abstract class Person implements Serializable {
 
     private String fornavn, etternavn, gateadresse, poststed, epost;
     private int postnr, tlfnr;
 
+    // konstruktør
     public Person(String fornavn, String etternavn, String gateadresse, int postnr, String poststed, String epost, int tlfnr) {
         this.fornavn = fornavn;
         this.etternavn = etternavn;

@@ -1,14 +1,13 @@
 /*
  * Innhold: Liste over kontrakter i to ArrayLister.
- * Sist oppdatert: 13.05.2014, 1400.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind
  */
-package boligformidleren;
 
 import java.util.*;
 import java.io.*;
 
-/**
+/* Kort beskrivelse:
  * Klassen KontraktListe håndterer lagring og behandling av programmets
  * opprettede kontrakter. Kontraktene er skilt i to lister, en for gjeldende og
  * en for utløpte Viktige funksjoner er blant annet å for hver programoppstart

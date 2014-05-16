@@ -1,20 +1,16 @@
 /*
  * INNHOLD: Klassen Boligsoeker er subklasse til Person og skal representere en boligsøker.
- * Sist oppdatert: 05.05.2014 kl.11:50
+ *          Hvis boligsøker ikke har noen krav om type, så bruker kun felles feltene.
+ *          Hvis boligsøker har krav om enebolig, så viser vi enebolig-feltene i tillegg 
+ *          til felles feltene
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind, Gretar
  */
-package boligformidleren;
 
 import java.util.Date;
 
 public class Boligsoeker extends Person implements Comparable<Boligsoeker> {
 
-    /*
-     * Hvis boligsøker ikke har noen krav om type,
-     * så bruker kun felles feltene.
-     * Hvis boligsøker har krav om enebolig, så viser
-     * vi enebolig-feltene i tillegg til felles feltene
-     */
     // Krav til bolig
     private int pris, areal, soverom, byggeaar, maxAntEtasjer, maxEtasje, tomtestorrelse;
     private String pInfo, type;

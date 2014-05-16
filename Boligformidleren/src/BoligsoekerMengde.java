@@ -1,9 +1,8 @@
 /*
- * Innhold:
- * Sist oppdatert:
- * Programmert av:
+ * Innhold: Boligsøkermengden selv hvor alle boligsøker-objektene ligger
+ * Sist oppdatert: 16.05.2014, 15:00.
+ * Programmert av: Eivind, Gretar
  */
-package boligformidleren;
 
 import java.util.Comparator;
 import java.util.Iterator;

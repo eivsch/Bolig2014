@@ -1,16 +1,13 @@
 /*
- * INNHOLD:
- * Klassen Personmengde.
- *
- * Sist oppdatert: 15.05.2014, 1510.
+ * INNHOLD: Klassen Personmengde.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind, Gretar
  */
-package boligformidleren;
 
 import java.util.*;
 import java.io.*;
 
-/**
+/* Kort beskrivelse:
  * Klassen inneholder en TreeSet-mengde og metoder for å sette inn/fjerne/finne
  * Utleier-objekter. Klassen inneholder også metode for å registrere en bolig
  * til en utleiers boligliste.
@@ -18,7 +15,6 @@ import java.io.*;
 public class UtleierMengde implements Serializable {
 
     private Comparator komp = new Personsammenlikner();
-
     private Set<Utleier> mengde = new TreeSet<>(komp);
 
     // setter inn ny person i mengden
@@ -26,6 +22,7 @@ public class UtleierMengde implements Serializable {
         mengde.add(ul);
     }
 
+    // fjerner et Utleier-objekt fra mengde
     public boolean fjern(Utleier ul) {
         if (ul.getBoligliste().getListe().isEmpty()) {
             return mengde.remove(ul);
@@ -33,6 +30,7 @@ public class UtleierMengde implements Serializable {
         return false;
     }
 
+    // returnerer mengden (usortert)
     public Set<Utleier> getSortertMengde() {
         return mengde;
     }
@@ -131,6 +129,7 @@ public class UtleierMengde implements Serializable {
         return usortertKopiMengde;
     }
     
+    // skriver ut alt som ligger i mengden
     public String toString() {
         Iterator<Utleier> iter = mengde.iterator();
 

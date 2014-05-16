@@ -1,12 +1,8 @@
 /*
- * INNHOLD:
- * Klassen er subklasse til Bolig og skal mer spesifikt representere en enebolig
- * eller rekkehus.
- *
+ * Innhold: Klassen er subklasse til Bolig og skal mer spesifikt representere en enebolig eller rekkehus.
  * Sist oppdatert: 27.03.2014, 11:43.
  * Programmert av: Eivind, Gretar
  */
-package boligformidleren;
 
 import java.util.Date;
 

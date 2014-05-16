@@ -1,9 +1,8 @@
 /*
  * Innhold: Vindu som brukes for registrering, slettning og endring av utleiere
- * Sist oppdatert: 29.04.2014 kl.14:45
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Gretar
  */
-package boligformidleren;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,8 +23,8 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
     private JTextField RegPersFornavn, RegPersEtternavn, RegPersGateadr, RegPersPostnr, RegPersPoststed, RegEpost, RegTlf, RegFirma;
     private JTextArea output;
     private JButton regUtleier, slettUtleier, endreGateadresse, endrePostnr, endrePoststed, endreEpost, endreTelefonnr, endreFirma, blankFelter;
-    private int antRad, antKol, gap;
     private JPanel masterPanel, grid, under;
+    private final int ANTRAD = 10, ANTKOL = 3, GAP = 5, BREDDE = 400, HOYDE = 450, FELTLENGDE = 10;
 
     private UtleierMengde utleierMengde;
 
@@ -35,18 +34,13 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
 
         utleierMengde = new UtleierMengde();
 
-        // antall rader, antall kolonner og gap størrelse for GridLayout
-        antRad = 10;
-        antKol = 3;
-        gap = 5;
-
         masterPanel = new JPanel(new BorderLayout());
-        grid = new JPanel(new GridLayout(antRad, antKol, gap, gap));
+        grid = new JPanel(new GridLayout(ANTRAD, ANTKOL, GAP, GAP));
         under = new JPanel(new BorderLayout());
         masterPanel.add(grid, BorderLayout.PAGE_START);
         masterPanel.add(under, BorderLayout.CENTER);
         this.getContentPane().add(masterPanel);
-        setSize(400, 450);
+        setSize(BREDDE, HOYDE);
 
         output = new JTextArea();
         output.setEditable(false);
@@ -55,19 +49,19 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
 
         // felt og knapper
         grid.add(new JLabel("Fornavn: "));
-        RegPersFornavn = new JTextField(10);
+        RegPersFornavn = new JTextField(FELTLENGDE);
         RegPersFornavn.addFocusListener(this);
         grid.add(RegPersFornavn);
         grid.add(new JLabel(""));   // tom felt, ingen knapp for endring av fornavn
 
         grid.add(new JLabel("Etternavn: "));
-        RegPersEtternavn = new JTextField(10);
+        RegPersEtternavn = new JTextField(FELTLENGDE);
         RegPersEtternavn.addFocusListener(this);
         grid.add(RegPersEtternavn);
         grid.add(new JLabel(""));   // tom felt, ingen knapp for endring av etternavn
 
         grid.add(new JLabel("Gateadresse: "));
-        RegPersGateadr = new JTextField(10);
+        RegPersGateadr = new JTextField(FELTLENGDE);
         grid.add(RegPersGateadr);
         
         endreGateadresse = new JButton("Endre");
@@ -75,7 +69,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         grid.add(endreGateadresse);
         
         grid.add(new JLabel("Postnummer: "));
-        RegPersPostnr = new JTextField(10);
+        RegPersPostnr = new JTextField(FELTLENGDE);
         grid.add(RegPersPostnr);
         
         endrePostnr = new JButton("Endre");
@@ -83,7 +77,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         grid.add(endrePostnr);
 
         grid.add(new JLabel("Poststed: "));
-        RegPersPoststed = new JTextField(10);
+        RegPersPoststed = new JTextField(FELTLENGDE);
         grid.add(RegPersPoststed);
         
         endrePoststed = new JButton("Endre");
@@ -91,7 +85,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         grid.add(endrePoststed);
 
         grid.add(new JLabel("E-post: "));
-        RegEpost = new JTextField(10);
+        RegEpost = new JTextField(FELTLENGDE);
         grid.add(RegEpost);
         
         endreEpost = new JButton("Endre");
@@ -99,7 +93,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         grid.add(endreEpost);
 
         grid.add(new JLabel("Telefonnummer: "));
-        RegTlf = new JTextField(10);
+        RegTlf = new JTextField(FELTLENGDE);
         grid.add(RegTlf);
         
         endreTelefonnr = new JButton("Endre");
@@ -107,7 +101,7 @@ public class UtleierVindu extends JFrame implements ActionListener, FocusListene
         grid.add(endreTelefonnr);
 
         grid.add(new JLabel("Firma: "));
-        RegFirma = new JTextField(10);
+        RegFirma = new JTextField(FELTLENGDE);
         grid.add(RegFirma);
         
         endreFirma = new JButton("Endre");

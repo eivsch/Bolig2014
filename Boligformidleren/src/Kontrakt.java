@@ -1,18 +1,13 @@
 /*
- * INNHOLD:
- * Klassen Kontrakt.
- *
- * Sist oppdatert: 05.05.2014, 14:00.
+ * Innhold: Klassen Kontrakt som representerer en fysisk kontrakt mellom 
+ *          utleier og boligsøker/leietaker om en bolig.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Gretar, Eivind
  */
-package boligformidleren;
 
 import java.io.*;
 import java.util.Date;
 
-/**
- * Klassen skal representere en kontrakt. Kontrakt skal ikke kunne endres.
- */
 public class Kontrakt implements Serializable {
 
     private String utskrift;

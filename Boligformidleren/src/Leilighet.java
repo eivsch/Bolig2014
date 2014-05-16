@@ -1,22 +1,16 @@
 /*
- * INNHOLD:
- * Klassen Leilighet.
- *
- * Sist oppdatert: 27.03.2014, 12:05.
+ * Innhold: Klassen Leilighet, som er subklasse til Bolig og skal representere en leilighet.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind, Gretar
  */
 
-package boligformidleren;
-
 import java.util.Date;
 
-/**
- * Klassen er subklasse til Bolig og skal representere en leilighet.
- */
 public class Leilighet extends Bolig {
     private int etasje;
     private boolean heis, balkong;
 
+    // konstruktør
     public Leilighet(String gateadresse, int postnr, String poststed, String type, String beskrivelse,
             Date annonsedato, int inneAreal, int antRom, int byggeaar, int pris,
             int etasje, boolean heis, boolean balkong){

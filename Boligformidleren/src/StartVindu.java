@@ -1,9 +1,8 @@
 /*
  * Innhold: Startvindu som åpnes når programmet er kjørt
- * Sist oppdatert:
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Gretar, Sigurd
  */
-package boligformidleren;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,13 +18,10 @@ import javax.swing.border.EmptyBorder;
 
 public class StartVindu extends JFrame implements ActionListener {
 
-    //private final String vinduer[] = {"<html><center>Utleier<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Boligsøker<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Bolig<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Kontrakt<br><br>(Registrering,<br>Sletting,<br>Endring)</html>", "<html><center>Hente informasjon</html>", "<html><center>Generate data<br><br>Trykk kun en gang!</html>"};
-    //private JButton buttons[];
-
-    /*
-     Vinduer som åpnes når man trykker på knappene på forsiden/startvinduet
-     Vinduene inneholder alle mengder/lister som brukes i programmet og
-     må derfor være "static" så andre klasser har aksess til disse
+    /* Kort beksrivelse:
+     * Vinduer som åpnes når man trykker på knappene på forsiden/startvinduet
+     * Vinduene inneholder alle mengder/lister som brukes i programmet og
+     * må derfor være "static" så andre klasser har aksess til disse
      */
     private JPanel masterPanel, topLabels, top, under;
     private JButton utleierKnapp, boligsoekerKnapp, boligKnapp, kontraktKnapp, infoKnapp, dataKnapp;
@@ -67,34 +63,18 @@ public class StartVindu extends JFrame implements ActionListener {
         kontraktVindu = new KontraktVindu();
         informasjonVindu = new InformasjonVindu();
 
-        /*
-        antKnapper = vinduer.length;
-        antRad = (int) (Math.sqrt(antKnapper));    // hvis 2-8 knapper så 2 rader, hvis 9-15 knapper så 3 rader, osv.
-        antKol = antKnapper - antRad;
-        gap = 5;
-
-        Container c = getContentPane();
-        c.setLayout(new GridLayout(antRad, antKol, gap, gap));
-        buttons = new JButton[antKnapper];
-
-        for (int i = 0; i < antKnapper; i++) {
-            buttons[i] = new JButton(vinduer[i]);
-            buttons[i].addActionListener(this);
-            c.add(buttons[i]);
-        }
-
-        setSize(600, 600);
-        setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        */
+        int antRadMaster = 2, antKolMaster = 1, hGapMaster = 10, vGapMaster = 20;
+        int antRadTop = 1, antKolTop = 5, hGapTop = 20, vGapTop = 20;
+        int borderMaster = 20;
+        int bredde = 700, hoyde = 300;
         
-        masterPanel = new JPanel(new GridLayout(2,1,10,20));
-        top = new JPanel(new GridLayout(1,5,20,20));
+        masterPanel = new JPanel(new GridLayout(antRadMaster,antKolMaster,hGapMaster,vGapMaster));
+        top = new JPanel(new GridLayout(antRadTop,antKolTop,hGapTop,vGapTop));
         under = new JPanel(new BorderLayout());
         
         masterPanel.add(top);
         masterPanel.add(under);
-        masterPanel.setBorder(new EmptyBorder(20, 20, 20, 20) );
+        masterPanel.setBorder(new EmptyBorder(borderMaster, borderMaster, borderMaster, borderMaster) );
         
         // knapper
         Icon ikonUtleier = new ImageIcon(getClass().getResource( "ikonUtleier.gif" ));
@@ -146,7 +126,7 @@ public class StartVindu extends JFrame implements ActionListener {
         this.getContentPane().add(masterPanel);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700, 300);
+        setSize(bredde, hoyde);
         
         // lukkeknapp for UtleierVindu
         utleierVindu.addWindowListener(

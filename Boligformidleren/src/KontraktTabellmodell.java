@@ -1,25 +1,21 @@
 /*
  * Innhold: Tabellmodell for visning av kontrakter
- * Sist oppdatert: 13.05.2014, 1600
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind
  */
-package boligformidleren;
 
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- */
 public class KontraktTabellmodell extends AbstractTableModel {
 
     private final String[] KOLONNENAVN = {"Adresse", "Sted",
         "Utleier", "Leietaker", "Begynte", "Avsluttes"};
     private Object[][] celler;
 
-    //Tegner tabell i kontruktør
+    // Tegner tabell i kontruktør
     public KontraktTabellmodell(List<Kontrakt> l) {
         int maxAntRader = l.size();
         celler = new Object[maxAntRader][KOLONNENAVN.length];

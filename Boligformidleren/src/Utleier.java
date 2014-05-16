@@ -1,16 +1,10 @@
 /*
- * INNHOLD:
- * Klassen Utleier.
- *
- * Sist oppdatert: 15.05.2014, 1700.
+ * Innhold: Klassen Utleier, som er subklasse til Person og skal inneholde 
+ *          data og eventuelle metoder spesifikt for en utleier.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind
  */
-package boligformidleren;
 
-/**
- * Klassen er subklasse til Person og skal inneholde data og eventuelle metoder
- * spesifikt for en utleier.
- */
 public class Utleier extends Person implements Comparable<Utleier> {
 
     private String firma;

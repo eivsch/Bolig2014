@@ -1,43 +1,45 @@
 /*
- * Innhold: Tabellmodell for visning av utleiere.
- * Sist oppdatert: 13.05.2014
+ * Innhold: Tabellmodell for visning av boligsøkere
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind
  */
-package boligformidleren;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
-/**
+/* Kort beskrivelse:
  * Bestemmer kolonnenavn, størrelse på tabellarray, og hvilke kolonner som skal
- * være skjulte. Skjulte kolonner er også nøkkelkolonner som utgjør utleierens
- * ID. Tabellmodellen henter radene fra tilArray-metode i klassen Utleier.
+ * være skjulte. Skjulte kolonner er også nøkkelkolonner som utgjør
+ * boligsøkerens ID. Tabellmodellen henter radene fra tilArray-metode i klassen
+ * Boligsoeker.
  */
-public class UtleierTabellmodell extends AbstractTableModel {
 
-    private final String[] KOLONNENAVN = {"Navn", "Firma", "Epost", "Tlf",
-        "fornavnskjult", "etternavnskjult"};
+public class BoligsoekerTabellmodell extends AbstractTableModel {
+
+    private final String[] KOLONNENAVN = {"Navn", "Sted", "Pris", "Areal",
+        "Soverom", "Boligtype", "Fra Dato", "fornavnskjult", "etternavnskjult"};
     private Object[][] celler;
     // Enkelte kolonner skal kun brukes for å lese inn data og skal dermed skjules
     // for brukeren. Bestemmer her hvilke.
-    private final int SKALSKJULES[] = {4, 5};
+    private final int SKALSKJULES[] = {7, 8};
 
     //Tegner tabell i konstruktør
-    public UtleierTabellmodell() {
-        Set s = StartVindu.getUtleierVindu().getUtleierMengde().getSortertMengde();
-        Iterator<Utleier> iter = s.iterator();
+    public BoligsoekerTabellmodell() {
+        Set s = StartVindu.getBoligsoekerVindu().getBoligsoekerMengde().getMengde();
+        Iterator<Boligsoeker> iter = s.iterator();
         celler = new Object[s.size()][KOLONNENAVN.length];
-        Utleier u;
+        Boligsoeker b;
         for (int rad = 0; rad < s.size(); rad++) {
             if (iter.hasNext()) {
-                u = iter.next();
-                celler[rad] = u.tilRad();
+                b = iter.next();
+                celler[rad] = b.tilRad();
             }
         }
     }
 
-    // Redefinerer arvede metoder
+    // Redefinerer arvede metoder.
     public String getColumnName(int kolonne) {
         return KOLONNENAVN[kolonne];
     }
@@ -61,14 +63,21 @@ public class UtleierTabellmodell extends AbstractTableModel {
             case 1:
                 return String.class;
             case 2:
-                return String.class;
+                return Integer.class;
             case 3:
                 return Integer.class;
+            case 4:
+                return Integer.class;
+            case 5:
+                return String.class;
+            case 6:
+                return Date.class;
             default:
                 return String.class;
         }
     }
-    // Returnerer kolonnenavnene på kolonnene som skal være skjulte i en array.
+
+    // Returnerer kolonnenavnene til de av tabellens kolonner som skal være skjulte.
     public String[] getKolonnerSkalSkjules() {
         String[] skalSkjules = new String[SKALSKJULES.length];
         for (int i = 0; i < SKALSKJULES.length; i++) {
@@ -76,6 +85,7 @@ public class UtleierTabellmodell extends AbstractTableModel {
         }
         return skalSkjules;
     }
+
     // Returnerer kolonneindeksen til de av tabellens kolonner som skal være skjulte
     public int[] getKolonnerSkalSkjulesIndeks() {
         return SKALSKJULES;

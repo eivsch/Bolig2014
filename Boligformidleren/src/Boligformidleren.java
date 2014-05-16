@@ -1,12 +1,8 @@
 /*
- * INNHOLD:
- * Main-metode.
- *
- * Sist oppdatert: 13.05.2014, 11:32.
+ * Innhold: Main-metode.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind
  */
-
-package boligformidleren;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

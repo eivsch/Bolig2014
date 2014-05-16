@@ -1,9 +1,8 @@
 /*
  * Innhold: Vindu som brukes for registrering, slettning og endring av boliger.
- * Sist oppdatert: 15.05.2014 kl.18:52
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Gretar, Eivind
  */
-package boligformidleren;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +25,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
     private JTextField gateadresse, postnr, poststed, areal, byggeaar, beskrivelse, pris, avertertDato;
     private JComboBox boligtype, antRom;
     private final String[] TYPE = {"Velg", "Enebolig/rekkehus", "Leilighet"};
+    private final int ANTRADFELLES = 10, ANTRADKNAPP = 3, ANTRADENEBOLIG = 3, ANTRADLEILIGHET = 3, ANTKOL = 3, GAP = 5, BREDDE = 400, HOYDE = 700, FELTLENGDE = 10, SELECTEDINDEX = 0;
 
     // for knappPanel
     private JTextField utleierFornavn, utleierEtternavn;
@@ -51,21 +51,14 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
     public BoligVindu() {
         super("Bolig");
 
-        int antRadFelles = 10;  // en rad for hver felles felt plus to for boligtyper
-        int antRadKnapp = 3;
-        int antRadEnebolig = 3; // en rad for hver enebolig variabel
-        int antRadLeilighet = 3; // en rad for hver leilighet variabel
-        int antKol = 3;
-        int gap = 5;
-
         // paneler
         masterPanel = new JPanel(new BorderLayout());
         top = new JPanel(new BorderLayout());
-        fellesPanel = new JPanel(new GridLayout(antRadFelles, antKol, gap, gap));
-        knappPanel = new JPanel(new GridLayout(antRadKnapp, antKol, gap, gap));
-        eneboligPanel = new JPanel(new GridLayout(antRadEnebolig, antKol, gap, gap));
+        fellesPanel = new JPanel(new GridLayout(ANTRADFELLES, ANTKOL, GAP, GAP));
+        knappPanel = new JPanel(new GridLayout(ANTRADKNAPP, ANTKOL, GAP, GAP));
+        eneboligPanel = new JPanel(new GridLayout(ANTRADENEBOLIG, ANTKOL, GAP, GAP));
         eneboligPanel.setVisible(true);
-        leilighetPanel = new JPanel(new GridLayout(antRadLeilighet, antKol, gap, gap));
+        leilighetPanel = new JPanel(new GridLayout(ANTRADLEILIGHET, ANTKOL, GAP, GAP));
         leilighetPanel.setVisible(true);
         under = new JPanel(new BorderLayout());
         masterPanel.add(top, BorderLayout.PAGE_START);
@@ -73,7 +66,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         top.add(fellesPanel, BorderLayout.PAGE_START);
         top.add(knappPanel, BorderLayout.PAGE_END);
         this.getContentPane().add(masterPanel);
-        setSize(400, 700);
+        setSize(BREDDE, HOYDE);
 
         output = new JTextArea();
         output.setEditable(false);
@@ -82,26 +75,26 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
 
         // felles textfields og drop-down list
         fellesPanel.add(new JLabel("Gateadresse: "));
-        gateadresse = new JTextField(10);
+        gateadresse = new JTextField(FELTLENGDE);
         gateadresse.addFocusListener(this);
         fellesPanel.add(gateadresse);
         fellesPanel.add(new JLabel(""));    // tom felt
         
         fellesPanel.add(new JLabel("Postnummer: "));
-        postnr = new JTextField(10);
+        postnr = new JTextField(FELTLENGDE);
         postnr.addFocusListener(this);
         fellesPanel.add(postnr);
         fellesPanel.add(new JLabel(""));    // tom felt
         
         fellesPanel.add(new JLabel("Poststed: "));
-        poststed = new JTextField(10);
+        poststed = new JTextField(FELTLENGDE);
         poststed.addFocusListener(this);
         fellesPanel.add(poststed);
         fellesPanel.add(new JLabel(""));    // tom felt
 
         fellesPanel.add(new JLabel("Boligtype: "));
         boligtype = new JComboBox(TYPE);
-        boligtype.setSelectedIndex(0);
+        boligtype.setSelectedIndex(SELECTEDINDEX);
         boligtype.addActionListener(this);
         fellesPanel.add(boligtype);
         endreType = new JButton("Endre");
@@ -109,7 +102,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         fellesPanel.add(endreType);
 
         fellesPanel.add(new JLabel("Areal: "));
-        areal = new JTextField(10);
+        areal = new JTextField(FELTLENGDE);
         fellesPanel.add(areal);
         
         endreAreal = new JButton("Endre");
@@ -118,7 +111,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
 
         fellesPanel.add(new JLabel("Antall soverom: "));
         antRom = new JComboBox(StartVindu.getANTSOVEROM());
-        antRom.setSelectedIndex(0);
+        antRom.setSelectedIndex(SELECTEDINDEX);
         fellesPanel.add(antRom);
         
         endreRom = new JButton("Endre");
@@ -126,7 +119,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         fellesPanel.add(endreRom);
 
         fellesPanel.add(new JLabel("Byggeår: "));
-        byggeaar = new JTextField(10);
+        byggeaar = new JTextField(FELTLENGDE);
         fellesPanel.add(byggeaar);
 
         endreByggeaar = new JButton("Endre");
@@ -134,7 +127,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         fellesPanel.add(endreByggeaar);
         
         fellesPanel.add(new JLabel("Leiepris: "));
-        pris = new JTextField(10);
+        pris = new JTextField(FELTLENGDE);
         fellesPanel.add(pris);
 
         endrePris = new JButton("Endre");
@@ -142,7 +135,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         fellesPanel.add(endrePris);
         
         fellesPanel.add(new JLabel("Avetert dato: "));
-        avertertDato = new JTextField(10);
+        avertertDato = new JTextField(FELTLENGDE);
         Date d = new Date();
         avertertDato.setText(StartVindu.getENKELDATOFORMAT().format(d));
         avertertDato.addFocusListener(this);
@@ -153,7 +146,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         fellesPanel.add(endreDato);
         
         fellesPanel.add(new JLabel("Beskrivelse: "));
-        beskrivelse = new JTextField(10);
+        beskrivelse = new JTextField(FELTLENGDE);
         fellesPanel.add(beskrivelse);
         
         endreBeskrivelse = new JButton("Endre");
@@ -161,19 +154,19 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         fellesPanel.add(endreBeskrivelse);
 
         knappPanel.add(new JLabel("Utleier fornavn: "));
-        utleierFornavn = new JTextField(10);
+        utleierFornavn = new JTextField(FELTLENGDE);
         knappPanel.add(utleierFornavn);
         knappPanel.add(new JLabel(""));
 
         knappPanel.add(new JLabel("Utleier etternavn: "));
-        utleierEtternavn = new JTextField(10);
+        utleierEtternavn = new JTextField(FELTLENGDE);
         knappPanel.add(utleierEtternavn);
         knappPanel.add(new JLabel(""));
 
         // enebolig textfields
         eneboligPanel.add(new JLabel("Antall etasjer: "));
         etasjer = new JComboBox(StartVindu.getETASJERENEBOLIG());
-        etasjer.setSelectedIndex(0);
+        etasjer.setSelectedIndex(SELECTEDINDEX);
         eneboligPanel.add(etasjer);
         
         endreEtasjer = new JButton("Endre");
@@ -181,7 +174,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         eneboligPanel.add(endreEtasjer);
 
         eneboligPanel.add(new JLabel("Tomtestørrelse: "));
-        tomtestorrelse = new JTextField(10);
+        tomtestorrelse = new JTextField(FELTLENGDE);
         eneboligPanel.add(tomtestorrelse);
 
         endreTomtestorrelse = new JButton("Endre");
@@ -199,7 +192,7 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         // leilighet textfields
         leilighetPanel.add(new JLabel("Etasje: "));
         etasje = new JComboBox(ETASJELISTE);
-        etasje.setSelectedIndex(0);
+        etasje.setSelectedIndex(SELECTEDINDEX);
         leilighetPanel.add(etasje);
         
         endreEtasje = new JButton("Endre");
@@ -817,17 +810,17 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
         gateadresse.setText("");
         postnr.setText("");
         poststed.setText("");
-        boligtype.setSelectedIndex(0);
+        boligtype.setSelectedIndex(SELECTEDINDEX);
         areal.setText("");
-        antRom.setSelectedIndex(0);
+        antRom.setSelectedIndex(SELECTEDINDEX);
         byggeaar.setText("");
         pris.setText("");
         avertertDato.setText(StartVindu.getDATOFORMAT());
         beskrivelse.setText("");
-        etasjer.setSelectedIndex(0);
+        etasjer.setSelectedIndex(SELECTEDINDEX);
         tomtestorrelse.setText("");
         kjeller.setSelected(false);
-        etasje.setSelectedIndex(0);
+        etasje.setSelectedIndex(SELECTEDINDEX);
         heis.setSelected(false);
         balkong.setSelected(false);
         utleierFornavn.setText("");

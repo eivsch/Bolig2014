@@ -1,9 +1,8 @@
 /*
  * Innhold: Vindu som brukes for registrering, slettning og endring av boligsøkere
- * Sist oppdatert: 06.05.2014 kl.12:00
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Gretar, Eivind
  */
-package boligformidleren;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +21,8 @@ import java.util.TreeSet;
 
 public class BoligsoekerVindu extends JFrame implements ActionListener, FocusListener {
 
-    /* Boligsoeker-vinduet er oppbygget sånn at en masterpanel inneholder allt i BorderLayout (vinduet selv).
+    /* Kort beskrivelse:
+     * Boligsoeker-vinduet er oppbygget sånn at en masterpanel inneholder allt i BorderLayout (vinduet selv).
      * Top-panelen inneholder tre paneler:
      *      øverst er en panel for felles felt, 
      *      i midten er enten enebolig felt eller leilighet felt

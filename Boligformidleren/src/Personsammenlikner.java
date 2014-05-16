@@ -1,15 +1,15 @@
 /*
  * Innhold: Sorteringsrekkefølge og sammenlikning av personobjekter.
- * Sist oppdatert: 15.05.2014, 1500
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind
  */
-package boligformidleren;
+
 import java.util.*;
 import java.text.*;
 import javax.swing.JOptionPane;
 import java.io.Serializable;
 
-/**
+/* Kort beskrivelse:
  * Klassen definerer en sorteringsrekkefølge for personeer og en compare-
  * metode for å sammenlikne dem.
  */
@@ -22,6 +22,7 @@ public class Personsammenlikner implements Comparator<Person>, Serializable{
 
     private RuleBasedCollator kollator;
 
+    // konstruktør
     public Personsammenlikner() {
         try {
             kollator = new RuleBasedCollator(rekkefoelge);

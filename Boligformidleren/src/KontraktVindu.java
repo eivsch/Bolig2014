@@ -1,10 +1,8 @@
 /*
- * Innhold: 
- * Vindu som brukes for registrering, slettning av kontrakter.
- * Sist oppdatert:
+ * Innhold: Vindu som brukes for registrering, slettning av kontrakter.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind, Gretar
  */
-package boligformidleren;
 
 import javax.swing.*;
 import java.awt.*;

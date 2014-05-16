@@ -1,11 +1,8 @@
 /*
- * INNHOLD:
- * Klassen Boligliste er en LinkedList som inneholder alle boliger for hver person
- *
- * Sist oppdatert: 02.04.2014, 12:45.
+ * Innhold: Klassen Boligliste er en LinkedList som inneholder alle boliger for hver person
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Gretar, Eivind
  */
-package boligformidleren;
 
 import java.util.*;
 import java.io.*;

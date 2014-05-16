@@ -1,9 +1,8 @@
 /*
  * Innhold: Tabellmodell for visning av boliger
- * Sist oppdatert: 13.05.2014
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind
  */
-package boligformidleren;
 
 import java.util.Date;
 import java.util.Iterator;

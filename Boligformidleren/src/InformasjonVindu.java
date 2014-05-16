@@ -1,9 +1,8 @@
 /*
  * Innhold: Vindu som brukes for å hente informasjon om personer, boliger og kontrakter
- * Sist oppdatert: 13.05.2014 kl.12:15
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Gretar, Sigurd, Eivind
  */
-package boligformidleren;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,7 +17,8 @@ import javax.swing.table.TableColumn;
 
 public class InformasjonVindu extends JFrame implements ActionListener, FocusListener {
 
-    /* Informasjons-vinduet er i to deler, øvre og nedre.
+    /* Kort beskrivelse:
+     * Informasjons-vinduet er i to deler, øvre og nedre.
      * Øvre delen inneholder top-panelen (GridLayout).
      * Nedre delen inneholder under-panelen for utskrift-området.
      * Top-panelen er delt opp i fire kolonner:
