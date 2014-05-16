@@ -11,10 +11,12 @@ body{
 	padding: 20px;
 }
 
-img{
+.stor{
 	width: 100%;
 	height: auto;
 }
+
+
 
 #generell{
 	margin-top: 50px;

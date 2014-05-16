@@ -1,0 +1,53 @@
+VIDEREUTVIKLING
+
+Vi vil trekke fram enkelte punkter der programmet kan viderutvikles, evt. trenger
+videreutvikling.
+
+1. Brukergrensesnitt/layout. 
+Programmet består av svært mange vinduer det kan være
+vanskelig å holde oversikt over. En smartere/smidigere løsning kan være aktuell.
+
+Selve visningen av hver enkelt bolig og hver enkelt person er ikke spesielt avansert,
+og begrenser seg til ren tekst i et utskriftsfelt. Å programmere støtte for bildevisning
+(av boliger, evt. også boligsøkerer og utleiere) hadde f.eks forbedret denne delen av
+programmet. Andre forbedringer kan også gjennomføres som f.eks egen tabellvisning av
+utleiers boliger/interessante boliger for en søker, og diverse formattering av tekst for 
+en mer variert layout.
+
+Programmets grensesnitt bruker flere komponenter som listebokser og avkryssningsbokser,
+og det er programmert aoutofill-funksjoner i de fleste av registreringsvinduene. Det er
+likevel fortsatt et program der brukeren selv er avhengig av å skrive/fylle inn svært
+mye av informasjonen selv. Det er mye funksjonalitet som etter vår mening fortsatt
+kan/burde legges til, eksempelvis menyer, tilbake/framover-knapper, generelt ting som
+gjør det lettere for bruker å "manøvrere" i programmet.
+
+En mulig forbedring for det over er at når man viser en tabell, over for eksempel
+boliger, å ha en "Gå til Kontrakt"-knapp som automatisk åpner et vindu der en kontrakt
+kan registreres for valgte bolig. Dette burde ikke være altfor tidkrevende/vanskelig å
+implementere i programmet slik det er pdd.
+
+
+2. ID'er. 
+Programmet behandler personer med likt navn som like personer. Siden dobbeltlagring ikke 
+tillates i datastrukturen, er det ikke mulig å registrere flere personer med likt
+navn. Dette er en ganske stor forenkling av virkeligheten, men går greit for vårt
+programs begrensede bruk. Ved videreutvikling måtte hver person utstyres med et unikt 
+generert personnummer, og alle "erLik" eller "equals"-metoder må redefineres.
+
+
+3. Kontroll av utløpte kontrakter.
+Programmet fungerer slik at kontraktene kontrolleres ved hver oppstart av programmet.
+Det ville øke tryggheten til programmet, og vært mer elegant om kontraktene kunne 
+kontrolleres oftere, samtidig som programmet kjører
+
+4. Leie flere boliger.
+Det er kun mulig for en leietaker å leie en bolig av gangen. Dette er for å forenkle
+håndteringen av kontrakter, men kunne evt. forbedres i framtiden. Da måtte isåfall
+hele kontraktsystemet forandres noe.
+
+5. Database. 
+Det kunne tenkes at programmet en gang i fremtiden skulle brukes på mye 
+større datamengder enn det vi har foreløpig generert og testet programmet i. Det er 
+tvilsomt om datastrukturen er god nok for det og det kunne vært ønskelig å programmere 
+inn større for database. Det er dessverre uvisst for oss hvor omfattende og hvor mye 
+endringer en slik implementasjon ville føre til.
