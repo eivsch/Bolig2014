@@ -1,6 +1,6 @@
 /*
  * Innhold: Klassen er subklasse til Bolig og skal mer spesifikt representere en enebolig eller rekkehus.
- * Sist oppdatert: 27.03.2014, 11:43.
+ * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind, Gretar
  */
 

@@ -1,4 +1,12 @@
 /*
+ * Programutvikling vår 2014
+ * Prosjektoppgave - Boligformidleren.
+ * 
+ * Gruppe 16:
+ * Eivind Schulstad	(s198752)
+ * Gretar Ævarsson	(s198586)
+ * Sigurd Hølleland	(s198597)
+ * 
  * Innhold: Main-metode.
  * Sist oppdatert: 16.05.2014, 15:00.
  * Programmert av: Eivind
