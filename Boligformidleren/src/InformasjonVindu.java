@@ -810,26 +810,23 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         if (minKontraktStartDato.getText().equals("dd.mm.åååå")) {
             if (maxKontraktStartDato.getText().equals("dd.mm.åååå")) {
 
-            } else if (!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNDATO(), maxBoligDato.getText()))) {
-                output.setText("Feil - bruk start dato på format 'dd.mm.åååå'.");
+            } else if (!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNDATO(), maxKontraktStartDato.getText()))) {
+                output.setText("Feil - bruk max. start dato på format 'dd.mm.åååå'.");
                 return;
             }
         } else {
             if (maxKontraktStartDato.getText().equals("dd.mm.åååå")) {
                 if (!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNDATO(), minKontraktStartDato.getText()))) {
-                    output.setText("Feil - bruk start dato på format 'dd.mm.åååå'.");
+                    output.setText("Feil - bruk min. start dato på format 'dd.mm.åååå'.");
                     return;
                 }
-            } else if (!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNDATO(), dato))) {
-                output.setText("Feil - bruk start dato på format 'dd.mm.åååå'.");
-                return;
-            }
+            } 
         }
 
         if (minKontraktSluttDato.getText().equals("dd.mm.åååå")) {
             if (maxKontraktSluttDato.getText().equals("dd.mm.åååå")) {
 
-            } else if (!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNDATO(), maxBoligDato.getText()))) {
+            } else if (!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNDATO(), maxKontraktSluttDato.getText()))) {
                 output.setText("Feil - bruk slutt dato på format 'dd.mm.åååå'.");
                 return;
             }
@@ -839,9 +836,6 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                     output.setText("Feil - bruk slutt dato på format 'dd.mm.åååå'.");
                     return;
                 }
-            } else if (!(StartVindu.kontrollerRegEx(StartVindu.getPATTERNDATO(), dato))) {
-                output.setText("Feil - bruk slutt dato på format 'dd.mm.åååå'.");
-                return;
             }
         }
 
