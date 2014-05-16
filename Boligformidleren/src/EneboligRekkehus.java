@@ -51,7 +51,7 @@ public class EneboligRekkehus extends Bolig {
     
     public String toString(){
         String s = super.toString() + "\nEtasjer: " + antEtasjer + "\nTomteareal: "
-                + tomtAreal + "\nKjeller: " + (kjeller ? "Ja" : "Nei");
+                + tomtAreal + "\nKjeller: " + (kjeller ? "Ja" : "Nei") + "\n";
         return s;
     }
 }

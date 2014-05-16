@@ -37,6 +37,8 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
     // felles felt for eneboliger og leiligheter
     private final String[] TYPE = {"Ingen krav", "Enebolig/rekkehus", "Leilighet"};   // boligtype drop-down list
     private final String[] KRAVANTSOVEROM = {"Ingen krav", "1", "2", "3", "4", "5", "6", "7", "8"};
+    private final int ANTRADFELLES = 14, ANTRADKNAPP = 1, ANTRADENEBOLIG = 3, ANTRADLEILIGHET = 3, 
+            ANTKOL = 3, GAP = 5, BREDDE = 400, HOYDE = 700, FELTLENGDE = 10, SELECTEDINDEX = 0;
 
     private JComboBox kravType, kravRom;
     private JTextField kravAreal, kravByggeaar, kravPris, kravAvertertDato;
@@ -69,21 +71,14 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
         boligsoekerMengde = new BoligsoekerMengde();
 
-        int antRadFelles = 14;  // en rad for hver felles felt plus to for boligtyper
-        int antRadKnapp = 1;
-        int antRadEnebolig = 3; // en rad for hver enebolig variabel
-        int antRadLeilighet = 3; // en rad for hver leilighet variabel
-        int antKol = 3;
-        int gap = 5;
-
         // paneler
         masterPanel = new JPanel(new BorderLayout());
         top = new JPanel(new BorderLayout());
-        fellesPanel = new JPanel(new GridLayout(antRadFelles, antKol, gap, gap));
-        knappPanel = new JPanel(new GridLayout(antRadKnapp, antKol, gap, gap));
-        eneboligPanel = new JPanel(new GridLayout(antRadEnebolig, antKol, gap, gap));
+        fellesPanel = new JPanel(new GridLayout(ANTRADFELLES, ANTKOL, GAP, GAP));
+        knappPanel = new JPanel(new GridLayout(ANTRADKNAPP, ANTKOL, GAP, GAP));
+        eneboligPanel = new JPanel(new GridLayout(ANTRADENEBOLIG, ANTKOL, GAP, GAP));
         eneboligPanel.setVisible(true);
-        leilighetPanel = new JPanel(new GridLayout(antRadLeilighet, antKol, gap, gap));
+        leilighetPanel = new JPanel(new GridLayout(ANTRADLEILIGHET, ANTKOL, GAP, GAP));
         leilighetPanel.setVisible(true);
         under = new JPanel(new BorderLayout());
         masterPanel.add(top, BorderLayout.PAGE_START);
@@ -91,7 +86,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         top.add(fellesPanel, BorderLayout.PAGE_START);
         top.add(knappPanel, BorderLayout.PAGE_END);
         this.getContentPane().add(masterPanel);
-        setSize(400, 700);
+        setSize(BREDDE, HOYDE);
 
         output = new JTextArea();
         output.setEditable(false);
@@ -100,19 +95,19 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
         // felles felt og drop-down list
         fellesPanel.add(new JLabel("Fornavn: "));
-        RegPersFornavn = new JTextField(10);
+        RegPersFornavn = new JTextField(FELTLENGDE);
         RegPersFornavn.addFocusListener(this);
         fellesPanel.add(RegPersFornavn);
         fellesPanel.add(new JLabel(""));    // tom felt
         
         fellesPanel.add(new JLabel("Etternavn: "));
-        RegPersEtternavn = new JTextField(10);
+        RegPersEtternavn = new JTextField(FELTLENGDE);
         RegPersEtternavn.addFocusListener(this);
         fellesPanel.add(RegPersEtternavn);
         fellesPanel.add(new JLabel(""));    // tom felt
 
         fellesPanel.add(new JLabel("Gateadresse: "));
-        gateadresse = new JTextField(10);
+        gateadresse = new JTextField(FELTLENGDE);
         fellesPanel.add(gateadresse);
         
         endreGateadresse = new JButton("Endre");
@@ -120,7 +115,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endreGateadresse);
         
         fellesPanel.add(new JLabel("Postnummer: "));
-        postnr = new JTextField(10);
+        postnr = new JTextField(FELTLENGDE);
         fellesPanel.add(postnr);
         
         endrePostnr = new JButton("Endre");
@@ -128,7 +123,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endrePostnr);
 
         fellesPanel.add(new JLabel("Poststed: "));
-        poststed = new JTextField(10);
+        poststed = new JTextField(FELTLENGDE);
         fellesPanel.add(poststed);
         
         endrePoststed = new JButton("Endre");
@@ -136,7 +131,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endrePoststed);
 
         fellesPanel.add(new JLabel("E-post: "));
-        epost = new JTextField(10);
+        epost = new JTextField(FELTLENGDE);
         fellesPanel.add(epost);
         
         endreEpost = new JButton("Endre");
@@ -144,7 +139,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endreEpost);
 
         fellesPanel.add(new JLabel("Telefonnummer: "));
-        tlf = new JTextField(10);
+        tlf = new JTextField(FELTLENGDE);
         fellesPanel.add(tlf);
         
         endreTelefonnr = new JButton("Endre");
@@ -152,7 +147,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endreTelefonnr);
 
         fellesPanel.add(new JLabel("Pers. oppl.: "));
-        pInfo = new JTextField(10);
+        pInfo = new JTextField(FELTLENGDE);
         fellesPanel.add(pInfo);
         
         endrePersInfo = new JButton("Endre");
@@ -161,7 +156,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
         fellesPanel.add(new JLabel("Boligtype: "));
         kravType = new JComboBox(TYPE);
-        kravType.setSelectedIndex(0);
+        kravType.setSelectedIndex(SELECTEDINDEX);
         kravType.addActionListener(this);
         fellesPanel.add(kravType);
         
@@ -170,7 +165,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endreType);
 
         fellesPanel.add(new JLabel("Min. areal: "));
-        kravAreal = new JTextField(10);
+        kravAreal = new JTextField(FELTLENGDE);
         fellesPanel.add(kravAreal);
         
         endreAreal = new JButton("Endre");
@@ -179,7 +174,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
 
         fellesPanel.add(new JLabel("Min. soverom: "));
         kravRom = new JComboBox(KRAVANTSOVEROM);
-        kravRom.setSelectedIndex(0);
+        kravRom.setSelectedIndex(SELECTEDINDEX);
         fellesPanel.add(kravRom);
         
         endreRom = new JButton("Endre");
@@ -187,7 +182,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endreRom);
 
         fellesPanel.add(new JLabel("Min. byggeår: "));
-        kravByggeaar = new JTextField(10);
+        kravByggeaar = new JTextField(FELTLENGDE);
         fellesPanel.add(kravByggeaar);
         
         endreByggeaar = new JButton("Endre");
@@ -195,7 +190,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endreByggeaar);
 
         fellesPanel.add(new JLabel("Max. pris: "));
-        kravPris = new JTextField(10);
+        kravPris = new JTextField(FELTLENGDE);
         fellesPanel.add(kravPris);
         
         endrePris = new JButton("Endre");
@@ -203,7 +198,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         fellesPanel.add(endrePris);
 
         fellesPanel.add(new JLabel("Min. avertert dato: "));
-        kravAvertertDato = new JTextField(10);
+        kravAvertertDato = new JTextField(FELTLENGDE);
         kravAvertertDato.setText(StartVindu.getDATOFORMAT());
         kravAvertertDato.addFocusListener(this);
         fellesPanel.add(kravAvertertDato);
@@ -215,7 +210,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         // enebolig felt
         eneboligPanel.add(new JLabel("Max. etasjer: "));
         kravMaxEtasjer = new JComboBox(KRAVETASJERENEBOLIG);
-        kravMaxEtasjer.setSelectedIndex(0);
+        kravMaxEtasjer.setSelectedIndex(SELECTEDINDEX);
         eneboligPanel.add(kravMaxEtasjer);
         
         endreEtasjer = new JButton("Endre");
@@ -223,7 +218,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         eneboligPanel.add(endreEtasjer);
 
         eneboligPanel.add(new JLabel("Min. tomtestørrelse: "));
-        kravTomtestorrelse = new JTextField(10);
+        kravTomtestorrelse = new JTextField(FELTLENGDE);
         eneboligPanel.add(kravTomtestorrelse);
         
         endreTomtestorrelse = new JButton("Endre");
@@ -241,7 +236,7 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         // leilighet felt
         leilighetPanel.add(new JLabel("Max. etasje: "));
         kravEtasje = new JComboBox(KRAVETASJELEILIGHET);
-        kravEtasje.setSelectedIndex(0);
+        kravEtasje.setSelectedIndex(SELECTEDINDEX);
         leilighetPanel.add(kravEtasje);
         
         endreEtasje = new JButton("Endre");
@@ -1048,16 +1043,16 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
         epost.setText("");
         tlf.setText("");
         pInfo.setText("");
-        kravType.setSelectedIndex(0);
+        kravType.setSelectedIndex(SELECTEDINDEX);
         kravAreal.setText("");
-        kravRom.setSelectedIndex(0);
+        kravRom.setSelectedIndex(SELECTEDINDEX);
         kravByggeaar.setText("");
         kravPris.setText("");
         kravAvertertDato.setText(StartVindu.getDATOFORMAT());
-        kravMaxEtasjer.setSelectedIndex(0);
+        kravMaxEtasjer.setSelectedIndex(SELECTEDINDEX);
         kravTomtestorrelse.setText("");
         kravKjeller.setSelected(false);
-        kravEtasje.setSelectedIndex(0);
+        kravEtasje.setSelectedIndex(SELECTEDINDEX);
         kravHeis.setSelected(false);
         kravBalkong.setSelected(false);
         output.setText("");
@@ -1201,21 +1196,22 @@ public class BoligsoekerVindu extends JFrame implements ActionListener, FocusLis
                     pInfo.setText(bs.getPersInfo());
                     kravType.setSelectedItem(bs.getType());
                     kravAreal.setText(Integer.toString(bs.getAreal()));
-                    if(bs.getSoverom() == 0)
-                        kravRom.setSelectedItem(Integer.toString(0));
+                    int tom = 0;
+                    if(bs.getSoverom() == tom)
+                        kravRom.setSelectedItem(Integer.toString(tom));
                     else
                         kravRom.setSelectedItem(Integer.toString(bs.getSoverom()));
                     kravByggeaar.setText(Integer.toString(bs.getByggeaar()));
                     kravPris.setText(Integer.toString(bs.getPris()));
                     kravAvertertDato.setText(bs.getDato() == null ? StartVindu.getDATOFORMAT(): StartVindu.getENKELDATOFORMAT().format(bs.getDato()));
-                    if(bs.getMaxAntEtasjer() == 0)
-                        kravMaxEtasjer.setSelectedItem(Integer.toString(0));
+                    if(bs.getMaxAntEtasjer() == tom)
+                        kravMaxEtasjer.setSelectedItem(Integer.toString(tom));
                     else
                         kravMaxEtasjer.setSelectedItem(Integer.toString(bs.getMaxAntEtasjer()));
                     kravTomtestorrelse.setText(Integer.toString(bs.getTomtestorrelse()));
                     kravKjeller.setSelected(bs.getKjeller());
-                    if(bs.getMaxEtasje() == 0)
-                        kravMaxEtasjer.setSelectedItem(Integer.toString(0));
+                    if(bs.getMaxEtasje() == tom)
+                        kravMaxEtasjer.setSelectedItem(Integer.toString(tom));
                     else
                         kravEtasje.setSelectedItem(Integer.toString(bs.getMaxEtasje()));
                     kravHeis.setSelected(bs.getHeis());

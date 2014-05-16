@@ -25,7 +25,8 @@ public class BoligVindu extends JFrame implements ActionListener, FocusListener 
     private JTextField gateadresse, postnr, poststed, areal, byggeaar, beskrivelse, pris, avertertDato;
     private JComboBox boligtype, antRom;
     private final String[] TYPE = {"Velg", "Enebolig/rekkehus", "Leilighet"};
-    private final int ANTRADFELLES = 10, ANTRADKNAPP = 3, ANTRADENEBOLIG = 3, ANTRADLEILIGHET = 3, ANTKOL = 3, GAP = 5, BREDDE = 400, HOYDE = 700, FELTLENGDE = 10, SELECTEDINDEX = 0;
+    private final int ANTRADFELLES = 10, ANTRADKNAPP = 3, ANTRADENEBOLIG = 3, ANTRADLEILIGHET = 3, 
+            ANTKOL = 3, GAP = 5, BREDDE = 400, HOYDE = 700, FELTLENGDE = 10, SELECTEDINDEX = 0;
 
     // for knappPanel
     private JTextField utleierFornavn, utleierEtternavn;

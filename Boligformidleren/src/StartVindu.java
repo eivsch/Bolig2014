@@ -23,7 +23,7 @@ public class StartVindu extends JFrame implements ActionListener {
      * Vinduene inneholder alle mengder/lister som brukes i programmet og
      * må derfor være "static" så andre klasser har aksess til disse
      */
-    private JPanel masterPanel, topLabels, top, under;
+    private JPanel masterPanel, top, under;
     private JButton utleierKnapp, boligsoekerKnapp, boligKnapp, kontraktKnapp, infoKnapp, dataKnapp;
     
     private static UtleierVindu utleierVindu;
@@ -31,15 +31,16 @@ public class StartVindu extends JFrame implements ActionListener {
     private static BoligVindu boligVindu;
     private static KontraktVindu kontraktVindu;
     private static InformasjonVindu informasjonVindu;
-
-    // knapper, rader, kolonner og gap for GridLayout
-    private int antKnapper, antRad, antKol, gap;
-
+    
     // Konstanter
     private static final String[] ANTSOVEROM = {"1", "2", "3", "4", "5", "6", "7", "8"};
     private static final String[] ETASJERENEBOLIG = {"1", "2", "3", "4", "5"};
     private static final String DATOFORMAT = "dd.mm.åååå";
     private static final int INGENKRAV = 0;
+    private final int ANTRADMASTER = 2, ANTKOLMASTER = 1, HGAPMASTER = 10, VGAPMASTER = 20,
+            ANTRADTOP = 1, ANTKOLTOP = 5, HGAPTOP = 20, VGAPTOP = 20, BORDERMASTER = 20,
+            BREDDE = 700, HOYDE = 300, XPOSUTLEIERVINDU = 0, XPOSBOLIGSOEKERVINDU = 400,
+            XPOSBOLIGVINDU = 800, XPOSKONTRAKTVINDU = 1200, YPOS = 0;
 
     // RegEx
     private static final String PATTERNDATO = "[0-9]{1,2}.[0-9]{1,2}.[0-9]{4}";
@@ -63,18 +64,13 @@ public class StartVindu extends JFrame implements ActionListener {
         kontraktVindu = new KontraktVindu();
         informasjonVindu = new InformasjonVindu();
 
-        int antRadMaster = 2, antKolMaster = 1, hGapMaster = 10, vGapMaster = 20;
-        int antRadTop = 1, antKolTop = 5, hGapTop = 20, vGapTop = 20;
-        int borderMaster = 20;
-        int bredde = 700, hoyde = 300;
-        
-        masterPanel = new JPanel(new GridLayout(antRadMaster,antKolMaster,hGapMaster,vGapMaster));
-        top = new JPanel(new GridLayout(antRadTop,antKolTop,hGapTop,vGapTop));
+        masterPanel = new JPanel(new GridLayout(ANTRADMASTER,ANTKOLMASTER,HGAPMASTER,VGAPMASTER));
+        top = new JPanel(new GridLayout(ANTRADTOP,ANTKOLTOP,HGAPTOP,VGAPTOP));
         under = new JPanel(new BorderLayout());
         
         masterPanel.add(top);
         masterPanel.add(under);
-        masterPanel.setBorder(new EmptyBorder(borderMaster, borderMaster, borderMaster, borderMaster) );
+        masterPanel.setBorder(new EmptyBorder(BORDERMASTER, BORDERMASTER, BORDERMASTER, BORDERMASTER) );
         
         // knapper
         Icon ikonUtleier = new ImageIcon(getClass().getResource( "ikonUtleier.gif" ));
@@ -126,7 +122,7 @@ public class StartVindu extends JFrame implements ActionListener {
         this.getContentPane().add(masterPanel);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(bredde, hoyde);
+        setSize(BREDDE, HOYDE);
         
         // lukkeknapp for UtleierVindu
         utleierVindu.addWindowListener(
@@ -491,16 +487,16 @@ public class StartVindu extends JFrame implements ActionListener {
     // lyttemetode
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == utleierKnapp) {
-            utleierVindu.setLocation(0, 0);
+            utleierVindu.setLocation(XPOSUTLEIERVINDU, YPOS);
             utleierVindu.setVisible(true);
         } else if (e.getSource() == boligsoekerKnapp) {
-            boligsoekerVindu.setLocation(400, 0);
+            boligsoekerVindu.setLocation(XPOSBOLIGSOEKERVINDU, YPOS);
             boligsoekerVindu.setVisible(true);
         } else if (e.getSource() == boligKnapp) {
-            boligVindu.setLocation(800, 0);
+            boligVindu.setLocation(XPOSBOLIGVINDU, YPOS);
             boligVindu.setVisible(true);
         } else if (e.getSource() == kontraktKnapp) {
-            kontraktVindu.setLocation(1200, 0);
+            kontraktVindu.setLocation(XPOSKONTRAKTVINDU, YPOS);
             kontraktVindu.setVisible(true);
         } else if (e.getSource() == infoKnapp) {
             informasjonVindu.setVisible(true);

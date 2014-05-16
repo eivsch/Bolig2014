@@ -88,6 +88,13 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
     private JTable boligsoekerTabell, boligTabell, utleierTabell, kontraktTabell;
     private JLabel antallKontrakter;
     private JTextArea output;
+    
+    // antall rader og kolonner og diverse størrelser
+    private final int ANTRADTOP = 1, ANTKOLTOP = 4, ANTRADPERSON = 8, ANTRADBOLIG = 8,
+            ANTRADTYPE = 1, ANTRADMINMAX = 6, ANTRADKONTRAKTMINMAX = 7, ANTRADENEBOLIGLEILIGHET = 3,
+            ANTRADKNAPP = 2, DEFAULTKOL = 2, ANTKNAPPKOL = 1,  ANTMINMAXKOL = 3, GAPTOP = 20,
+            DEFAULTGAP = 0, BREDDE = 1200, HOYDE = 750, INGENBORDER = 0, DEFAULTBORDER = 10,
+            FELTLENGDE = 10, SELECTEDINDEX = 0, DEFAULTCARET = 0, TABELLWIDTH = 0;
 
     // konstruktør
     public InformasjonVindu() {
@@ -98,7 +105,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         JLabel labelBolig1 = new JLabel("<html><font size=\"5\">Boliger</html>");
         JLabel labelBolig2 = new JLabel("<html><font size=\"5\">Boliger</html>");
         JLabel labelKontrakt = new JLabel("<html><font size=\"5\">Kontrakter</html>");
-        Border paddingBorder = BorderFactory.createEmptyBorder(0, 0, 10, 0);
+        Border paddingBorder = BorderFactory.createEmptyBorder(INGENBORDER, INGENBORDER, DEFAULTBORDER, INGENBORDER);
         labelPerson.setBorder(paddingBorder);
         labelBolig1.setBorder(paddingBorder);
         labelBolig2.setBorder(paddingBorder);
@@ -108,47 +115,27 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         labelBolig2.setHorizontalAlignment(JLabel.CENTER);
         labelKontrakt.setHorizontalAlignment(JLabel.CENTER);
 
-        // antallGjeldende rader, antallGjeldende kolonner og gap størrelse for top-panelene (GridLayout)
-        int antRadTopPanel = 1;
-        int antKolTopPanel = 4;
-        int antRadPersonPanel = 8;
-        int antRadBoligPanel = 8;
-        int antRadTypePanel = 1;
-        int antRadMinMaxPanel = 6;
-        int antRadKontraktMinMaxPanel = 7;
-        int antRadEneboligLeilighetPanel = 3;
-        int antRadKnappPanel = 2;
-        int defaultKolonner = 2;
-        int antKnappKolonner = 1;
-        int antMinMaxKolonner = 3;
-        int gapTop = 20;
-        int gap = 0;
-
-        //vindu størrelse (pixler)
-        int bredde = 1200;
-        int hoyde = 750;
-
         // paneler
         masterPanel = new JPanel(new BorderLayout());
         top = new JPanel(new BorderLayout());
-        topLabels = new JPanel(new GridLayout(antRadTopPanel, antKolTopPanel, gap, gapTop));
-        topContent = new JPanel(new GridLayout(antRadTopPanel, antKolTopPanel, gapTop, gap));
-        personPanel = new JPanel(new GridLayout(antRadPersonPanel, defaultKolonner, gap, gap));
-        venstreBoligPanel = new JPanel(new GridLayout(antRadBoligPanel, defaultKolonner, gap, gap));
+        topLabels = new JPanel(new GridLayout(ANTRADTOP, ANTKOLTOP, DEFAULTGAP, GAPTOP));
+        topContent = new JPanel(new GridLayout(ANTRADTOP, ANTKOLTOP, GAPTOP, DEFAULTGAP));
+        personPanel = new JPanel(new GridLayout(ANTRADPERSON, DEFAULTKOL, DEFAULTGAP, DEFAULTGAP));
+        venstreBoligPanel = new JPanel(new GridLayout(ANTRADBOLIG, DEFAULTKOL, DEFAULTGAP, DEFAULTGAP));
         hoyreBoligPanel = new JPanel(new BorderLayout());
         boligFellesPanel = new JPanel(new BorderLayout());
-        boligFellesTypePanel = new JPanel(new GridLayout(antRadTypePanel, defaultKolonner, gap, gap));
-        boligFellesMinMaxPanel = new JPanel(new GridLayout(antRadMinMaxPanel, antMinMaxKolonner, gap, gap));
-        boligEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
-        boligLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
-        boligKnappPanel = new JPanel(new GridLayout(antRadKnappPanel, antKnappKolonner, gap, gap));
+        boligFellesTypePanel = new JPanel(new GridLayout(ANTRADTYPE, DEFAULTKOL, DEFAULTGAP, DEFAULTGAP));
+        boligFellesMinMaxPanel = new JPanel(new GridLayout(ANTRADMINMAX, ANTMINMAXKOL, DEFAULTGAP, DEFAULTGAP));
+        boligEneboligPanel = new JPanel(new GridLayout(ANTRADENEBOLIGLEILIGHET, ANTMINMAXKOL, DEFAULTGAP, DEFAULTGAP));
+        boligLeilighetPanel = new JPanel(new GridLayout(ANTRADENEBOLIGLEILIGHET, ANTMINMAXKOL, DEFAULTGAP, DEFAULTGAP));
+        boligKnappPanel = new JPanel(new GridLayout(ANTRADKNAPP, ANTKNAPPKOL, DEFAULTGAP, DEFAULTGAP));
         kontraktPanel = new JPanel(new BorderLayout());
         kontraktFellesPanel = new JPanel(new BorderLayout());
-        kontraktFellesTypePanel = new JPanel(new GridLayout(antRadTypePanel, defaultKolonner, gap, gap));
-        kontraktFellesMinMaxPanel = new JPanel(new GridLayout(antRadKontraktMinMaxPanel, antMinMaxKolonner, gap, gap));
-        kontraktEneboligPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
-        kontraktLeilighetPanel = new JPanel(new GridLayout(antRadEneboligLeilighetPanel, antMinMaxKolonner, gap, gap));
-        kontraktKnappPanel = new JPanel(new GridLayout(antRadKnappPanel, antKnappKolonner, gap, gap));
+        kontraktFellesTypePanel = new JPanel(new GridLayout(ANTRADTYPE, DEFAULTKOL, DEFAULTGAP, DEFAULTGAP));
+        kontraktFellesMinMaxPanel = new JPanel(new GridLayout(ANTRADKONTRAKTMINMAX, ANTMINMAXKOL, DEFAULTGAP, DEFAULTGAP));
+        kontraktEneboligPanel = new JPanel(new GridLayout(ANTRADENEBOLIGLEILIGHET, ANTMINMAXKOL, DEFAULTGAP, DEFAULTGAP));
+        kontraktLeilighetPanel = new JPanel(new GridLayout(ANTRADENEBOLIGLEILIGHET, ANTMINMAXKOL, DEFAULTGAP, DEFAULTGAP));
+        kontraktKnappPanel = new JPanel(new GridLayout(ANTRADKNAPP, ANTKNAPPKOL, DEFAULTGAP, DEFAULTGAP));
         under = new JPanel(new BorderLayout());
         tabellPanel = new JPanel(new BorderLayout());
 
@@ -156,7 +143,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         masterPanel.add(under, BorderLayout.CENTER);
         top.add(topLabels, BorderLayout.PAGE_START);
         top.add(topContent, BorderLayout.CENTER);
-        top.setBorder(new EmptyBorder(10, 10, 10, 10));
+        top.setBorder(new EmptyBorder(DEFAULTBORDER,DEFAULTBORDER,DEFAULTBORDER,DEFAULTBORDER));
 
         topLabels.add(labelPerson);
         topLabels.add(labelBolig1);
@@ -177,7 +164,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         kontraktPanel.add(kontraktKnappPanel, BorderLayout.PAGE_END);
 
         this.getContentPane().add(masterPanel);
-        setSize(bredde, hoyde);
+        setSize(BREDDE, HOYDE);
 
         output = new JTextArea();
         output.setEditable(false);
@@ -186,11 +173,11 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         // person panel
         personPanel.add(new JLabel("Fornavn: "));
-        fornavn = new JTextField(10);
+        fornavn = new JTextField(FELTLENGDE);
         personPanel.add(fornavn);
 
         personPanel.add(new JLabel("Etternavn: "));
-        etternavn = new JTextField(10);
+        etternavn = new JTextField(FELTLENGDE);
         personPanel.add(etternavn);
 
         hentInfoPerson = new JButton("Vis person info");
@@ -213,15 +200,15 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         // venstre bolig panel
         venstreBoligPanel.add(new JLabel("Gateadresse: "));
-        gateadresse = new JTextField(10);
+        gateadresse = new JTextField(FELTLENGDE);
         venstreBoligPanel.add(gateadresse);
 
         venstreBoligPanel.add(new JLabel("Postnummer: "));
-        postnr = new JTextField(10);
+        postnr = new JTextField(FELTLENGDE);
         venstreBoligPanel.add(postnr);
 
         venstreBoligPanel.add(new JLabel("Poststed: "));
-        poststed = new JTextField(10);
+        poststed = new JTextField(FELTLENGDE);
         venstreBoligPanel.add(poststed);
 
         visBoligInfo = new JButton("Vis bolig info");
@@ -235,7 +222,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         // bolig felles panel
         boligFellesTypePanel.add(new JLabel("Boligtype: "));
         boligtype = new JComboBox(BOLIGTYPE);
-        boligtype.setSelectedIndex(0);
+        boligtype.setSelectedIndex(SELECTEDINDEX);
         boligtype.addActionListener(this);
         boligFellesTypePanel.add(boligtype);
 
@@ -245,32 +232,32 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         boligFellesMinMaxPanel.add(new JLabel("MAX.", SwingConstants.CENTER));
 
         boligFellesMinMaxPanel.add(new JLabel("Areal: "));
-        minBoligAreal = new JTextField(10);
-        maxBoligAreal = new JTextField(10);
+        minBoligAreal = new JTextField(FELTLENGDE);
+        maxBoligAreal = new JTextField(FELTLENGDE);
         boligFellesMinMaxPanel.add(minBoligAreal);
         boligFellesMinMaxPanel.add(maxBoligAreal);
 
         boligFellesMinMaxPanel.add(new JLabel("Soverom: "));
-        minBoligRom = new JTextField(10);
-        maxBoligRom = new JTextField(10);
+        minBoligRom = new JTextField(FELTLENGDE);
+        maxBoligRom = new JTextField(FELTLENGDE);
         boligFellesMinMaxPanel.add(minBoligRom);
         boligFellesMinMaxPanel.add(maxBoligRom);
 
         boligFellesMinMaxPanel.add(new JLabel("Byggeår: "));
-        minBoligByggeaar = new JTextField(10);
-        maxBoligByggeaar = new JTextField(10);
+        minBoligByggeaar = new JTextField(FELTLENGDE);
+        maxBoligByggeaar = new JTextField(FELTLENGDE);
         boligFellesMinMaxPanel.add(minBoligByggeaar);
         boligFellesMinMaxPanel.add(maxBoligByggeaar);
 
         boligFellesMinMaxPanel.add(new JLabel("Leiepris: "));
-        minBoligPris = new JTextField(10);
-        maxBoligPris = new JTextField(10);
+        minBoligPris = new JTextField(FELTLENGDE);
+        maxBoligPris = new JTextField(FELTLENGDE);
         boligFellesMinMaxPanel.add(minBoligPris);
         boligFellesMinMaxPanel.add(maxBoligPris);
 
         boligFellesMinMaxPanel.add(new JLabel("Dato: "));
-        minBoligDato = new JTextField(10);
-        maxBoligDato = new JTextField(10);
+        minBoligDato = new JTextField(FELTLENGDE);
+        maxBoligDato = new JTextField(FELTLENGDE);
         minBoligDato.addFocusListener(this);
         maxBoligDato.addFocusListener(this);
         minBoligDato.setText(StartVindu.getDATOFORMAT());
@@ -280,14 +267,14 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         // bolig enebolig panel
         boligEneboligPanel.add(new JLabel("Antall etasjer: "));
-        boligMinEtasjer = new JTextField(10);
-        boligMaxEtasjer = new JTextField(10);
+        boligMinEtasjer = new JTextField(FELTLENGDE);
+        boligMaxEtasjer = new JTextField(FELTLENGDE);
         boligEneboligPanel.add(boligMinEtasjer);
         boligEneboligPanel.add(boligMaxEtasjer);
 
         boligEneboligPanel.add(new JLabel("Tomtestørrelse: "));
-        boligMinTomtestorrelse = new JTextField(10);
-        boligMaxTomtestorrelse = new JTextField(10);
+        boligMinTomtestorrelse = new JTextField(FELTLENGDE);
+        boligMaxTomtestorrelse = new JTextField(FELTLENGDE);
         boligEneboligPanel.add(boligMinTomtestorrelse);
         boligEneboligPanel.add(boligMaxTomtestorrelse);
 
@@ -297,8 +284,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         // bolig leilighet panel
         boligLeilighetPanel.add(new JLabel("Etasje: "));
-        boligMinEtasje = new JTextField(10);
-        boligMaxEtasje = new JTextField(10);
+        boligMinEtasje = new JTextField(FELTLENGDE);
+        boligMaxEtasje = new JTextField(FELTLENGDE);
         boligLeilighetPanel.add(boligMinEtasje);
         boligLeilighetPanel.add(boligMaxEtasje);
 
@@ -326,7 +313,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         // kontrakt felles panel
         kontraktFellesTypePanel.add(new JLabel("Boligtype: "));
         kontrakttype = new JComboBox(KONTRAKTTYPE);
-        kontrakttype.setSelectedIndex(0);
+        kontrakttype.setSelectedIndex(SELECTEDINDEX);
         kontrakttype.addActionListener(this);
         kontraktFellesTypePanel.add(kontrakttype);
 
@@ -336,32 +323,32 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         kontraktFellesMinMaxPanel.add(new JLabel("MAX.", SwingConstants.CENTER));
 
         kontraktFellesMinMaxPanel.add(new JLabel("Areal: "));
-        minKontraktAreal = new JTextField(10);
-        maxKontraktAreal = new JTextField(10);
+        minKontraktAreal = new JTextField(FELTLENGDE);
+        maxKontraktAreal = new JTextField(FELTLENGDE);
         kontraktFellesMinMaxPanel.add(minKontraktAreal);
         kontraktFellesMinMaxPanel.add(maxKontraktAreal);
 
         kontraktFellesMinMaxPanel.add(new JLabel("Soverom: "));
-        minKontraktRom = new JTextField(10);
-        maxKontraktRom = new JTextField(10);
+        minKontraktRom = new JTextField(FELTLENGDE);
+        maxKontraktRom = new JTextField(FELTLENGDE);
         kontraktFellesMinMaxPanel.add(minKontraktRom);
         kontraktFellesMinMaxPanel.add(maxKontraktRom);
 
         kontraktFellesMinMaxPanel.add(new JLabel("Byggeår: "));
-        minKontraktByggeaar = new JTextField(10);
-        maxKontraktByggeaar = new JTextField(10);
+        minKontraktByggeaar = new JTextField(FELTLENGDE);
+        maxKontraktByggeaar = new JTextField(FELTLENGDE);
         kontraktFellesMinMaxPanel.add(minKontraktByggeaar);
         kontraktFellesMinMaxPanel.add(maxKontraktByggeaar);
 
         kontraktFellesMinMaxPanel.add(new JLabel("Leiepris: "));
-        minKontraktPris = new JTextField(10);
-        maxKontraktPris = new JTextField(10);
+        minKontraktPris = new JTextField(FELTLENGDE);
+        maxKontraktPris = new JTextField(FELTLENGDE);
         kontraktFellesMinMaxPanel.add(minKontraktPris);
         kontraktFellesMinMaxPanel.add(maxKontraktPris);
 
         kontraktFellesMinMaxPanel.add(new JLabel("Start-dato: "));
-        minKontraktStartDato = new JTextField(10);
-        maxKontraktStartDato = new JTextField(10);
+        minKontraktStartDato = new JTextField(FELTLENGDE);
+        maxKontraktStartDato = new JTextField(FELTLENGDE);
         kontraktFellesMinMaxPanel.add(minKontraktStartDato);
         kontraktFellesMinMaxPanel.add(maxKontraktStartDato);
         minKontraktStartDato.setText("dd.mm.åååå");
@@ -370,8 +357,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         maxKontraktStartDato.addFocusListener(this);
 
         kontraktFellesMinMaxPanel.add(new JLabel("Slutt-dato: "));
-        minKontraktSluttDato = new JTextField(10);
-        maxKontraktSluttDato = new JTextField(10);
+        minKontraktSluttDato = new JTextField(FELTLENGDE);
+        maxKontraktSluttDato = new JTextField(FELTLENGDE);
         kontraktFellesMinMaxPanel.add(minKontraktSluttDato);
         kontraktFellesMinMaxPanel.add(maxKontraktSluttDato);
         minKontraktSluttDato.setText("dd.mm.åååå");
@@ -381,14 +368,14 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         // kontrakt enebolig panel
         kontraktEneboligPanel.add(new JLabel("Antall etasjer: "));
-        kontraktMinEtasjer = new JTextField(10);
-        kontraktMaxEtasjer = new JTextField(10);
+        kontraktMinEtasjer = new JTextField(FELTLENGDE);
+        kontraktMaxEtasjer = new JTextField(FELTLENGDE);
         kontraktEneboligPanel.add(kontraktMinEtasjer);
         kontraktEneboligPanel.add(kontraktMaxEtasjer);
 
         kontraktEneboligPanel.add(new JLabel("Tomtestørrelse: "));
-        kontraktMinTomtestorrelse = new JTextField(10);
-        kontraktMaxTomtestorrelse = new JTextField(10);
+        kontraktMinTomtestorrelse = new JTextField(FELTLENGDE);
+        kontraktMaxTomtestorrelse = new JTextField(FELTLENGDE);
         kontraktEneboligPanel.add(kontraktMinTomtestorrelse);
         kontraktEneboligPanel.add(kontraktMaxTomtestorrelse);
 
@@ -398,8 +385,8 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         // kontrakt leilighet panel
         kontraktLeilighetPanel.add(new JLabel("Etasje: "));
-        kontraktMinEtasje = new JTextField(10);
-        kontraktMaxEtasje = new JTextField(10);
+        kontraktMinEtasje = new JTextField(FELTLENGDE);
+        kontraktMaxEtasje = new JTextField(FELTLENGDE);
         kontraktLeilighetPanel.add(kontraktMinEtasje);
         kontraktLeilighetPanel.add(kontraktMaxEtasje);
 
@@ -435,7 +422,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
 
         if (ul != null) {
             output.setText(ul.toString());
-            output.setCaretPosition(0);
+            output.setCaretPosition(DEFAULTCARET);
             return;
         }
         if (bs != null) {
@@ -457,7 +444,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 }
             }
             output.setText(bs.toString() + "\n" + antallboliger + s);
-            output.setCaretPosition(0);
+            output.setCaretPosition(DEFAULTCARET);
             return;
         }
         output.setText("Feil - finner ikke person " + fornavn.getText() + " " + etternavn.getText());
@@ -523,7 +510,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
                 u.getFornavn() + " " + u.getEtternavn());
         output.append("\n\nFølgende boligsøkerne kan være interesserte:\n");
         output.append(interesserte);
-        output.setCaretPosition(0);
+        output.setCaretPosition(DEFAULTCARET);
 
         // blank felter
         gateadresse.setText("");
@@ -541,9 +528,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         String[] skjules = utm.getKolonnerSkalSkjules();
         for (int i = 0; i < skjules.length; i++) {
             TableColumn tc = utleierTabell.getColumn(skjules[i]);
-            tc.setMinWidth(0);
-            tc.setMaxWidth(0);
-            tc.setPreferredWidth(0);
+            tc.setMinWidth(TABELLWIDTH);
+            tc.setMaxWidth(TABELLWIDTH);
+            tc.setPreferredWidth(TABELLWIDTH);
         }
     }
 
@@ -556,9 +543,9 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
         String[] skjules = bstm.getKolonnerSkalSkjules();
         for (int i = 0; i < skjules.length; i++) {
             TableColumn tc = boligsoekerTabell.getColumn(skjules[i]);
-            tc.setMinWidth(0);
-            tc.setMaxWidth(0);
-            tc.setPreferredWidth(0);
+            tc.setMinWidth(TABELLWIDTH);
+            tc.setMaxWidth(TABELLWIDTH);
+            tc.setPreferredWidth(TABELLWIDTH);
         }
     }
 
@@ -1065,7 +1052,7 @@ public class InformasjonVindu extends JFrame implements ActionListener, FocusLis
             output.append("\n\nArkiverte kontrakter: ");
             output.append(listeArkiv);
         }
-        output.setCaretPosition(0);
+        output.setCaretPosition(DEFAULTCARET);
     }
 
     public void melding(String s) {

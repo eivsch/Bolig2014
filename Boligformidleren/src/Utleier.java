@@ -66,7 +66,8 @@ public class Utleier extends Person implements Comparable<Utleier> {
     }
 
     public String toString() {
-        String s = super.toString() + "\nFirma: " + firma + "\nBoliger: " + liste.toString();
+        String s = super.toString() + "\nFirma: " + firma + "\n\nAntall boliger: " + liste.liste.size() + 
+                "\nBoliger:\n\n" + liste.toString();
         return s;
     }
 

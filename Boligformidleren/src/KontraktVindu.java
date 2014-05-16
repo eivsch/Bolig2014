@@ -23,7 +23,10 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
             leietakerFornavn, leietakerEtternavn, pris, sluttDatoFelt, startDatoFelt;
     private JTextArea output;
     private JButton regKontrakt, siOppKontrakt, skrivUt;
-    private int antRad, antKol, gap;
+    
+    // antall rader og kolonner og diverse størrelse
+    private final int ANTRAD = 12, ANTKOL = 2, GAP = 5, BREDDE = 300, HOYDE = 600, FELTLENGDE = 10, DEFAULTCARET = 0;
+    
     private JPanel masterPanel, grid, under;
 
     private KontraktListe kontraktListe;
@@ -34,20 +37,17 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
 
         kontraktListe = new KontraktListe();
 
-        // antall rader, antall kolonner og gap størrelse for GridLayout
-        antRad = 12;
-        antKol = 2;
-        gap = 5;
+        
 
         masterPanel = new JPanel(new BorderLayout());
-        grid = new JPanel(new GridLayout(antRad, antKol, gap, gap));
+        grid = new JPanel(new GridLayout(ANTRAD, ANTKOL, GAP, GAP));
         under = new JPanel(new BorderLayout());
 
         masterPanel.add(grid, BorderLayout.PAGE_START);
         masterPanel.add(under, BorderLayout.CENTER);
 
         this.getContentPane().add(masterPanel);
-        setSize(300, 600);
+        setSize(BREDDE, HOYDE);
 
         output = new JTextArea();
         JScrollPane scroll = new JScrollPane(output);
@@ -55,48 +55,48 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
 
         // textfields
         grid.add(new JLabel("Gateadresse: "));
-        gateadresse = new JTextField(10);
+        gateadresse = new JTextField(FELTLENGDE);
         gateadresse.addFocusListener(this);
         grid.add(gateadresse);
 
         grid.add(new JLabel("Postnummer: "));
-        postnr = new JTextField(10);
+        postnr = new JTextField(FELTLENGDE);
         postnr.addFocusListener(this);
         grid.add(postnr);
 
         grid.add(new JLabel("Poststed: "));
-        poststed = new JTextField(10);
+        poststed = new JTextField(FELTLENGDE);
         poststed.addFocusListener(this);
         grid.add(poststed);
 
         grid.add(new JLabel("Fornavn (utleier): "));
-        utleierFornavn = new JTextField(10);
+        utleierFornavn = new JTextField(FELTLENGDE);
         grid.add(utleierFornavn);
 
         grid.add(new JLabel("Etternavn (utleier): "));
-        utleierEtternavn = new JTextField(10);
+        utleierEtternavn = new JTextField(FELTLENGDE);
         grid.add(utleierEtternavn);
 
         grid.add(new JLabel("Fornavn (leietaker): "));
-        leietakerFornavn = new JTextField(10);
+        leietakerFornavn = new JTextField(FELTLENGDE);
         grid.add(leietakerFornavn);
 
         grid.add(new JLabel("Etternavn (leietaker): "));
-        leietakerEtternavn = new JTextField(10);
+        leietakerEtternavn = new JTextField(FELTLENGDE);
         grid.add(leietakerEtternavn);
 
         grid.add(new JLabel("Leiepris: "));
-        pris = new JTextField(10);
+        pris = new JTextField(FELTLENGDE);
         grid.add(pris);
 
         grid.add(new JLabel("Startdato (dd.mm.åååå)"));
-        startDatoFelt = new JTextField(10);
+        startDatoFelt = new JTextField(FELTLENGDE);
         startDatoFelt.setText("dd.mm.åååå");
         startDatoFelt.addFocusListener(this);
         grid.add(startDatoFelt);
 
         grid.add(new JLabel("Sluttdato (dd.mm.åååå): "));
-        sluttDatoFelt = new JTextField(10);
+        sluttDatoFelt = new JTextField(FELTLENGDE);
         sluttDatoFelt.setText("dd.mm.åååå");
         sluttDatoFelt.addFocusListener(this);
         grid.add(sluttDatoFelt);
@@ -188,7 +188,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
 
         blankFelter();
         output.setText("Kontrakt registrert:\n" + k.toString());
-        output.setCaretPosition(0);
+        output.setCaretPosition(DEFAULTCARET);
     }
 
     // sjekker regular expression på alle feltene
@@ -323,7 +323,6 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         String uEtternavn = utleierEtternavn.getText();
         String lFornavn = leietakerFornavn.getText();
         String lEtternavn = leietakerEtternavn.getText();
-        int leiepris = Integer.parseInt(pris.getText());
         Date startDato = StartVindu.konverterDato(startDatoFelt.getText()),
                 sluttDato = StartVindu.konverterDato(sluttDatoFelt.getText());
         // Sjekker om bruker har skrevet dato på riktig format
@@ -395,7 +394,7 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
         k.setSluttDato(StartVindu.konverterDato(nySluttDato));
         blankFelter();
         output.setText("Ny sluttdato registrert:\n" + nySluttDato);
-        output.setCaretPosition(0);
+        output.setCaretPosition(DEFAULTCARET);
         
         
     }
@@ -522,6 +521,12 @@ public class KontraktVindu extends JFrame implements ActionListener, FocusListen
                                 Integer.parseInt(postnr.getText()), 
                                 poststed.getText());
                 Utleier u = StartVindu.getUtleierVindu().getUtleierMengde().finnUtleierViaBolig(b);
+                
+                if(u != null){
+                    utleierFornavn.setText(u.getFornavn());
+                    utleierEtternavn.setText(u.getEtternavn());    
+                }
+                
                 Kontrakt k = kontraktListe.finnGjeldendeKontrakt(b);
                 if(k != null){
                     Boligsoeker bs = k.getBoligsoeker();

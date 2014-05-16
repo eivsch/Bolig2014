@@ -50,7 +50,7 @@ public class Leilighet extends Bolig {
     
     public String toString(){
         String s = super.toString() + "\nEtasje: " + etasje + "\nHeis: "
-                + (heis ? "Ja" : "Nei") + "\nBalkong: " + (balkong ? "Ja" : "Nei");
+                + (heis ? "Ja" : "Nei") + "\nBalkong: " + (balkong ? "Ja" : "Nei") + "\n";
         return s;
     }
 }
