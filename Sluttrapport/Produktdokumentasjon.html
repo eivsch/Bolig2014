@@ -18,28 +18,29 @@
 
 <h2>Oppbygning av programmet</h2>
 	<h3>Klassehierarki</h3>
-	<p>Vi har tre klasser som utgjør objektene som brukes i programmet, dvs. person, bolig og kontrakt.
-	Person-klassen har to subklasser, utleiere og boligsøkere. Bolig-klassen har også to subklasser, 
-	enebolig/rekkehus og leilighet.</p>
+	<p>Vi har tre klasser som representerer fysiske objekter/entiteter som brukes i programmet, dvs. Person, Bolig og Kontrakt.
+	Person-klassen har to subklasser, Utleiere og Boligsøkere. Bolig-klassen har også to subklasser, 
+	EneboligRekkehus og leilighet.</p>
 	<img src="klassehierarki.png" alt="Klassehierarki">
 	
 	<h3>Datastruktur</h3>
-	<p>Objektene lagres i en datastruktur, dvs. Person-objektene lagres i en TreeSet-mengde og hvert Utleier-objekt innholder 
-	en LinkedList-liste over alle boliger vedkommende er knyttet til. Vi valgte TreeSet datastrukturen for Personer fordi det hindrer dobbeltlagring 
-	og er sortert (f.eks. mht. personens navn). Vi valgte LinkedList datastrukturen for Boligene fordi den er effektiv når man skal 
-	sette inn og fjerne objekter, som er en stor del av vår program.</p>
-	<p>Kontrakt klassen inneholder to ArrayList-lister, en for gjeldende kontrakter og en for arkviverte kontrakter.
-	Vi valgte ArrayList-liste fordi der er effektivt å søke gjennom og hente ut data (bruke indekser). 
-	Samtidig skal vi heller ikke fjerne noe fra listen.</p>
+	<p>Nevnte objekter lagres i en datastruktur, dvs. Person-objektene lagres i hver sin TreeSet. Videre innholder hvert Utleierobjekt
+	en LinkedList der alle boliger vedkommende er knyttet til lagres. Programmets datastruktur er altså satt sammen ved hjelp av Java's Collections.
+	Vi valgte nevnt datastruktur for Personer fordi det hindrer dobbeltlagring  og er sortert (f.eks. mht. personens navn). Det er også definert en egen,
+	norskvennlig sorteringsrekkefølge i programmet gjennom klassen Personsammenlikner.java. TreeSet'ene opprettes med denne rekkefølgen.
+	Vi valgte LinkedList datastrukturen for Boligene fordi den er effektiv når man skal sette inn og fjerne objekter, som er en stor del av vårt program.</p>
+	<p>Kontrakt klassen inneholder to ArrayList'er, en for gjeldende kontrakter og en for arkviverte kontrakter.
+	Vi valgte ArrayList fordi den er effektivt i å søke gjennom og hente ut data (bruke indekser). 
+	Samtidig er det ikke så mye fjerning og innsetting til og fra listene.</p>
 	<img src="datastruktur.png" alt="Datastruktur">	
 		
 	<h3>Programstruktur</h3>
-	<p>Programmet har en træstruktur, dvs. alle klassene tilhører en øvrige klasse, utenfør klassen som inneholder
-	main metoden (se diagram her under). Hver klasse er beskrevet nedenfor.</p>
+	<p>Programmet har en trestruktur, dvs. alle klassene tilhører en øvrig klasse, utenom klassen som inneholder
+	main metoden (se diagram under). Hver klasse er beskrevet nedenfor.</p>
 	<img src="programstruktur.png" alt="Programstruktur">	
 		
 		<h4>Boligformidleren.java</h4>
-		Denne klassen inneholder main-metoden og den oppretter et StartVindu-objekt, som åpnes når programmet er kjørt.
+		Denne klassen inneholder main-metoden og den oppretter et StartVindu-objekt, som åpnes når programmet kjøres.
 		Lukkeknappen på StartVinduet er programmert slik at den skriver alle mengder og lister til fil før programmet avsluttes. 
 		
 		Boligformidleren.java inneholder følgende metoder
@@ -49,9 +50,9 @@
 		
 		<h4>StartVindu.java</h4>
 		Denne klassen inneholder alle andre vindu-klassene (utleiervindu, boligsøkervindu, boligvindu, kontraktvindu, informasjonvindu)
-		og kobler dem sammen med get-metoder (static). Dette betyr at alle klassene har tilgang til hver annen i gjennom denne klassen.
+		og kobler dem sammen med get-metoder (static). Dette betyr at alle klassene har tilgang til hverandre igjennom denne klassen.
 		StartVindu-klassen inneholder i tillegg alle konstanter (static) som brukes av mer enn en klasse, f.eks. regulære uttrykk (regex) mønstre.
-		Til slutt inneholder denne klassen generelle metoder som bruker i andre klasser, f.eks. for regex, skrive data til fil o.fl.
+		Til slutt inneholder denne klassen generelle metoder som brukes i andre klasser, eks. for regex, skrive data til fil m.fl.
 		
 		StartVindu.java inneholder følgende metoder
 		<code><ul>
@@ -78,7 +79,7 @@
 		<h4>UtleierVindu.java</h4>
 		Denne klassen brukes når man skal registrere, slette eller endre en utleier, dvs. den inneholder alle nødvendige felter og knapper
 		og alle metodene som kalles når brukeren trykker på knappene.
-		I tilleg inneholder den UtleierMengde-klassen (hvor alle utleier-objektene ligger).
+		I tilleg inneholder den et UtleierMengde-objekt (hvor alle utleierobjektene ligger).
 		
 		UtleierVindu.java inneholder følgende metoder
 		<code><ul>
@@ -99,9 +100,9 @@
 		<h4>UtleierMengde.java</h4>
 		Denne klassen inneholder mengden selv (TreeSet) og alle metodene som brukes når man vil sette inn et nytt utleier-objekt,
 		fjerne eller finner en utleier. Før en utleier kan fjernes, sjekker metoden om den har registrerte boliger eller ikke,
-		dvs. den kan ikke fjernes hvis den har ikke tom BoligListe.
-		I tillegg inneholder den metoder for at registrere bolig-objekter til en utleier, fordi man må først søke gjennom alle
-		utleierene om den boligen eksisterer fra før.
+		dvs. den kan ikke fjernes hvis den ikke har tom BoligListe.
+		I tillegg inneholder den metoder for å registrere bolig-objekter til en utleier, dette fordi man først må søke gjennom alle
+		utleierene for å forvisse seg om at boligen ikke eksisterer fra før.
 		
 		UtleierMengde.java inneholder følgende metoder
 		<code><ul>
@@ -122,7 +123,7 @@
 		utleierne i en TreeSet etter egendefinert rekkefølge. Legger til to ekstra datafelt, 
 		et om hvilket firma utleieren representerer og en boligliste av typen ArrayList, som 
 		inneholder alle  boligobjekter utleieren har registrert. Har derfor også metoder for 
-		å sette inn og fjerne et boligøbjekt fra listen.
+		å sette inn og fjerne et boligobjekt fra listen.
 		I klassen ligger også en metode "tilRad" som bestemmer hvilke og i hvilken rekkefølge
 		datafeltene hos en utleier skal vises i en tabell ved å legge dem inn i en array.
 		Det er også redefinert en compareTo-metode for å kunne legge  utleierobjektet i en
@@ -143,9 +144,9 @@
 		</ul></code>
 		
 		<h4>BoligListe.java</h4>
-		Hvert utleier-objekt inneholder den klasse, og dessuten inneholder denne klassen listen selv (LinkedList)
+		Hvert utleierobjekt inneholder et objekt av denne klassen, og dessuten inneholder dette objektet listen selv (LinkedList)
 		og alle metodene som brukes når man vil sette inn et nytt bolig-objekt (enten av type 'EneboligRekkehus' eller 'Leilighet'),
-		fjerne eller finner en bolig.
+		fjerne eller finne en bolig.
 		
 		BoligListe.java inneholder følgende metoder
 		<code><ul>
@@ -158,7 +159,8 @@
 		
 		<h4>EneboligRekkehus.java</h4>
 		Denne klassen er en sub-klasse til Bolig-klassen og den arver alt fra Bolig, og har i tillegg datafelter for antall etasjer, tomtens areal og om huset har kjeller.
-		toString-metoden bestemmer hvordan fulstendig informasjon om en leilighet skal presenteres i brukergrensesnittet.
+		toString-metoden bestemmer hvordan fulstendig informasjon om en leilighet skal presenteres i brukergrensesnittet. Se avsnitt Bolig.java for mer informasjon om hvordan
+		boliger håndteres.
 
 		EneboligRekkehus.java inneholder følgende metoder
 		<code><ul>
@@ -191,7 +193,7 @@
 		</ul></code>
 		
 		<h4>BoligsoekerVindu.java</h4>
-		Denne klassen brukes når man skal registrere, slette eller endre en boligsøker, dvs. den inneholder alle nødvendige felter og knapper
+		Denne klassen brukes til å registrere, slette eller endre en boligsøker, dvs. den inneholder alle nødvendige felter og knapper
 		og alle metodene som kalles når brukeren trykker på knappene.
 		I tilleg inneholder den BoligsoekerMengde-klassen (hvor alle boligsoeker-objektene ligger).
 		
@@ -214,8 +216,8 @@
 		</ul></code>
 		
 		<h4>BoligsoekerMengde.java</h4>
-		Denne klassen inneholder mengden selv (TreeSet) og alle metodene som brukes når man vil sette inn et nytt boligsoeker-objekt,
-		fjerne eller finner en boligsøker.
+		Denne klassen inneholder mengden selv (TreeSet) og alle metoder som brukes når man vil sette inn et nytt boligsoeker-objekt,
+		fjerne eller finne en boligsøker.
 		
 		BoligsoekerMengde.java inneholder følgende metoder
 		<code><ul>
@@ -228,17 +230,17 @@
 		</ul></code>
 		
 		<h4>Boligsoeker.java</h4>
-		Denne klassen er også en konkret subklasse til Person-klassen. Implementere interface Comparable for å sortere 
+		Denne klassen er også en konkret subklasse til Person-klassen. Implementerer interface Comparable for å sortere 
 		boligsøkerne i en treeSet etter egendefinert (norsk) rekkefølge. Boligsøkeren får en 
 		rekke ekstra datafelter som skal tilsvare datafeltene i en Bolig. Dette er fordi en 
 		boligsøker skal kunne registrere seg med egne krav til hvilke boliger han/hun ser på 
 		som interessante. For eksempel dersom boligsøkeren har lagret 5 som "maxEtasje", 
-		skal ikke boligsøkeren vises som interessert i leligheter som ligger høyere enn 5. 
-		etasje. Det er også et datafelt for at boligsøkeren skal kunne skrive en kort tekst 
+		skal ikke boligsøkeren vises som interessert i leligheter som har "etasje" = 6. 
+		Det er også et datafelt for at boligsøkeren skal kunne skrive en kort tekst 
 		om seg selv, og et datafelt som indikerer om boligsøkeren for øyeblikket leter etter 
 		en bolig. Dette er "true" som default og endres kun når boligsøkeren registrerer en 
 		kontrakt med firmaet, og evt. når kontrakten avsluttes. Det kunne vært aktuelt å 
-		legge til funksjon for manuell endring av dette datafeltet.
+		legge til funksjon så brukeren manuelt kan endre dette datafeltet.
 
 		I klassen ligger det også en metode som skal sammenlikne nevnte datafelter med 
 		de tilsvarende datafeltene hos en bolig. Dersom ett av boligsøkerens krav ikke
@@ -314,10 +316,10 @@
 		
 		<h4>KontraktVindu.java</h4>
 		<p>Denne klassen brukes når man skal registrere eller si opp en kontrakt, dvs. den inneholder alle nødvendige felter og knapper
-		og alle metodene som kalles når brukeren trykker på knappene. Den inneholder KontraktListe-klassen hvor alle kontrakt-objektene ligger.
-		Hver gang programmet kjøres, kaller denne klassen på en metode (i KontrakListe-klassen) som sjekker alle gjeldende kontrakter
+		og alle metodene som kalles når brukeren trykker på knappene. Den inneholder et KontraktListe-objekt hvori alle kontraktobjektene ligger.
+		Hver gang programmet kjøres, opprettes et kontraktVindu-objekt, som i sin tur kaller på en metode som sjekker alle gjeldende kontrakter
 		i GjeldendeKontrakter-listen og flytter alle utløpte kontrakter til ArkiverteKontrakter-listen.</p>
-		<p>Når en kontrakt skal registreres, sjekker denne klassen om at boligen er ledig og at boligsøkeren har ikke en gjeldende kontrakt.
+		<p>Når en kontrakt skal registreres, sørger denne klassen for å sjekke at boligen er ledig og at boligsøkeren ikke har en gjeldende kontrakt.
 		Når den er registrert, settes boligen til "ikke ledig" og boligsøkeren settes til "leter ikke etter bolig".
 		Vi gjør forutsetningen at hver boligsøker kan kun ha en "gyldig" leiekontrakt (som er ikke udatert).</p>
 		
