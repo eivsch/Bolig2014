@@ -14,7 +14,16 @@
 		<p>Sigurd Hølleland - s198597 - Informasjonsteknologi</p>
 	</header>
 		 <section id="content">
-<h1>Produktdokumentasjon</h1>
+<h1>Produktdokumentasjon - Boligformidleren</h1>
+<p>Programmet Boligformidleren er en applikasjon programmert i Java, som er ment for å brukes av et firma
+som skal formidle boliger som en tredjepart mellom utleiere og boligsøkere. Programmet muligjør registrering, visning og muligheter
+for å holde oversikt over et stort antall utleiere, deres utleieobjekter og boligsøkere. En stor del av programmet er dessuten
+myntet på å gi brukeren informasjon om hvilke boligsøkere som kan være interessert i en bolig, og hvilke boliger som kan være passende
+for en boligsøker. Det er også flere funksjoner for å sortere/filtrere boliger utifra diverse søkerkriterier. Vår idé har vært å 
+lage et program der brukeren skal gis en god og informativ oversikt over et stort, forvirrende boligmarked. Det går dessuten ann å 
+registrere kontrakter i programmet, og det er også gode muligheter for å holde oversikt og føre statistikk over disse. Under følger en
+inngående beskrivelse av programmets funksjonalitet, ikke minst også hvilke forenklinger som er måttet blitt gjort, og også hvordan disse
+og annet kan forbedres.</p>
 
 <h2>Oppbygning av programmet</h2>
 	<h3>Klassehierarki</h3>
@@ -563,8 +572,68 @@ skulle ha akkurat samme utleier som skulle registreres i kontrakten.</p>
 <p>Systemkrav til maskinen er den samme som vi har i lab-timene og Java versjon 7 brukes for dette prosjektet.</p>
 <p>Microsoft Excel var brukt til å generere tilfeldige data for programmet og Microsoft Word for diagramer.</p>
 
+<h2>Videreutvikling</h2>
+<p>
 
-<h2>Testing</h2>
+Vi vil trekke fram enkelte punkter der programmet kan viderutvikles, evt. trenger
+videreutvikling.
+
+<h3>Brukergrensesnitt/layout</h3>
+Programmet består av svært mange vinduer det kan være
+vanskelig å holde oversikt over. En smartere/smidigere løsning kan være aktuell.
+
+Selve visningen av hver enkelt bolig og hver enkelt person er ikke spesielt avansert,
+og begrenser seg til ren tekst i et utskriftsfelt. Å programmere støtte for bildevisning
+(av boliger, evt. også boligsøkerer og utleiere) hadde f.eks forbedret denne delen av
+programmet. Andre forbedringer kan også gjennomføres som f.eks egen tabellvisning av
+utleiers boliger/interessante boliger for en søker, og diverse formattering av tekst for 
+en mer variert layout.
+
+Programmets grensesnitt bruker flere komponenter som listebokser og avkryssningsbokser,
+og det er programmert autofill-funksjoner i de fleste av registreringsvinduene. Det er
+likevel fortsatt et program der brukeren selv er avhengig av å skrive/fylle inn svært
+mye av informasjonen selv. Det er mye funksjonalitet som etter vår mening fortsatt
+kan/burde legges til, eksempelvis menyer, tilbake/framover-knapper, generelt ting som
+gjør det lettere for bruker å "manøvrere" i programmet.
+
+En mulig forbedring for det over er at når man viser en tabell, over for eksempel
+boliger, å ha en "Gå til Kontrakt"-knapp som automatisk åpner et vindu der en kontrakt
+kan registreres for valgte bolig. Dette burde ikke være altfor tidkrevende/vanskelig å
+implementere i programmet slik det er pdd.
+
+
+<h3>ID'er</h3>
+Programmet behandler personer med likt navn som like personer. Siden dobbeltlagring ikke 
+tillates i datastrukturen, er det ikke mulig å registrere flere personer med likt
+navn. Dette er en ganske stor forenkling av virkeligheten, men går greit for vårt
+programs begrensede bruk. Ved videreutvikling måtte hver person utstyres med et unikt 
+generert personnummer, og alle "erLik" eller "equals"-metoder må redefineres.
+
+
+<h3>Kontroll av utløpte kontrakter</h3>
+Programmet fungerer slik at kontraktene kontrolleres ved hver oppstart av programmet.
+Det ville øke tryggheten til programmet, og vært mer elegant om kontraktene kunne 
+kontrolleres oftere, samtidig som programmet kjører
+
+<h3>Leie flere boliger</h3>
+Det er kun mulig for en leietaker å leie en bolig av gangen. Dette er for å forenkle
+håndteringen av kontrakter, men kunne evt. forbedres i framtiden. Da måtte isåfall
+hele kontraktsystemet forandres noe.
+
+<h3>Geografi</h3>
+Systemet tar ikke hensyn til den geografiske plasseringen av boligene vs leietakerne når
+det kommer med forslag. Programmet vil derfor være mer nyttig lokalt enn det vil være f.eks
+på landsbasis. Å utvide "matche"-funksjonaliteten og de forskjellige klassene som definerer 
+boliger og boligsøkere for å ta hensyn til dette, ville vært en stor forbedring.
+
+<h3>Database</h3>
+Det kunne tenkes at programmet en gang i fremtiden skulle brukes på mye 
+større datamengder enn det vi har foreløpig generert og testet programmet i. Det er 
+tvilsomt om datastrukturen er god nok for det og det kunne vært ønskelig å programmere 
+inn større for database. Det er dessverre uvisst for oss hvor omfattende og hvor mye 
+endringer en slik implementasjon ville føre til.</p>
+
+<h2>Testrapport</h2>
 <p>Mye av den testing var gjørt underveis, særlig når den regulære uttrykk (regex) var utviklet.
 I tilleg har vi tested brukerinput i alle felter i alle vinduer og prøvet at skrive feil, men vi har
 ikke fundet noen feil. Dette betyr imidlertid ikke at programmet har ikke noen feil.
@@ -605,11 +674,6 @@ Mer om testing for hvert vindu finnes her nedenfor.</p>
 	<p>I dette vinduet skjer ikke noen endringer av data (registering, slettning, endring). Her vises kun info, men alle
 	felter har regex-krav som sjekkes når knappene er trykkt. Vedkommende feilmeldinger vises i utskriftsområdet.
 	</p>
-
-<h2>Videreutvikling</h2>
-<p></p>
-
-
 
 		 </section>
 		<footer>
